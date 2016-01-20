@@ -1,16 +1,17 @@
 import {App, Platform, Config} from 'ionic/ionic';
 import {TabsPage} from './pages/tabs/tabs';
+import {TutorialPage} from './pages/tutorial/tutorial';
 
 
 @App({
   templateUrl: 'build/app.html',
-  // Check out the config API docs for more info
-  // http://ionicframework.com/docs/v2/api/config/Config/
   config: {}
 })
 export class MyApp {
   constructor(platform: Platform) {
-    this.root = TabsPage;
+    
+    // We plan to add auth to only show the login page if not logged in
+    this.root = TutorialPage;
 
     platform.ready().then(() => {
       // Do any necessary cordova or native calls here now that the platform is ready
