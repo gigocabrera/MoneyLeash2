@@ -13,8 +13,8 @@ export class TutorialPage {
 
     this.slides = [
       {
-        title: "Welcome",
-        description: "All of the information you need to get up and running with Ionic.",
+        title: "MoneyLeash2",
+        description: "Money management app for all your personal finacial needs.",
         image: "img/ionic-welcome.png",
         continueText: "Skip Intro"
       },

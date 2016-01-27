@@ -1,9 +1,10 @@
 import {Page} from 'ionic/ionic';
-import {Page1} from '../page1/page1';
-import {Page2} from '../page2/page2';
-import {Page3} from '../page3/page3';
-import {Page4} from '../page4/page4';
-import {Page5} from '../page5/page5';
+import {SchedulePage} from '../schedule/schedule';
+import {SpeakerListPage} from '../speaker-list/speaker-list';
+import {MapPage} from '../map/map';
+import {AboutPage} from '../about/about';
+import {PayeesPage} from '../payees/payees';
+import {Input} from 'angular2/core';
 
 
 @Page({
@@ -11,14 +12,11 @@ import {Page5} from '../page5/page5';
 })
 export class TabsPage {
   constructor() {
-
-    // this tells the tabs component which Pages
-    // should be each tab's root Page
-    this.tab1Root = Page1;
-    this.tab2Root = Page2;
-    this.tab3Root = Page3;
-    this.tab4Root = Page4;
-    this.tab5Root = Page5;
-
+    // set the root pages for each tab
+    this.tab1Root = SchedulePage;
+    this.tab2Root = SpeakerListPage;
+    this.tab3Root = MapPage;
+    this.tab4Root = AboutPage;
+    this.tab5Root = PayeesPage;
   }
 }

@@ -1,0 +1,22 @@
+
+<ion-navbar *navbar>
+  <ion-title>{{speaker.name}}</ion-title>
+</ion-navbar>
+
+<ion-content padding>
+
+  <p class="speaker-pic">
+    <img [src]="speaker.profilePic" [alt]="speaker.name">
+  </p>
+
+  <p>{{speaker.about}}</p>
+
+  <div *ngIf="speaker.sessions">
+    <h4>Sessions</h4>
+    <div *ngFor="#session of speaker.sessions">
+      <h5><a href="#" (click)="goToSessionDetail(session)">{{session.name}}</a></h5>
+      <p>{{session.description}}</p>
+    </div>
+  </div>
+
+</ion-content>
