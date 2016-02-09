@@ -3,7 +3,6 @@ import {SchedulePage} from '../schedule/schedule';
 import {SpeakerListPage} from '../speaker-list/speaker-list';
 import {MapPage} from '../map/map';
 import {AboutPage} from '../about/about';
-import {PayeesPage} from '../payees/payees';
 import {Input} from 'angular2/core';
 
 
@@ -17,6 +16,5 @@ export class TabsPage {
     this.tab2Root = SpeakerListPage;
     this.tab3Root = MapPage;
     this.tab4Root = AboutPage;
-    this.tab5Root = PayeesPage;
   }
 }

@@ -1,81 +1,47 @@
-import {IonicApp, Page, NavController, Animation} from 'ionic/ionic';
+import {Page, NavController, MenuController} from 'ionic/ionic';
 import {TabsPage} from '../tabs/tabs';
 import {SignupPage} from '../signup/signup';
 
 
 @Page({
-  templateUrl: 'build/pages/tutorial/tutorial.html',
+  templateUrl: 'build/pages/tutorial/tutorial.html'
 })
 export class TutorialPage {
-  constructor(nav: NavController, app: IonicApp) {
+  constructor(nav: NavController, menu: MenuController) {
     this.nav = nav;
-    this.app = app;
+    this.menu = menu;
 
     this.slides = [
       {
-        title: "MoneyLeash2",
-        description: "Money management app for all your personal finacial needs.",
-        image: "img/ionic-welcome.png",
-        continueText: "Skip Intro"
+        title: "Welcome to <b>ICA</b>",
+        description: "The <b>Ionic Conference App</b> is a practical preview of the Ionic Framework in action, and a demonstration of proper code use.",
+        image: "img/ica-slidebox-img-1.png",
       },
       {
-        title: "Ionic View",
-        description: "Learn how you can use Ionic View to share your apps.",
-        image: "img/ionic-view.png",
-        continueText: "Skip Intro"
+        title: "What is Ionic?",
+        description: "<b>Ionic Framework</b> is an open source SDK that enables developers to build high quality mobile apps with web technologies like HTML, CSS, and JavaScript.",
+        image: "img/ica-slidebox-img-2.png",
       },
       {
-        title: "Ionic Creator",
-        description: "Drag-&-drop to create a great Ionic app with the click of a mouse.",
-        image: "img/ionic-creator.png",
-        continueText: "Skip Intro"
-      },
-      {
-        title: "Ionic Platform",
-        description: "Our Platform Services are there to make development easier.",
-        image: "img/ionic-platform.png",
-        continueText: "Continue"
-      },
+        title: " What is Ionic Platform?",
+        description: "The <b>Ionic Platform</b> is a cloud platform for managing and scaling Ionic apps with integrated services like push notifications, native builds, user auth, and live updating.",
+        image: "img/ica-slidebox-img-3.png",
+      }
     ];
-  }
-
-  ngAfterViewInit() {
-    this.playImageAnimation(0);
   }
 
   startApp() {
     this.nav.push(TabsPage);
   }
 
-  onSlideChange(event) {
-    this.playImageAnimation(event.activeIndex);
-  }
-
   onPageDidEnter() {
-    // the root left menu should be disabled on the tutorial page
-    this.app.getComponent('leftMenu').enable(false);
+    // the left menu should be disabled on the tutorial page
+    this.menu.enable(false);
   }
 
-  onPageWillLeave() {
-    // enable the root left menu when leaving the tutorial page
-    this.app.getComponent('leftMenu').enable(true);
+  onPageDidLeave() {
+    // enable the left menu when leaving the tutorial page
+    this.menu.enable(true);
   }
 
-  playImageAnimation(slideIndex) {
-    if (slideIndex === 0) {
-      this.runRotateAnimation();
-    }
-  }
-
-  runRotateAnimation() {
-    const logoSpin = new Animation(document.querySelector('.slide-image'));
-    logoSpin
-      .from('transform', 'rotate(0deg)')
-      .to('transform', 'rotate(360deg)');
-
-    const animation = new Animation();
-    animation.duration(3000);
-    animation.add(logoSpin);
-    animation.play();
-  }
 }

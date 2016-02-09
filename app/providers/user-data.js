@@ -10,8 +10,6 @@ export class UserData {
     this.storage = new Storage(LocalStorage);
     this.events = events;
     this.HAS_LOGGED_IN = 'hasLoggedIn';
-    this.username = '';
-    this.password = '';
   }
 
   hasFavorite(sessionName) {
@@ -31,7 +29,7 @@ export class UserData {
 
   login(username, password) {
     this.storage.set(this.HAS_LOGGED_IN, true);
-    this.events.publish('user:login');      
+    this.events.publish('user:login');
   }
 
   signup(username, password) {
