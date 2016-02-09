@@ -26,7 +26,9 @@
     {
       "locator": "https://github.com/VersoSolutions/CordovaClipboard",
       "id": "com.verso.cordova.clipboard"
-    }
+    },
+    "cordova-plugin-camera",
+    "cordova-plugin-touchid"
   ],
   "cordovaPlatforms": [
     "ios",
