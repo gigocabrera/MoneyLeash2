@@ -24,7 +24,6 @@ export class LoginPage {
 
     if (form.valid) {
       this.userData.login();
-      //this.nav.push(TabsPage);
       
       /* Authenticate User */ 
       var ref = new Firebase(this.firebaseUrl);
@@ -44,7 +43,7 @@ export class LoginPage {
   if (error) {
     console.log("Login Failed!", error);
   } else {
-    console.log("Authenticated successfully with payload:", authData);
+    this.nav.push(TabsPage);
   }
 
 }
