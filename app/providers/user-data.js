@@ -10,6 +10,8 @@ export class UserData {
     this.storage = new Storage(LocalStorage);
     this.events = events;
     this.HAS_LOGGED_IN = 'hasLoggedIn';
+    this.firebaseUrl = "https://brilliant-inferno-1044.firebaseio.com";
+    this.authHandler = '';
   }
 
   hasFavorite(sessionName) {
@@ -48,4 +50,10 @@ export class UserData {
       return value;
     });
   }
+  
+  // Firebase 
+  firebaseRef() {
+    return new Firebase(this.firebaseUrl);
+  }
+  
 }
