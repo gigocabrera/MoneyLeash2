@@ -10,6 +10,8 @@ export class UserData {
     this.storage = new Storage(LocalStorage);
     this.events = events;
     this.HAS_LOGGED_IN = 'hasLoggedIn';
+    this.username = '';
+    this.password = '';
     this.firebaseUrl = "https://brilliant-inferno-1044.firebaseio.com";
     this.authHandler = '';
   }
@@ -30,7 +32,10 @@ export class UserData {
   }
 
   login(username, password) {
+      console.log('user-data login here');
     this.storage.set(this.HAS_LOGGED_IN, true);
+    this.storage.set(this.username, username);
+    this.storage.set(this.password, password);
     this.events.publish('user:login');
   }
 

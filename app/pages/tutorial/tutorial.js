@@ -1,13 +1,13 @@
-import {Page, NavController, MenuController} from 'ionic/ionic';
+import {IonicApp, Page, NavController, MenuController} from 'ionic/ionic';
 import {TabsPage} from '../tabs/tabs';
-import {SignupPage} from '../signup/signup';
-
+import {LoginPage} from '../login/login';
 
 @Page({
   templateUrl: 'build/pages/tutorial/tutorial.html'
 })
 export class TutorialPage {
-  constructor(nav: NavController, menu: MenuController) {
+  constructor(app: IonicApp, nav: NavController, menu: MenuController) {
+    this.app = app;
     this.nav = nav;
     this.menu = menu;
 
@@ -31,7 +31,8 @@ export class TutorialPage {
   }
 
   startApp() {
-    this.nav.push(TabsPage);
+    let nav = this.app.getComponent('nav');
+    nav.setRoot(LoginPage);
   }
 
   onPageDidEnter() {

@@ -1,4 +1,4 @@
-import {IonicApp, Page, NavController} from 'ionic/ionic';
+import {IonicApp, Page, NavController, MenuController, Alert} from 'ionic/ionic';
 import {TabsPage} from '../tabs/tabs';
 import {SignupPage} from '../signup/signup';
 import {UserData} from '../../providers/user-data';
@@ -7,20 +7,19 @@ import {UserData} from '../../providers/user-data';
   templateUrl: 'build/pages/login/login.html'
 })
 export class LoginPage {
-  constructor(nav: NavController, userData: UserData) {
+  constructor(nav: NavController, userData: UserData, menu: MenuController) {
     this.nav = nav;
     this.userData = userData;
     this.login = {};
     this.submitted = false;
+    this.menu = menu;
   }
 
   onLogin(form) {
-    //console.log(this.userData.firebaseUrl);
     this.submitted = true;
     if (form.valid) {
-      this.userData.login();
-      
-      /* Authenticate User */
+        this.userData.login();          
+      /* Authenticate User with Firebase */
       var ref = this.userData.firebaseRef();
       ref.authWithPassword({
         email    : form.controls.username.value,
@@ -32,14 +31,33 @@ export class LoginPage {
   authHandler(error, authData) {
     if (error) {
         console.log("Login Failed!", error);
+        let alert = Alert.create({
+          title: 'Login Failed!',
+          subTitle: error,
+          buttons: ['Ok']
+        });
+        this.nav.present(alert);
     } else {
-        //this.nav.push(TabsPage);
         console.log(authData);
+        this.nav.push(TabsPage);
     }
   }
   
   onSignup() {
-    //this.nav.push(SignupPage);
     console.log("testing signup");
+    this.nav.push(SignupPage);
   }
+  
+  onPageDidEnter() {
+    // the left menu should be disabled on the tutorial page
+    this.menu.enable(false);
+    this.menu.swipeEnable(false);
+  }
+
+  onPageDidLeave() {
+    // enable the left menu when leaving the tutorial page
+    this.menu.enable(true);
+    this.menu.swipeEnable(true);
+  }
+  
 }
