@@ -18,28 +18,25 @@ export class LoginPage {
   onLogin(form) {
     this.submitted = true;
     if (form.valid) {
-        this.userData.login();          
-      /* Authenticate User with Firebase */
-      var ref = this.userData.firebaseRef();
-      ref.authWithPassword({
-        email    : form.controls.username.value,
-        password : form.controls.password.value
-      }, this.authHandler);
-    }
-  }
-  
-  authHandler(error, authData) {
-    if (error) {
-        console.log("Login Failed!", error);
-        let alert = Alert.create({
-          title: 'Login Failed!',
-          subTitle: error,
-          buttons: ['Ok']
-        });
-        this.nav.present(alert);
-    } else {
-        console.log(authData);
-        this.nav.push(TabsPage);
+        this.userData.login();
+        // Authenticate with Firebase
+        var ref = this.userData.firebaseRef();
+        ref.authWithPassword({
+          "email"     : form.controls.username.value,
+          "password"  : form.controls.password.value
+        }, (error, authData) => {
+        if (error) {            
+            let alert = Alert.create({
+              title: 'Login Failed',
+              subTitle: 'We do not recognize your username and/or password. Please try again',
+              buttons: ['Ok']
+            });
+            this.nav.present(alert);
+        } else {
+            //console.log("Authenticated successfully with payload:", authData);
+            this.nav.push(TabsPage);
+        }
+      });
     }
   }
   
