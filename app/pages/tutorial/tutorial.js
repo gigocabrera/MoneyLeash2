@@ -1,15 +1,16 @@
-import {IonicApp, Page, NavController, MenuController} from 'ionic/ionic';
+import {Page, NavController, MenuController} from 'ionic/ionic';
 import {TabsPage} from '../tabs/tabs';
-import {LoginPage} from '../login/login';
+import {SignupPage} from '../signup/signup';
+
 
 @Page({
   templateUrl: 'build/pages/tutorial/tutorial.html'
 })
 export class TutorialPage {
-  constructor(app: IonicApp, nav: NavController, menu: MenuController) {
-    this.app = app;
+  constructor(nav: NavController, menu: MenuController) {
     this.nav = nav;
     this.menu = menu;
+    this.showSkip = true;
 
     this.slides = [
       {
@@ -31,8 +32,11 @@ export class TutorialPage {
   }
 
   startApp() {
-    let nav = this.app.getComponent('nav');
-    nav.setRoot(LoginPage);
+    this.nav.push(TabsPage);
+  }
+
+  onSlideChangeStart(slider) {
+    this.showSkip = !slider.isEnd;
   }
 
   onPageDidEnter() {

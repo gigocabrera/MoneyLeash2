@@ -28,7 +28,7 @@ export class LoginPage {
         if (error) {            
             let alert = Alert.create({
               title: 'Login Failed',
-              subTitle: 'We do not recognize your username and/or password. Please try again',
+              subTitle: 'Please check your username and/or password and try again',
               buttons: ['Ok']
             });
             this.nav.present(alert);
