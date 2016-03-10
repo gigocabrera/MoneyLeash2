@@ -2,13 +2,13 @@
 <!-- left menu -->
 <ion-menu [content]="content">
 
-  <ion-toolbar>
-    <ion-title>Menu</ion-title>
+  <ion-toolbar mlnavbarmenu>
+    <ion-title>MoneyLeash</ion-title>
   </ion-toolbar>
 
   <ion-content class="outer-content">
 
-    <ion-list>
+    <ion-list *ngIf="loggedIn">
       <ion-list-header>
         Navigate
       </ion-list-header>
@@ -23,7 +23,7 @@
         Account
       </ion-list-header>
       <button ion-item menuClose *ngFor="#p of loggedInPages" (click)="openPage(p)">
-        <ion-icon item-left [name]="p.icon"></ion-icon>
+        <ion-icon item-left [name]="p.icon" [ngStyle]="{'font-weight': 'bold', 'color':p.color}"></ion-icon>
         {{p.title}}
       </button>
     </ion-list>
@@ -33,7 +33,7 @@
         Account
       </ion-list-header>
       <button ion-item menuClose *ngFor="#p of loggedOutPages" (click)="openPage(p)">
-        <ion-icon item-left [name]="p.icon"></ion-icon>
+        <ion-icon item-left [name]="p.icon" [ngStyle]="{'color':p.color}"></ion-icon>
         {{p.title}}
       </button>
     </ion-list>
@@ -43,4 +43,4 @@
 
 
 <!-- main navigation -->
-<ion-nav id="nav" [root]="root" #content swipe-back-enabled="false"></ion-nav>
+<ion-nav id="nav" [root]="rootPage" #content swipe-back-enabled="false"></ion-nav>
