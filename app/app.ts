@@ -6,11 +6,15 @@ import {TabsPage} from './pages/tabs/tabs';
 import {LoginPage} from './pages/login/login';
 import {SignupPage} from './pages/signup/signup';
 import {TutorialPage} from './pages/tutorial/tutorial';
+import {MyInfoPage} from './pages/myinfo/myinfo';
+import {SettingsPage} from './pages/settings/settings';
+import {LogoutPage} from './pages/logout/logout';
 
 interface PageObj {
   title: string;
   component: any;
   icon: string;
+  color: string;
   index?: number;
 }
 
@@ -30,17 +34,20 @@ class ConferenceApp {
   // the left menu only works after login
   // the login page disables the left menu
   appPages: PageObj[] = [
-    { title: 'Schedule', component: TabsPage, icon: 'calendar' },
-    { title: 'Speakers', component: TabsPage, index: 1, icon: 'contacts' },
-    { title: 'Map', component: TabsPage, index: 2, icon: 'map' },
-    { title: 'About', component: TabsPage, index: 3, icon: 'information-circle' },
+    { title: 'Accounts', component: MyInfoPage, icon: 'ios-browsers-outline', color: '#f53d3d', },
+    { title: 'Categories', component: MyInfoPage, icon: 'ios-attach-outline', color: '', },
+    { title: 'Budgets', component: MyInfoPage, icon: 'ios-color-wand-outline', color: '', },
+    { title: 'Recurring', component: MyInfoPage, icon: 'ios-sync-outline', color: '', },
+    { title: 'Payees', component: MyInfoPage, icon: 'ios-contacts-outline', color: '', },
+    { title: 'Reports', component: MyInfoPage, icon: 'ios-trending-up-outline', color: '', },
+    { title: 'Settings', component: SettingsPage, icon: 'ios-settings-outline', color: '', },
   ];
   loggedInPages: PageObj[] = [
-    { title: 'Logout', component: TabsPage, icon: 'log-out' }
+    { title: 'Logout', component: LogoutPage, icon: 'log-out', color: '#f53d3d', }
   ];
   loggedOutPages: PageObj[] = [
-    { title: 'Login', component: LoginPage, icon: 'log-in' },
-    { title: 'Signup', component: SignupPage, icon: 'person-add' }
+    { title: 'Login', component: LoginPage, icon: 'log-in', color: '', },
+    { title: 'Signup', component: SignupPage, icon: 'person-add', color: '', }
   ];
   rootPage: any = TutorialPage;
   loggedIn = false;
@@ -56,7 +63,7 @@ class ConferenceApp {
     platform.ready().then(() => {
       StatusBar.styleDefault();
     });
-
+    
     // load the conference data
     confData.load();
 
@@ -84,7 +91,8 @@ class ConferenceApp {
       // Give the menu time to close before changing to logged out
       setTimeout(() => {
         this.userData.logout();
-      }, 1000);
+        //console.log(this.loggedIn);
+      }, 1000);      
     }
   }
 
