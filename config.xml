@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <widget id="com.moneyleash.moneyleash" version="2.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-  <name>Ionic Conference</name>
+  <name>Money Leash</name>
   <description>
-        An Ionic Framework application for the Ionic Conference.
+        Money management app Ionic2/Angular2/Firebase
   </description>
-  <author email="hi@ionicframework" href="http://ionicframework.com/">
+  <author email="gigocabrera@outlook.com" href="http://www.gigocabrera.com/">
       Ionic Framework Team
   </author>
   <content src="index.html"/>

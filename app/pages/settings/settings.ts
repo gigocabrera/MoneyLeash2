@@ -1,5 +1,5 @@
 import {App, IonicApp, Page, Events} from 'ionic-angular';
-import {Inject} from 'angular2/core';
+import {Injectable} from 'angular2/core';
 import {UserData} from '../../providers/user-data';
 import {MyInfoPage} from '../myinfo/myinfo';
 

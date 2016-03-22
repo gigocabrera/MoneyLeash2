@@ -6,7 +6,7 @@ module.exports = {
     path.normalize('es6-shim/es6-shim.min'),
     'reflect-metadata',
     path.normalize('zone.js/dist/zone-microtask'),
-    path.resolve('app/app.ts')
+    path.resolve('app/app')
   ],
   output: {
     path: path.resolve('www/build/js'),
@@ -16,12 +16,11 @@ module.exports = {
   module: {
     loaders: [
       {
-        test: /\.ts$/,
-        loader: 'awesome-typescript',
+        test: /\.js$/,
+        loader: 'babel',
         query: {
-          doTypeCheck: true,
-          resolveGlobs: false,
-          externals: ["typings/browser.d.ts"]
+          presets: ['es2015'],
+          plugins: ['transform-decorators-legacy']
         },
         include: path.resolve('app'),
         exclude: /node_modules/
@@ -42,6 +41,6 @@ module.exports = {
     alias: {
       'angular2': path.resolve('node_modules/angular2')
     },
-    extensions: ['', '.js', '.ts']
+    extensions: ['', '.js']
   }
 };
