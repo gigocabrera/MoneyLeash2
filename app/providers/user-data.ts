@@ -9,9 +9,6 @@ export class UserData {
   storage = new Storage(LocalStorage);
   username = '';
   password = '';
-  firebaseUrl = "https://brilliant-inferno-1044.firebaseio.com";
-  authHandler = '';
-  ref = '';
 
   constructor(private events: Events) {}
 
@@ -42,7 +39,6 @@ export class UserData {
 
   logout() {
     this.events.publish('user:logout');
-    this.ref.unauth();
   }
 
   // return a promise
@@ -50,12 +46,6 @@ export class UserData {
     return this.storage.get(this.HAS_LOGGED_IN).then((value) => {
       return value;
     });
-  }
-  
-  // Firebase 
-  firebaseRef() {
-    this.ref = new Firebase(this.firebaseUrl);
-    return this.ref;
   }
   
 }

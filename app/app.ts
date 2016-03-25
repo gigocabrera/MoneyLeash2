@@ -9,6 +9,8 @@ import {TutorialPage} from './pages/tutorial/tutorial';
 import {MyInfoPage} from './pages/myinfo/myinfo';
 import {SettingsPage} from './pages/settings/settings';
 import {LogoutPage} from './pages/logout/logout';
+import {AuthProvider} from './providers/auth-provider';
+import {AuthService} from './providers/auth-service';
 
 interface PageObj {
   title: string;
@@ -20,7 +22,7 @@ interface PageObj {
 
 @App({
   templateUrl: 'build/app.html',
-  providers: [ConferenceData, UserData],
+  providers: [ConferenceData, UserData, AuthProvider],
   config: {
     platforms: {
       android: {
@@ -56,6 +58,7 @@ class ConferenceApp {
     private app: IonicApp,
     private events: Events,
     private userData: UserData,
+    private auth: AuthService,
     platform: Platform,
     confData: ConferenceData
   ) {
@@ -91,8 +94,9 @@ class ConferenceApp {
       // Give the menu time to close before changing to logged out
       setTimeout(() => {
         this.userData.logout();
-        //console.log(this.loggedIn);
-      }, 1000);      
+        this.signOut();
+        nav.setRoot(page.component);
+      }, 1000);
     }
   }
 
@@ -109,4 +113,9 @@ class ConferenceApp {
       this.loggedIn = false;
     });
   }
+  
+  signOut(): void {
+    this.auth.signOut();
+  }
+  
 }

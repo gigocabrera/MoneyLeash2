@@ -6,7 +6,7 @@
 
 # What is Money Leash?
 
-Money Leash is a Personal Expense App developed in Ionic 2/Angular 2 with a Firebase backend.
+Money Leash is a Personal Expense App developed in Ionic 2/Angular 2 with a Firebase backend. This project is a complete rewrite from the ground up of the original [MoneyLeash repo](https://github.com/gigocabrera/moneyleash) developed in ionic 1. 
 
 ![Money Leash Transactions](https://github.com/gigocabrera/moneyleash/blob/master/moneyleash_iphone.png)
 
@@ -19,13 +19,10 @@ Ultimate goal? To bring it to the App Store and Google Play.
 
 ## Quick Start
 
-To install and preview this app on your phone
-
-- Install Ionic by following the Getting Started instructions:
-  * http://ionicframework.com/getting-started/
-- Create a blank starter APP
-- Replace the content in the WWW folder with the content of this GIT
-- And then preview your app as usual (browser and/or Ionic View)
+- Clone this repository.
+- Run npm install from the project root.
+- Install the ionic CLI (npm install -g ionic@beta)
+- Run ionic serve in a terminal from the project root
 
 ## Firebase Data Structure
 

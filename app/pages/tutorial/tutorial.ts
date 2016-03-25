@@ -18,19 +18,19 @@ export class TutorialPage {
   constructor(private nav: NavController, private menu: MenuController) {
     this.slides = [
       {
-        title: "Welcome to <b>ICA</b>",
-        description: "The <b>Ionic Conference App</b> is a practical preview of the Ionic Framework in action, and a demonstration of proper code use.",
-        image: "img/ica-slidebox-img-1.png",
+        title: "<strong>MoneyLeash</strong>",
+        description: "Don't let your money run wild... <br />Keep it on a <b>leash!</b>",
+        image: "img/moneyleash2_logo_01.png",
       },
       {
-        title: "What is Ionic?",
-        description: "<b>Ionic Framework</b> is an open source SDK that enables developers to build high quality mobile apps with web technologies like HTML, CSS, and JavaScript.",
-        image: "img/ica-slidebox-img-2.png",
+        title: "What is MoneyLeash?",
+        description: "<b>Money Leash</b> is an open source money management app designed with the most advanced mobile technologies available. Track expenses, budgets, recurring bills, and much much more!",
+        image: "img/moneyleash2_logo_03.png",
       },
       {
-        title: " What is Ionic Platform?",
-        description: "The <b>Ionic Platform</b> is a cloud platform for managing and scaling Ionic apps with integrated services like push notifications, native builds, user auth, and live updating.",
-        image: "img/ica-slidebox-img-3.png",
+        title: " Why Should I Use it?",
+        description: "With <b>Money Leash</b> you can tell your money where to go, instead of asking your money where it went!",
+        image: "img/moneyleash2_logo_02.png",
       }
     ];
   }

@@ -1,0 +1,24 @@
+{
+  "rules": {
+    "houses": {
+      "$house_id": {
+        // Grants read/write access to the members whose hourseid exactly match the key ($house_id)
+        ".read": "root.child('members').child(auth.uid).child('houseid').val() === $house_id",
+        ".write": "root.child('members').child(auth.uid).child('houseid').val() === $house_id"
+      }
+    },
+    "members": {
+      // Grants read/write access to the member whose id exactly match the key ($uid)
+      "$uid": {
+          ".read": "auth != null && auth.uid === $uid",
+          ".write": "auth != null && auth.uid === $uid"
+      }
+    },
+    "users": {
+      ".write": true,
+      "$uid": {
+        ".read": "auth != null && auth.uid == $uid"
+      }
+    }
+  }
+}

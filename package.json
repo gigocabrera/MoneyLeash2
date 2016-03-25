@@ -10,7 +10,6 @@
     "angular2": "2.0.0-beta.6",
     "es6-promise": "3.0.2",
     "es6-shim": "0.33.13",
-    "firebase": "^2.4.1",
     "ionic-angular": "2.0.0-beta.3",
     "ionic-native": "^1.0.12",
     "ionicons": "3.0.0-alpha.3",

@@ -1,16 +1,32 @@
 
 .tutorial-page {
   .toolbar-background {
-    background: #fff;
+    background: #172F39;
     border-color: transparent;
   }
 
+  .swiper-pagination-bullet {
+    background: #fff;
+  }
+  
+  .bar-button-default {
+    color: #fff;
+  }
+  
+  .button-clear {
+    color: #31C0E6;
+  } 
   .slide-zoom {
     height: 100%;
   }
 
   .slide-title {
     margin-top: 2.8rem;
+  }
+  
+  h2.slide-title {
+    color: #fff;
+    font: 36px 'PT Sans Narrow';
   }
 
   .slide-image {
@@ -27,11 +43,14 @@
     padding: 0 40px;
     font-size: 14px;
     line-height: 1.5;
-    color: #60646B;
+    color: #fff;
 
     b {
-      color: #000000;
+      color: #31c0e6;
     }
   }
 
+  ion-slides {
+   background-color: #172F39; 
+  }
 }
