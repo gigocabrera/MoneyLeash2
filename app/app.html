@@ -13,7 +13,7 @@
         Navigate
       </ion-list-header>
       <button ion-item menuClose *ngFor="#p of appPages" (click)="openPage(p)">
-        <ion-icon item-left [name]="p.icon"></ion-icon>
+        <ion-icon item-left [name]="p.icon" [ngStyle]="{'color':p.color}"></ion-icon>
         {{p.title}}
       </button>
     </ion-list>
@@ -23,7 +23,7 @@
         Account
       </ion-list-header>
       <button ion-item menuClose *ngFor="#p of loggedInPages" (click)="openPage(p)">
-        <ion-icon item-left [name]="p.icon"></ion-icon>
+        <ion-icon item-left [name]="p.icon"[ngStyle]="{'color':p.color}"></ion-icon>
         {{p.title}}
       </button>
     </ion-list>
@@ -33,7 +33,7 @@
         Account
       </ion-list-header>
       <button ion-item menuClose *ngFor="#p of loggedOutPages" (click)="openPage(p)">
-        <ion-icon item-left [name]="p.icon"></ion-icon>
+        <ion-icon item-left [name]="p.icon" [ngStyle]="{'color':p.color}"></ion-icon>
         {{p.title}}
       </button>
     </ion-list>

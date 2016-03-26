@@ -1,43 +1,23 @@
-
-<ion-navbar *navbar>
-  <ion-title>Login</ion-title>
-</ion-navbar>
-
-<ion-content>
-
-  <ion-list>
-    <div class="logo">
-      <img src="img/appicon.svg">
+<ion-content class="loginScreen">
+  <ion-list>   
+    <div class="introHeading">
+      <img src="img/moneyleash2_logo_01.png" class="login-image"/>
+      <h1 style="color: #fff;text-align: center;"><strong>Login</strong></h1>
     </div>
-
-    <form #loginForm="ngForm" novalidate>
-      <ion-item>
-        <ion-label floating primary>Username</ion-label>
-        <ion-input [(ngModel)]="login.username" ngControl="username" type="text" #username="ngForm" required>
-        </ion-input>
-      </ion-item>
+    <form #loginForm="ngForm" novalidate id="ml-login"> 
+      <button (click)="onLogin(loginForm)" type="submit" block><i class="fa fa-lock"></i></button>      
+      <ion-input [(ngModel)]="login.username" ngControl="username" type="email" #username="ngForm" required class="user" placeholder="email"></ion-input>
       <p [hidden]="username.valid || submitted == false" danger padding-left>
         Username is required
       </p>
-
-      <ion-item>
-        <ion-label floating primary>Password</ion-label>
-        <ion-input [(ngModel)]="login.password" ngControl="password" type="password" #password="ngForm" required>
-        </ion-input>
-      </ion-item>
+      <ion-input [(ngModel)]="login.password" ngControl="password" type="password" #password="ngForm" required class="pass" placeholder="password"></ion-input>
       <p [hidden]="password.valid || submitted == false" danger padding-left>
         Password is required
-      </p>
-
-      <ion-row responsive-sm>
-        <ion-col>
-          <button (click)="onLogin(loginForm)" type="submit" primary block>Login</button>
-        </ion-col>
-        <ion-col>
-          <button (click)="onSignup()" light block>Signup</button>
-        </ion-col>
-      </ion-row>
+      </p>  
     </form>
+    <div id="divLinks">
+      <button (click)="forgotPassword()" clear class="mlLinks">Forgot Password?</button>
+      <button (click)="onSignup()" clear class="mlLinks right">Signup</button>
+    </div>
   </ion-list>
-
 </ion-content>

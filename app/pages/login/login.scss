@@ -1,10 +1,76 @@
+// New Login Form based on 
+//   http://codepen.io/lsgrrd/pen/xvwHn
+//
 
-.login-page .logo {
-  padding: 20px 0;
-  min-height: 200px;
-  text-align: center;
+.login-image {
+  max-height: 10%;
+  max-width: 20%;
+  display:block;
+  margin-left:auto;
+  margin-right:auto;
+  margin-top: 40px;
+ }
+  
+.mlLinks {
+    text-decoration: none;
+    color: #fff;
+    font-size: 14px;
 }
-
-.login-page .logo img {
-  max-width: 150px;
+.introHeading h1 {
+    color: #fff;
+    font: 48px 'PT Sans Narrow';
+}
+.loginScreen {
+    background-color: #172F39;
+}
+#ml-login {
+    position:relative;
+    margin: 25px 30px 0 20px;
+    width: 330px;
+    height: auto;
+}
+#ml-login input {
+    padding: 16px;
+    border-radius:7px;
+    border: 0;
+    background: rgba(255,255,255,.2);
+    display: block;
+    margin: 10px;
+    width: 250px;
+    color:white;
+    font-size:17px;
+    height: 50px;
+}
+#ml-login input:focus {
+    outline-color: rgba(0,0,0,0);
+    background: rgba(255,255,255,.95);
+    color: #e74c3c;
+}
+#ml-login button {
+    float:right;
+    height: 110px;
+    width: 60px;
+    border: 0;
+    background: #e74c3c;
+    border-radius:7px;
+    padding: 10px;
+    color:white;
+    font-size:30px;
+    margin: 0;
+}
+#ml-login input::-webkit-input-placeholder {
+    color: white;
+}
+#ml-login input:focus::-webkit-input-placeholder {
+    color: #e74c3c;
+}
+.right {
+  position: absolute;
+  right: 0px;
+}
+#divLinks button {
+  padding: 0;
+  margin: 0;
+  padding-left: 30px;
+  padding-right: 30px;
 }
