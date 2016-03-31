@@ -3,7 +3,6 @@
 //
 import {EventEmitter} from 'angular2/core';
 
-
 export class AuthService {
   private authData: FirebaseAuthData;
   private emitter: EventEmitter<any> = new EventEmitter();
@@ -41,6 +40,7 @@ export class AuthService {
     return this.authWithOAuth('twitter');
   }
   
+  // Login existing user
   signInWithEmailPassword(email, password): Promise<any> {
     return new Promise((resolve: () => void, reject: (reason: Error) => void) => {
       this.ref.authWithPassword({"email": email, "password": password}, (error: Error) => {
@@ -49,7 +49,23 @@ export class AuthService {
           reject(error);
         }
         else {
-          console.log("Authenticated successfully:", this.authData);
+          //console.log("Authenticated successfully:", this.authData);
+          resolve();
+        }
+      });
+    });
+  }
+  
+  // Create new user
+  signUpWithEmailPassword(email, password): Promise<any> {
+    return new Promise((resolve: () => void, reject: (reason: Error) => void) => {
+      this.ref.createUser({"email": email, "password": password}, (error: Error) => {
+        if (error) {
+          console.error('ERROR @ createUserWithEmailPassword :', error);
+          reject(error);
+        }
+        else {
+          //console.log("User created successfully:", this.authData);
           resolve();
         }
       });
@@ -83,4 +99,13 @@ export class AuthService {
   private emit(): void {
     this.emitter.next(this.authenticated);
   }
+  
+  getUserProfile(userUid) {
+    return new Promise((resolve, reject) => {
+      this.ref.child('members').child(userUid).once('value', snapshot => {
+        resolve(snapshot.val());
+      })
+    })
+  }
+  
 }

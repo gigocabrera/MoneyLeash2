@@ -51,6 +51,8 @@ class ConferenceApp {
     { title: 'Login', component: LoginPage, icon: 'log-in', color: '', },
     { title: 'Signup', component: SignupPage, icon: 'person-add', color: '', }
   ];
+  
+  // Default root page
   rootPage: any = TutorialPage;
   loggedIn = false;
 

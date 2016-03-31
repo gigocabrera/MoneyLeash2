@@ -1,8 +1,7 @@
 
 # Money Leash
 
-**Don't let your money run wild. Keep it on a leash!**
-
+Don't let your money run wild. Keep it on a leash!
 
 # What is Money Leash?
 
@@ -12,17 +11,14 @@ Money Leash is a Personal Expense App developed in Ionic 2/Angular 2 with a Fire
 
 I discovered the Ionic Framework back in April 2015 and I became addicted almost immediately. This app is a work in 
 progress and the result of the itch I had to get out of my comfort zone and experiment with new technologies. Money Leash 
-will stay as an **open source** project so **your feedback/help would be greatly appreciated!**
-
-Ultimate goal? To bring it to the App Store and Google Play.
-
+will stay as an **open source** project. Your feedback/help would be greatly appreciated!
 
 ## Quick Start
 
 - Clone this repository.
-- Run npm install from the project root.
-- Install the ionic CLI (npm install -g ionic@beta)
-- Run ionic serve in a terminal from the project root
+- Run `npm install` from the project root.
+- Install the ionic CLI (`npm install -g ionic@beta`)
+- Run `ionic serve` in a terminal from the project root
 
 ## Firebase Data Structure
 

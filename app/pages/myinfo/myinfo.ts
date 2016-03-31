@@ -1,29 +1,27 @@
 import {Page, NavController, MenuController, Alert} from 'ionic-angular';
-import {AdvancedCard} from '../advanced-card/advanced-card';
-import {AboutPage} from '../about/about';
 import {AuthService} from '../../providers/auth-service';
 
 @Page({
-  templateUrl: 'build/pages/myinfo/myinfo.html',
-  directives: [AdvancedCard]
+  templateUrl: 'build/pages/myinfo/myinfo.html'
 })
 
-export class MyInfoPage {
-  login: {username?: string, password?: string} = {};
-  submitted = false;
-
+export class MyInfoPage { 
+  user: {
+    firstname?: string, 
+    lastname?: string, 
+    email?: string,
+    datecreated?: Date
+  } = {};
+        
   constructor(
       private nav: NavController,
       private auth: AuthService) {}
-      
-  private openAbout(): void {
-    this.nav.push(AboutPage);
-    console.log(this.auth.authenticated);
-  }
   
-  private logout(): void {
-    this.auth.signOut();
-    console.log("firebase auth signout");
+  onPageDidEnter() {
+    this.auth.getUserProfile(this.auth.id)
+      .then(thisUser => {
+        this.user = thisUser;
+      })
   }
   
 }

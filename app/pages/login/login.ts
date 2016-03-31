@@ -1,9 +1,10 @@
-import {CanActivate, Router} from 'angular2/router';
 import {Page, NavController, MenuController, Alert} from 'ionic-angular';
-import {TabsPage} from '../tabs/tabs';
-import {SignupPage} from '../signup/signup';
 import {UserData} from '../../providers/user-data';
 import {AuthService} from '../../providers/auth-service';
+import {SignupPage} from '../signup/signup';
+import {ForgotPasswordPage} from '../forgot-password/forgot-password';
+import {AccountsListPage} from '../mymoney/accounts-list/accounts-list';
+import {MyInfoPage} from '../myinfo/myinfo'; // todo: for testing purposes - remove
 
 @Page({
   templateUrl: 'build/pages/login/login.html'
@@ -15,35 +16,19 @@ export class LoginPage {
 
   constructor(
       private nav: NavController,
-      private userData: UserData, 
+      private userData: UserData,
       private menu: MenuController,
-      private auth: AuthService,
-      private router: Router) {}
-  
-  signInWithGithub(): void {
-    this.auth.signInWithGithub()
-      .then(() => this.SignInSuccess());
-  }
+      private auth: AuthService) {}
 
-  signInWithGoogle(): void {
-    this.auth.signInWithGoogle()
-      .then(() => this.SignInSuccess());
-  }
-
-  signInWithTwitter(): void {
-    this.auth.signInWithTwitter()
-      .then(() => this.SignInSuccess());
-  }
-
-  private SignInSuccess(): void {
-    this.nav.push(TabsPage);
+  private LoginSuccess(): void {
+    this.nav.setRoot(MyInfoPage);
   }
   
-  private SignInError(): void {
-    // will be called if login fails
+  private LoginError(): void {
+    // Will be called if login fails
     let alert = Alert.create({
       title: 'Login Failed',
-      subTitle: 'Please check your username and/or password and try again',
+      subTitle: 'Please check your email and/or password and try again',
       buttons: ['Ok']
     });
     this.nav.present(alert);
@@ -53,13 +38,19 @@ export class LoginPage {
     this.submitted = true;
     if (form.valid) {
       this.auth.signInWithEmailPassword(form.controls.username.value, form.controls.password.value)
-      .then(() => this.SignInSuccess())
-      .catch(() => this.SignInError());
+      .then(() => this.LoginSuccess())
+      .catch(() => this.LoginError());
     }
   }
 
   onSignup() {
+    // go to the sign up page
     this.nav.push(SignupPage);
+  }
+  
+  onForgotPassword() {
+    // go to the forgot password page
+    this.nav.push(ForgotPasswordPage);
   }
   
   onPageDidEnter() {
@@ -68,8 +59,8 @@ export class LoginPage {
   }
   
   onPageDidLeave() {
-    this.menu.enable(true);
-    this.menu.swipeEnable(true);
+    this.menu.enable(this.submitted);
+    this.menu.swipeEnable(this.submitted);
   }
   
 }

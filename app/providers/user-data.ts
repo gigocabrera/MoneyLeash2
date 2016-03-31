@@ -7,7 +7,7 @@ export class UserData {
   _favorites = [];
   HAS_LOGGED_IN = 'hasLoggedIn';
   storage = new Storage(LocalStorage);
-  username = '';
+  email = '';
   password = '';
 
   constructor(private events: Events) {}
@@ -27,9 +27,9 @@ export class UserData {
     }
   }
 
-  login(username, password) {
+  login(email, password) {
     this.events.publish('user:login');
-    this.storage.set(this.username, username);
+    this.storage.set(this.email, email);
     this.storage.set(this.password, password);
   }
 

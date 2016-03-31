@@ -1,25 +1,23 @@
+<ion-navbar *navbar mlnavbar class="hide-border"></ion-navbar>
 
-<ion-navbar *navbar>
-  <ion-title>Logout</ion-title>
-</ion-navbar>
-
-<ion-content>
-
-  <ion-list>
+<ion-content class="loginScreen">
+  
+  <ion-list>   
     
-    <div class="logo">
-      <img src="img/appicon.svg">
+    <div id="loginHeading">
+      <ion-icon name="log-out"></ion-icon>
+      <h1 style="color: #fff;text-align: center;"><strong>You're now logged out!</strong></h1>
     </div>
     
     <ion-row responsive-sm>
         <ion-col>
-          <button (click)="onLogin(loginForm)" type="submit" primary block>Login</button>
+          <button (click)="onLogin(loginForm)" type="submit" mlnavbarmenu block>Login</button>
         </ion-col>
         <ion-col>
           <button (click)="onSignup()" light block>Signup</button>
         </ion-col>
       </ion-row>
-      
+    
   </ion-list>
-
+  
 </ion-content>

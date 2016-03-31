@@ -19,12 +19,12 @@ export class TutorialPage {
     this.slides = [
       {
         title: "<strong>MoneyLeash</strong>",
-        description: "Don't let your money run wild... <br />Keep it on a <b>leash!</b>",
+        description: "Don't let your money run wild... <br />Keep it on a <b>Leash!</b>",
         image: "img/moneyleash2_logo_01.png",
       },
       {
         title: "What is MoneyLeash?",
-        description: "<b>Money Leash</b> is an open source money management app designed with the most advanced mobile technologies available. Track expenses, budgets, recurring bills, and much much more!",
+        description: "<b>Money Leash</b> is an open source money management app designed with the most advanced mobile technologies available. It will allow you to track expenses, budgets, recurring bills, and much much more!",
         image: "img/moneyleash2_logo_03.png",
       },
       {
@@ -44,13 +44,14 @@ export class TutorialPage {
   }
 
   onPageDidEnter() {
-    // the root left menu should be disabled on the tutorial page
     this.menu.enable(false);
+    this.menu.swipeEnable(false);
   }
 
   onPageWillLeave() {
-    // enable the root left menu when leaving the tutorial page
-    this.menu.enable(true);
+    // do not enable the root left menu or swipe when leaving the tutorial page
+    //this.menu.enable(true);
+    //this.menu.swipeEnable(true);
   }
 
 }

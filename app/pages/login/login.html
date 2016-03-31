@@ -1,23 +1,30 @@
+<ion-navbar *navbar mlnavbar class="hide-border"></ion-navbar>
+
 <ion-content class="loginScreen">
+  
   <ion-list>   
-    <div class="introHeading">
-      <img src="img/moneyleash2_logo_01.png" class="login-image"/>
+    <div id="loginHeading">
+      <ion-icon name="ios-lock-outline"></ion-icon>
       <h1 style="color: #fff;text-align: center;"><strong>Login</strong></h1>
     </div>
-    <form #loginForm="ngForm" novalidate id="ml-login"> 
-      <button (click)="onLogin(loginForm)" type="submit" block><i class="fa fa-lock"></i></button>      
-      <ion-input [(ngModel)]="login.username" ngControl="username" type="email" #username="ngForm" required class="user" placeholder="email"></ion-input>
+    
+    <form #loginForm="ngForm" id="loginFormId" novalidate>
+      <button (click)="onLogin(loginForm)" type="submit" block><ion-icon name="ios-power"></ion-icon></button>      
+      <ion-input [(ngModel)]="login.username" ngControl="username" type="email" #username="ngForm" placeholder="email" required></ion-input>
       <p [hidden]="username.valid || submitted == false" danger padding-left>
-        Username is required
+        Email is required
       </p>
-      <ion-input [(ngModel)]="login.password" ngControl="password" type="password" #password="ngForm" required class="pass" placeholder="password"></ion-input>
+      <ion-input [(ngModel)]="login.password" ngControl="password" type="password" #password="ngForm" placeholder="password" required></ion-input>
       <p [hidden]="password.valid || submitted == false" danger padding-left>
         Password is required
-      </p>  
+      </p>
     </form>
+    
     <div id="divLinks">
-      <button (click)="forgotPassword()" clear class="mlLinks">Forgot Password?</button>
-      <button (click)="onSignup()" clear class="mlLinks right">Signup</button>
+      <button (click)="onForgotPassword()" clear class="mlLinks">Forgot Password?</button>
+      <button (click)="onSignup()" clear class="mlLinks right">Create Account</button>
     </div>
+    
   </ion-list>
+  
 </ion-content>
