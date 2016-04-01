@@ -11,11 +11,11 @@
     </div>
     <form #signupForm="ngForm" id="signupForm" novalidate> 
       <button (click)="onSignup(signupForm)" type="submit" block><ion-icon name="ios-checkmark"></ion-icon></button>      
-      <ion-input [(ngModel)]="signup.username" ngControl="username" type="email" #username="ngForm" class="user" placeholder="email" required></ion-input>
+      <ion-input [(ngModel)]="signup.username" ngControl="username" type="email" #username="ngForm" placeholder="email" required></ion-input>
       <p [hidden]="username.valid || submitted == false" danger padding-left>
         Email is required
       </p>
-      <ion-input [(ngModel)]="signup.password" ngControl="password" type="password" #password="ngForm" class="pass" placeholder="password" required></ion-input>
+      <ion-input [(ngModel)]="signup.password" ngControl="password" type="password" #password="ngForm" placeholder="password" required></ion-input>
       <p [hidden]="password.valid || submitted == false" danger padding-left>
         Password is required
       </p>
