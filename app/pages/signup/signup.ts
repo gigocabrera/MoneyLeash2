@@ -1,7 +1,7 @@
 import {Page, NavController, MenuController, Alert} from 'ionic-angular';
 import {UserData} from '../../providers/user-data';
 import {AuthService} from '../../providers/auth-service';
-import {AccountsListPage} from '../mymoney/accounts-list/accounts-list';
+import {AccountListPage} from '../mymoney/account-list/account-list';
 
 @Page({
   templateUrl: 'build/pages/signup/signup.html'
@@ -43,7 +43,7 @@ export class SignupPage {
   }
   
   private LoginSuccess(): void {
-    this.nav.setRoot(AccountsListPage);
+    this.nav.setRoot(AccountListPage);
   }
   
   private LoginError(): void {

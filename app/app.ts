@@ -1,15 +1,31 @@
 import 'es6-shim';
 import {App, IonicApp, Events, Platform} from 'ionic-angular';
 import {StatusBar} from 'ionic-native';
+
+/* Original ionic-conference-app pages */
 import {ConferenceData} from './providers/conference-data';
 import {UserData} from './providers/user-data';
 import {TabsPage} from './pages/tabs/tabs';
+
+/* Intro and Login pages */
+import {TutorialPage} from './pages/tutorial/tutorial';
 import {LoginPage} from './pages/login/login';
 import {SignupPage} from './pages/signup/signup';
-import {TutorialPage} from './pages/tutorial/tutorial';
+import {LogoutPage} from './pages/logout/logout';
+
+/* My Money pages */
+import {AccountListPage} from './pages/mymoney/account-list/account-list';
+import {CategoryListPage} from './pages/mymoney/category-list/category-list';
+import {BudgetListPage} from './pages/mymoney/budget-list/budget-list';
+import {RecurringListPage} from './pages/mymoney/recurring-list/recurring-list';
+import {PayeeListPage} from './pages/mymoney/payee-list/payee-list';
+import {ReportListPage} from './pages/mymoney/report-list/report-list';
+
+
+/* Settings pages */
 import {MyInfoPage} from './pages/myinfo/myinfo';
 import {SettingsPage} from './pages/settings/settings';
-import {LogoutPage} from './pages/logout/logout';
+
 import {AuthProvider} from './providers/auth-provider';
 import {AuthService} from './providers/auth-service';
 
@@ -32,17 +48,17 @@ interface PageObj {
     }
   }
 })
-class ConferenceApp {
+class MoneyLeashApp {
   // List of pages that can be navigated to from the left menu
   // the left menu only works after login
   // the login page disables the left menu
   appPages: PageObj[] = [
-    { title: 'Accounts', component: MyInfoPage, icon: 'ios-browsers-outline', color: '#f53d3d', },
-    { title: 'Categories', component: MyInfoPage, icon: 'ios-attach-outline', color: '', },
-    { title: 'Budgets', component: MyInfoPage, icon: 'ios-color-wand-outline', color: '', },
-    { title: 'Recurring', component: MyInfoPage, icon: 'ios-sync-outline', color: '', },
-    { title: 'Payees', component: MyInfoPage, icon: 'ios-contacts-outline', color: '', },
-    { title: 'Reports', component: MyInfoPage, icon: 'ios-trending-up-outline', color: '', },
+    { title: 'Accounts', component: AccountListPage, icon: 'ios-browsers-outline', color: '', },
+    { title: 'Budgets', component: BudgetListPage, icon: 'ios-color-wand-outline', color: '', },
+    { title: 'Categories', component: CategoryListPage, icon: 'ios-attach-outline', color: '', },
+    { title: 'Payees', component: PayeeListPage, icon: 'ios-contacts-outline', color: '', },
+    { title: 'Recurring', component: RecurringListPage, icon: 'ios-sync-outline', color: '', },
+    { title: 'Reports', component: ReportListPage, icon: 'ios-trending-up-outline', color: '', },
     { title: 'Settings', component: SettingsPage, icon: 'ios-settings-outline', color: '', },
   ];
   loggedInPages: PageObj[] = [

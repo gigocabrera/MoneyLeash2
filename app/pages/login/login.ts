@@ -3,7 +3,7 @@ import {UserData} from '../../providers/user-data';
 import {AuthService} from '../../providers/auth-service';
 import {SignupPage} from '../signup/signup';
 import {ForgotPasswordPage} from '../forgot-password/forgot-password';
-import {AccountsListPage} from '../mymoney/accounts-list/accounts-list';
+import {AccountListPage} from '../mymoney/account-list/account-list';
 
 @Page({
   templateUrl: 'build/pages/login/login.html'
@@ -20,7 +20,7 @@ export class LoginPage {
       private auth: AuthService) {}
 
   private LoginSuccess(): void {
-    this.nav.setRoot(AccountsListPage);
+    this.nav.setRoot(AccountListPage);
   }
   
   private LoginError(): void {

@@ -4,7 +4,7 @@ import {Page, NavController, MenuController, Alert} from 'ionic-angular';
   templateUrl: 'build/pages/mymoney/accounts-list/accounts-list.html'
 })
 
-export class AccountsListPage {
+export class AccountListPage {
   login: {username?: string, password?: string} = {};
   submitted = false;
 

@@ -47,7 +47,8 @@ export class TutorialPage {
   }
 
   startApp() {
-    this.nav.setRoot(LoginPage);
+    //this.nav.setRoot(LoginPage);
+    this.nav.push(LoginPage);
   }
 
   onSlideChangeStart(slider) {
