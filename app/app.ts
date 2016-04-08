@@ -40,13 +40,7 @@ interface PageObj {
 @App({
   templateUrl: 'build/app.html',
   providers: [ConferenceData, UserData, AuthProvider],
-  config: {
-    platforms: {
-      android: {
-        tabbarLayout: 'icon-hide'
-      }
-    }
-  }
+  config: {}
 })
 class MoneyLeashApp {
   // List of pages that can be navigated to from the left menu
