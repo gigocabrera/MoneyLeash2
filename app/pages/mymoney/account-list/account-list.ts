@@ -1,7 +1,7 @@
 import {Page, NavController, MenuController, Alert} from 'ionic-angular';
 
 @Page({
-  templateUrl: 'build/pages/mymoney/accounts-list/accounts-list.html'
+  templateUrl: 'build/pages/mymoney/account-list/account-list.html'
 })
 
 export class AccountListPage {

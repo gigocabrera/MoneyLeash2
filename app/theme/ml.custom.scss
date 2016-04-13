@@ -1,0 +1,45 @@
+/* Using custom fonts */
+@import url("https://fonts.googleapis.com/css?family=PT+Sans");
+@import url("https://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700");
+
+
+/* Styles toolbar titles */
+.toolbar[mlnavbar] .toolbar-title, .toolbar[mlnavbar] .bar-button-default {
+  color: #fff;
+}
+
+/* Styles for MoneyLeash advanced input fields */
+.ml-input {
+  height: 52px;
+  border-bottom: 1px solid #c8c7cc;
+}
+.ml-input .item-inner {
+  border-bottom: 0;
+}
+.ml-icon-left {
+  background-color: #eeeeee;
+  height: 49px;
+  width: 50px;
+}
+.ml-input.item {
+  padding: 0;
+}
+.ml-input.input-has-focus ion-label[floating], .ml-input.input-has-value ion-label[floating] {
+  transform: translate3d(0, 7px, 0) scale(0.7);
+  margin-top: 0;
+  height: 20px;
+}
+.ml-icon-left:before {
+  display: block;
+  text-align: center;
+  padding-top: 10px;
+  color: #909090;
+  font-size: 30px;
+  font-weight: normal;
+}
+.ml-input ion-icon[item-left], .ml-input ion-icon[item-right] {
+  margin-top: 0;
+  margin-left: 0;
+  margin-right: 5px;
+  margin-bottom: 0;
+}
