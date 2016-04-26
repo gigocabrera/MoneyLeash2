@@ -1,5 +1,5 @@
-import 'es6-shim';
-import {App, IonicApp, Events, Platform} from 'ionic-angular';
+import {ViewChild} from 'angular2/core';
+import {App, Events, Platform, Nav} from 'ionic-angular';
 import {StatusBar} from 'ionic-native';
 
 /* Original ionic-conference-app pages */
@@ -29,6 +29,12 @@ import {SettingsPage} from './pages/settings/settings';
 import {AuthProvider} from './providers/auth-provider';
 import {AuthService} from './providers/auth-service';
 
+import {
+    FIREBASE_PROVIDERS, defaultFirebase,
+    AngularFire, firebaseAuthConfig, AuthProviders,
+    AuthMethods
+} from 'angularfire2';
+
 interface PageObj {
   title: string;
   component: any;
@@ -39,10 +45,27 @@ interface PageObj {
 
 @App({
   templateUrl: 'build/app.html',
-  providers: [ConferenceData, UserData, AuthProvider],
+  providers: [
+    ConferenceData, 
+    UserData, 
+    AuthProvider, 
+    FIREBASE_PROVIDERS,
+    defaultFirebase('https://brilliant-inferno-1044.firebaseio.com'),
+    firebaseAuthConfig({
+        provider: AuthProviders.Password,
+        method: AuthMethods.Password,
+        remember: 'default',
+        scope: ['email']
+    })
+  ], 
   config: {}
 })
 class MoneyLeashApp {
+  
+  // the root nav is a child of the root app component
+  // @ViewChild(Nav) gets a reference to the app's root nav
+  @ViewChild(Nav) nav: Nav;
+  
   // List of pages that can be navigated to from the left menu
   // the left menu only works after login
   // the login page disables the left menu
@@ -68,7 +91,6 @@ class MoneyLeashApp {
   loggedIn = false;
 
   constructor(
-    private app: IonicApp,
     private events: Events,
     private userData: UserData,
     private auth: AuthService,
@@ -92,23 +114,20 @@ class MoneyLeashApp {
   }
 
   openPage(page: PageObj) {
-    // find the nav component and set what the root page should be
+    // the nav component was found using @ViewChild(Nav)
     // reset the nav to remove previous pages and only have this page
     // we wouldn't want the back button to show in this scenario
-    let nav = this.app.getComponent('nav');
-
     if (page.index) {
-      nav.setRoot(page.component, {tabIndex: page.index});
+      this.nav.setRoot(page.component, {tabIndex: page.index});
+
     } else {
-      nav.setRoot(page.component);
+      this.nav.setRoot(page.component);
     }
 
     if (page.title === 'Logout') {
       // Give the menu time to close before changing to logged out
       setTimeout(() => {
         this.userData.logout();
-        this.signOut();
-        nav.setRoot(page.component);
       }, 1000);
     }
   }

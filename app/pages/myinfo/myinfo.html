@@ -8,7 +8,7 @@
   <ion-title>My Info</ion-title>
   
   <ion-buttons end>
-    <button (click)="presentFilter()" mllightblue>
+    <button (click)="save()" mllightblue>
       Save
     </button>
   </ion-buttons>
@@ -51,7 +51,7 @@
       <ion-icon name="arrow-forward" item-right class="ml-icon-right"></ion-icon>
     </ion-item>
     <ion-item-divider></ion-item-divider>
-    <ion-item>
+    <ion-item (click)="removeUser()">
       <ion-label danger>Delete Account</ion-label>
       <button item-right clear danger>
         <ion-icon name="trash"></ion-icon>

@@ -1,9 +1,12 @@
 import {Page, NavController, MenuController, Alert} from 'ionic-angular';
 import {UserData} from '../../providers/user-data';
-import {AuthService} from '../../providers/auth-service';
 import {SignupPage} from '../signup/signup';
 import {ForgotPasswordPage} from '../forgot-password/forgot-password';
 import {AccountListPage} from '../mymoney/account-list/account-list';
+
+/* Firebase imports */
+import {AngularFire} from 'angularfire2';
+import {FirebaseAuth, AuthProviders, AuthMethods } from 'angularfire2';
 
 @Page({
   templateUrl: 'build/pages/login/login.html'
@@ -17,7 +20,8 @@ export class LoginPage {
       private nav: NavController,
       private userData: UserData,
       private menu: MenuController,
-      private auth: AuthService) {}
+      public af: AngularFire,
+      public auth: FirebaseAuth) {}
 
   private LoginSuccess(): void {
     this.nav.setRoot(AccountListPage);
@@ -35,9 +39,15 @@ export class LoginPage {
   
   onLogin(form) {
     this.submitted = true;
-    if (form.valid) {
-      this.auth.signInWithEmailPassword(form.controls.username.value, form.controls.password.value)
-      .then(() => this.LoginSuccess())
+    if (form.valid) {      
+      let credentials = {
+        email: form.controls.username.value,
+        password: form.controls.password.value
+      }
+      this.auth.login(credentials, {
+        provider: AuthProviders.Password,
+        method: AuthMethods.Password
+      }).then(() => this.LoginSuccess())
       .catch(() => this.LoginError());
     }
   }
