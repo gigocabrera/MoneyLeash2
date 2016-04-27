@@ -25,9 +25,8 @@
   padding: 0;
 }
 .ml-input.input-has-focus ion-label[floating], .ml-input.input-has-value ion-label[floating] {
-  transform: translate3d(0, 7px, 0) scale(0.7);
+  transform: translate3d(0, 7px, 50px) scale(0.7);
   margin-top: 0;
-  height: 20px;
 }
 .ml-icon-left:before {
   display: block;
@@ -42,4 +41,14 @@
   margin-left: 0;
   margin-right: 5px;
   margin-bottom: 0;
+}
+ion-label[floating] {
+  transform: translate3d(0, 7px, 0);
+}
+.item-label-floating .text-input {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+ion-input {
+    margin-top: 7px;
 }

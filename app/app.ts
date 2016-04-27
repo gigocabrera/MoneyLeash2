@@ -21,14 +21,13 @@ import {RecurringListPage} from './pages/mymoney/recurring-list/recurring-list';
 import {PayeeListPage} from './pages/mymoney/payee-list/payee-list';
 import {ReportListPage} from './pages/mymoney/report-list/report-list';
 
-
 /* Settings pages */
 import {MyInfoPage} from './pages/myinfo/myinfo';
 import {SettingsPage} from './pages/settings/settings';
 
+/* Firebase providers */
 import {AuthProvider} from './providers/auth-provider';
 import {AuthService} from './providers/auth-service';
-
 import {
     FIREBASE_PROVIDERS, defaultFirebase,
     AngularFire, firebaseAuthConfig, AuthProviders,
@@ -87,7 +86,7 @@ class MoneyLeashApp {
   ];
   
   // Default root page
-  rootPage: any = TutorialPage;
+  rootPage: any = TutorialPage; 
   loggedIn = false;
 
   constructor(

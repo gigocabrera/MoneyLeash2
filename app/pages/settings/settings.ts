@@ -1,4 +1,4 @@
-import {App, IonicApp, Page, Events} from 'ionic-angular';
+import {App, Page, NavController} from 'ionic-angular';
 import {Injectable} from 'angular2/core';
 import {UserData} from '../../providers/user-data';
 import {MyInfoPage} from '../myinfo/myinfo';
@@ -13,8 +13,7 @@ interface PageObj {
 @Page({
   templateUrl: 'build/pages/settings/settings.html'
 })
-export class SettingsPage {
-  
+export class SettingsPage {  
   // List of pages that can be navigated to from the left menu
   // the left menu only works after login
   // the login page disables the left menu
@@ -29,16 +28,12 @@ export class SettingsPage {
       { title: 'About', component: MyInfoPage, icon: 'ios-pin-outline' }
   ];
   
-  constructor(
-    private app: IonicApp,
-    private events: Events
-  ) {
-    
+  constructor(private nav: NavController) {    
   }
   
   openPage(page: PageObj) {
-    let nav = this.app.getComponent('nav');
-    nav.push(page.component);
+    //this.nav.push(page.component);
+    this.nav.push(page.component);
   }
   
 }

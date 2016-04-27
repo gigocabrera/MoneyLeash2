@@ -1,5 +1,6 @@
 import {Page, NavController, MenuController, Alert} from 'ionic-angular';
 import {FirebaseRef} from 'angularfire2';
+import {AuthService} from '../../providers/auth-service';
 
 @Page({
   templateUrl: 'build/pages/myinfo/myinfo.html'
@@ -14,10 +15,11 @@ export class MyInfoPage {
   } = {};
         
   constructor(
-      private nav: NavController) {}
+      private nav: NavController,
+      private auth: AuthService) {}
   
   onPageDidEnter() {
-    //this.auth.getUserProfile(this.auth.id).then(thisUser => {this.user = thisUser;})
+    this.auth.getUserProfile(this.auth.id).then(thisUser => {this.user = thisUser;})
   }
   
   removeUser() {
