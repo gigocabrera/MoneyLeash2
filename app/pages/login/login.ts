@@ -3,10 +3,7 @@ import {UserData} from '../../providers/user-data';
 import {SignupPage} from '../signup/signup';
 import {ForgotPasswordPage} from '../forgot-password/forgot-password';
 import {AccountListPage} from '../mymoney/account-list/account-list';
-
-/* Firebase imports */
-import {AngularFire} from 'angularfire2';
-import {FirebaseAuth, AuthProviders, AuthMethods } from 'angularfire2';
+import {AuthService} from '../../providers/auth-service';
 
 @Page({
   templateUrl: 'build/pages/login/login.html'
@@ -20,11 +17,11 @@ export class LoginPage {
       private nav: NavController,
       private userData: UserData,
       private menu: MenuController,
-      public af: AngularFire,
-      public auth: FirebaseAuth) {}
+      public auth: AuthService) {}
 
   private LoginSuccess(): void {
-    this.nav.setRoot(AccountListPage);
+    //this.nav.setRoot(AccountListPage);
+    this.nav.setRoot(AccountListPage, {}, {animate: true, direction: 'forward'});
   }
   
   private LoginError(): void {
@@ -39,15 +36,9 @@ export class LoginPage {
   
   onLogin(form) {
     this.submitted = true;
-    if (form.valid) {      
-      let credentials = {
-        email: form.controls.username.value,
-        password: form.controls.password.value
-      }
-      this.auth.login(credentials, {
-        provider: AuthProviders.Password,
-        method: AuthMethods.Password
-      }).then(() => this.LoginSuccess())
+    if (form.valid) {
+      this.auth.signInWithEmailPassword(form.controls.username.value, form.controls.password.value)
+      .then(() => this.LoginSuccess())
       .catch(() => this.LoginError());
     }
   }

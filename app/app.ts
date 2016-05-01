@@ -22,17 +22,11 @@ import {PayeeListPage} from './pages/mymoney/payee-list/payee-list';
 import {ReportListPage} from './pages/mymoney/report-list/report-list';
 
 /* Settings pages */
-import {MyInfoPage} from './pages/myinfo/myinfo';
 import {SettingsPage} from './pages/settings/settings';
 
 /* Firebase providers */
 import {AuthProvider} from './providers/auth-provider';
 import {AuthService} from './providers/auth-service';
-import {
-    FIREBASE_PROVIDERS, defaultFirebase,
-    AngularFire, firebaseAuthConfig, AuthProviders,
-    AuthMethods
-} from 'angularfire2';
 
 interface PageObj {
   title: string;
@@ -47,15 +41,7 @@ interface PageObj {
   providers: [
     ConferenceData, 
     UserData, 
-    AuthProvider, 
-    FIREBASE_PROVIDERS,
-    defaultFirebase('https://brilliant-inferno-1044.firebaseio.com'),
-    firebaseAuthConfig({
-        provider: AuthProviders.Password,
-        method: AuthMethods.Password,
-        remember: 'default',
-        scope: ['email']
-    })
+    AuthProvider
   ], 
   config: {}
 })
@@ -100,15 +86,11 @@ class MoneyLeashApp {
     platform.ready().then(() => {
       StatusBar.styleDefault();
     });
-    
-    // load the conference data
-    confData.load();
 
     // decide which menu items should be hidden by current login status stored in local storage
     this.userData.hasLoggedIn().then((hasLoggedIn) => {
       this.loggedIn = (hasLoggedIn == 'true');
     });
-
     this.listenToLoginEvents();
   }
 
@@ -118,7 +100,6 @@ class MoneyLeashApp {
     // we wouldn't want the back button to show in this scenario
     if (page.index) {
       this.nav.setRoot(page.component, {tabIndex: page.index});
-
     } else {
       this.nav.setRoot(page.component);
     }

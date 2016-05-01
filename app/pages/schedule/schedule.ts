@@ -39,14 +39,12 @@ export class SchedulePage {
   presentFilter() {
     let modal = Modal.create(ScheduleFilterPage, this.excludeTracks);
     this.nav.present(modal);
-
     modal.onDismiss((data: any[]) => {
       if (data) {
         this.excludeTracks = data;
         this.updateSchedule();
       }
     });
-
   }
 
   goToSessionDetail(sessionData) {

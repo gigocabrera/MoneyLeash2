@@ -1,7 +1,7 @@
 import {Page, NavController, MenuController, Alert} from 'ionic-angular';
 
 @Page({
-  templateUrl: 'build/pages/mymoney/categories-list/categories-list.html'
+  templateUrl: 'build/pages/mymoney/category-list/category-list.html'
 })
 
 export class CategoryListPage {

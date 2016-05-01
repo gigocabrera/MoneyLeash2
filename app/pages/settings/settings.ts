@@ -1,7 +1,7 @@
 import {App, Page, NavController} from 'ionic-angular';
 import {Injectable} from 'angular2/core';
 import {UserData} from '../../providers/user-data';
-import {MyInfoPage} from '../myinfo/myinfo';
+import {PersonalProfilePage} from '../myinfo/personalprofile/personalprofile';
 
 interface PageObj {
   title: string;
@@ -18,21 +18,20 @@ export class SettingsPage {
   // the left menu only works after login
   // the login page disables the left menu
   settingsPages: PageObj[] = [
-    { title: 'My Info', component: MyInfoPage, icon: 'ios-contact-outline' },
-      { title: 'Accounts / Transactions', component: MyInfoPage, icon: 'ios-construct-outline' },
-      { title: 'Security', component: MyInfoPage, icon: 'ios-lock-outline' },
-      { title: 'Report a Bug', component: MyInfoPage, icon: 'ios-bug-outline' },
-      { title: 'Suggest a Feature', component: MyInfoPage, icon: 'ios-bulb-outline' },
-      { title: 'Write a Review', component: MyInfoPage, icon: 'ios-heart-outline' },
-      { title: 'Contact Support', component: MyInfoPage, icon: 'ios-help-circle-outline' },
-      { title: 'About', component: MyInfoPage, icon: 'ios-pin-outline' }
+    { title: 'My Info', component: PersonalProfilePage, icon: 'ios-contact-outline' },
+      { title: 'Accounts / Transactions', component: PersonalProfilePage, icon: 'ios-construct-outline' },
+      { title: 'Security', component: PersonalProfilePage, icon: 'ios-lock-outline' },
+      { title: 'Report a Bug', component: PersonalProfilePage, icon: 'ios-bug-outline' },
+      { title: 'Suggest a Feature', component: PersonalProfilePage, icon: 'ios-bulb-outline' },
+      { title: 'Write a Review', component: PersonalProfilePage, icon: 'ios-heart-outline' },
+      { title: 'Contact Support', component: PersonalProfilePage, icon: 'ios-help-circle-outline' },
+      { title: 'About', component: PersonalProfilePage, icon: 'ios-pin-outline' }
   ];
   
   constructor(private nav: NavController) {    
   }
   
   openPage(page: PageObj) {
-    //this.nav.push(page.component);
     this.nav.push(page.component);
   }
   

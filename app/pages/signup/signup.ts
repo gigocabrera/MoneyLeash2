@@ -1,10 +1,6 @@
 import {Page, NavController, MenuController, Alert} from 'ionic-angular';
-import {UserData} from '../../providers/user-data';
 import {AccountListPage} from '../mymoney/account-list/account-list';
-
-/* Firebase imports */
-import {AngularFire} from 'angularfire2';
-import {FirebaseAuth, AuthProviders, AuthMethods } from 'angularfire2';
+import {AuthService} from '../../providers/auth-service';
 
 @Page({
   templateUrl: 'build/pages/signup/signup.html'
@@ -15,23 +11,14 @@ export class SignupPage {
   validationMessage = "";
 
   constructor(
-    private nav: NavController, 
-    private userData: UserData, 
+    private nav: NavController,  
     private menu: MenuController,
-    public af: AngularFire,
-    public auth: FirebaseAuth) {}
+    private auth: AuthService) {}
 
   private SignUpSuccess(form): void {
-    let credentials = {
-      email: form.controls.username.value,
-      password: form.controls.password.value
-    }
-    this.auth.login(credentials, {
-      provider: AuthProviders.Password,
-      method: AuthMethods.Password})
+    this.auth.signInWithEmailPassword(form.controls.username.value, form.controls.password.value)
       .then(() => this.LoginSuccess())
-      .catch(() => this.LoginError()
-    );
+      .catch(() => this.LoginError());
   }
   
   private SignUpError(error): void {
@@ -70,11 +57,7 @@ export class SignupPage {
   onSignup(form) {
     this.submitted = true;
     if (form.valid) {
-      let credentials = {
-        email: form.controls.username.value,
-        password: form.controls.password.value
-      }
-      this.auth.createUser(credentials)
+      this.auth.signUpWithEmailPassword(form.controls.username.value, form.controls.password.value)
       .then(() => this.SignUpSuccess(form))
       .catch((error) => this.SignUpError(error));
     }

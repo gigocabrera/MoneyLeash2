@@ -7,7 +7,7 @@ export class AuthService {
   private authData: FirebaseAuthData;
   private emitter: EventEmitter<any> = new EventEmitter();
 
-  constructor(private ref: Firebase) {
+  constructor(public ref: Firebase) {
     this.authData = this.ref.getAuth();
 
     this.ref.onAuth((authData: FirebaseAuthData) => {
