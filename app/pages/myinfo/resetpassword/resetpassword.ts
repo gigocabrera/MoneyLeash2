@@ -15,21 +15,12 @@ export class ResetPasswordPage {
       private viewCtrl: ViewController,
       private auth: AuthService) {}  
  
-  dismiss(data) {
-    this.viewCtrl.dismiss(data);
+  resetPassword(user) {
+    this.dismiss(user);
   }
   
-  resetPassword(user) {
-    /*this.auth.ref.child('members').child(this.auth.id).update(this.user);
-    let alert = Alert.create({
-      title: 'Saved Successfully',
-      buttons: [{
-        text: 'OK',
-        handler: () => {
-        }
-      }]
-    });
-    this.nav.present(alert);*/
+  dismiss(data) {
+    this.viewCtrl.dismiss(data);
   }
     
 }

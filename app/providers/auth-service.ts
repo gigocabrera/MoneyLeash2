@@ -4,7 +4,7 @@
 import {EventEmitter} from 'angular2/core';
 
 export class AuthService {
-  private authData: FirebaseAuthData;
+  public authData: FirebaseAuthData;
   private emitter: EventEmitter<any> = new EventEmitter();
 
   constructor(public ref: Firebase) {

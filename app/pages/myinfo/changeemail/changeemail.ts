@@ -14,23 +14,14 @@ export class ChangeEmailPage {
   constructor(
       private nav: NavController,
       private viewCtrl: ViewController, 
-      private auth: AuthService) {}  
- 
-  dismiss(data) {
-    this.viewCtrl.dismiss(data);
-  }
+      private auth: AuthService) {}
   
   changeEmail(user) {
-    /*this.auth.ref.child('members').child(this.auth.id).update(this.user);
-    let alert = Alert.create({
-      title: 'Saved Successfully',
-      buttons: [{
-        text: 'OK',
-        handler: () => {
-        }
-      }]
-    });
-    this.nav.present(alert);*/
+    this.dismiss(user);
+  }
+  
+  dismiss(data) {
+    this.viewCtrl.dismiss(data);
   }
     
 }

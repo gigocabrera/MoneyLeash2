@@ -5,12 +5,19 @@
 
 <ion-content class="signupScreen">
   <ion-list>   
-    <div id="signupHeading">
-      <ion-icon name="ios-log-in-outline"></ion-icon>
+    <div id="signupHeading">      
       <h1 style="color: #fff;text-align: center;"><strong>Sign Up</strong></h1>
     </div>
     <form #signupForm="ngForm" id="signupForm" novalidate> 
       <button (click)="onSignup(signupForm)" type="submit" block><ion-icon name="ios-checkmark"></ion-icon></button>      
+      <ion-input [(ngModel)]="signup.firstname" ngControl="username" type="text" #firstname="ngForm" placeholder="first name" required></ion-input>
+      <p [hidden]="username.valid || submitted == false" danger padding-left>
+        First Name is required
+      </p>
+      <ion-input [(ngModel)]="signup.lastname" ngControl="username" type="text" #lastname="ngForm" placeholder="last name" required></ion-input>
+      <p [hidden]="username.valid || submitted == false" danger padding-left>
+        First Name is required
+      </p>
       <ion-input [(ngModel)]="signup.username" ngControl="username" type="email" #username="ngForm" placeholder="email" required></ion-input>
       <p [hidden]="username.valid || submitted == false" danger padding-left>
         Email is required

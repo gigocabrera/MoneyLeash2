@@ -101,7 +101,7 @@ class MoneyLeashApp {
     if (page.index) {
       this.nav.setRoot(page.component, {tabIndex: page.index});
     } else {
-      this.nav.setRoot(page.component);
+      this.nav.setRoot(page.component, {}, {animate: true, direction: 'forward'});
     }
 
     if (page.title === 'Logout') {

@@ -18,21 +18,12 @@ export class ChangePasswordPage {
       private viewCtrl: ViewController,
       private auth: AuthService) {}  
  
-  dismiss(data) {
-    this.viewCtrl.dismiss(data);
+  changePassword(user) {
+    this.dismiss(user);
   }
   
-  changePassword(user) {
-    /*this.auth.ref.child('members').child(this.auth.id).update(this.user);
-    let alert = Alert.create({
-      title: 'Saved Successfully',
-      buttons: [{
-        text: 'OK',
-        handler: () => {
-        }
-      }]
-    });
-    this.nav.present(alert);*/
+  dismiss(data) {
+    this.viewCtrl.dismiss(data);
   }
     
 }

@@ -9,11 +9,11 @@ export class LogoutPage {
   constructor(private nav: NavController, private menu: MenuController) {}
   
   onLogin(form) {
-    this.nav.setRoot(LoginPage);
+    this.nav.push(LoginPage, {}, {animate: true, direction: 'reverse'});
   }
 
   onSignup() {
-    this.nav.setRoot(SignupPage);
+    this.nav.push(SignupPage, {}, {animate: true, direction: 'reverse'});
   }
   
   onPageDidEnter() {

@@ -21,7 +21,14 @@ export class PersonalProfilePage {
       private auth: AuthService) {}
   
   onPageDidEnter() {
-    this.auth.getUserProfile(this.auth.id).then(thisUser => {this.user = thisUser;})
+    this.refreshUser();
+  }
+  
+  private refreshUser() {
+    this.auth.getUserProfile(this.auth.id).then(thisUser => {
+      this.user = thisUser;
+      this.user.email = this.auth.authData.password.email;
+    })
   }
     
   private presentActionSheet() {
@@ -31,19 +38,19 @@ export class PersonalProfilePage {
         {
           text: 'Change Email',
           handler: () => {
-            this.presentChangeEmail();
+            this.modalChangeEmail();
           }
         },
         {
           text: 'Change Password',
           handler: () => {
-            this.presentChangePassword();
+            this.modalChangePassword();
           }
         },
         {
           text: 'Reset Password',
           handler: () => {
-            this.presentResetPassword();
+            this.modalResetPassword();
           }
         },
         {
@@ -79,7 +86,7 @@ export class PersonalProfilePage {
           text: 'Cancel',
           role: 'cancel',
           handler: () => {
-            console.log('Cancel clicked');
+            //console.log('Cancel clicked');
           }
         }
       ]
@@ -100,40 +107,31 @@ export class PersonalProfilePage {
     this.nav.present(alert);
   }
   
-  private presentChangeEmail() {
+  private modalChangeEmail() {
     let modal = Modal.create(ChangeEmailPage);
     this.nav.present(modal);
     modal.onDismiss((data: any[]) => {
-      console.log('on dismiss ChangeEmailPage');
       if (data) {
-        //this.excludeTracks = data;
-        //this.updateSchedule();
-        console.log(data);
+        this.doChangeEmail(data);
       }
     });
   }
   
-  private presentChangePassword() {
+  private modalChangePassword() {
     let modal = Modal.create(ChangePasswordPage);
     this.nav.present(modal);
     modal.onDismiss((data: any[]) => {
-      console.log('on dismiss ChangePasswordPage');
       if (data) {
-        //this.excludeTracks = data;
-        //this.updateSchedule();
         console.log(data);
       }
     });
   }
   
-  private presentResetPassword() {
+  private modalResetPassword() {
     let modal = Modal.create(ResetPasswordPage);
     this.nav.present(modal);
     modal.onDismiss((data: any[]) => {
-      console.log('on dismiss ResetPasswordPage');
       if (data) {
-        //this.excludeTracks = data;
-        //this.updateSchedule();
         console.log(data);
       }
     });
@@ -155,5 +153,55 @@ export class PersonalProfilePage {
         }
       });*/
   }
+  
+  private doChangeEmail(data): void {
+    var myAlert: {
+      title?: string, 
+      subtitle?: string
+    } = {};
+    this.auth.ref.changeEmail({
+      oldEmail: data.oldemail,
+      newEmail: data.newemail,
+      password: data.password
+    }, (error) => {
+      if (error) {
+        switch (error.code) {
+          case "INVALID_PASSWORD":
+            myAlert.title = 'Invalid Password';
+            myAlert.subtitle = 'The specified user account password is incorrect.';
+            break;
+          case "INVALID_USER":
+            myAlert.title = 'Invalid User';
+            myAlert.subtitle = 'The specified user account does not exist.';
+            break;
+          default:
+            myAlert.title = 'Error creating user';
+            myAlert.subtitle = error;
+        }
+      } else {
+        myAlert.title = 'DONE';
+        myAlert.subtitle = 'User email changed successfully!';
+      }
+      
+      // We need to authenticate user again with new email to refresh auth token
+      this.auth.signInWithEmailPassword(data.newemail, data.password)
+      .then(() => this.LoginResult(myAlert))
+      .catch(() => this.LoginResult(myAlert));
+    });
+    
+  }
+  
+  private LoginResult(myAlert): void {
+    let alert = Alert.create({
+      title: myAlert.title,
+      subTitle: myAlert.subtitle,
+      buttons: [{
+        text: 'OK',
+        handler: () => {
+        }
+      }]
+    });
+    this.nav.present(alert);
+  } 
   
 }

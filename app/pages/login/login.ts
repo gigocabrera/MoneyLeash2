@@ -20,12 +20,10 @@ export class LoginPage {
       public auth: AuthService) {}
 
   private LoginSuccess(): void {
-    //this.nav.setRoot(AccountListPage);
     this.nav.setRoot(AccountListPage, {}, {animate: true, direction: 'forward'});
   }
   
   private LoginError(): void {
-    // Will be called if login fails
     let alert = Alert.create({
       title: 'Login Failed',
       subTitle: 'Please check your email and/or password and try again',
@@ -44,12 +42,10 @@ export class LoginPage {
   }
 
   onSignup() {
-    // go to the sign up page
     this.nav.push(SignupPage);
   }
   
   onForgotPassword() {
-    // go to the forgot password page
     this.nav.push(ForgotPasswordPage);
   }
   
