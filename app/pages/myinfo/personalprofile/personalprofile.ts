@@ -1,4 +1,4 @@
-import {Page, NavController, Alert, ActionSheet, Modal} from 'ionic-angular';
+import {Page, NavController, Alert, ActionSheet, Modal, Loading} from 'ionic-angular';
 import {AuthService} from '../../../providers/auth-service';
 import {ChangeEmailPage} from '../../myinfo/changeemail/changeemail';
 import {ChangePasswordPage} from '../../myinfo/changepassword/changepassword';
@@ -155,6 +155,13 @@ export class PersonalProfilePage {
   }
   
   private doChangeEmail(data): void {
+    
+    // Show loading component due to the time it takes Firebase to complete
+    let loading = Loading.create({
+      content: 'Please wait...'
+    });
+    this.nav.present(loading);
+    
     var myAlert: {
       title?: string, 
       subtitle?: string
@@ -185,13 +192,14 @@ export class PersonalProfilePage {
       
       // We need to authenticate user again with new email to refresh auth token
       this.auth.signInWithEmailPassword(data.newemail, data.password)
-      .then(() => this.LoginResult(myAlert))
-      .catch(() => this.LoginResult(myAlert));
+      .then(() => this.LoginResult(myAlert, loading))
+      .catch(() => this.LoginResult(myAlert, loading));
     });
     
   }
   
-  private LoginResult(myAlert): void {
+  private LoginResult(myAlert, loading): void {
+    loading.dismiss();
     let alert = Alert.create({
       title: myAlert.title,
       subTitle: myAlert.subtitle,
