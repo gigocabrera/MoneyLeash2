@@ -6,17 +6,70 @@ import {AuthService} from '../../providers/auth-service';
   templateUrl: 'build/pages/signup/signup.html'
 })
 export class SignupPage {
-  signup: {username?: string, password?: string} = {};
+  //
+  // The signup process consists of 3 steps: 
+  // 1) Create user account in Firebase with the credentials provided 
+  // 2) Authenticate user (login) in Firebase 
+  // 3) Save personal data to member node (personal profile)
+  //  
+  showValidationMessage: boolean = false;
+  signup: {
+    firstname?: string,
+    lastname?: string,
+    email?: string, 
+    password?: string
+  } = {};
+  user: {
+    firstname?: string, 
+    lastname?: string
+  } = {};
   submitted = false;
   validationMessage = "";
 
   constructor(
-    private nav: NavController,  
+    private nav: NavController,
     private menu: MenuController,
     private auth: AuthService) {}
 
-  private SignUpSuccess(form): void {
-    this.auth.signInWithEmailPassword(form.controls.username.value, form.controls.password.value)
+  onSignup() {
+    this.submitted = true;
+    if (this.inputIsValid()) {
+      // 1) Create user account in Firebase with the credentials provided
+      this.auth.signUpWithEmailPassword(this.signup.email, this.signup.password)
+      .then(() => this.SignUpSuccess())
+      .catch((error) => this.SignUpError(error));
+    }
+  }
+  
+  private inputIsValid() : boolean {
+    this.showValidationMessage = false;
+    console.log(this.signup.firstname);
+    if (this.signup.firstname == null) {
+      this.showValidationMessage = true;
+      this.validationMessage = 'Please enter your first name';
+      console.log(this.validationMessage);
+      return false;
+    }
+    if (this.signup.lastname == null) {
+      this.showValidationMessage = true;
+      this.validationMessage = 'Please enter your last name';
+      return false;
+    }
+    if (this.signup.email == null) {
+      this.showValidationMessage = true;
+      this.validationMessage = 'Please enter your email address';
+      return false;
+    }
+    if (this.signup.password == null) {
+      this.showValidationMessage = true;
+      this.validationMessage = 'Please enter a password';
+      return false;
+    }
+  }
+  
+  // 2) Authenticate user (login) in Firebase 
+  private SignUpSuccess(): void {
+    this.auth.signInWithEmailPassword(this.signup.email, this.signup.password)
       .then(() => this.LoginSuccess())
       .catch(() => this.LoginError());
   }
@@ -40,12 +93,15 @@ export class SignupPage {
     this.nav.present(alert);
   }
   
+  // 3) Save personal data to member node (personal profile)
   private LoginSuccess(): void {
-    this.nav.setRoot(AccountListPage);
+    this.user.firstname = this.signup.firstname;
+    this.user.lastname = this.signup.lastname;
+    this.auth.ref.child('members').child(this.auth.id).update(this.user);    
+    this.nav.setRoot(AccountListPage, {}, {animate: true, direction: 'forward'});
   }
   
   private LoginError(): void {
-    // Will be called if login fails
     let alert = Alert.create({
       title: 'Login Failed',
       subTitle: 'Please check your email and/or password and try again',
@@ -54,23 +110,14 @@ export class SignupPage {
     this.nav.present(alert);
   }
   
-  onSignup(form) {
-    this.submitted = true;
-    if (form.valid) {
-      this.auth.signUpWithEmailPassword(form.controls.username.value, form.controls.password.value)
-      .then(() => this.SignUpSuccess(form))
-      .catch((error) => this.SignUpError(error));
-    }
-  }
-  
   onPageDidEnter() {
     this.menu.enable(false);
     this.menu.swipeEnable(false);
   }
   
   onPageDidLeave() {
-    //this.menu.enable(true);
-    //this.menu.swipeEnable(true);
+    this.menu.enable(this.submitted);
+    this.menu.swipeEnable(this.submitted);
   }
   
 }

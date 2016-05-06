@@ -1,31 +1,23 @@
 <ion-navbar *navbar mlnavbar class="hide-border">
   <button menuToggle>
   </button>
+  <ion-title>Sign Up</ion-title>  
 </ion-navbar>
-
 <ion-content class="signupScreen">
-  <ion-list>   
-    <div id="signupHeading">      
-      <h1 style="color: #fff;text-align: center;"><strong>Sign Up</strong></h1>
+  <ion-list>
+    <div class="cssSlideUpHide" [ngClass]="{'cssSlideUpShow': showValidationMessage}">
+        <div class="validationDiv">
+            <p>
+                {{ validationMessage }}
+            </p>
+        </div>
     </div>
     <form #signupForm="ngForm" id="signupForm" novalidate> 
-      <button (click)="onSignup(signupForm)" type="submit" block><ion-icon name="ios-checkmark"></ion-icon></button>      
-      <ion-input [(ngModel)]="signup.firstname" ngControl="username" type="text" #firstname="ngForm" placeholder="first name" required></ion-input>
-      <p [hidden]="username.valid || submitted == false" danger padding-left>
-        First Name is required
-      </p>
-      <ion-input [(ngModel)]="signup.lastname" ngControl="username" type="text" #lastname="ngForm" placeholder="last name" required></ion-input>
-      <p [hidden]="username.valid || submitted == false" danger padding-left>
-        First Name is required
-      </p>
-      <ion-input [(ngModel)]="signup.username" ngControl="username" type="email" #username="ngForm" placeholder="email" required></ion-input>
-      <p [hidden]="username.valid || submitted == false" danger padding-left>
-        Email is required
-      </p>
-      <ion-input [(ngModel)]="signup.password" ngControl="password" type="password" #password="ngForm" placeholder="password" required></ion-input>
-      <p [hidden]="password.valid || submitted == false" danger padding-left>
-        Password is required
-      </p>
+      <button (click)="onSignup()" type="submit" block><ion-icon name="ios-checkmark"></ion-icon></button>      
+      <ion-input [(ngModel)]="signup.firstname" ngControl="firstname" type="text" #firstname="ngForm" placeholder="first name"></ion-input>
+      <ion-input [(ngModel)]="signup.lastname" ngControl="lastname" type="text" #lastname="ngForm" placeholder="last name"></ion-input>
+      <ion-input [(ngModel)]="signup.email" ngControl="email" type="email" #username="ngForm" placeholder="email"></ion-input>
+      <ion-input [(ngModel)]="signup.password" ngControl="password" type="password" #password="ngForm" placeholder="password"></ion-input>
     </form>
   </ion-list>
 </ion-content>

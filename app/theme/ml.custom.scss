@@ -52,3 +52,20 @@ ion-label[floating] {
 ion-input {
     margin-top: 7px;
 }
+
+/* Slide Animation for form messages */
+.cssSlideUpHide {
+    height: 0;
+}
+.cssSlideUpShow {
+    transition: .5s linear all;
+    height: 40px;
+    overflow: hidden;
+    background-color: #d9534f;
+    text-align: center;
+    padding-top: 0;
+}
+.cssSlideUpShow p {
+  color: #fff;
+  font-size: 14px;
+}
