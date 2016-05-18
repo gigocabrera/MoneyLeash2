@@ -1,0 +1,19 @@
+<ion-navbar *navbar mlnavbar>
+  <ion-buttons start>
+    <button (click)="dismiss()" mllightblue>
+      Cancel
+    </button>
+  </ion-buttons>  
+  <ion-title>Pick Default Balance</ion-title>  
+</ion-navbar>
+<ion-content>
+  <ion-list radio-group>
+    <ion-item-divider mlitemdivider>
+      Select preference when entering new transactions
+    </ion-item-divider>
+    <ion-item *ngFor="#item of defaultitem">
+        <ion-label>{{item.text}}</ion-label>
+        <ion-radio [value]="item.value" (click)="pickPreference(item)" ></ion-radio>
+    </ion-item>
+  </ion-list>
+</ion-content>

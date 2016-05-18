@@ -9,7 +9,7 @@
     </div>
     
     <form #loginForm="ngForm" id="loginFormId" novalidate>
-      <button (click)="onLogin(loginForm)" type="submit" block><ion-icon name="ios-power"></ion-icon></button>      
+      <button (click)="doLogin(loginForm)" type="submit" block><ion-icon name="ios-power"></ion-icon></button>      
       <ion-input [(ngModel)]="login.username" ngControl="username" type="email" #username="ngForm" placeholder="email" required></ion-input>
       <p [hidden]="username.valid || submitted == false" danger padding-left>
         Email is required
@@ -21,8 +21,8 @@
     </form>
     
     <div id="divLinks">
-      <button (click)="onForgotPassword()" clear class="mlLinks">Forgot Password?</button>
-      <button (click)="onSignup()" clear class="mlLinks right">Create Account</button>
+      <button (click)="doForgotPassword()" clear class="mlLinks">Forgot Password?</button>
+      <button (click)="doSignup()" clear class="mlLinks right">Create Account</button>
     </div>
     
   </ion-list>

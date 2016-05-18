@@ -1,6 +1,6 @@
 import {ViewChild} from 'angular2/core';
-import {App, Events, Platform, Nav} from 'ionic-angular';
-import {StatusBar} from 'ionic-native';
+import {App, Events, Platform, Nav, MenuController} from 'ionic-angular';
+import {StatusBar, Splashscreen} from 'ionic-native';
 
 /* Original ionic-conference-app pages */
 import {ConferenceData} from './providers/conference-data';
@@ -40,17 +40,25 @@ interface PageObj {
   templateUrl: 'build/app.html',
   providers: [
     ConferenceData, 
-    UserData, 
+    UserData,
     AuthProvider
-  ], 
-  config: {}
+  ],
+  // Set any config for your app here, see the docs for
+  // more ways to configure your app:
+  // http://ionicframework.com/docs/v2/api/config/Config/
+  config: {
+    // Place the tabs on the bottom for all platforms
+    // See the theming docs for the default values:
+    // http://ionicframework.com/docs/v2/theming/platform-specific-styles/
+    tabbarPlacement: "bottom"
+  }
 })
 class MoneyLeashApp {
   
   // the root nav is a child of the root app component
   // @ViewChild(Nav) gets a reference to the app's root nav
   @ViewChild(Nav) nav: Nav;
-  
+
   // List of pages that can be navigated to from the left menu
   // the left menu only works after login
   // the login page disables the left menu
@@ -72,24 +80,29 @@ class MoneyLeashApp {
   ];
   
   // Default root page
-  rootPage: any = TutorialPage; 
+  rootPage: any = TutorialPage;
   loggedIn = false;
 
   constructor(
     private events: Events,
     private userData: UserData,
     private auth: AuthService,
+    private menu: MenuController,
     platform: Platform,
     confData: ConferenceData
   ) {
     // Call any initial plugins when ready
     platform.ready().then(() => {
       StatusBar.styleDefault();
+      Splashscreen.hide();
     });
+
+    // load the conference data
+    confData.load();
 
     // decide which menu items should be hidden by current login status stored in local storage
     this.userData.hasLoggedIn().then((hasLoggedIn) => {
-      this.loggedIn = (hasLoggedIn == 'true');
+      this.enableMenu(hasLoggedIn == 'true');
     });
     this.listenToLoginEvents();
   }
@@ -114,19 +127,24 @@ class MoneyLeashApp {
 
   listenToLoginEvents() {
     this.events.subscribe('user:login', () => {
-      this.loggedIn = true;
+      this.enableMenu(true);
     });
 
     this.events.subscribe('user:signup', () => {
-      this.loggedIn = true;
+      this.enableMenu(true);
     });
 
     this.events.subscribe('user:logout', () => {
-      this.loggedIn = false;
+      this.enableMenu(false);
     });
   }
+
+  enableMenu(loggedIn) {
+    this.menu.enable(loggedIn, "loggedInMenu");
+    this.menu.enable(!loggedIn, "loggedOutMenu");
+  }
   
-  signOut(): void {
+   signOut(): void {
     this.auth.signOut();
   }
   

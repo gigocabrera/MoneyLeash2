@@ -8,22 +8,23 @@ import {SignupPage} from '../signup/signup';
 export class LogoutPage {
   constructor(private nav: NavController, private menu: MenuController) {}
   
-  onLogin(form) {
+  doLogin(form) {
     this.nav.push(LoginPage, {}, {animate: true, direction: 'reverse'});
   }
 
-  onSignup() {
+  doSignup() {
     this.nav.push(SignupPage, {}, {animate: true, direction: 'reverse'});
   }
   
   onPageDidEnter() {
-    this.menu.enable(false);
-    this.menu.swipeEnable(false);
+    this.menu.enable(false, "loggedInMenu");
+    this.menu.enable(false, "loggedOutMenu");
+    this.menu.swipeEnable(false, "loggedOutMenu");
   }
   
-  onPageDidLeave() {
-    this.menu.enable(true);
-    this.menu.swipeEnable(true);
-  }
+  /*onPageDidLeave() {
+    this.menu.enable(false);
+    this.menu.swipeEnable(false);
+  }*/
   
 }

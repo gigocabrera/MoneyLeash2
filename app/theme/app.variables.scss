@@ -13,7 +13,7 @@
 // variables before Ionic's Sass will use these variables rather than
 // Ionic's default Sass variable values. App Shared Sass imports belong
 // in the app.core.scss file and not this file. Sass variables specific
-// to the mode belong in either the app.ios.scss or app.md.scss files.
+// to the mode belong in the app.ios.scss, app.md.scss, or app.wp.scss files.
 
 
 // App Shared Color Variables
@@ -26,21 +26,22 @@
 // are different per mode.
 
 $colors: (
-  primary:        #387ef5,
-  secondary:      #32db64,
-  danger:         #f53d3d,
-  light:          #f4f4f4,
-  dark:           #222,
-  favorite:       #69BB7B,
-  twitter:        #53ACEB,
-  github:         #000000,
-  instagram:      #235D8D,
-  mlitemdivider:  #D3EAF0,
-  mllightblue:    #31C0E6,
-  mlwhite:        #ffffff,
+  primary:           #387ef5,
+  secondary:         #32db64,
+  danger:            #f53d3d,
+  light:             #f4f4f4,
+  dark:              #222,
+  favorite:          #69BB7B,
+  twitter:           #53ACEB,
+  github:            #000000,
+  instagram:         #235D8D,
+  mlitemdivider:     #D3EAF0,
+  mlitemdividerBlack:#000000,
+  mllightblue:       #31C0E6,
+  mlwhite:           #ffffff,
   mlnavbar:    (
     base: #172F39,
     contrast: #31C0E6
   ),
-  mlnavbarmenu:     #28a54c
+  mlnavbarmenu:        #28a54c
 );

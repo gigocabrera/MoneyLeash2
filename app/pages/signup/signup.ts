@@ -1,4 +1,5 @@
-import {Page, NavController, MenuController, Alert} from 'ionic-angular';
+import {Page, NavController, MenuController, Alert, Loading} from 'ionic-angular';
+import {UserData} from '../../providers/user-data';
 import {AccountListPage} from '../mymoney/account-list/account-list';
 import {AuthService} from '../../providers/auth-service';
 
@@ -29,25 +30,15 @@ export class SignupPage {
   constructor(
     private nav: NavController,
     private menu: MenuController,
+    private userData: UserData,
     private auth: AuthService) {}
 
-  onSignup() {
-    this.submitted = true;
-    if (this.inputIsValid()) {
-      // 1) Create user account in Firebase with the credentials provided
-      this.auth.signUpWithEmailPassword(this.signup.email, this.signup.password)
-      .then(() => this.SignUpSuccess())
-      .catch((error) => this.SignUpError(error));
-    }
-  }
-  
   private inputIsValid() : boolean {
     this.showValidationMessage = false;
-    console.log(this.signup.firstname);
+    this.validationMessage = '';
     if (this.signup.firstname == null) {
       this.showValidationMessage = true;
       this.validationMessage = 'Please enter your first name';
-      console.log(this.validationMessage);
       return false;
     }
     if (this.signup.lastname == null) {
@@ -65,13 +56,42 @@ export class SignupPage {
       this.validationMessage = 'Please enter a password';
       return false;
     }
+    return true;
   }
   
-  // 2) Authenticate user (login) in Firebase 
+  doSignup() {
+    this.submitted = true;
+    if (this.inputIsValid()) {
+      //
+      // Save email to localStorage
+      this.userData.signup(this.signup.email);
+      //
+      // 1) Create user account in Firebase with the credentials provided
+      //
+      this.auth.signUpWithEmailPassword(this.signup.email, this.signup.password)
+      .then(() => this.SignUpSuccess())
+      .catch((error) => this.SignUpError(error));
+    }
+  }
+   
   private SignUpSuccess(): void {
+    //
+    // 2) Authenticate user (login) in Firebase
+    //
     this.auth.signInWithEmailPassword(this.signup.email, this.signup.password)
       .then(() => this.LoginSuccess())
       .catch(() => this.LoginError());
+  }
+  
+  private LoginSuccess(): void {
+    //
+    // 3) Save personal data to member node (personal profile)
+    //
+    this.user.firstname = this.signup.firstname;
+    this.user.lastname = this.signup.lastname;
+    this.auth.saveUserProfile(this.user);
+    this.auth.createDefaults();
+    this.nav.setRoot(AccountListPage, {}, {animate: true, direction: 'forward'});
   }
   
   private SignUpError(error): void {
@@ -91,14 +111,6 @@ export class SignupPage {
       buttons: ['Ok']
     });
     this.nav.present(alert);
-  }
-  
-  // 3) Save personal data to member node (personal profile)
-  private LoginSuccess(): void {
-    this.user.firstname = this.signup.firstname;
-    this.user.lastname = this.signup.lastname;
-    this.auth.ref.child('members').child(this.auth.id).update(this.user);    
-    this.nav.setRoot(AccountListPage, {}, {animate: true, direction: 'forward'});
   }
   
   private LoginError(): void {

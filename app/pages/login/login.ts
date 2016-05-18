@@ -32,20 +32,23 @@ export class LoginPage {
     this.nav.present(alert);
   }
   
-  onLogin(form) {
+  doLogin(form) {
     this.submitted = true;
     if (form.valid) {
+      // 1) Save in localStorage
+      this.userData.login(this.login.username);
+      // 2) Sign in with credentials provided
       this.auth.signInWithEmailPassword(form.controls.username.value, form.controls.password.value)
       .then(() => this.LoginSuccess())
       .catch(() => this.LoginError());
     }
   }
 
-  onSignup() {
+  doSignup() {
     this.nav.push(SignupPage);
   }
   
-  onForgotPassword() {
+  doForgotPassword() {
     this.nav.push(ForgotPasswordPage);
   }
   

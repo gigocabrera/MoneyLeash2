@@ -24,12 +24,12 @@ export class PersonalProfilePage {
       
   constructor(
       private nav: NavController,
-      private auth: AuthService) {}
-  
-  onPageDidEnter() {
-    this.refreshUser();
-  }
-  
+      private auth: AuthService) {
+        
+        // populate screen here
+        this.refreshUser();
+      }
+   
   private refreshUser() {
     this.auth.getUserProfile(this.auth.id).then(thisUser => {
       this.user = thisUser;
@@ -82,13 +82,13 @@ export class PersonalProfilePage {
             .then(res => {
               this.nav.present(
                 Alert.create({
-                  title: 'ARE YOU SURE?',
-                  message: 'This will also delete ALL your data!',
+                  title: 'Please Confirm',
+                  message: 'Delete your account and ALL your data?',
                   buttons: [
                     {
                       text: 'Cancel',
                       handler: () => {
-                        console.log('Cancel clicked');
+                        console.log('Cancel RemoveUser clicked');
                       }
                     },
                     {
@@ -138,7 +138,7 @@ export class PersonalProfilePage {
     this.nav.present(modal);
     modal.onDismiss((data: any[]) => {
       if (data) {
-        console.log(data);
+        this.doResetPassword(data);
       }
     });
   }
@@ -230,12 +230,13 @@ export class PersonalProfilePage {
       
       // We need to authenticate user again with new email to refresh auth token
       this.auth.signInWithEmailPassword(data.newemail, data.password)
-      .then(() => this.LoginResult(myAlert, loading))
-      .catch(() => this.LoginResult(myAlert, loading));
-    }); 
+      .then(() => this.DisplayResult(myAlert, loading))
+      .catch(() => this.DisplayResult(myAlert, loading));
+    });
   }
   
   private doChangePassword(data): void {
+    
     // Show loading component due to the time it takes Firebase to complete
     let loading = Loading.create({
       content: 'Please wait...'
@@ -246,11 +247,69 @@ export class PersonalProfilePage {
       title?: string, 
       subtitle?: string
     } = {};
+    this.auth.ref.changePassword({
+      email: data.email,
+      oldPassword: data.oldpassword,
+      newPassword: data.newpassword
+    }, (error) => {
+      if (error) {
+        switch (error.code) {
+          case "INVALID_PASSWORD":
+            myAlert.title = 'Invalid Password';
+            myAlert.subtitle = 'The specified user account password is incorrect.';
+            break;
+          case "INVALID_USER":
+            myAlert.title = 'Invalid User';
+            myAlert.subtitle = 'The specified user account does not exist.';
+            break;
+          default:
+            myAlert.title = 'Error changing password';
+            myAlert.subtitle = error;
+        }
+      } else {
+        myAlert.title = 'DONE';
+        myAlert.subtitle = 'User password changed successfully!';
+      }
+      this.DisplayResult(myAlert, loading);      
+    });
     
-    console.log('do change password here');
   }
   
-  private LoginResult(myAlert, loading): void {
+  private doResetPassword(data): void {
+    
+    // Show loading component due to the time it takes Firebase to complete
+    let loading = Loading.create({
+      content: 'Please wait...'
+    });
+    this.nav.present(loading);
+    
+    var myAlert: {
+      title?: string, 
+      subtitle?: string
+    } = {};
+    this.auth.ref.resetPassword({
+      email: data.email
+    }, (error) => {
+      if (error) {
+        switch (error.code) {
+          case "INVALID_USER":
+            myAlert.title = 'Invalid User';
+            myAlert.subtitle = 'The specified user account does not exist.';
+            break;
+          default:
+            myAlert.title = 'Error resetting password';
+            myAlert.subtitle = error;
+        }
+      } else {
+        myAlert.title = 'DONE';
+        myAlert.subtitle = 'Password reset email sent successfully!';
+      }
+      this.DisplayResult(myAlert, loading);      
+    });
+    
+  }
+  
+  private DisplayResult(myAlert, loading): void {
     loading.dismiss();
     let alert = Alert.create({
       title: myAlert.title,

@@ -11,13 +11,20 @@
 // --------------------------------------------------
 // Material Design only Sass variables can go here
 
+// Use the primary color as the background for the toolbar-md-background
+$toolbar-md-background:                   color($colors, primary);
 
-$toolbar-md-background:                   color($colors, primary) !default;
-$toolbar-md-text-color:                   #fff !default;
-$toolbar-md-active-color:                 #fff !default;
-$toolbar-md-inactive-color:               #fff !default;
+// Use the default background for the tabbar since it inherits from toolbar
+$tabbar-md-background:                    #f8f8f8;
 
-$segment-button-md-text-color-activated:  #fff !default;
+// Change the color of the tabs text
+$tab-button-md-active-color:              color($colors, primary);
+$tab-button-md-inactive-color:            #8c8c8c;
+
+// Change the color of the segment button text
+$toolbar-md-active-color:                 #fff;
+$toolbar-md-inactive-color:               #fff;
+$segment-button-md-text-color-activated:  #fff;
 
 // Ionic Material Design Sass
 // --------------------------------------------------
@@ -28,7 +35,7 @@ $segment-button-md-text-color-activated:  #fff !default;
 
 // App Shared Sass
 // --------------------------------------------------
-// All Sass files that make up this app goes into the app.core.scss file.
+// All Sass files that make up this app go into the app.core.scss file.
 // For simpler CSS overrides, custom app CSS must come after Ionic's CSS.
 @import 'app.core';
 

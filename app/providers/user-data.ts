@@ -4,11 +4,20 @@ import {Storage, LocalStorage, Events} from 'ionic-angular';
 
 @Injectable()
 export class UserData {
+  
   _favorites = [];
   HAS_LOGGED_IN = 'hasLoggedIn';
   storage = new Storage(LocalStorage);
   email = '';
   password = '';
+  
+  // Global user settings and preference
+  globalSettings: {
+    defaultdatedisplay?: string, 
+    defaultdate?: string,
+    defaultbalancedisplay?: string,
+    defaultbalance?: string    
+  } = {};
 
   constructor(private events: Events) {}
 
@@ -27,18 +36,32 @@ export class UserData {
     }
   }
 
-  login(email, password) {
+  login(username) {
+    this.storage.set(this.HAS_LOGGED_IN, true);
+    this.setUsername(username);
     this.events.publish('user:login');
-    this.storage.set(this.email, email);
-    this.storage.set(this.password, password);
   }
 
-  signup() {
+  signup(username) {
+    this.storage.set(this.HAS_LOGGED_IN, true);
+    this.setUsername(username);
     this.events.publish('user:signup');
   }
 
   logout() {
+    this.storage.remove(this.HAS_LOGGED_IN);
+    this.storage.remove("username");
     this.events.publish('user:logout');
+  }
+
+  setUsername(username) {
+    this.storage.set("username", username);
+  }
+
+  getUsername() {
+    return this.storage.get("username").then((value) => {
+      return value;
+    });
   }
 
   // return a promise
@@ -47,5 +70,4 @@ export class UserData {
       return value;
     });
   }
-  
 }

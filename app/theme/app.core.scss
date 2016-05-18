@@ -1,5 +1,9 @@
 // http://ionicframework.com/docs/v2/theming/
 
+// App Shared Sass
+// --------------------------------------------------
+// CSS that should apply to the app for every mode
+
 
 // App Shared Imports
 // --------------------------------------------------
@@ -9,6 +13,7 @@
 
 // Styles specific for ionic-conference-app
 @import "../pages/about/about";
+@import "../pages/account/account";
 @import "../pages/tutorial/tutorial";
 @import "../pages/map/map";
 @import "../pages/schedule/schedule";

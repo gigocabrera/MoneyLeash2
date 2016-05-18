@@ -9,8 +9,7 @@ export class ChangePasswordPage {
   user: {
     email?: string,
     oldpassword?: string,
-    newpassword?: string,
-    confirmpassword?: string
+    newpassword?: string
   } = {};
         
   constructor(

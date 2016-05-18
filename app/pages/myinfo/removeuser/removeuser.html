@@ -1,20 +1,20 @@
-<ion-navbar *navbar mlnavbar>  
+<ion-navbar *navbar danger>  
   <ion-buttons start>
     <button (click)="dismiss()" mllightblue>
       Cancel
     </button>
   </ion-buttons>  
-  <ion-title>Remove User</ion-title>
+  <ion-title>Delete Account</ion-title>
   <ion-buttons end>
     <button (click)="removeUser(user)" mllightblue>
-      Save
+      Delete
     </button>
   </ion-buttons>  
 </ion-navbar>
 <ion-content>
   <ion-list>
-    <ion-item-divider mlitemdivider>
-      Pleaes Confirm your Password
+    <ion-item-divider mlitemdividerBlack>
+      Please confirm your password
     </ion-item-divider>    
     <ion-item class="ml-input">
       <ion-icon name="lock" item-left class="ml-icon-left"></ion-icon>

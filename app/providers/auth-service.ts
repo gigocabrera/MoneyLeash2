@@ -71,17 +71,8 @@ export class AuthService {
       });
     });
   }
-
-  signOut(): void {
-    this.ref.unauth();
-  }
-
-  subscribe(next: (authenticated: boolean) => void): any {
-    let subscription = this.emitter.subscribe(next);
-    this.emit();
-    return subscription;
-  }
-
+  
+  // AUTH with oAuth
   private authWithOAuth(provider: string): Promise<any> {
     return new Promise((resolve: () => void, reject: (reason: Error) => void) => {
       this.ref.authWithOAuthPopup(provider, (error: Error) => {
@@ -96,6 +87,16 @@ export class AuthService {
     });
   }
 
+  signOut(): void {
+    this.ref.unauth();
+  }
+
+  subscribe(next: (authenticated: boolean) => void): any {
+    let subscription = this.emitter.subscribe(next);
+    this.emit();
+    return subscription;
+  }
+
   private emit(): void {
     this.emitter.next(this.authenticated);
   }
@@ -106,6 +107,16 @@ export class AuthService {
         resolve(snapshot.val());
       })
     })
+  }
+  
+  saveUserProfile(user) {
+    this.ref.child('members').child(this.authData.uid).update(user);
+  }
+  
+  createDefaults() {
+    var refPref = this.ref.child("members").child(this.authData.uid).child("settings");
+    refPref.update({defaultdate: 'last'});
+    refPref.update({defaultbalance: 'cleared'});
   }
   
 }
