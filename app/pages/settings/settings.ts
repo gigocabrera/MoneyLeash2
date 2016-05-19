@@ -4,6 +4,7 @@ import {UserData} from '../../providers/user-data';
 import {TabsPage} from '../tabs/tabs';
 import {PersonalProfilePage} from '../myinfo/personalprofile/personalprofile';
 import {AccountsTransactionsPage} from '../mysettings/accountstransactions/accountstransactions';
+import {SecurityPage} from '../mysettings/security/security';
 import {AccountPage} from '../../pages/account/account';
 
 interface PageObj {
@@ -23,7 +24,7 @@ export class SettingsPage {
   settingsPages: PageObj[] = [
     { title: 'Personal Profile', component: PersonalProfilePage, icon: 'ios-contact-outline' },
       { title: 'Accounts / Transactions', component: AccountsTransactionsPage, icon: 'ios-construct-outline' },
-      { title: 'Security', component: PersonalProfilePage, icon: 'ios-lock-outline' },
+      { title: 'Security', component: SecurityPage, icon: 'ios-lock-outline' },
       { title: 'Report a Bug', component: PersonalProfilePage, icon: 'ios-bug-outline' },
       { title: 'Suggest a Feature', component: PersonalProfilePage, icon: 'ios-bulb-outline' },
       { title: 'Write a Review', component: PersonalProfilePage, icon: 'ios-heart-outline' },

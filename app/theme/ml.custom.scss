@@ -2,7 +2,6 @@
 @import url("https://fonts.googleapis.com/css?family=PT+Sans");
 @import url("https://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700");
 
-
 /* Styles toolbar titles */
 .toolbar[mlnavbar] .toolbar-title {
   color: #fff;
@@ -10,11 +9,12 @@
 
 /* Styles for MoneyLeash advanced input fields */
 .ml-input {
-  height: 52px;
+  height: 50px;
   border-bottom: 1px solid #c8c7cc;
 }
 .ml-input .item-inner {
   border-bottom: 0;
+  margin-left: 7px;
 }
 .ml-icon-left {
   background-color: #eeeeee;
@@ -50,7 +50,7 @@ ion-label[floating] {
     margin-bottom: 0;
 }
 ion-input {
-    margin-top: 7px;
+    margin-top: 5px;
 }
 
 /* Slide Animation for form messages */
@@ -73,4 +73,20 @@ ion-input {
 /* custom chevron icon */
 .ml-chevron-right {
   color: #c8c7cc
+}
+
+/* custom fontawesome icons used in forms */
+.ml-fontawesome-left {
+  background-color: #eeeeee;
+  text-align: center;
+  height: 50px;
+  width: 50px;
+}
+.ml-input i {
+  margin: 0;
+}
+.ml-input i:before {
+  font-size: 24px;
+  color: #919191;
+  line-height: 50px;
 }

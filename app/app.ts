@@ -93,7 +93,7 @@ class MoneyLeashApp {
   ) {
     // Call any initial plugins when ready
     platform.ready().then(() => {
-      StatusBar.styleDefault();
+      StatusBar.styleLightContent();
       Splashscreen.hide();
     });
 

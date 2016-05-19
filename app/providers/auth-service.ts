@@ -114,9 +114,9 @@ export class AuthService {
   }
   
   createDefaults() {
-    var refPref = this.ref.child("members").child(this.authData.uid).child("settings");
-    refPref.update({defaultdate: 'last'});
-    refPref.update({defaultbalance: 'cleared'});
+    var refPref = this.ref.child("members").child(this.authData.uid).child("preferences");
+    refPref.update({prefdate: 'last'});
+    refPref.update({prefbalance: 'cleared'});
   }
   
 }

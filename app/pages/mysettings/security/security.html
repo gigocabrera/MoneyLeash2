@@ -1,0 +1,30 @@
+<ion-navbar *navbar mlnavbar>  
+  <ion-title>Security</ion-title>
+  <ion-buttons end>
+    <button (click)="save()" mllightblue>
+      Save
+    </button>
+  </ion-buttons>  
+</ion-navbar>
+<ion-content>
+  <ion-list>
+    <ion-item-divider mlitemdivider>
+      Select your security preferences below
+    </ion-item-divider>
+    <ion-item class="ml-input">
+      <i class="fa fa-hand-o-up ml-fontawesome-left" item-left></i>
+      <ion-label>Enable Touch ID</ion-label>
+      <ion-toggle secondary checked="true"></ion-toggle>
+    </ion-item>
+    <ion-item class="ml-input">
+      <i class="fa fa-at ml-fontawesome-left" item-left></i>
+      <ion-label floating primary>Email</ion-label>
+      <ion-input type="text" [(ngModel)]="user.email" readonly></ion-input>
+    </ion-item>
+    <ion-item class="ml-input">
+      <i class="fa fa-unlock-alt ml-fontawesome-left" item-left></i>
+      <ion-label floating primary>Password</ion-label>
+      <ion-input type="text" [(ngModel)]="user.password" readonly></ion-input>
+    </ion-item>
+  </ion-list>
+</ion-content>
