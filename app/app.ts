@@ -1,4 +1,4 @@
-import {ViewChild} from 'angular2/core';
+import {ViewChild} from '@angular/core';
 import {App, Events, Platform, Nav, MenuController} from 'ionic-angular';
 import {StatusBar, Splashscreen} from 'ionic-native';
 
@@ -50,7 +50,7 @@ interface PageObj {
     // Place the tabs on the bottom for all platforms
     // See the theming docs for the default values:
     // http://ionicframework.com/docs/v2/theming/platform-specific-styles/
-    tabbarPlacement: "bottom"
+    tabbarPlacement: 'bottom'
   }
 })
 class MoneyLeashApp {
@@ -102,7 +102,7 @@ class MoneyLeashApp {
 
     // decide which menu items should be hidden by current login status stored in local storage
     this.userData.hasLoggedIn().then((hasLoggedIn) => {
-      this.enableMenu(hasLoggedIn == 'true');
+      this.enableMenu(hasLoggedIn === 'true');
     });
     this.listenToLoginEvents();
   }
@@ -140,8 +140,8 @@ class MoneyLeashApp {
   }
 
   enableMenu(loggedIn) {
-    this.menu.enable(loggedIn, "loggedInMenu");
-    this.menu.enable(!loggedIn, "loggedOutMenu");
+    this.menu.enable(loggedIn, 'loggedInMenu');
+    this.menu.enable(!loggedIn, 'loggedOutMenu');
   }
   
    signOut(): void {

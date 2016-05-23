@@ -1,12 +1,12 @@
 <ion-navbar *navbar>
   <ion-buttons end *ngIf="showSkip">
-    <button mllightblue (click)="startApp()">Skip</button>
+    <button (click)="startApp()" mllightblue>Skip</button>
   </ion-buttons>
 </ion-navbar>
 
 <ion-content>
-  <ion-slides pager (slideChangeStart)="onSlideChangeStart($event)">
-    <ion-slide *ngFor="#slide of slides">
+  <ion-slides [options]="{pager: true}" (slideChangeStart)="onSlideChangeStart($event)">
+    <ion-slide *ngFor="let slide of slides">
       <div class="divImage">
         <i class="{{slide.icon}} {{slide.color}}"></i>
       </div>

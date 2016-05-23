@@ -1,7 +1,6 @@
-import {Injectable} from 'angular2/core';
-import {Http} from 'angular2/http';
-import {UserData} from './user-data';;
-
+import {Injectable} from '@angular/core';
+import {Http} from '@angular/http';
+import {UserData} from './user-data';
 
 @Injectable()
 export class ConferenceData {
@@ -73,12 +72,12 @@ export class ConferenceData {
     }
   }
 
-  getTimeline(dayIndex, queryText='', excludeTracks=[], segment='all') {
+  getTimeline(dayIndex, queryText = '', excludeTracks = [], segment = 'all') {
     return this.load().then(data => {
       let day = data.schedule[dayIndex];
       day.shownSessions = 0;
 
-      queryText = queryText.toLowerCase().replace(/,|\.|-/g,' ');
+      queryText = queryText.toLowerCase().replace(/,|\.|-/g, ' ');
       let queryWords = queryText.split(' ').filter(w => !!w.trim().length);
 
       day.groups.forEach(group => {
