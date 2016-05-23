@@ -34,8 +34,6 @@
 }
 #loginFormId input {
   padding: 16px;
-  border-radius:7px;
-  border: 0;
   background: rgba(255,255,255,.2);
   display: block;
   margin: 10px;
@@ -45,7 +43,6 @@
   height: 50px;
 }
 #loginFormId input:focus {
-  outline-color: rgba(0,0,0,0);
   background: rgba(255,255,255,.95);
   color: #e74c3c;
 }
@@ -53,13 +50,11 @@
   float:right;
   height: 110px;
   width: 60px;
-  border: 0;
   background: #e74c3c;
-  border-radius:7px;
-  padding: 10px;
   color:white;
   font-size:30px;
-  margin: 0;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 #loginFormId input::-webkit-input-placeholder {
   color: white;

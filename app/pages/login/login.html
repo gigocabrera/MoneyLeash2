@@ -1,30 +1,25 @@
-<ion-navbar *navbar mlnavbar class="hide-border"></ion-navbar>
-
-<ion-content class="loginScreen">
-  
+<ion-navbar *navbar mlnavbar class="hide-border">
+  <ion-title>Login</ion-title>
+</ion-navbar>
+<ion-content class="loginScreen">  
   <ion-list>   
     <div id="loginHeading">
       <ion-icon name="ios-lock-outline"></ion-icon>
-      <h1 style="color: #fff;text-align: center;"><strong>Login</strong></h1>
-    </div>
-    
+    </div>    
     <form #loginForm="ngForm" id="loginFormId" novalidate>
       <button (click)="doLogin(loginForm)" type="submit" block><ion-icon name="ios-power"></ion-icon></button>      
-      <ion-input [(ngModel)]="login.username" ngControl="username" type="email" #username="ngForm" placeholder="email" required></ion-input>
+      <ion-input [(ngModel)]="login.username" ngControl="username" type="email" #username="ngForm" placeholder="email"></ion-input>
       <p [hidden]="username.valid || submitted == false" danger padding-left>
         Email is required
       </p>
-      <ion-input [(ngModel)]="login.password" ngControl="password" type="password" #password="ngForm" placeholder="password" required></ion-input>
+      <ion-input [(ngModel)]="login.password" ngControl="password" type="password" #password="ngForm" placeholder="password"></ion-input>
       <p [hidden]="password.valid || submitted == false" danger padding-left>
         Password is required
       </p>
-    </form>
-    
+    </form>    
     <div id="divLinks">
       <button (click)="doForgotPassword()" clear class="mlLinks">Forgot Password?</button>
       <button (click)="doSignup()" clear class="mlLinks right">Create Account</button>
-    </div>
-    
-  </ion-list>
-  
+    </div>    
+  </ion-list>  
 </ion-content>
