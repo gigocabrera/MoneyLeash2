@@ -1,5 +1,5 @@
 import {App, Page, NavController} from 'ionic-angular';
-import {Injectable} from 'angular2/core';
+import {Injectable} from '@angular/core';
 import {UserData} from '../../providers/user-data';
 import {TabsPage} from '../tabs/tabs';
 import {PersonalProfilePage} from '../myinfo/personalprofile/personalprofile';

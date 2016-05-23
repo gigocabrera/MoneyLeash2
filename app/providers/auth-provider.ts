@@ -1,7 +1,7 @@
 //
 // https://github.com/r-park/todo-angular2-firebase
 //
-import {provide} from 'angular2/core';
+import {provide} from '@angular/core';
 import {FIREBASE_URL} from './firebase-urls';
 import {AuthService} from './auth-service';
 

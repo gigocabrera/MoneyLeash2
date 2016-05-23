@@ -1,7 +1,7 @@
 //
 // https://github.com/r-park/todo-angular2-firebase
 //
-import {EventEmitter} from 'angular2/core';
+import {EventEmitter} from '@angular/core';
 
 export class AuthService {
   public authData: FirebaseAuthData;
