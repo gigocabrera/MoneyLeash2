@@ -1,4 +1,4 @@
-//
+  //
 // Signup screen based on http://codepen.io/lsgrrd/pen/xvwHn
 //
 .mlLinks {
@@ -8,16 +8,11 @@
 }
 #signupHeading {
   text-align: center;
-  margin-top: 0;
-}
-#signupHeading h1 {
-  color: #fff;
-  font: 33px 'PT Sans Narrow';
-  margin-top: 0;
+  margin-top: 10px;
 }
 #signupHeading ion-icon {
   color: #285264;
-  font-size: 100px;
+  font-size: 200px;
 }
 #signupForm ion-icon {
   color: #fff;
@@ -32,25 +27,23 @@
   width: 330px;
   height: auto;
 }
-#signupForm input {
+#signupForm .text-input {
   padding: 16px;
-  border-radius:7px;
   border: 0;
   background: rgba(255,255,255,.2);
   display: block;
   margin: 10px;
   width: 250px;
-  color:white;
-  font-size:17px;
+  color: white;
+  font-size: 17px;
   height: 50px;
 }
-#signupForm input:focus {
-  outline-color: rgba(0,0,0,0);
+#signupForm .text-input:focus {
   background: rgba(255,255,255,.95);
   color: #e74c3c;
 }
 #signupForm button {
-  float:right;
+  float: right;
   height: 228px;
   width: 60px;
   border: 0;
@@ -60,6 +53,7 @@
   color:white;
   font-size:30px;
   margin: 0;
+  border-radius:0;
 }
 #signupForm input::-webkit-input-placeholder {
   color: white;

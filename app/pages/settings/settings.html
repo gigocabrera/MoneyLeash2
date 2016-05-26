@@ -11,7 +11,7 @@
       Global App Settings
     </ion-item-divider>
     <ion-list>
-      <button ion-item *ngFor="#p of settingsPages" (click)="openPage(p)">
+      <button ion-item *ngFor="let p of settingsPages" (click)="openPage(p)">
         <ion-icon item-left [name]="p.icon"></ion-icon>
         {{p.title}}
       </button>
