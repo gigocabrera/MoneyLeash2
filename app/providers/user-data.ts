@@ -13,10 +13,10 @@ export class UserData {
   
   // Global user settings and preference
   globalSettings: {
-    defaultdatedisplay?: string, 
+    defaultdatedisplay?: string,
     defaultdate?: string,
     defaultbalancedisplay?: string,
-    defaultbalance?: string    
+    defaultbalance?: string
   } = {};
 
   constructor(private events: Events) {}

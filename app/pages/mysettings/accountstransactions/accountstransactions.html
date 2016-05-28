@@ -11,17 +11,15 @@
     <ion-item-divider mlitemdivider>
       Select your preferences below
     </ion-item-divider>
-    <ion-item class="ml-input" (click)="pickDefaultDate()">
+    <button ion-item class="ml-input" (click)="pickDefaultDate()">
       <i class="fa fa-calendar ml-fontawesome-left" item-left></i>
       <ion-label floating primary>Default Date</ion-label>
       <ion-input type="text" [(ngModel)]="settings.defaultdatedisplay" readonly></ion-input>
-      <ion-icon name="arrow-forward" item-right class="ml-chevron-right"></ion-icon>
-    </ion-item>
-    <ion-item class="ml-input" (click)="pickDefaultBalance()">
+    </button>
+    <button ion-item class="ml-input" (click)="pickDefaultBalance()">
       <i class="fa fa-money ml-fontawesome-left" item-left></i>
       <ion-label floating primary>Default Balance</ion-label>
       <ion-input type="text" [(ngModel)]="settings.defaultbalancedisplay" readonly></ion-input>
-      <ion-icon name="arrow-forward" item-right class="ml-chevron-right"></ion-icon>
-    </ion-item>
+    </button>
   </ion-list>
 </ion-content>

@@ -10,7 +10,6 @@
 /* Styles for MoneyLeash advanced input fields */
 .ml-input {
   height: 50px;
-  border-bottom: 1px solid #c8c7cc;
 }
 .ml-input .item-inner {
   border-bottom: 0;
@@ -21,8 +20,12 @@
   height: 49px;
   width: 50px;
 }
-.ml-input.item {
+.ml-input {
   padding: 0;
+  border-top: 1px solid #c8c7cc;
+}
+ion-item-divider[mlitemdivider] {
+    border-top: 1px solid #c8c7cc;
 }
 .ml-input.input-has-focus ion-label[floating], .ml-input.input-has-value ion-label[floating] {
   transform: translate3d(0, 7px, 0) scale(0.7);
@@ -43,7 +46,7 @@
   margin-bottom: 0;
 }
 ion-label[floating] {
-  transform: translate3d(0, 7px, 0);
+  transform: translate3d(0, 4px, 0);
 }
 .item-label-floating .text-input {
     margin-top: 0;

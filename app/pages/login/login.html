@@ -3,14 +3,16 @@
 </ion-navbar>
 <ion-content class="loginScreen">  
   <ion-list>       
-    <div id="loginHeading">
+    <div id="divLoginHeading">
       <ion-icon name="ios-lock-outline"></ion-icon>
     </div>
-    <form #loginForm="ngForm" id="loginFormId" novalidate>
-      <button (click)="doLogin(loginForm)" type="submit" block><ion-icon name="ios-power"></ion-icon></button>      
-      <ion-input [(ngModel)]="login.username" ngControl="username" type="email" #username="ngForm" placeholder="email"></ion-input>
-      <ion-input [(ngModel)]="login.password" ngControl="password" type="password" #password="ngForm" placeholder="password"></ion-input>
-    </form>
+    <div id="divLoginForm">
+      <form #loginForm="ngForm" id="loginFormId" novalidate>
+        <button (click)="doLogin(loginForm)" type="submit" block><ion-icon name="ios-power"></ion-icon></button>      
+        <ion-input [(ngModel)]="login.username" ngControl="username" type="email" #username="ngForm" placeholder="email"></ion-input>
+        <ion-input [(ngModel)]="login.password" ngControl="password" type="password" #password="ngForm" placeholder="password"></ion-input>
+      </form>
+    </div>
     <div id="divLinks">
       <button (click)="doForgotPassword()" clear class="mlLinks">Forgot Password?</button>
       <button (click)="doSignup()" clear class="mlLinks right">Sign Up</button>

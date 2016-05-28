@@ -1,21 +1,19 @@
-<ion-navbar *navbar mlnavbar>  
+<ion-toolbar mlnavbar>
   <ion-buttons start>
-    <button (click)="dismiss()" mllightblue>
-      Cancel
-    </button>
-  </ion-buttons>  
-  <ion-title>Change Email</ion-title>
+    <button (click)="dismiss()" mllightblue>Cancel</button>
+  </ion-buttons>
+  <ion-title>
+    Change Email
+  </ion-title>
   <ion-buttons end>
-    <button (click)="changeEmail(user)" mllightblue>
-      Save
-    </button>
-  </ion-buttons>  
-</ion-navbar>
-<ion-content>
+    <button (click)="changeEmail(user)" mllightblue>Save</button>
+  </ion-buttons>
+</ion-toolbar>
+<ion-content class="outer-content">
   <ion-list>
     <ion-item-divider mlitemdivider>
       Enter you New Email
-    </ion-item-divider>    
+    </ion-item-divider>
     <ion-item class="ml-input">
       <ion-icon name="ios-at-outline" item-left class="ml-icon-left"></ion-icon>
       <ion-label floating primary>Old Email</ion-label>

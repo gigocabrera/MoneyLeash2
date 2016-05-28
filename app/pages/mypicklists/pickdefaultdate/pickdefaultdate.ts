@@ -1,4 +1,4 @@
-import {Page, NavController, ViewController} from 'ionic-angular';
+import {Page, NavController} from 'ionic-angular';
 import {AccountsTransactionsPage} from '../../mysettings/accountstransactions/accountstransactions';
 import {UserData} from '../../../providers/user-data';
 
@@ -7,30 +7,28 @@ import {UserData} from '../../../providers/user-data';
 })
 
 export class PickDefaultDatePage {  
-  defaultitem: {
+  defaultitems: {
     text?: string,
     value?: string
   } = {};
   
   constructor(
       private nav: NavController,
-      private viewCtrl: ViewController,
       private userData: UserData) {
-        
-        //console.log(userData.globalSettings.defaultdate);
-        
-        this.defaultitem = [
+        this.defaultitems = [
           { text: 'No default date', value: 'none' },
           { text: 'Today\'s date', value: 'today' },
           { text: 'Last date used', value: 'last' }];
-      }
-  
-  dismiss() {
-    this.viewCtrl.dismiss();
   }
   
-  pickPreference(data) {
-    this.viewCtrl.dismiss(data);
+  dismiss() {
+    this.nav.pop();
+  }
+  
+  pickPreference(item) {
+    this.userData.globalSettings.defaultdate = item.value;
+    this.userData.globalSettings.defaultdatedisplay = item.text;
+    this.nav.pop();
   }
     
 }

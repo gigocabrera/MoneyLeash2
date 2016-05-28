@@ -12,12 +12,14 @@
             </p>
         </div>
     </div>
-    <form #signupForm="ngForm" id="signupForm" novalidate>
-      <button (click)="doSignup()" type="submit" block><ion-icon name="ios-checkmark"></ion-icon></button>      
-      <ion-input [(ngModel)]="signup.firstname" ngControl="firstname" type="text" #firstname="ngForm" placeholder="first name"></ion-input>
-      <ion-input [(ngModel)]="signup.lastname" ngControl="lastname" type="text" #lastname="ngForm" placeholder="last name"></ion-input>
-      <ion-input [(ngModel)]="signup.email" ngControl="email" type="email" #username="ngForm" placeholder="email"></ion-input>
-      <ion-input [(ngModel)]="signup.password" ngControl="password" type="password" #password="ngForm" placeholder="password"></ion-input>
-    </form>
+    <div id="divSignupForm">
+      <form #signupForm="ngForm" id="signupForm" novalidate>
+        <button (click)="doSignup()" type="submit" block><ion-icon name="ios-checkmark"></ion-icon></button>      
+        <ion-input [(ngModel)]="signup.firstname" ngControl="firstname" type="text" #firstname="ngForm" placeholder="first name"></ion-input>
+        <ion-input [(ngModel)]="signup.lastname" ngControl="lastname" type="text" #lastname="ngForm" placeholder="last name"></ion-input>
+        <ion-input [(ngModel)]="signup.email" ngControl="email" type="email" #username="ngForm" placeholder="email"></ion-input>
+        <ion-input [(ngModel)]="signup.password" ngControl="password" type="password" #password="ngForm" placeholder="password"></ion-input>
+      </form>
+    </div>
   </ion-list>
 </ion-content>

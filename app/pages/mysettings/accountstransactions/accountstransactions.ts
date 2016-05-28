@@ -19,11 +19,9 @@ export class AccountsTransactionsPage {
   constructor(
       private nav: NavController,
       private auth: AuthService,
-      private userData: UserData) {
-        this.loadDefaults()
-      }
+      private userData: UserData) {}
   
-  pickDefaultDate() {
+  pickDefaultDate_Modal() {
     let modal = Modal.create(PickDefaultDatePage);
     this.nav.present(modal);
     modal.onDismiss((defaultdate: {text?: string, value?: string} = {}) => {
@@ -34,7 +32,7 @@ export class AccountsTransactionsPage {
     });
   }
   
-  pickDefaultBalance() {
+  pickDefaultBalance_Modal() {
     let modal = Modal.create(PickDefaultBalancePage);
     this.nav.present(modal);
     modal.onDismiss((defaultbalance: {text?: string, value?: string} = {}) => {
@@ -43,6 +41,14 @@ export class AccountsTransactionsPage {
         this.settings.defaultbalancedisplay = defaultbalance.text;
       }
     });
+  }
+  
+  pickDefaultDate() {
+    this.nav.push(PickDefaultDatePage);
+  }
+  
+  pickDefaultBalance() {
+    this.nav.push(PickDefaultBalancePage);
   }
   
   loadDefaults() {
@@ -66,6 +72,10 @@ export class AccountsTransactionsPage {
     this.userData.globalSettings.defaultbalance = this.settings.defaultbalance;
     this.userData.globalSettings.defaultbalancedisplay = this.settings.defaultbalancedisplay;
     this.nav.pop();
+  }
+  
+  onPageWillEnter() {
+    this.loadDefaults();
   }
   
 }
