@@ -1,8 +1,9 @@
-import {Page, NavController, ViewController} from 'ionic-angular';
+import {Component} from '@angular/core';
+import {NavController, ViewController} from 'ionic-angular';
 import {AccountsTransactionsPage} from '../../mysettings/accountstransactions/accountstransactions';
 import {UserData} from '../../../providers/user-data';
 
-@Page({
+@Component({
   templateUrl: 'build/pages/mypicklists/pickdefaultbalance/pickdefaultbalance.html'
 })
 

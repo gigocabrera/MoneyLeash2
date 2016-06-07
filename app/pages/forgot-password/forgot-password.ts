@@ -1,8 +1,9 @@
-import {Page, NavController, MenuController} from 'ionic-angular';
+import {Component} from '@angular/core';
+import {NavController, MenuController} from 'ionic-angular';
 import {TabsPage} from '../tabs/tabs';
 import {UserData} from '../../providers/user-data';
 
-@Page({
+@Component({
   templateUrl: 'build/pages/forgot-password/forgot-password.html'
 })
 export class ForgotPasswordPage {
@@ -19,14 +20,9 @@ export class ForgotPasswordPage {
     }
   }
   
-  onPageDidEnter() {
+  ionViewDidEnter() {
     this.menu.enable(false);
     this.menu.swipeEnable(false);
   }
-  
-  onPageDidLeave() {
-    //this.menu.enable(true);
-    //this.menu.swipeEnable(true);
-  }
-  
+    
 }

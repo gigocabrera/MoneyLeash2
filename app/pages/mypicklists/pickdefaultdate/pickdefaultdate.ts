@@ -1,8 +1,9 @@
-import {Page, NavController} from 'ionic-angular';
+import {Component} from '@angular/core';
+import {NavController} from 'ionic-angular';
 import {AccountsTransactionsPage} from '../../mysettings/accountstransactions/accountstransactions';
 import {UserData} from '../../../providers/user-data';
 
-@Page({
+@Component({
   templateUrl: 'build/pages/mypicklists/pickdefaultdate/pickdefaultdate.html'
 })
 

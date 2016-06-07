@@ -1,7 +1,8 @@
-import {Page, NavController, Alert, ViewController} from 'ionic-angular';
+import {Component} from '@angular/core';
+import {NavController, Alert, ViewController} from 'ionic-angular';
 import {AuthService} from '../../../providers/auth-service';
 
-@Page({
+@Component({
   templateUrl: 'build/pages/myinfo/changeemail/changeemail.html'
 })
 

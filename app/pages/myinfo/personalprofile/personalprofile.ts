@@ -1,4 +1,5 @@
-import {Page, NavController, Alert, ActionSheet, Modal, Loading} from 'ionic-angular';
+import {Component} from '@angular/core';
+import {NavController, Alert, ActionSheet, Modal, Loading} from 'ionic-angular';
 import {AuthService} from '../../../providers/auth-service';
 import {ChangeEmailPage} from '../../myinfo/changeemail/changeemail';
 import {ChangePasswordPage} from '../../myinfo/changepassword/changepassword';
@@ -6,7 +7,7 @@ import {ResetPasswordPage} from '../../myinfo/resetpassword/resetpassword';
 import {RemoveUserPage} from '../../myinfo/removeuser/removeuser';
 import {TutorialPage} from '../../tutorial/tutorial';
 
-@Page({
+@Component({
   templateUrl: 'build/pages/myinfo/personalprofile/personalprofile.html'
 })
 

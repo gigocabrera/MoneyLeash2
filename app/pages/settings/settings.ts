@@ -1,4 +1,5 @@
-import {App, Page, NavController} from 'ionic-angular';
+import {Component} from '@angular/core';
+import {NavController} from 'ionic-angular';
 import {Injectable} from '@angular/core';
 import {UserData} from '../../providers/user-data';
 import {TabsPage} from '../tabs/tabs';
@@ -14,7 +15,7 @@ interface PageObj {
   index?: number;
 }
 
-@Page({
+@Component({
   templateUrl: 'build/pages/settings/settings.html'
 })
 export class SettingsPage {

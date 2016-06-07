@@ -1,10 +1,11 @@
-import {Page, NavController, Modal} from 'ionic-angular';
+import {Component} from '@angular/core';
+import {NavController, Modal} from 'ionic-angular';
 import {AuthService} from '../../../providers/auth-service';
 import {PickDefaultDatePage} from '../../mypicklists/pickdefaultdate/pickdefaultdate';
 import {PickDefaultBalancePage} from '../../mypicklists/pickdefaultbalance/pickdefaultbalance';
 import {UserData} from '../../../providers/user-data';
 
-@Page({
+@Component({
   templateUrl: 'build/pages/mysettings/accountstransactions/accountstransactions.html'
 })
 

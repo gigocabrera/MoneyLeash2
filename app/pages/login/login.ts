@@ -1,11 +1,12 @@
-import {Page, NavController, MenuController, Alert} from 'ionic-angular';
+import {Component} from '@angular/core';
+import {NavController, MenuController, Alert} from 'ionic-angular';
 import {UserData} from '../../providers/user-data';
 import {SignupPage} from '../signup/signup';
 import {ForgotPasswordPage} from '../forgot-password/forgot-password';
 import {AccountListPage} from '../mymoney/account-list/account-list';
 import {AuthService} from '../../providers/auth-service';
 
-@Page({
+@Component({
   templateUrl: 'build/pages/login/login.html'
 })
 
@@ -57,12 +58,12 @@ export class LoginPage {
     this.nav.push(ForgotPasswordPage);
   }
   
-  onPageDidEnter() {
+  ionViewDidEnter() {
     this.menu.enable(false);
     this.menu.swipeEnable(false);
   }
   
-  onPageDidLeave() {
+  ionViewDidLeave() {
     this.menu.enable(this.submitted);
     this.menu.swipeEnable(this.submitted);
   }

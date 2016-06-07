@@ -1,8 +1,9 @@
-import {Page, NavController, Alert} from 'ionic-angular';
+import {Component} from '@angular/core';
+import {NavController, Alert} from 'ionic-angular';
 import {UserData} from '../../providers/user-data';
 import {LoginPage} from '../login/login';
 
-@Page({
+@Component({
   templateUrl: 'build/pages/account/account.html',
 })
 export class AccountPage {
@@ -47,7 +48,7 @@ export class AccountPage {
   }
 
   getUsername() {
-    this.userData.getUsernameStorage().then((username) => {
+    this.userData.getUsername().then((username) => {
       this.username = username;
     });
   }

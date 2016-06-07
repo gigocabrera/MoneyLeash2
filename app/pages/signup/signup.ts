@@ -1,9 +1,10 @@
-import {Page, NavController, MenuController, Alert, Loading} from 'ionic-angular';
+import {Component} from '@angular/core';
+import {NavController, MenuController, Alert, Loading} from 'ionic-angular';
 import {UserData} from '../../providers/user-data';
 import {AccountListPage} from '../mymoney/account-list/account-list';
 import {AuthService} from '../../providers/auth-service';
 
-@Page({
+@Component({
   templateUrl: 'build/pages/signup/signup.html'
 })
 export class SignupPage {
@@ -122,12 +123,12 @@ export class SignupPage {
     this.nav.present(alert);
   }
   
-  onPageDidEnter() {
+  ionViewDidEnter() {
     this.menu.enable(false);
     this.menu.swipeEnable(false);
   }
   
-  onPageDidLeave() {
+  ionViewDidLeave() {
     this.menu.enable(this.submitted);
     this.menu.swipeEnable(this.submitted);
   }

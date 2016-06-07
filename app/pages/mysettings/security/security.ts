@@ -1,7 +1,8 @@
-import {Page, NavController, Modal} from 'ionic-angular';
+import {Component} from '@angular/core';
+import {NavController, Modal} from 'ionic-angular';
 import {UserData} from '../../../providers/user-data';
 
-@Page({
+@Component({
   templateUrl: 'build/pages/mysettings/security/security.html'
 })
 

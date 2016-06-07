@@ -1,4 +1,5 @@
-import {Page, NavController, MenuController} from 'ionic-angular';
+import {Component} from '@angular/core';
+import {NavController, MenuController} from 'ionic-angular';
 import {LoginPage} from '../login/login';
 
 interface Slide {
@@ -10,7 +11,7 @@ interface Slide {
   image: string;
 }
 
-@Page({
+@Component({
   templateUrl: 'build/pages/tutorial/tutorial.html'
 })
 export class TutorialPage {
@@ -47,7 +48,6 @@ export class TutorialPage {
   }
 
   startApp() {
-    //this.nav.setRoot(LoginPage);
     this.nav.push(LoginPage);
   }
 
@@ -55,15 +55,9 @@ export class TutorialPage {
     this.showSkip = !slider.isEnd;
   }
 
-  onPageDidEnter() {
+  ionViewDidEnter() {
     this.menu.enable(false);
     this.menu.swipeEnable(false);
-  }
-
-  onPageWillLeave() {
-    // do not enable the root left menu or swipe when leaving the tutorial page
-    //this.menu.enable(true);
-    //this.menu.swipeEnable(true);
   }
 
 }

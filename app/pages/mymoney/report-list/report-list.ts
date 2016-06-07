@@ -1,6 +1,7 @@
-import {Page, NavController, MenuController, Alert} from 'ionic-angular';
+import {Component} from '@angular/core';
+import {NavController, MenuController, Alert} from 'ionic-angular';
 
-@Page({
+@Component({
   templateUrl: 'build/pages/mymoney/report-list/report-list.html'
 })
 

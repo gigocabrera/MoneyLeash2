@@ -1,8 +1,9 @@
-import {Page, NavController, MenuController} from 'ionic-angular';
+import {Component} from '@angular/core';
+import {NavController, MenuController} from 'ionic-angular';
 import {LoginPage} from '../login/login';
 import {SignupPage} from '../signup/signup';
 
-@Page({
+@Component({
   templateUrl: 'build/pages/logout/logout.html'
 })
 export class LogoutPage {
@@ -16,15 +17,10 @@ export class LogoutPage {
     this.nav.push(SignupPage, {}, {animate: true, direction: 'reverse'});
   }
   
-  onPageDidEnter() {
+  ionViewDidEnter() {
     this.menu.enable(false, "loggedInMenu");
     this.menu.enable(false, "loggedOutMenu");
     this.menu.swipeEnable(false, "loggedOutMenu");
   }
-  
-  /*onPageDidLeave() {
-    this.menu.enable(false);
-    this.menu.swipeEnable(false);
-  }*/
   
 }
