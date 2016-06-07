@@ -17,7 +17,12 @@ export class LoginPage {
       private nav: NavController,
       private userData: UserData,
       private menu: MenuController,
-      public auth: AuthService) {}
+      public auth: AuthService) {
+        
+        //Test data - delete before going to production
+        this.login = {'username': 'guni@test.com', 'password': '111'};
+        
+      }
 
   private LoginSuccess(): void {
     this.nav.setRoot(AccountListPage, {}, {animate: true, direction: 'forward'});

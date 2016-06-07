@@ -101,6 +101,8 @@ export class AuthService {
     this.emitter.next(this.authenticated);
   }
   
+  // PERSONAL PROFILE
+  //--------------------------------------------
   getUserProfile(userUid) {
     return new Promise((resolve, reject) => {
       this.ref.child('members').child(userUid).once('value', snapshot => {
@@ -108,15 +110,26 @@ export class AuthService {
       })
     })
   }
-  
   saveUserProfile(user) {
     this.ref.child('members').child(this.authData.uid).update(user);
   }
   
-  createDefaults() {
-    var refPref = this.ref.child("members").child(this.authData.uid).child("preferences");
-    refPref.update({prefdate: 'last'});
-    refPref.update({prefbalance: 'cleared'});
+  // PREFERENCES
+  //--------------------------------------------
+  createPreferences() {
+    var refPref = this.ref.child("members").child(this.authData.uid).child("mypreferences");
+    refPref.update({defaultdate: 'none'});
+    refPref.update({defaultbalance: 'current'});
+  }  
+  getPreferences(userUid) {
+    return new Promise((resolve, reject) => {
+      this.ref.child('members').child(userUid).child("mypreferences").once('value', snapshot => {
+        resolve(snapshot.val());
+      })
+    })
+  }  
+  savePreferences(pref) {
+    this.ref.child('members').child(this.authData.uid).child("mypreferences").update(pref);
   }
   
 }

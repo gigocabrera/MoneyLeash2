@@ -4,22 +4,22 @@
     <button (click)="save()" mllightblue>
       Save
     </button>
-  </ion-buttons>  
+  </ion-buttons>
 </ion-navbar>
-<ion-content>
+<ion-content class="outer-content">
   <ion-list>
-    <ion-item-divider mlitemdivider>
+    <ion-list-header>
       Select your preferences below
-    </ion-item-divider>
+    </ion-list-header>
     <button ion-item class="ml-input" (click)="pickDefaultDate()">
       <i class="fa fa-calendar ml-fontawesome-left" item-left></i>
       <ion-label floating primary>Default Date</ion-label>
-      <ion-input type="text" [(ngModel)]="settings.defaultdatedisplay" readonly></ion-input>
+      <ion-input type="text" [(ngModel)]="settings.defaultdate" readonly></ion-input>
     </button>
     <button ion-item class="ml-input" (click)="pickDefaultBalance()">
       <i class="fa fa-money ml-fontawesome-left" item-left></i>
       <ion-label floating primary>Default Balance</ion-label>
-      <ion-input type="text" [(ngModel)]="settings.defaultbalancedisplay" readonly></ion-input>
+      <ion-input type="text" [(ngModel)]="settings.defaultbalance" readonly></ion-input>
     </button>
   </ion-list>
 </ion-content>

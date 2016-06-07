@@ -6,31 +6,35 @@ import {UserData} from '../../../providers/user-data';
   templateUrl: 'build/pages/mypicklists/pickdefaultbalance/pickdefaultbalance.html'
 })
 
-export class PickDefaultBalancePage {
-  defaultitem: {
-    text?: string,
+export class PickDefaultBalancePage {  
+  
+  defaultBalanceOptions: {
+    description?: string,
     value?: string
   } = {};
-             
+  
+  itemselected: {
+    value?: string
+  } = {};
+   
   constructor(
       private nav: NavController,
-      private viewCtrl: ViewController,
-      private userData: UserData) {
-        
-        //console.log(userData.globalSettings.defaultdate);
-        
-        this.defaultitem = [
-          { text: 'Current Balance', value: 'current' },
-          { text: 'Cleared Balance', value: 'cleared' },
-          { text: 'Both', value: 'both' }];
+      private user: UserData) {
+        // Get list of default balance options from shared service
+        this.defaultBalanceOptions = user.getDefaultBalanceOptions();
       }
   
-  dismiss() {
-    this.viewCtrl.dismiss();
+  pickPreference() {
+    this.user.pickDefaultBalanceSelected(this.itemselected);
+    this.nav.pop();
   }
   
-  pickPreference(data) {
-    this.viewCtrl.dismiss(data);
+  dismiss() {
+    this.nav.pop();
+  }
+  
+  onPageWillEnter() {
+    this.itemselected = this.user.getDefaultBalanceSelected();
   }
     
 }

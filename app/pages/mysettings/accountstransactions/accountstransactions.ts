@@ -11,37 +11,13 @@ import {UserData} from '../../../providers/user-data';
 export class AccountsTransactionsPage {
   settings: {
     defaultdate?: string,
-    defaultdatedisplay?: string,
-    defaultbalance?: string,
-    defaultbalancedisplay?: string
+    defaultbalance?: string
   } = {};
   
   constructor(
       private nav: NavController,
       private auth: AuthService,
       private userData: UserData) {}
-  
-  pickDefaultDate_Modal() {
-    let modal = Modal.create(PickDefaultDatePage);
-    this.nav.present(modal);
-    modal.onDismiss((defaultdate: {text?: string, value?: string} = {}) => {
-      if (defaultdate) {
-        this.settings.defaultdate = defaultdate.value;
-        this.settings.defaultdatedisplay = defaultdate.text;
-      }
-    });
-  }
-  
-  pickDefaultBalance_Modal() {
-    let modal = Modal.create(PickDefaultBalancePage);
-    this.nav.present(modal);
-    modal.onDismiss((defaultbalance: {text?: string, value?: string} = {}) => {
-      if (defaultbalance) {
-        this.settings.defaultbalance = defaultbalance.value;
-        this.settings.defaultbalancedisplay = defaultbalance.text;
-      }
-    });
-  }
   
   pickDefaultDate() {
     this.nav.push(PickDefaultDatePage);
@@ -52,25 +28,12 @@ export class AccountsTransactionsPage {
   }
   
   loadDefaults() {
-    //
-    // TODO: THERE SHOULD BE ONE COMMON LOAD METHOD IN THE SERVICE CLASS
-    //
-    // Default date
-    this.settings.defaultdate = this.userData.globalSettings.defaultdate;
-    this.settings.defaultdatedisplay = this.userData.globalSettings.defaultdatedisplay;
-    // Default balance
-    this.settings.defaultbalance = this.userData.globalSettings.defaultbalance;
-    this.settings.defaultbalancedisplay = this.userData.globalSettings.defaultbalancedisplay;
+    this.settings.defaultdate = this.userData.getDefaultDateSelected_Text();
+    this.settings.defaultbalance = this.userData.getDefaultBalanceSelected_Text();
   }
   
   save() {
-    //
-    // TODO: THERE SHOULD BE ONE COMMON SAVE METHOD IN THE SERVICE CLASS
-    //
-    this.userData.globalSettings.defaultdate = this.settings.defaultdate;
-    this.userData.globalSettings.defaultdatedisplay = this.settings.defaultdatedisplay;
-    this.userData.globalSettings.defaultbalance = this.settings.defaultbalance;
-    this.userData.globalSettings.defaultbalancedisplay = this.settings.defaultbalancedisplay;
+    this.userData.SavePreferences();
     this.nav.pop();
   }
   

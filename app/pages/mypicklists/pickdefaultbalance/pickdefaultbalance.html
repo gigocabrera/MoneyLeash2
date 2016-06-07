@@ -3,17 +3,25 @@
     <button (click)="dismiss()" mllightblue>Cancel</button>
   </ion-buttons>
   <ion-title>
-    Pick Default Balance
+    Pick Default Date
   </ion-title>
+  <ion-buttons end>
+    <button (click)="pickPreference(itemselected)" mllightblue>Select</button>
+  </ion-buttons>
 </ion-toolbar>
 <ion-content class="outer-content">
-  <ion-list radio-group>
-    <ion-item-divider mlitemdivider>
-      Select preference when entering new transactions
-    </ion-item-divider>
-    <ion-item *ngFor="let item of defaultitem">
+  <ion-list-header>
+    What balance do you want to display as default
+  </ion-list-header>
+  <ion-list radio-group [(ngModel)]="itemselected">
+    <ion-item *ngFor="let item of defaultBalanceOptions">
         <ion-label>{{item.text}}</ion-label>
-        <ion-radio [value]="item.value" (click)="pickPreference(item)" ></ion-radio>
+        <ion-radio [value]="item.value"></ion-radio>
     </ion-item>
   </ion-list>
+  <div id="helptext">
+    <h *ngIf="defaultbalanceselected=='none'">When entering a new transaction the date field will be blank!</h>
+    <h *ngIf="defaultbalanceselected=='today'">When entering a new transaction the date field will default to today's date!</h>
+    <h *ngIf="defaultbalanceselected=='last'">When entering a new transaction the date field will default to the last date used!</h>
+  </div>
 </ion-content>

@@ -12,6 +12,7 @@
 }
 #divSignupForm {
   text-align: center;
+  height: 250px;
 }
 #signupHeading ion-icon {
   color: #285264;
@@ -19,7 +20,7 @@
 }
 #signupForm ion-icon {
   color: #fff;
-  font-size: 60px;
+  font-size: 30px;
 }
 .signupScreen {
   background-color: #172F39;
@@ -47,7 +48,7 @@
 }
 #signupForm button {
   float:right;
-  height: 228px;
+  height: 50px;
   width: 60px;
   background: #28a54c;
   color: white;

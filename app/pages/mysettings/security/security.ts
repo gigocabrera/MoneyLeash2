@@ -18,9 +18,37 @@ export class SecurityPage {
       }
   
   save() {
-    //
-    // TODO: xxx
-    //
+    this.userData.pickDefaultSecuritySelected(this.user.enabletouchid);
+    this.userData.SavePreferences();
+    if (this.user.enabletouchid) {
+      this.userData.setUserPwd(this.user.password);
+    }
+    this.nav.pop();
+  }
+
+  onPageWillEnter() {
+    this.loadDefaults();
+  }
+
+  loadDefaults() {
+    this.user.enabletouchid = this.userData.getDefaultSecuritySelected();
+    this.userData.getUsernameStorage().then((username) => {
+      this.user.email = username;
+    });
+    this.userData.getPasswordStorage().then((userpwd) => {
+      this.user.password = userpwd;
+    });
+  }
+
+  stateChange(event) {
+    if (!event.checked) {
+      this.user.email = '';
+      this.user.password = '';
+    } else {
+      this.userData.getUsernameStorage().then((username) => {
+        this.user.email = username;
+      });
+    }
   }
   
 }

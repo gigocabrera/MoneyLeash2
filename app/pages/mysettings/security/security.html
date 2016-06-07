@@ -14,7 +14,7 @@
     <ion-item class="ml-input">
       <i class="fa fa-hand-o-up ml-fontawesome-left" item-left></i>
       <ion-label>Enable Touch ID</ion-label>
-      <ion-toggle secondary checked="true"></ion-toggle>
+      <ion-toggle secondary [(ngModel)]="user.enabletouchid" (change)="stateChange($event)"></ion-toggle>
     </ion-item>
     <ion-item class="ml-input">
       <i class="fa fa-at ml-fontawesome-left" item-left></i>
@@ -24,7 +24,7 @@
     <ion-item class="ml-input">
       <i class="fa fa-unlock-alt ml-fontawesome-left" item-left></i>
       <ion-label floating primary>Password</ion-label>
-      <ion-input type="text" [(ngModel)]="user.password" readonly></ion-input>
+      <ion-input type="password" [(ngModel)]="user.password"></ion-input>
     </ion-item>
   </ion-list>
 </ion-content>

@@ -22,7 +22,7 @@
 }
 .ml-input {
   padding: 0;
-  border-top: 1px solid #c8c7cc;
+  border-bottom: 1px solid #c8c7cc;
 }
 ion-item-divider[mlitemdivider] {
     border-top: 1px solid #c8c7cc;
@@ -80,7 +80,7 @@ ion-input {
 
 /* custom fontawesome icons used in forms */
 .ml-fontawesome-left {
-  background-color: #eeeeee;
+  background-color: #efeff4;
   text-align: center;
   height: 50px;
   width: 50px;
@@ -92,4 +92,10 @@ ion-input {
   font-size: 24px;
   color: #b9b9b9;
   line-height: 50px;
+}
+
+/* custom styles for help text  */
+#helptext {
+  padding: 0 10px 0 10px;
+  font-size: 13px;
 }

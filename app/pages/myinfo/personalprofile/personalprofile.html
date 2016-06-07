@@ -9,11 +9,11 @@
     </button>
   </ion-buttons>  
 </ion-navbar>
-<ion-content>
+<ion-content class="outer-content">
   <ion-list>
-    <ion-item-divider mlitemdivider>
+    <ion-list-header>
       Your Information
-    </ion-item-divider>
+    </ion-list-header>
     <ion-item class="ml-input">
       <i class="fa fa-user ml-fontawesome-left" item-left></i>
       <ion-label floating primary>First Name</ion-label>
@@ -29,9 +29,11 @@
       <ion-label floating primary>Email</ion-label>
       <ion-input type="text" [(ngModel)]="useremail" readonly></ion-input>
     </ion-item>
-    <ion-item-divider mlitemdivider>
+  </ion-list>
+  <ion-list>
+    <ion-list-header>
       Your Group Information
-    </ion-item-divider>
+    </ion-list-header>
     <ion-item class="ml-input">
       <i class="fa fa-home ml-fontawesome-left" item-left></i>
       <ion-label floating primary>Group Name</ion-label>
@@ -47,9 +49,11 @@
       <ion-label floating primary>Group Admin</ion-label>
       <ion-input type="text" readonly></ion-input>
     </ion-item>
-    <ion-item-divider mlitemdivider>
+  </ion-list>
+  <ion-list>
+    <ion-list-header>
       Your Plan Information
-    </ion-item-divider>
+    </ion-list-header>
     <ion-item class="ml-input">
       <i class="fa fa-shopping-cart ml-fontawesome-left" item-left></i>
       <ion-label floating primary>Payment Plan</ion-label>

@@ -7,28 +7,34 @@ import {UserData} from '../../../providers/user-data';
 })
 
 export class PickDefaultDatePage {  
-  defaultitems: {
-    text?: string,
+  
+  defaultDateOptions: {
+    description?: string,
+    value?: string
+  } = {};
+  
+  itemselected: {
     value?: string
   } = {};
   
   constructor(
       private nav: NavController,
       private userData: UserData) {
-        this.defaultitems = [
-          { text: 'No default date', value: 'none' },
-          { text: 'Today\'s date', value: 'today' },
-          { text: 'Last date used', value: 'last' }];
+        // Get list of default date options from shared service
+        this.defaultDateOptions = userData.getDefaultDateOptions();
+      }
+  
+  pickPreference() {
+    this.userData.pickDefaultDateSelected(this.itemselected);
+    this.nav.pop();
   }
   
   dismiss() {
     this.nav.pop();
   }
   
-  pickPreference(item) {
-    this.userData.globalSettings.defaultdate = item.value;
-    this.userData.globalSettings.defaultdatedisplay = item.text;
-    this.nav.pop();
+  onPageWillEnter() {
+    this.itemselected = this.userData.getDefaultDateSelected();
   }
     
 }

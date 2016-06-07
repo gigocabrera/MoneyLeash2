@@ -90,7 +90,7 @@ export class SignupPage {
     this.user.firstname = this.signup.firstname;
     this.user.lastname = this.signup.lastname;
     this.auth.saveUserProfile(this.user);
-    this.auth.createDefaults();
+    this.auth.createPreferences();
     this.nav.setRoot(AccountListPage, {}, {animate: true, direction: 'forward'});
   }
   

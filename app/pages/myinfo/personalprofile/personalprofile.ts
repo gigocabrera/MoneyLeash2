@@ -18,7 +18,7 @@ export class PersonalProfilePage {
     groupid?: string,
     groupname?: string,
     groupjoincode?: string,
-    paymentplan?: string    
+    paymentplan?: string
   } = {};
   useremail: string;
       
