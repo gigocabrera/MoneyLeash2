@@ -1,6 +1,5 @@
 import {Component} from '@angular/core';
 import {NavController, Alert, ViewController} from 'ionic-angular';
-import {AuthService} from '../../../providers/auth-service';
 
 @Component({
   templateUrl: 'build/pages/myinfo/resetpassword/resetpassword.html'
@@ -13,8 +12,7 @@ export class ResetPasswordPage {
         
   constructor(
       private nav: NavController,
-      private viewCtrl: ViewController,
-      private auth: AuthService) {}  
+      private viewCtrl: ViewController) {}  
  
   resetPassword(user) {
     this.dismiss(user);

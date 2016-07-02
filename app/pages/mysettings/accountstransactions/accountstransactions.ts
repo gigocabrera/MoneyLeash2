@@ -1,24 +1,21 @@
 import {Component} from '@angular/core';
 import {NavController, Modal} from 'ionic-angular';
-import {AuthService} from '../../../providers/auth-service';
 import {PickDefaultDatePage} from '../../mypicklists/pickdefaultdate/pickdefaultdate';
 import {PickDefaultBalancePage} from '../../mypicklists/pickdefaultbalance/pickdefaultbalance';
-import {UserData} from '../../../providers/user-data';
+import {MyInput} from '../../mydirectives/my-input/my-input';
+import {FirebaseService} from '../../../providers/firebaseService'
 
 @Component({
-  templateUrl: 'build/pages/mysettings/accountstransactions/accountstransactions.html'
+  templateUrl: 'build/pages/mysettings/accountstransactions/accountstransactions.html',
+  directives: [MyInput]
 })
 
 export class AccountsTransactionsPage {
-  settings: {
-    defaultdate?: string,
-    defaultbalance?: string
-  } = {};
   
-  constructor(
-      private nav: NavController,
-      private auth: AuthService,
-      private userData: UserData) {}
+  defaultdate: string = '';
+  defaultbalance: string = '';
+  
+  constructor(private nav: NavController, private fbservice: FirebaseService) {}
   
   pickDefaultDate() {
     this.nav.push(PickDefaultDatePage);
@@ -29,12 +26,12 @@ export class AccountsTransactionsPage {
   }
   
   loadDefaults() {
-    this.settings.defaultdate = this.userData.getDefaultDateSelected_Text();
-    this.settings.defaultbalance = this.userData.getDefaultBalanceSelected_Text();
+    this.defaultdate = this.fbservice.getDefaultDateSelected_Text();
+    this.defaultbalance = this.fbservice.getDefaultBalanceSelected_Text();
   }
   
   save() {
-    this.userData.SavePreferences();
+    this.fbservice.savePreferences();
     this.nav.pop();
   }
   

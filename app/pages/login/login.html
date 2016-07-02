@@ -1,16 +1,18 @@
-<ion-navbar *navbar mlnavbar class="hide-border">
-  <ion-title>Login</ion-title>
-</ion-navbar>
+<ion-header>
+  <ion-navbar mlnavbar>
+    <ion-title>Login</ion-title>
+  </ion-navbar>
+</ion-header>
 <ion-content class="loginScreen">  
   <ion-list>       
     <div id="divLoginHeading">
       <ion-icon name="ios-lock-outline"></ion-icon>
     </div>
     <div id="divLoginForm">
-      <form #loginForm="ngForm" id="loginFormId" novalidate>
-        <button (click)="doLogin(loginForm)" type="submit" block><ion-icon name="ios-power"></ion-icon></button>      
-        <ion-input [(ngModel)]="login.username" ngControl="username" type="email" #username="ngForm" placeholder="email"></ion-input>
-        <ion-input [(ngModel)]="login.password" ngControl="password" type="password" #password="ngForm" placeholder="password"></ion-input>
+      <form #loginCredentials="ngForm" id="loginFormId">
+        <button (click)="doLogin(loginCredentials.value, $event)" type="submit" block><ion-icon name="ios-power"></ion-icon></button>      
+        <ion-input ngControl="email" type="email" placeholder="email"></ion-input>
+        <ion-input ngControl="password" type="password" placeholder="password"></ion-input>
       </form>
     </div>
     <div id="divLinks">

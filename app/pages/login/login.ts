@@ -4,28 +4,26 @@ import {UserData} from '../../providers/user-data';
 import {SignupPage} from '../signup/signup';
 import {ForgotPasswordPage} from '../forgot-password/forgot-password';
 import {AccountListPage} from '../mymoney/account-list/account-list';
-import {AuthService} from '../../providers/auth-service';
+
+// Firebase service
+import {FirebaseService} from '../../providers/firebaseService'
 
 @Component({
   templateUrl: 'build/pages/login/login.html'
 })
 
 export class LoginPage {
-  login: {username?: string, password?: string} = {};
+
   submitted = false;
 
   constructor(
-      private nav: NavController,
-      private userData: UserData,
-      private menu: MenuController,
-      public auth: AuthService) {
-        
-        //Test data - delete before going to production
-        this.login = {'username': 'guni@test.com', 'password': '111'};
-        
-      }
+    private nav: NavController,
+    private userData: UserData,
+    private menu: MenuController,
+    private fbservice: FirebaseService) {}
 
   private LoginSuccess(): void {
+    this.fbservice.loadGlobalData();
     this.nav.setRoot(AccountListPage, {}, {animate: true, direction: 'forward'});
   }
   
@@ -38,16 +36,22 @@ export class LoginPage {
     this.nav.present(alert);
   }
   
-  doLogin(form) {
+  doLogin(credentials, _event) {
+
+    _event.preventDefault();
+    this.userData.handleLogin(credentials);
     this.submitted = true;
-    if (form.valid) {
-      // 1) Save in localStorage
-      this.userData.login(this.login.username);
-      // 2) Sign in with credentials provided
-      this.auth.signInWithEmailPassword(form.controls.username.value, form.controls.password.value)
-      .then(() => this.LoginSuccess())
-      .catch(() => this.LoginError());
-    }
+
+    // Firebase login usig the email/password auth provider
+    this.fbservice.login(credentials)
+      .subscribe(
+      (data: any) => {
+        this.LoginSuccess();
+      },
+      (error) => {
+        console.log(error);
+        this.LoginError();
+      });
   }
 
   doSignup() {

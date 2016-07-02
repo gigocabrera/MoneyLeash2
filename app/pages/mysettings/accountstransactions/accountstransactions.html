@@ -1,25 +1,19 @@
-<ion-navbar *navbar mlnavbar>  
-  <ion-title>Preferences</ion-title>
-  <ion-buttons end>
-    <button (click)="save()" mllightblue>
-      Save
-    </button>
-  </ion-buttons>
-</ion-navbar>
-<ion-content class="outer-content">
+<ion-header>
+  <ion-navbar mlnavbar>  
+    <ion-title>Preferences</ion-title>
+    <ion-buttons end>
+      <button (click)="save()" mllightblue>
+        Save
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-item-divider mlitemdivider>
+    Select your preferences below
+  </ion-item-divider>
   <ion-list>
-    <ion-list-header>
-      Select your preferences below
-    </ion-list-header>
-    <button ion-item class="ml-input" (click)="pickDefaultDate()">
-      <i class="fa fa-calendar ml-fontawesome-left" item-left></i>
-      <ion-label floating primary>Default Date</ion-label>
-      <ion-input type="text" [(ngModel)]="settings.defaultdate" readonly></ion-input>
-    </button>
-    <button ion-item class="ml-input" (click)="pickDefaultBalance()">
-      <i class="fa fa-money ml-fontawesome-left" item-left></i>
-      <ion-label floating primary>Default Balance</ion-label>
-      <ion-input type="text" [(ngModel)]="settings.defaultbalance" readonly></ion-input>
-    </button>
+    <my-input class="item" title="Default Date" icon="fa fa-calendar" placeholder="Default Date" [(ngModel)]="defaultdate" (click)="pickDefaultDate()"></my-input>
+    <my-input class="item" title="Default Balance" icon="fa fa-money" placeholder="Default Balance" [(ngModel)]="defaultbalance" (click)="pickDefaultDate()"></my-input>
   </ion-list>
 </ion-content>

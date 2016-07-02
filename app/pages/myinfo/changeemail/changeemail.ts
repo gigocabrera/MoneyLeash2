@@ -1,6 +1,5 @@
 import {Component} from '@angular/core';
 import {NavController, Alert, ViewController} from 'ionic-angular';
-import {AuthService} from '../../../providers/auth-service';
 
 @Component({
   templateUrl: 'build/pages/myinfo/changeemail/changeemail.html'
@@ -14,8 +13,7 @@ export class ChangeEmailPage {
         
   constructor(
       private nav: NavController,
-      private viewCtrl: ViewController, 
-      private auth: AuthService) {}
+      private viewCtrl: ViewController) {}
   
   changeEmail(user) {
     this.dismiss(user);

@@ -26,10 +26,10 @@ export class SettingsPage {
     { title: 'Personal Profile', component: PersonalProfilePage, icon: 'ios-contact-outline' },
       { title: 'Accounts / Transactions', component: AccountsTransactionsPage, icon: 'ios-construct-outline' },
       { title: 'Security', component: SecurityPage, icon: 'ios-lock-outline' },
-      { title: 'Report a Bug', component: PersonalProfilePage, icon: 'ios-bug-outline' },
-      { title: 'Suggest a Feature', component: PersonalProfilePage, icon: 'ios-bulb-outline' },
-      { title: 'Write a Review', component: PersonalProfilePage, icon: 'ios-heart-outline' },
-      { title: 'Contact Support', component: PersonalProfilePage, icon: 'ios-help-circle-outline' },
+      { title: 'Report a Bug', component: '', icon: 'ios-bug-outline' },
+      { title: 'Suggest a Feature', component: '', icon: 'ios-bulb-outline' },
+      { title: 'Write a Review', component: '', icon: 'ios-heart-outline' },
+      { title: 'Contact Support', component: '', icon: 'ios-help-circle-outline' },
       { title: 'About', component: TabsPage, icon: 'ios-pin-outline' },
       { title: 'Account', component: AccountPage, icon: 'ios-pin-outline' }
   ];

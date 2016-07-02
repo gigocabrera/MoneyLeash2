@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {Storage, LocalStorage, Events} from 'ionic-angular';
-import {AuthService} from '../providers/auth-service';
 
 @Injectable()
 export class UserData {
@@ -11,12 +10,7 @@ export class UserData {
   email = '';
   password = '';
 
-  constructor(private events: Events,
-  private auth: AuthService) {
-    
-    this.loadPreferences();
-    
-  }
+  constructor(private events: Events) {}
 
   hasFavorite(sessionName) {
     return (this._favorites.indexOf(sessionName) > -1);
@@ -33,21 +27,22 @@ export class UserData {
     }
   }
 
-  login(username) {
+  handleLogin(credentials) {
     this.storage.set(this.HAS_LOGGED_IN, true);
-    this.setUsername(username);
+    this.setUsername(credentials.email);
+    this.setUserPwd(credentials.password);
     this.events.publish('user:login');
   }
 
-  signup(username) {
+  handleSignup(credentials) {
     this.storage.set(this.HAS_LOGGED_IN, true);
-    this.setUsername(username);
+    this.setUsername(credentials.email);
+    this.setUserPwd(credentials.password);
     this.events.publish('user:signup');
   }
 
   logout() {
     this.storage.remove(this.HAS_LOGGED_IN);
-    this.storage.remove('username');
     this.events.publish('user:logout');
   }
 
@@ -77,86 +72,5 @@ export class UserData {
       return value;
     });
   }
-  
-  /* GLOBAL */
-  /* -------------------------------------------- */
-  getText(valueKey, arr) {
-    for (var i=0; i < arr.length; i++) {
-      if (arr[i].value === valueKey) {
-        return arr[i].text;
-      }
-    }
-  }
-  
-  /* PREFERENCES */
-  /* -------------------------------------------- */
-  myPreferences: {
-    defaultdate?: string, 
-    defaultbalance?: string,
-    usetouchid?: string
-  } = {};
-  
-  loadPreferences() {
-    this.auth.getPreferences(this.auth.id).then(thisPreferences => {
-      this.myPreferences = thisPreferences;
-    })
-  }
-  SavePreferences () {
-    this.auth.savePreferences(this.myPreferences);
-  }
-  
-  /* DEFAULT DATE PREFERENCES */
-  /* -------------------------------------------- */
-  defaultDateOptions = [
-          { text: 'No default date', value: 'none' },
-          { text: 'Today\'s date', value: 'today' },
-          { text: 'Last date used', value: 'last' }];
-  
-  getDefaultDateOptions() {
-    return this.defaultDateOptions;
-  }
-  getDefaultDateText(valueKey) {
-    return this.getText(valueKey,this.defaultDateOptions);
-  }  
-  getDefaultDateSelected() {
-    return this.myPreferences.defaultdate;
-  }
-  getDefaultDateSelected_Text() {
-    return this.getDefaultDateText(this.myPreferences.defaultdate);
-  }
-  pickDefaultDateSelected(valueKey) {
-    this.myPreferences.defaultdate = valueKey;
-  }
-  
-  /* DEFAULT BALANCE PREFERENCES */
-  /* -------------------------------------------- */
-  defaultBalanceOptions = [
-          { text: 'Current Balance', value: 'current' },
-          { text: 'Cleared Balance', value: 'clear' },
-          { text: 'Today\'s Balance', value: 'today' }];
-  
-  getDefaultBalanceOptions() {
-    return this.defaultBalanceOptions;
-  }
-  getDefaultBalanceText(valueKey) {
-    return this.getText(valueKey,this.defaultBalanceOptions);
-  }  
-  getDefaultBalanceSelected() {
-    return this.myPreferences.defaultbalance;
-  }
-  getDefaultBalanceSelected_Text() {
-    return this.getDefaultBalanceText(this.myPreferences.defaultbalance);
-  }  
-  pickDefaultBalanceSelected(valueKey) {
-    this.myPreferences.defaultbalance = valueKey;
-  }
-  
-  /* DEFAULT SECURITY PREFERENCES */
-  /* -------------------------------------------- */
-  getDefaultSecuritySelected() {
-    return this.myPreferences.usetouchid;
-  }
-  pickDefaultSecuritySelected(valueKey) {
-    this.myPreferences.usetouchid = valueKey;
-  } 
+   
 }

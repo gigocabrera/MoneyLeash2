@@ -7,53 +7,9 @@
   color: #fff;
 }
 
-/* Styles for MoneyLeash advanced input fields */
-.ml-input {
-  height: 50px;
-}
-.ml-input .item-inner {
-  border-bottom: 0;
-  margin-left: 7px;
-}
-.ml-icon-left {
-  background-color: #eeeeee;
-  height: 49px;
-  width: 50px;
-}
-.ml-input {
-  padding: 0;
-  border-bottom: 1px solid #c8c7cc;
-}
+/* Styles for ML divider */
 ion-item-divider[mlitemdivider] {
-    border-top: 1px solid #c8c7cc;
-}
-.ml-input.input-has-focus ion-label[floating], .ml-input.input-has-value ion-label[floating] {
-  transform: translate3d(0, 7px, 0) scale(0.7);
-  margin-top: 0;
-}
-.ml-icon-left:before {
-  display: block;
-  text-align: center;
-  padding-top: 10px;
-  color: #909090;
-  font-size: 30px;
-  font-weight: normal;
-}
-.ml-input ion-icon[item-left], .ml-input ion-icon[item-right] {
-  margin-top: 0;
-  margin-left: 0;
-  margin-right: 5px;
-  margin-bottom: 0;
-}
-ion-label[floating] {
-  transform: translate3d(0, 4px, 0);
-}
-.item-label-floating .text-input {
-    margin-top: 0;
-    margin-bottom: 0;
-}
-ion-input {
-    margin-top: 0;
+    border-top: 0px solid #c8c7cc;
 }
 
 /* Slide Animation for form messages */
@@ -76,22 +32,6 @@ ion-input {
 /* custom chevron icon */
 .ml-chevron-right {
   color: #c8c7cc
-}
-
-/* custom fontawesome icons used in forms */
-.ml-fontawesome-left {
-  background-color: #efeff4;
-  text-align: center;
-  height: 50px;
-  width: 50px;
-}
-.ml-input i {
-  margin: 0;
-}
-.ml-input i:before {
-  font-size: 24px;
-  color: #b9b9b9;
-  line-height: 50px;
 }
 
 /* custom styles for help text  */

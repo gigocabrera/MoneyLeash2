@@ -2,29 +2,14 @@ import {Component} from '@angular/core';
 import {NavController, MenuController, Alert, Loading} from 'ionic-angular';
 import {UserData} from '../../providers/user-data';
 import {AccountListPage} from '../mymoney/account-list/account-list';
-import {AuthService} from '../../providers/auth-service';
+import {FirebaseService} from '../../providers/firebaseService'
 
 @Component({
   templateUrl: 'build/pages/signup/signup.html'
 })
 export class SignupPage {
-  //
-  // The signup process consists of 3 steps: 
-  // 1) Create user account in Firebase with the credentials provided 
-  // 2) Authenticate user (login) in Firebase 
-  // 3) Save personal data to member node (personal profile)
-  //  
+  
   showValidationMessage: boolean = false;
-  signup: {
-    firstname?: string,
-    lastname?: string,
-    email?: string, 
-    password?: string
-  } = {};
-  user: {
-    firstname?: string, 
-    lastname?: string
-  } = {};
   submitted = false;
   validationMessage = "";
 
@@ -32,27 +17,27 @@ export class SignupPage {
     private nav: NavController,
     private menu: MenuController,
     private userData: UserData,
-    private auth: AuthService) {}
+    public fbservice: FirebaseService) {}
 
-  private inputIsValid() : boolean {
+  private inputIsValid(credentials) : boolean {
     this.showValidationMessage = false;
     this.validationMessage = '';
-    if (this.signup.firstname == null) {
+    if (credentials.firstname == null) {
       this.showValidationMessage = true;
       this.validationMessage = 'Please enter your first name';
       return false;
     }
-    if (this.signup.lastname == null) {
+    if (credentials.lastname == null) {
       this.showValidationMessage = true;
       this.validationMessage = 'Please enter your last name';
       return false;
     }
-    if (this.signup.email == null) {
+    if (credentials.email == null) {
       this.showValidationMessage = true;
       this.validationMessage = 'Please enter your email address';
       return false;
     }
-    if (this.signup.password == null) {
+    if (credentials.password == null) {
       this.showValidationMessage = true;
       this.validationMessage = 'Please enter a password';
       return false;
@@ -60,38 +45,47 @@ export class SignupPage {
     return true;
   }
   
-  doSignup() {
+  doSignup(credentials, _event) {
+    _event.preventDefault();
     this.submitted = true;
-    if (this.inputIsValid()) {
+    if (this.inputIsValid(credentials)) {
       //
       // Save email to localStorage
-      this.userData.signup(this.signup.email);
+      this.userData.handleSignup(credentials);
       //
-      // 1) Create user account in Firebase with the credentials provided
-      //
-      this.auth.signUpWithEmailPassword(this.signup.email, this.signup.password)
-      .then(() => this.SignUpSuccess())
-      .catch((error) => this.SignUpError(error));
+      // Create user
+      this.fbservice.createUser(credentials).subscribe(
+      (data: any) => {
+        console.log("the data", data.email);
+        this.SignUpSuccess(credentials);
+      },
+      (error) => {
+        console.log(error)
+        this.SignUpError(error)
+      });
     }
   }
    
-  private SignUpSuccess(): void {
+  private SignUpSuccess(credentials): void {
     //
-    // 2) Authenticate user (login) in Firebase
-    //
-    this.auth.signInWithEmailPassword(this.signup.email, this.signup.password)
-      .then(() => this.LoginSuccess())
-      .catch(() => this.LoginError());
+    // User has been created. Now Authenticate user (login) in Firebase
+    this.fbservice.login(credentials)
+      .subscribe(
+      (data: any) => {
+        console.log("the data", data.email);
+        this.LoginSuccess(credentials);
+      },
+      (error) => {
+        console.log(error);
+        this.LoginError();
+    });
   }
   
-  private LoginSuccess(): void {
+  private LoginSuccess(credentials): void {
     //
-    // 3) Save personal data to member node (personal profile)
-    //
-    this.user.firstname = this.signup.firstname;
-    this.user.lastname = this.signup.lastname;
-    this.auth.saveUserProfile(this.user);
-    this.auth.createPreferences();
+    // Save personal data to member node (personal profile)
+    this.fbservice.saveUserProfile(credentials);
+    this.fbservice.createPreferences();
     this.nav.setRoot(AccountListPage, {}, {animate: true, direction: 'forward'});
   }
   

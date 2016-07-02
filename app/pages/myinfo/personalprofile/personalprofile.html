@@ -1,70 +1,36 @@
-<ion-navbar *navbar mlnavbar>  
-  <button menuToggle>
-    <ion-icon name="menu" mllightblue></ion-icon>
-  </button>  
-  <ion-title>Personal Profile</ion-title>
-  <ion-buttons end>
-    <button (click)="saveUser(user)" mllightblue>
-      Save
-    </button>
-  </ion-buttons>  
-</ion-navbar>
-<ion-content class="outer-content">
-  <ion-list>
-    <ion-list-header>
-      Your Information
-    </ion-list-header>
-    <ion-item class="ml-input">
-      <i class="fa fa-user ml-fontawesome-left" item-left></i>
-      <ion-label floating primary>First Name</ion-label>
-      <ion-input type="text" [(ngModel)]="user.firstname"></ion-input>
-    </ion-item>
-    <ion-item class="ml-input">
-      <i class="fa fa-user ml-fontawesome-left" item-left></i>
-      <ion-label floating primary>Last Name</ion-label>
-      <ion-input type="text" [(ngModel)]="user.lastname"></ion-input>
-    </ion-item>
-    <ion-item class="ml-input">
-      <i class="fa fa-at ml-fontawesome-left" item-left></i>
-      <ion-label floating primary>Email</ion-label>
-      <ion-input type="text" [(ngModel)]="useremail" readonly></ion-input>
-    </ion-item>
-  </ion-list>
-  <ion-list>
-    <ion-list-header>
-      Your Group Information
-    </ion-list-header>
-    <ion-item class="ml-input">
-      <i class="fa fa-home ml-fontawesome-left" item-left></i>
-      <ion-label floating primary>Group Name</ion-label>
-      <ion-input type="text" readonly></ion-input>
-    </ion-item>
-    <ion-item class="ml-input">
-      <i class="fa fa-barcode ml-fontawesome-left" item-left></i>
-      <ion-label floating primary>Group Number</ion-label>
-      <ion-input type="text" readonly></ion-input>
-    </ion-item>
-    <ion-item class="ml-input">
-      <i class="fa fa-shield ml-fontawesome-left" item-left></i>
-      <ion-label floating primary>Group Admin</ion-label>
-      <ion-input type="text" readonly></ion-input>
-    </ion-item>
-  </ion-list>
-  <ion-list>
-    <ion-list-header>
-      Your Plan Information
-    </ion-list-header>
-    <ion-item class="ml-input">
-      <i class="fa fa-shopping-cart ml-fontawesome-left" item-left></i>
-      <ion-label floating primary>Payment Plan</ion-label>
-      <ion-input type="text" readonly></ion-input>
-    </ion-item>
-  </ion-list>
-</ion-content>
-<ion-toolbar position="bottom">
-  <ion-buttons end (click)="presentActionSheet()">
+<ion-header>
+  <ion-navbar mlnavbar>  
+    <button menuToggle>
+      <ion-icon name="menu" mllightblue></ion-icon>
+    </button>  
+    <ion-title>Personal Profile</ion-title>
+    <ion-buttons end>
+      <button (click)="saveUser(user)" mllightblue>
+        Save
+      </button>
+    </ion-buttons>
+    <ion-buttons end (click)="presentActionSheet()">
     <button royal>
       <ion-icon name="settings"></ion-icon>
     </button>
-  </ion-buttons>
-</ion-toolbar>
+  </ion-buttons>  
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-item-group>
+    <ion-item-divider mlitemdivider>Your Information</ion-item-divider>
+    <my-input class="item" title="First Name" icon="fa fa-user" placeholder="First Name" [(ngModel)]="user.firstname"></my-input>
+    <my-input class="item" title="Last Name" icon="fa fa-user" placeholder="Last Name" [(ngModel)]="user.lastname"></my-input>
+    <my-input class="item" title="Email" icon="fa fa-at" placeholder="Email" [(ngModel)]="useremail" isreadonly="false"></my-input>
+  </ion-item-group>
+  <ion-item-group>
+    <ion-item-divider mlitemdivider>Your Group</ion-item-divider>
+    <my-input class="item" title="Group Name" icon="fa fa-home" placeholder="Group Name"></my-input>
+    <my-input class="item" title="Group Number" icon="fa fa-barcode" placeholder="Group Number"></my-input>
+    <my-input class="item" title="Group Admin" icon="fa fa-shield" placeholder="Group Admin"></my-input>
+  </ion-item-group>
+  <ion-item-group>
+    <ion-item-divider mlitemdivider>Payment Plan</ion-item-divider>
+    <my-input class="item" title="Payment Plan" icon="fa fa-shopping-cart" placeholder="Payment Plan"></my-input>
+  </ion-item-group>
+</ion-content>

@@ -1,0 +1,60 @@
+/* Styles for MoneyLeash MyInput fields */
+.ml-input {
+  height: 60px;
+}
+my-input .item {
+  border-bottom: 1px solid #c8c7cc;
+}
+my-input.item {
+  padding-left: 0;
+}
+ion-list > my-input.item:last-child {
+	border-bottom: 0;
+}
+ion-item-group > my-input.item:last-child {
+	border-bottom: 0;
+}
+.ml-input .item-inner {
+  border-bottom: 0;
+  margin-left: 7px;
+  padding-top: 3px;
+}
+.ml-input {
+  padding: 0;
+}
+.ml-icon-left:before {
+  display: block;
+  text-align: center;
+  padding-top: 10px;
+  color: #909090;
+  font-size: 30px;
+  font-weight: normal;
+}
+.ml-input ion-icon[item-left], .ml-input ion-icon[item-right] {
+  margin-top: 0;
+  margin-left: 0;
+  margin-right: 5px;
+  margin-bottom: 0;
+}
+/* custom fontawesome icons used in forms */
+.ml-fontawesome-left {
+  background-color: #ececec;
+  text-align: center;
+  height: 60px;
+  width: 60px;
+}
+.ml-input i {
+  margin: 0;
+}
+.ml-borderbottom {
+  border-bottom: 1px solid #c8c7cc;
+}
+.ml-transparent {
+  color: transparent;
+}
+.ml-input-label {
+  color: #eaeaea;
+}
+ion-list .ml-input .item-inner {
+    border-bottom: 0;
+}

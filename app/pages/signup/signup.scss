@@ -1,6 +1,11 @@
   //
 // Signup screen based on http://codepen.io/lsgrrd/pen/xvwHn
 //
+.signup-page {
+  .toolbar[mlnavbar] .toolbar-background {
+    border-color: transparent;
+  }
+}
 .mlLinks {
   text-decoration: none;
   color: #fff;

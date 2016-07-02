@@ -1,6 +1,5 @@
 import {Component} from '@angular/core';
 import {NavController, Alert, ViewController} from 'ionic-angular';
-import {AuthService} from '../../../providers/auth-service';
 
 @Component({
   templateUrl: 'build/pages/myinfo/removeuser/removeuser.html'
@@ -13,8 +12,7 @@ export class RemoveUserPage {
         
   constructor(
       private nav: NavController,
-      private viewCtrl: ViewController,
-      private auth: AuthService) {}  
+      private viewCtrl: ViewController) {}  
  
   removeUser(user) {
     this.dismiss(user);

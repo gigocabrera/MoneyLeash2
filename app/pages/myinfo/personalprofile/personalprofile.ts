@@ -1,20 +1,27 @@
 import {Component} from '@angular/core';
 import {NavController, Alert, ActionSheet, Modal, Loading} from 'ionic-angular';
-import {AuthService} from '../../../providers/auth-service';
 import {ChangeEmailPage} from '../../myinfo/changeemail/changeemail';
 import {ChangePasswordPage} from '../../myinfo/changepassword/changepassword';
 import {ResetPasswordPage} from '../../myinfo/resetpassword/resetpassword';
 import {RemoveUserPage} from '../../myinfo/removeuser/removeuser';
 import {TutorialPage} from '../../tutorial/tutorial';
+import {MyInput} from '../../mydirectives/my-input/my-input';
+
+// Firebase service
+import {FirebaseService} from '../../../providers/firebaseService'
 
 @Component({
-  templateUrl: 'build/pages/myinfo/personalprofile/personalprofile.html'
+  templateUrl: 'build/pages/myinfo/personalprofile/personalprofile.html',
+  directives: [MyInput]
 })
 
-export class PersonalProfilePage { 
+export class PersonalProfilePage {
   user: {
     firstname?: string, 
     lastname?: string,
+    title?: string,
+    picture?: string,
+    phone?: string,
     admin?: string,
     groupid?: string,
     groupname?: string,
@@ -25,21 +32,20 @@ export class PersonalProfilePage {
       
   constructor(
       private nav: NavController,
-      private auth: AuthService) {
+      public fbservice: FirebaseService) {
         
         // populate screen here
         this.refreshUser();
       }
    
   private refreshUser() {
-    this.auth.getUserProfile(this.auth.id).then(thisUser => {
+    this.fbservice.getUserProfile().then(thisUser => {
       this.user = thisUser;
-      this.useremail = this.auth.authData.password.email;
     })
   }
   
   private saveUser() {
-    this.auth.ref.child('members').child(this.auth.id).update(this.user);
+    this.fbservice.saveUserProfile(this.user);
     let alert = Alert.create({
       title: 'Saved Successfully',
       buttons: [{
@@ -156,7 +162,7 @@ export class PersonalProfilePage {
   
   private doRemoveUser(data): void {
     
-    // Remove user consists of 3 steps
+    /*// Remove user consists of 3 steps
     // 1) Remove personal profile info under members node
     this.auth.ref.child('members').child(this.auth.id).remove();
     
@@ -190,12 +196,12 @@ export class PersonalProfilePage {
       }
     });
     // Navigate out of the app
-    this.nav.setRoot(TutorialPage, {}, {animate: true, direction: 'reverse'});
+    this.nav.setRoot(TutorialPage, {}, {animate: true, direction: 'reverse'});*/
   }
   
   private doChangeEmail(data): void {
     
-    // Show loading component due to the time it takes Firebase to complete
+    /*// Show loading component due to the time it takes Firebase to complete
     let loading = Loading.create({
       content: 'Please wait...'
     });
@@ -233,12 +239,12 @@ export class PersonalProfilePage {
       this.auth.signInWithEmailPassword(data.newemail, data.password)
       .then(() => this.DisplayResult(myAlert, loading))
       .catch(() => this.DisplayResult(myAlert, loading));
-    });
+    });*/
   }
   
   private doChangePassword(data): void {
     
-    // Show loading component due to the time it takes Firebase to complete
+    /*// Show loading component due to the time it takes Firebase to complete
     let loading = Loading.create({
       content: 'Please wait...'
     });
@@ -272,13 +278,13 @@ export class PersonalProfilePage {
         myAlert.subtitle = 'User password changed successfully!';
       }
       this.DisplayResult(myAlert, loading);      
-    });
+    });*/
     
   }
   
   private doResetPassword(data): void {
     
-    // Show loading component due to the time it takes Firebase to complete
+    /*// Show loading component due to the time it takes Firebase to complete
     let loading = Loading.create({
       content: 'Please wait...'
     });
@@ -306,7 +312,7 @@ export class PersonalProfilePage {
         myAlert.subtitle = 'Password reset email sent successfully!';
       }
       this.DisplayResult(myAlert, loading);      
-    });
+    });*/
     
   }
   

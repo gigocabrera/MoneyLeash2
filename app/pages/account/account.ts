@@ -48,7 +48,7 @@ export class AccountPage {
   }
 
   getUsername() {
-    this.userData.getUsername().then((username) => {
+    this.userData.getUsernameStorage().then((username) => {
       this.username = username;
     });
   }

@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {NavController, ViewController} from 'ionic-angular';
 import {AccountsTransactionsPage} from '../../mysettings/accountstransactions/accountstransactions';
-import {UserData} from '../../../providers/user-data';
+import {FirebaseService} from '../../../providers/firebaseService'
 
 @Component({
   templateUrl: 'build/pages/mypicklists/pickdefaultbalance/pickdefaultbalance.html'
@@ -20,13 +20,12 @@ export class PickDefaultBalancePage {
    
   constructor(
       private nav: NavController,
-      private user: UserData) {
-        // Get list of default balance options from shared service
-        this.defaultBalanceOptions = user.getDefaultBalanceOptions();
+      private fbservice: FirebaseService) {
+        this.defaultBalanceOptions = fbservice.getDefaultBalanceOptions();
       }
   
   pickPreference() {
-    this.user.pickDefaultBalanceSelected(this.itemselected);
+    this.fbservice.pickDefaultBalanceSelected(this.itemselected);
     this.nav.pop();
   }
   
@@ -35,7 +34,7 @@ export class PickDefaultBalancePage {
   }
   
   onPageWillEnter() {
-    this.itemselected = this.user.getDefaultBalanceSelected();
+    this.itemselected = this.fbservice.getDefaultBalanceSelected();
   }
     
 }

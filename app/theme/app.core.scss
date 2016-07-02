@@ -24,7 +24,13 @@
 // Styles specific for MoneyLeash2
 @import "../theme/ml.custom.scss";
 
+// Styles specific for MoneyLeash2 directives
+@import "../pages/mydirectives/my-input/my-input.scss";
+@import "../pages/mydirectives/my-toggle/my-toggle.scss";
+
 // Styles for login pages
 @import "../pages/login/login";
+@import "../pages/logout/logout";
 @import "../pages/signup/signup";
 @import "../pages/forgot-password/forgot-password";
+@import "../pages/myinfo/personalprofile/personalprofile";

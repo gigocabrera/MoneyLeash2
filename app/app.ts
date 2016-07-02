@@ -2,18 +2,18 @@ import {Component, ViewChild} from '@angular/core';
 import {ionicBootstrap, Events, Platform, Nav, MenuController} from 'ionic-angular';
 import {StatusBar, Splashscreen} from 'ionic-native';
 
-/* Original ionic-conference-app pages */
+// Data
 import {ConferenceData} from './providers/conference-data';
 import {UserData} from './providers/user-data';
-import {TabsPage} from './pages/tabs/tabs';
 
-/* Intro and Login pages */
+// Intro and Login pages
+import {TabsPage} from './pages/tabs/tabs';
 import {TutorialPage} from './pages/tutorial/tutorial';
 import {LoginPage} from './pages/login/login';
 import {SignupPage} from './pages/signup/signup';
 import {LogoutPage} from './pages/logout/logout';
 
-/* My Money pages */
+// My Money pages
 import {AccountListPage} from './pages/mymoney/account-list/account-list';
 import {CategoryListPage} from './pages/mymoney/category-list/category-list';
 import {BudgetListPage} from './pages/mymoney/budget-list/budget-list';
@@ -21,12 +21,11 @@ import {RecurringListPage} from './pages/mymoney/recurring-list/recurring-list';
 import {PayeeListPage} from './pages/mymoney/payee-list/payee-list';
 import {ReportListPage} from './pages/mymoney/report-list/report-list';
 
-/* Settings pages */
+// Settings pages
 import {SettingsPage} from './pages/settings/settings';
 
-/* Firebase providers */
-import {AuthProvider} from './providers/auth-provider';
-import {AuthService} from './providers/auth-service';
+// Firebase service
+import {FirebaseService} from './providers/firebaseService';
 
 interface PageObj {
   title: string;
@@ -37,7 +36,8 @@ interface PageObj {
 }
 
 @Component({
-  templateUrl: 'build/app.html'
+  templateUrl: 'build/app.html',
+  providers:[FirebaseService],
 })
 
 class MoneyLeashApp {
@@ -73,7 +73,6 @@ class MoneyLeashApp {
   constructor(
     private events: Events,
     private userData: UserData,
-    private auth: AuthService,
     private menu: MenuController,
     platform: Platform,
     confData: ConferenceData
@@ -84,7 +83,7 @@ class MoneyLeashApp {
       Splashscreen.hide();
     });
 
-    // load the conference data
+    // Load the conference data
     confData.load();
 
     // decide which menu items should be hidden by current login status stored in local storage
@@ -132,7 +131,7 @@ class MoneyLeashApp {
   }
   
    signOut(): void {
-    this.auth.signOut();
+    //this.auth.signOut();
   } 
 }
 
@@ -145,6 +144,6 @@ class MoneyLeashApp {
 // See the theming docs for the default values:
 // http://ionicframework.com/docs/v2/theming/platform-specific-styles/
 
-ionicBootstrap(MoneyLeashApp, [ConferenceData, UserData, AuthProvider], {
+ionicBootstrap(MoneyLeashApp, [ConferenceData, UserData], {
   tabbarPlacement: 'bottom'
 });
