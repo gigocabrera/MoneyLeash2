@@ -9,11 +9,11 @@
   </ion-navbar>
 </ion-header>
 <ion-content>
-  <ion-item-divider mlitemdivider>
+  <ion-item-divider>
     Select your preferences below
   </ion-item-divider>
   <ion-list>
-    <my-input class="item" title="Default Date" icon="fa fa-calendar" placeholder="Default Date" [(ngModel)]="defaultdate" (click)="pickDefaultDate()"></my-input>
-    <my-input class="item" title="Default Balance" icon="fa fa-money" placeholder="Default Balance" [(ngModel)]="defaultbalance" (click)="pickDefaultDate()"></my-input>
+    <my-input class="item" type="text" icon="fa fa-calendar" title="Default Date" placeholder="Default Date" [(ngModel)]="defaultdate" (click)="pickDefaultDate()"></my-input>
+    <my-input class="item" type="text" icon="fa fa-money" title="Default Balance" placeholder="Default Balance" [(ngModel)]="defaultbalance" (click)="pickDefaultBalance()"></my-input>
   </ion-list>
 </ion-content>

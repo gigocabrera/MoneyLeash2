@@ -9,16 +9,16 @@
   </ion-navbar>
 </ion-header>
 <ion-content>
-  <ion-item-divider mlitemdivider>
+  <ion-item-divider>
     Select your security preferences below
   </ion-item-divider>
   <ion-list>
-    <ion-item class="ml-input ml-borderbottom">
+    <ion-item class="ml-input mlnobottomborder">
       <i class="fa fa-hand-o-up ml-fontawesome-left" item-left></i>
       <ion-label>Enable Touch ID</ion-label>
       <ion-toggle secondary [(ngModel)]="user.enabletouchid" (ionChange)="stateChange($event)"></ion-toggle>
     </ion-item>
-    <my-input class="item" title="Email" icon="fa fa-at" placeholder="Email" [(ngModel)]="user.email" isreadonly="true"></my-input>
-    <my-input class="item" type="password" title="Password" icon="fa fa-unlock-alt" placeholder="Password" [(ngModel)]="user.password" isreadonly="true"></my-input>
+    <my-input class="item" type="email" icon="fa fa-at" title="Email" placeholder="Email" [(ngModel)]="user.email" readonly></my-input>
+    <my-input class="item" type="email" icon="fa fa-lock" title="Password" placeholder="Password" [(ngModel)]="user.password" readonly></my-input>
   </ion-list>
 </ion-content>

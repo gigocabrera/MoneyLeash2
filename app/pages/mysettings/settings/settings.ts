@@ -1,12 +1,11 @@
 import {Component} from '@angular/core';
 import {NavController} from 'ionic-angular';
 import {Injectable} from '@angular/core';
-import {UserData} from '../../providers/user-data';
-import {TabsPage} from '../tabs/tabs';
-import {PersonalProfilePage} from '../myinfo/personalprofile/personalprofile';
-import {AccountsTransactionsPage} from '../mysettings/accountstransactions/accountstransactions';
-import {SecurityPage} from '../mysettings/security/security';
-import {AccountPage} from '../../pages/account/account';
+import {UserData} from '../../../providers/user-data';
+import {AboutPage} from '../../../pages/about/about';
+import {PersonalProfilePage} from '../../myinfo/personalprofile/personalprofile';
+import {AccountsTransactionsPage} from '../../mysettings/accountstransactions/accountstransactions';
+import {SecurityPage} from '../../mysettings/security/security';
 
 interface PageObj {
   title: string;
@@ -16,7 +15,7 @@ interface PageObj {
 }
 
 @Component({
-  templateUrl: 'build/pages/settings/settings.html'
+  templateUrl: 'build/pages/mysettings/settings/settings.html'
 })
 export class SettingsPage {
   // List of pages that can be navigated to from the left menu
@@ -30,8 +29,7 @@ export class SettingsPage {
       { title: 'Suggest a Feature', component: '', icon: 'ios-bulb-outline' },
       { title: 'Write a Review', component: '', icon: 'ios-heart-outline' },
       { title: 'Contact Support', component: '', icon: 'ios-help-circle-outline' },
-      { title: 'About', component: TabsPage, icon: 'ios-pin-outline' },
-      { title: 'Account', component: AccountPage, icon: 'ios-pin-outline' }
+      { title: 'About', component: AboutPage, icon: 'ios-pin-outline' }
   ];
   
   constructor(private nav: NavController) {    

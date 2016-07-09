@@ -5,17 +5,17 @@ import {ChangePasswordPage} from '../../myinfo/changepassword/changepassword';
 import {ResetPasswordPage} from '../../myinfo/resetpassword/resetpassword';
 import {RemoveUserPage} from '../../myinfo/removeuser/removeuser';
 import {TutorialPage} from '../../tutorial/tutorial';
-import {MyInput} from '../../mydirectives/my-input/my-input';
+import {UserData} from '../../../providers/user-data';
 
 // Firebase service
 import {FirebaseService} from '../../../providers/firebaseService'
 
 @Component({
-  templateUrl: 'build/pages/myinfo/personalprofile/personalprofile.html',
-  directives: [MyInput]
+  templateUrl: 'build/pages/myinfo/personalprofile/personalprofile.html'
 })
 
 export class PersonalProfilePage {
+  username: string;
   user: {
     firstname?: string, 
     lastname?: string,
@@ -29,16 +29,90 @@ export class PersonalProfilePage {
     paymentplan?: string
   } = {};
   useremail: string;
-      
+
   constructor(
       private nav: NavController,
-      public fbservice: FirebaseService) {
-        
-        // populate screen here
-        this.refreshUser();
+      private userData: UserData,
+      public fbservice: FirebaseService) { }
+  
+  ngAfterViewInit() {
+    this.getUsername();
+  }
+
+  getUsername() {
+    this.userData.getUsernameStorage().then((username) => {
+      this.username = username;
+    });
+  }
+
+  updatePicture() {
+    console.log('Update picture clicked');
+  }
+
+  changeEmail() {
+    let modal = Modal.create(ChangeEmailPage);
+    this.nav.present(modal);
+    modal.onDismiss((data: any[]) => {
+      if (data) {
+        this.doChangeEmail(data);
       }
-   
-  private refreshUser() {
+    });
+  }
+  
+  changePassword() {
+    let modal = Modal.create(ChangePasswordPage);
+    this.nav.present(modal);
+    modal.onDismiss((data: any[]) => {
+      if (data) {
+        this.doChangePassword(data);
+      }
+    });
+  }
+  
+  resetPassword() {
+    let modal = Modal.create(ResetPasswordPage);
+    this.nav.present(modal);
+    modal.onDismiss((data: any[]) => {
+      if (data) {
+        this.doResetPassword(data);
+      }
+    });
+  }
+
+  deleteAccount() {
+    this.nav.present(
+      Alert.create({
+        title: 'Please Confirm',
+        message: 'Delete your account and ALL your data?',
+        buttons: [
+          {
+            text: 'Cancel',
+            handler: () => {
+              console.log('Cancel RemoveUser clicked');
+            }
+          },
+          {
+            text: 'Delete',
+            handler: () => {
+              this.modalRemoveUser();
+            }
+          }
+        ]
+      })
+    )
+  }
+
+  private modalRemoveUser() {
+    let modal = Modal.create(RemoveUserPage);
+    this.nav.present(modal);
+    modal.onDismiss((data: any[]) => {
+      if (data) {
+        this.doRemoveUser(data);
+      }
+    });
+  }
+
+  /*private refreshUser() {
     this.fbservice.getUserProfile().then(thisUser => {
       this.user = thisUser;
     })
@@ -55,152 +129,12 @@ export class PersonalProfilePage {
       }]
     });
     this.nav.present(alert);
-  }
-    
-  private presentActionSheet() {
-    let actionSheet = ActionSheet.create({
-      title: 'Manage your Account',
-      buttons: [
-        {
-          text: 'Change Email',
-          handler: () => {
-            this.modalChangeEmail();
-          }
-        },
-        {
-          text: 'Change Password',
-          handler: () => {
-            this.modalChangePassword();
-          }
-        },
-        {
-          text: 'Reset Password',
-          handler: () => {
-            this.modalResetPassword();
-          }
-        },
-        {
-          text: 'Delete Account',
-          role: 'destructive',
-          handler: () => {
-            new Promise(function(resolve, reject) {
-              setTimeout(() => resolve(), 400);
-            })
-            .then(res => {
-              this.nav.present(
-                Alert.create({
-                  title: 'Please Confirm',
-                  message: 'Delete your account and ALL your data?',
-                  buttons: [
-                    {
-                      text: 'Cancel',
-                      handler: () => {
-                        console.log('Cancel RemoveUser clicked');
-                      }
-                    },
-                    {
-                      text: 'Delete',
-                      handler: () => {
-                        this.modalRemoveUser();
-                      }
-                    }
-                  ]
-                }))
-            });
-          }
-        },{
-          text: 'Cancel',
-          role: 'cancel',
-          handler: () => {
-            //console.log('Cancel clicked');
-          }
-        }
-      ]
-    });
-    this.nav.present(actionSheet);
-  }
-  
-  private modalChangeEmail() {
-    let modal = Modal.create(ChangeEmailPage);
-    this.nav.present(modal);
-    modal.onDismiss((data: any[]) => {
-      if (data) {
-        this.doChangeEmail(data);
-      }
-    });
-  }
-  
-  private modalChangePassword() {
-    let modal = Modal.create(ChangePasswordPage);
-    this.nav.present(modal);
-    modal.onDismiss((data: any[]) => {
-      if (data) {
-        this.doChangePassword(data);
-      }
-    });
-  }
-  
-  private modalResetPassword() {
-    let modal = Modal.create(ResetPasswordPage);
-    this.nav.present(modal);
-    modal.onDismiss((data: any[]) => {
-      if (data) {
-        this.doResetPassword(data);
-      }
-    });
-  }
-  
-  private modalRemoveUser() {
-    let modal = Modal.create(RemoveUserPage);
-    this.nav.present(modal);
-    modal.onDismiss((data: any[]) => {
-      if (data) {
-        this.doRemoveUser(data);
-      }
-    });
-  }
-  
-  private doRemoveUser(data): void {
-    
-    /*// Remove user consists of 3 steps
-    // 1) Remove personal profile info under members node
-    this.auth.ref.child('members').child(this.auth.id).remove();
-    
-    // 2) Remove account information under houses node
-    if (this.user.groupid != null) {
-      this.auth.ref.child('houses').child(this.user.groupid).remove();
-    }
-    
-    // 3) Remove user from Firebase
-    var myAlert: {
-      title?: string, 
-      subtitle?: string
-    } = {};
-    this.auth.ref.removeUser({
-      email: this.auth.authData.password.email,
-      password: data.password
-    }, (error) => {
-      if (error) {
-        switch (error.code) {
-          case "INVALID_USER":
-            console.log("The specified user account does not exist.");
-            break;
-          case "INVALID_PASSWORD":
-            console.log("The specified user account password is incorrect.");
-            break;
-          default:
-            console.log("Error removing user:", error);
-        }
-      } else {
-        console.log("User account deleted successfully!");
-      }
-    });
-    // Navigate out of the app
-    this.nav.setRoot(TutorialPage, {}, {animate: true, direction: 'reverse'});*/
-  }
+  }*/
   
   private doChangeEmail(data): void {
-    
+
+    console.log(data);
+
     /*// Show loading component due to the time it takes Firebase to complete
     let loading = Loading.create({
       content: 'Please wait...'
@@ -244,6 +178,8 @@ export class PersonalProfilePage {
   
   private doChangePassword(data): void {
     
+    console.log(data);
+
     /*// Show loading component due to the time it takes Firebase to complete
     let loading = Loading.create({
       content: 'Please wait...'
@@ -283,6 +219,8 @@ export class PersonalProfilePage {
   }
   
   private doResetPassword(data): void {
+
+    console.log(data);
     
     /*// Show loading component due to the time it takes Firebase to complete
     let loading = Loading.create({
@@ -311,9 +249,50 @@ export class PersonalProfilePage {
         myAlert.title = 'DONE';
         myAlert.subtitle = 'Password reset email sent successfully!';
       }
-      this.DisplayResult(myAlert, loading);      
+      this.DisplayResult(myAlert, loading);
     });*/
     
+  }
+
+  private doRemoveUser(data): void {
+    
+    console.log(data);
+
+    /*// Remove user consists of 3 steps
+    // 1) Remove personal profile info under members node
+    this.auth.ref.child('members').child(this.auth.id).remove();
+    
+    // 2) Remove account information under houses node
+    if (this.user.groupid != null) {
+      this.auth.ref.child('houses').child(this.user.groupid).remove();
+    }
+    
+    // 3) Remove user from Firebase
+    var myAlert: {
+      title?: string, 
+      subtitle?: string
+    } = {};
+    this.auth.ref.removeUser({
+      email: this.auth.authData.password.email,
+      password: data.password
+    }, (error) => {
+      if (error) {
+        switch (error.code) {
+          case "INVALID_USER":
+            console.log("The specified user account does not exist.");
+            break;
+          case "INVALID_PASSWORD":
+            console.log("The specified user account password is incorrect.");
+            break;
+          default:
+            console.log("Error removing user:", error);
+        }
+      } else {
+        console.log("User account deleted successfully!");
+      }
+    });
+    // Navigate out of the app
+    this.nav.setRoot(TutorialPage, {}, {animate: true, direction: 'reverse'});*/
   }
   
   private DisplayResult(myAlert, loading): void {

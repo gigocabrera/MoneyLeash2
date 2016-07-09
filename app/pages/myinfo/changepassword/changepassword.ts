@@ -14,7 +14,7 @@ export class ChangePasswordPage {
         
   constructor(
       private nav: NavController,
-      private viewCtrl: ViewController) {}  
+      private viewCtrl: ViewController) { }  
  
   changePassword(user) {
     this.dismiss(user);

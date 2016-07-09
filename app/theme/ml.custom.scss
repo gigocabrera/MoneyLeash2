@@ -1,6 +1,3 @@
-/* Using custom fonts */
-@import url("https://fonts.googleapis.com/css?family=PT+Sans");
-@import url("https://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700");
 
 /* Styles toolbar titles */
 .toolbar[mlnavbar] .toolbar-title {
@@ -9,20 +6,20 @@
 
 /* Styles for ML divider */
 ion-item-divider[mlitemdivider] {
-    border-top: 0px solid #c8c7cc;
+  border-top: 0px solid #c8c7cc;
 }
 
 /* Slide Animation for form messages */
 .cssSlideUpHide {
-    height: 0;
+  height: 0;
 }
 .cssSlideUpShow {
-    transition: .5s linear all;
-    height: 40px;
-    overflow: hidden;
-    background-color: #d9534f;
-    text-align: center;
-    padding-top: 0;
+  transition: .5s linear all;
+  height: 40px;
+  overflow: hidden;
+  background-color: #d9534f;
+  text-align: center;
+  padding-top: 0;
 }
 .cssSlideUpShow p {
   color: #fff;
@@ -35,7 +32,17 @@ ion-item-divider[mlitemdivider] {
 }
 
 /* custom styles for help text  */
-#helptext {
+#mlhelptext {
   padding: 0 10px 0 10px;
   font-size: 13px;
+  color: #8e8e93;
+}
+
+/* custom styles for ion-list showing help text  */
+.reducedbottommargin {
+  margin: -1px 0 15px 0;
+}
+/* Force border bottom in ion-list */
+.mlbottomborder {
+    border-bottom: 1px solid #c8c7cc;
 }

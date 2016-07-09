@@ -1,23 +1,25 @@
-<ion-toolbar mlnavbar>
-  <ion-buttons start>
-    <button (click)="dismiss()" mllightblue>Cancel</button>
-  </ion-buttons>
-  <ion-title>
-    Delete Account
-  </ion-title>
-  <ion-buttons end>
-    <button (click)="removeUser(user)" mllightblue>Delete</button>
-  </ion-buttons>
-</ion-toolbar>
+<ion-header>
+  <ion-toolbar mlnavbar>
+    <ion-buttons start>
+      <button (click)="dismiss()" mllightblue>Cancel</button>
+    </ion-buttons>
+    <ion-title>
+      Delete Account
+    </ion-title>
+    <ion-buttons end>
+      <button (click)="removeUser(user)">Delete</button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
 <ion-content class="outer-content">
+  <ion-item-divider>
+    Please confirm your password
+  </ion-item-divider>
   <ion-list>
-    <ion-item-divider mlitemdivider>
-      Please confirm your password
-    </ion-item-divider>    
     <ion-item class="ml-input">
-      <ion-icon name="lock" item-left class="ml-icon-left"></ion-icon>
-      <ion-label floating primary>Password</ion-label>
-      <ion-input type="text" [(ngModel)]="user.password" type="password"></ion-input>
+      <i class="fa fa-at ml-fontawesome-left" item-left></i>
+      <ion-label stacked>Password</ion-label>
+      <ion-input type="password" placeholder="Password" [(ngModel)]="user.password"></ion-input>
     </ion-item>
   </ion-list>
 </ion-content>

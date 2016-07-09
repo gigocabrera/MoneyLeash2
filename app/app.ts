@@ -3,11 +3,9 @@ import {ionicBootstrap, Events, Platform, Nav, MenuController} from 'ionic-angul
 import {StatusBar, Splashscreen} from 'ionic-native';
 
 // Data
-import {ConferenceData} from './providers/conference-data';
 import {UserData} from './providers/user-data';
 
 // Intro and Login pages
-import {TabsPage} from './pages/tabs/tabs';
 import {TutorialPage} from './pages/tutorial/tutorial';
 import {LoginPage} from './pages/login/login';
 import {SignupPage} from './pages/signup/signup';
@@ -22,7 +20,7 @@ import {PayeeListPage} from './pages/mymoney/payee-list/payee-list';
 import {ReportListPage} from './pages/mymoney/report-list/report-list';
 
 // Settings pages
-import {SettingsPage} from './pages/settings/settings';
+import {SettingsPage} from './pages/mysettings/settings/settings';
 
 // Firebase service
 import {FirebaseService} from './providers/firebaseService';
@@ -67,24 +65,21 @@ class MoneyLeashApp {
   ];
   
   // Default root page
-  rootPage: any = TutorialPage;
+  //rootPage: any = TutorialPage;
+  rootPage: any = SettingsPage; // for testing purposes only
   loggedIn = false;
 
   constructor(
     private events: Events,
     private userData: UserData,
     private menu: MenuController,
-    platform: Platform,
-    confData: ConferenceData
+    platform: Platform
   ) {
     // Call any initial plugins when ready
     platform.ready().then(() => {
       StatusBar.styleLightContent();
       Splashscreen.hide();
     });
-
-    // Load the conference data
-    confData.load();
 
     // decide which menu items should be hidden by current login status stored in local storage
     this.userData.hasLoggedIn().then((hasLoggedIn) => {
@@ -100,7 +95,7 @@ class MoneyLeashApp {
     if (page.index) {
       this.nav.setRoot(page.component, {tabIndex: page.index});
     } else {
-      this.nav.setRoot(page.component, {}, {animate: true, direction: 'forward'});
+      this.nav.setRoot(page.component);
     }
 
     if (page.title === 'Logout') {
@@ -144,6 +139,6 @@ class MoneyLeashApp {
 // See the theming docs for the default values:
 // http://ionicframework.com/docs/v2/theming/platform-specific-styles/
 
-ionicBootstrap(MoneyLeashApp, [ConferenceData, UserData], {
+ionicBootstrap(MoneyLeashApp, [UserData], {
   tabbarPlacement: 'bottom'
 });

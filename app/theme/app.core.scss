@@ -11,24 +11,15 @@
 // By default each design mode includes these shared imports.
 // App Shared Sass variables belong in app.variables.scss.
 
-// Styles specific for ionic-conference-app
-@import "../pages/about/about";
-@import "../pages/account/account";
-@import "../pages/tutorial/tutorial";
-@import "../pages/map/map";
-@import "../pages/schedule/schedule";
-@import "../pages/schedule-filter/schedule-filter";
-@import "../pages/speaker-detail/speaker-detail";
-@import "../pages/speaker-list/speaker-list";
-
 // Styles specific for MoneyLeash2
+@import "../pages/about/about";
+@import "../pages/tutorial/tutorial";
 @import "../theme/ml.custom.scss";
 
 // Styles specific for MoneyLeash2 directives
 @import "../pages/mydirectives/my-input/my-input.scss";
-@import "../pages/mydirectives/my-toggle/my-toggle.scss";
 
-// Styles for login pages
+// Styles for MoneyLeash pages
 @import "../pages/login/login";
 @import "../pages/logout/logout";
 @import "../pages/signup/signup";

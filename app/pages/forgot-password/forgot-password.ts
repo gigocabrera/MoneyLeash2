@@ -1,6 +1,5 @@
 import {Component} from '@angular/core';
 import {NavController, MenuController} from 'ionic-angular';
-import {TabsPage} from '../tabs/tabs';
 import {UserData} from '../../providers/user-data';
 
 @Component({

@@ -1,33 +1,23 @@
-<ion-toolbar mlnavbar>
-  <ion-buttons start>
-    <button (click)="dismiss()" mllightblue>Cancel</button>
-  </ion-buttons>
-  <ion-title>
-    Change Email
-  </ion-title>
-  <ion-buttons end>
-    <button (click)="changeEmail(user)" mllightblue>Save</button>
-  </ion-buttons>
-</ion-toolbar>
+<ion-header>
+  <ion-toolbar mlnavbar>
+    <ion-buttons start>
+      <button (click)="dismiss()" mllightblue>Cancel</button>
+    </ion-buttons>
+    <ion-title>
+      Change Email
+    </ion-title>
+    <ion-buttons end>
+      <button (click)="changeEmail(user)" mllightblue>Save</button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
 <ion-content class="outer-content">
+  <ion-item-divider>
+    Enter you New Email
+  </ion-item-divider>
   <ion-list>
-    <ion-item-divider mlitemdivider>
-      Enter you New Email
-    </ion-item-divider>
-    <ion-item class="ml-input">
-      <ion-icon name="ios-at-outline" item-left class="ml-icon-left"></ion-icon>
-      <ion-label floating primary>Old Email</ion-label>
-      <ion-input type="text" [(ngModel)]="user.oldemail"></ion-input>
-    </ion-item>
-    <ion-item class="ml-input">
-      <ion-icon name="ios-at-outline" item-left class="ml-icon-left"></ion-icon>
-      <ion-label floating primary>New Email</ion-label>
-      <ion-input type="text" [(ngModel)]="user.newemail"></ion-input>
-    </ion-item>
-    <ion-item class="ml-input">
-      <ion-icon name="lock" item-left class="ml-icon-left"></ion-icon>
-      <ion-label floating primary>Password</ion-label>
-      <ion-input type="text" [(ngModel)]="user.password" type="password"></ion-input>
-    </ion-item>
+    <my-input class="item" type="email" icon="fa fa-at" title="Old Email" placeholder="Old Email" [(ngModel)]="user.oldemail" ></my-input>
+    <my-input class="item" type="email" icon="fa fa-at" title="New Email" placeholder="New Email" [(ngModel)]="user.newemail"></my-input>
+    <my-input class="item" type="password" icon="fa fa-lock" title="Password" placeholder="Password" [(ngModel)]="user.password"></my-input>
   </ion-list>
 </ion-content>

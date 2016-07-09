@@ -13,26 +13,31 @@ const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = new Provider(
     multi: true
   });
 
+//TODO: readonly property in ion-input not working at the moment. come back once fixed
+//https://github.com/driftyco/ionic/issues/6408
+
 @Component({
   selector: 'my-input',
   template: `
     <ion-item class="ml-input">
       <i class="{{icon}} ml-fontawesome-left" item-left></i>
-      <ion-label stacked>{{title}}</ion-label>
-      <ion-input [type]="type" [placeholder]="placeholder" [(ngModel)]="_value" [attr.readonly]="isreadonly ? true : null"></ion-input>
+      <ion-label stacked *ngIf="_value != undefined">{{title}}</ion-label>
+      <ion-input [type]="type" [placeholder]="placeholder" [(ngModel)]="_value" [readonly]="isReadOnly ? 'true' : null" [class.extramargin]="_value == undefined"></ion-input>
       <ion-icon name="arrow-forward" item-right class="ml-chevron-right"></ion-icon>
     </ion-item>
   `,
   directives: [CORE_DIRECTIVES, IONIC_DIRECTIVES],
   providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
 })
-export class MyInput implements ControlValueAccessor{
+export class MyInput implements ControlValueAccessor {
   
   @Input() title: string = '';
   @Input() placeholder: string = '';
   @Input() icon: string = '';
   @Input() type: string = 'text';
-  @Input() isreadonly:boolean = false;
+  @Input() isReadOnly:boolean = true;
+
+  constructor() {}
 
   //The internal data model
   private _value: any = '';
@@ -43,7 +48,9 @@ export class MyInput implements ControlValueAccessor{
   private _onChangeCallback: (_:any) => void = noop;
 
   //get accessor
-  get value(): any { return this._value; };
+  get value(): any { 
+    return this._value; 
+  };
 
   //set accessor including call the onchange callback
   set value(v: any) {

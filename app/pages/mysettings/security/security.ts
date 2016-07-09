@@ -2,12 +2,11 @@ import {Component} from '@angular/core';
 import {NavController, Modal} from 'ionic-angular';
 import {UserData} from '../../../providers/user-data';
 import {MyInput} from '../../mydirectives/my-input/my-input';
-import {MyToggle} from '../../mydirectives/my-toggle/my-toggle';
 import {FirebaseService} from '../../../providers/firebaseService'
 
 @Component({
   templateUrl: 'build/pages/mysettings/security/security.html',
-  directives: [MyInput, MyToggle]
+  directives: [MyInput]
 })
 
 export class SecurityPage {

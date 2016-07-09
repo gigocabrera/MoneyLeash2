@@ -3,34 +3,22 @@
     <button menuToggle>
       <ion-icon name="menu" mllightblue></ion-icon>
     </button>  
-    <ion-title>Personal Profile</ion-title>
-    <ion-buttons end>
-      <button (click)="saveUser(user)" mllightblue>
-        Save
-      </button>
-    </ion-buttons>
-    <ion-buttons end (click)="presentActionSheet()">
-    <button royal>
-      <ion-icon name="settings"></ion-icon>
-    </button>
-  </ion-buttons>  
+    <ion-title>Personal Profile</ion-title>  
   </ion-navbar>
 </ion-header>
-<ion-content>
-  <ion-item-group>
-    <ion-item-divider mlitemdivider>Your Information</ion-item-divider>
-    <my-input class="item" title="First Name" icon="fa fa-user" placeholder="First Name" [(ngModel)]="user.firstname"></my-input>
-    <my-input class="item" title="Last Name" icon="fa fa-user" placeholder="Last Name" [(ngModel)]="user.lastname"></my-input>
-    <my-input class="item" title="Email" icon="fa fa-at" placeholder="Email" [(ngModel)]="useremail" isreadonly="false"></my-input>
-  </ion-item-group>
-  <ion-item-group>
-    <ion-item-divider mlitemdivider>Your Group</ion-item-divider>
-    <my-input class="item" title="Group Name" icon="fa fa-home" placeholder="Group Name"></my-input>
-    <my-input class="item" title="Group Number" icon="fa fa-barcode" placeholder="Group Number"></my-input>
-    <my-input class="item" title="Group Admin" icon="fa fa-shield" placeholder="Group Admin"></my-input>
-  </ion-item-group>
-  <ion-item-group>
-    <ion-item-divider mlitemdivider>Payment Plan</ion-item-divider>
-    <my-input class="item" title="Payment Plan" icon="fa fa-shopping-cart" placeholder="Payment Plan"></my-input>
-  </ion-item-group>
+
+<ion-content class="outer-content">
+  <div padding-top text-center *ngIf="username">
+    <img src="http://www.gravatar.com/avatar?d=mm&s=140">
+    <h2>{{username}}</h2>
+
+    <ion-list inset>
+      <button ion-item (click)="updatePicture()">Update Picture</button>
+      <button ion-item (click)="changeEmail()">Change Email</button>
+      <button ion-item (click)="changePassword()">Change Password</button>
+      <button ion-item (click)="resetPassword()">Reset Password</button>
+      <button ion-item (click)="deleteAccount()">Delete Account</button>
+      <button ion-item (click)="logout()">Logout</button>
+    </ion-list>
+  </div>
 </ion-content>

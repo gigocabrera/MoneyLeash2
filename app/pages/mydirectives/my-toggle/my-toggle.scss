@@ -19,36 +19,11 @@ ion-list > my-toggle.item:last-child {
 .ml-input {
   padding: 0;
 }
-ion-label[stacked] {
-  margin-top: 5px;
-  margin-bottom: -6px;
-}
-.ml-icon-left:before {
+/*.ml-icon-left:before {
   display: block;
   text-align: center;
   padding-top: 10px;
   color: #909090;
   font-size: 30px;
   font-weight: normal;
-}
-.ml-input ion-icon[item-left], .ml-input ion-icon[item-right] {
-  margin-top: 0;
-  margin-left: 0;
-  margin-right: 5px;
-  margin-bottom: 0;
-}
-/* custom fontawesome icons used in forms */
-.ml-fontawesome-left {
-  background-color: #efeff4;
-  text-align: center;
-  height: 60px;
-  width: 60px;
-}
-.ml-input i {
-  margin: 0;
-}
-.ml-input i:before {
-  font-size: 24px;
-  color: #b9b9b9;
-  line-height: 57px;
-}
+}*/
