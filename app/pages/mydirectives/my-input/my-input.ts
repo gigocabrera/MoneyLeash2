@@ -1,7 +1,8 @@
 //
 // Credit: http://almerosteyn.com/2016/04/linkup-custom-control-to-ngcontrol-ngmodel
+// Credit: https://github.com/driftyco/ionic/blob/2.0/src/components/input/native-input.ts
 //
-import {Component, Input, Provider, forwardRef, Attribute} from '@angular/core';
+import {Component, Input, Output, EventEmitter, HostListener, Provider, forwardRef} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR, CORE_DIRECTIVES} from "@angular/common";
 import {IONIC_DIRECTIVES} from 'ionic-angular';
 
@@ -37,7 +38,15 @@ export class MyInput implements ControlValueAccessor {
   @Input() type: string = 'text';
   @Input() isReadOnly:boolean = true;
 
+   @Output() valueChange: EventEmitter<string> = new EventEmitter<string>();
+
   constructor() {}
+
+	@HostListener('input', ['$event'])
+  private _change(ev: any) {
+    this.valueChange.emit(ev.target.value);
+    console.log(ev.target.value);
+  }
 
   //The internal data model
   private _value: any = '';

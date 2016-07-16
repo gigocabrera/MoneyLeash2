@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {NavController, MenuController, Alert, Loading} from 'ionic-angular';
+import {NavController, Alert, Loading} from 'ionic-angular';
 import {UserData} from '../../providers/user-data';
 import {AccountListPage} from '../mymoney/account-list/account-list';
 import {FirebaseService} from '../../providers/firebaseService'
@@ -15,7 +15,6 @@ export class SignupPage {
 
   constructor(
     private nav: NavController,
-    private menu: MenuController,
     private userData: UserData,
     public fbservice: FirebaseService) {}
 
@@ -115,16 +114,6 @@ export class SignupPage {
       buttons: ['Ok']
     });
     this.nav.present(alert);
-  }
-  
-  ionViewDidEnter() {
-    this.menu.enable(false);
-    this.menu.swipeEnable(false);
-  }
-  
-  ionViewDidLeave() {
-    this.menu.enable(this.submitted);
-    this.menu.swipeEnable(this.submitted);
   }
   
 }

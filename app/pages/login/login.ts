@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {NavController, MenuController, Alert} from 'ionic-angular';
+import {NavController, Alert} from 'ionic-angular';
 import {UserData} from '../../providers/user-data';
 import {SignupPage} from '../signup/signup';
 import {ForgotPasswordPage} from '../forgot-password/forgot-password';
@@ -19,7 +19,6 @@ export class LoginPage {
   constructor(
     private nav: NavController,
     private userData: UserData,
-    private menu: MenuController,
     private fbservice: FirebaseService) {}
 
   private LoginSuccess(): void {
@@ -60,16 +59,6 @@ export class LoginPage {
   
   doForgotPassword() {
     this.nav.push(ForgotPasswordPage);
-  }
-  
-  ionViewDidEnter() {
-    this.menu.enable(false);
-    this.menu.swipeEnable(false);
-  }
-  
-  ionViewDidLeave() {
-    this.menu.enable(this.submitted);
-    this.menu.swipeEnable(this.submitted);
   }
   
 }
