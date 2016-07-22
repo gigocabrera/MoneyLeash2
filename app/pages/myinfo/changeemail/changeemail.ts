@@ -1,30 +1,24 @@
 import {Component} from '@angular/core';
 import {NavController, Alert, ViewController} from 'ionic-angular';
-import {MyInput} from '../../mydirectives/my-input/my-input';
 
 @Component({
-  templateUrl: 'build/pages/myinfo/changeemail/changeemail.html',
-  directives: [MyInput]
+  templateUrl: 'build/pages/myinfo/changeemail/changeemail.html'
 })
 
 export class ChangeEmailPage { 
 
-  user: {
-    oldemail?: string,
-    newemail?: string,
-    password?: string
-  } = {};
+  newemail: string = '';
 
   constructor(
     private nav: NavController,
-    private viewCtrl: ViewController) { }
+    private viewCtrl: ViewController) {}
   
-  changeEmail(user) {
-    this.dismiss(user);
+  changeEmail(newemail) {
+    this.dismiss(newemail);
   }
   
-  dismiss(data) {
-    this.viewCtrl.dismiss(data);
+  dismiss(newemail) {
+    this.viewCtrl.dismiss(newemail);
   }
     
 }

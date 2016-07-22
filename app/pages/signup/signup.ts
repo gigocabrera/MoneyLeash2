@@ -16,21 +16,11 @@ export class SignupPage {
   constructor(
     private nav: NavController,
     private userData: UserData,
-    public fbservice: FirebaseService) {}
+    public db: FirebaseService) {}
 
   private inputIsValid(credentials) : boolean {
     this.showValidationMessage = false;
     this.validationMessage = '';
-    if (credentials.firstname == null) {
-      this.showValidationMessage = true;
-      this.validationMessage = 'Please enter your first name';
-      return false;
-    }
-    if (credentials.lastname == null) {
-      this.showValidationMessage = true;
-      this.validationMessage = 'Please enter your last name';
-      return false;
-    }
     if (credentials.email == null) {
       this.showValidationMessage = true;
       this.validationMessage = 'Please enter your email address';
@@ -53,13 +43,13 @@ export class SignupPage {
       this.userData.handleSignup(credentials);
       //
       // Create user
-      this.fbservice.createUser(credentials).subscribe(
+      this.db.createUser(credentials).subscribe(
       (data: any) => {
-        console.log("the data", data.email);
+        //console.log("the data", data.email);
         this.SignUpSuccess(credentials);
       },
       (error) => {
-        console.log(error)
+        //console.log(error)
         this.SignUpError(error)
       });
     }
@@ -68,7 +58,7 @@ export class SignupPage {
   private SignUpSuccess(credentials): void {
     //
     // User has been created. Now Authenticate user (login) in Firebase
-    this.fbservice.login(credentials)
+    this.db.login(credentials)
       .subscribe(
       (data: any) => {
         console.log("the data", data.email);
@@ -83,8 +73,8 @@ export class SignupPage {
   private LoginSuccess(credentials): void {
     //
     // Save personal data to member node (personal profile)
-    this.fbservice.saveUserProfile(credentials);
-    this.fbservice.createPreferences();
+    this.db.saveUserProfile(credentials);
+    this.db.createPreferences();
     this.nav.setRoot(AccountListPage, {}, {animate: true, direction: 'forward'});
   }
   

@@ -1,9 +1,9 @@
 <ion-header>
-  <ion-navbar mlnavbar class="hide-border">
-    <ion-title>Sign Up</ion-title>  
+  <ion-navbar mlnavbar>
+    <ion-title>Sign Up</ion-title>
   </ion-navbar>
 </ion-header>
-<ion-content class="signupScreen">
+<ion-content class="signupScreen">  
   <ion-list>
     <div class="cssSlideUpHide" [ngClass]="{'cssSlideUpShow': showValidationMessage}">
         <div class="validationDiv">
@@ -11,13 +11,14 @@
                 {{ validationMessage }}
             </p>
         </div>
+    </div>       
+    <div id="divLoginHeading">
+      <ion-icon name="ios-lock-outline"></ion-icon>
     </div>
     <div id="divSignupForm">
       <form #signupCredentials="ngForm" id="signupForm">
         <button (click)="doSignup(signupCredentials.value, $event)" type="submit" block><ion-icon name="ios-arrow-forward"></ion-icon></button>      
-        <ion-input ngControl="firstname" type="text" placeholder="first name"></ion-input>
-        <ion-input ngControl="lastname" type="text" placeholder="last name"></ion-input>
-        <ion-input ngControl="email" type="email"  placeholder="email"></ion-input>
+        <ion-input ngControl="email" type="email" placeholder="email"></ion-input>
         <ion-input ngControl="password" type="password" placeholder="password"></ion-input>
       </form>
     </div>

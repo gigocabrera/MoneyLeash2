@@ -19,7 +19,7 @@ export class SecurityPage {
   constructor(
       private nav: NavController,
       private userData: UserData,
-      private fbservice: FirebaseService) {}
+      private db: FirebaseService) {}
   
   save() {
     if (this.user.enabletouchid === "true"){
@@ -28,8 +28,8 @@ export class SecurityPage {
       this.user.enabletouchid = "true"
     }
 
-    this.fbservice.pickDefaultSecuritySelected(this.user.enabletouchid);
-    this.fbservice.savePreferences();
+    this.db.pickDefaultSecuritySelected(this.user.enabletouchid);
+    this.db.savePreferences();
     if (this.user.enabletouchid) {
       this.userData.setUserPwd(this.user.password);
     }
@@ -41,7 +41,7 @@ export class SecurityPage {
   }
 
   loadDefaults() {
-    this.user.enabletouchid = this.fbservice.getDefaultSecuritySelected();
+    this.user.enabletouchid = this.db.getDefaultSecuritySelected();
     this.userData.getUsernameStorage().then((username) => {
       this.user.email = username;
     });

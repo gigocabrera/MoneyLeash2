@@ -20,12 +20,12 @@ export class PickDefaultBalancePage {
    
   constructor(
       private nav: NavController,
-      private fbservice: FirebaseService) {
-        this.defaultBalanceOptions = fbservice.getDefaultBalanceOptions();
+      private db: FirebaseService) {
+        this.defaultBalanceOptions = db.getDefaultBalanceOptions();
       }
   
   pickPreference() {
-    this.fbservice.pickDefaultBalanceSelected(this.itemselected);
+    this.db.pickDefaultBalanceSelected(this.itemselected);
     this.nav.pop();
   }
   
@@ -34,7 +34,7 @@ export class PickDefaultBalancePage {
   }
   
   onPageWillEnter() {
-    this.itemselected = this.fbservice.getDefaultBalanceSelected();
+    this.itemselected = this.db.getDefaultBalanceSelected();
   }
     
 }

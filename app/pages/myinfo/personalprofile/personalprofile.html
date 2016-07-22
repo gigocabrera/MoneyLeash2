@@ -8,15 +8,14 @@
 </ion-header>
 
 <ion-content class="outer-content">
-  <div padding-top text-center *ngIf="username">
+  <div padding-top text-center *ngIf="useremail">
     <img src="http://www.gravatar.com/avatar?d=mm&s=140">
-    <h2>{{username}}</h2>
+    <h2>{{useremail}}</h2>
 
     <ion-list inset>
       <button ion-item (click)="updatePicture()">Update Picture</button>
       <button ion-item (click)="changeEmail()">Change Email</button>
       <button ion-item (click)="changePassword()">Change Password</button>
-      <button ion-item (click)="resetPassword()">Reset Password</button>
       <button ion-item (click)="deleteAccount()">Delete Account</button>
       <button ion-item (click)="logout()">Logout</button>
     </ion-list>

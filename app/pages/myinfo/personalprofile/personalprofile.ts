@@ -2,8 +2,6 @@ import {Component} from '@angular/core';
 import {NavController, Alert, ActionSheet, Modal, Loading} from 'ionic-angular';
 import {ChangeEmailPage} from '../../myinfo/changeemail/changeemail';
 import {ChangePasswordPage} from '../../myinfo/changepassword/changepassword';
-import {ResetPasswordPage} from '../../myinfo/resetpassword/resetpassword';
-import {RemoveUserPage} from '../../myinfo/removeuser/removeuser';
 import {TutorialPage} from '../../tutorial/tutorial';
 import {UserData} from '../../../providers/user-data';
 
@@ -15,34 +13,20 @@ import {FirebaseService} from '../../../providers/firebaseService'
 })
 
 export class PersonalProfilePage {
-  username: string;
-  user: {
-    firstname?: string, 
-    lastname?: string,
-    title?: string,
-    picture?: string,
-    phone?: string,
-    admin?: string,
-    groupid?: string,
-    groupname?: string,
-    groupjoincode?: string,
-    paymentplan?: string
-  } = {};
+  
   useremail: string;
 
   constructor(
       private nav: NavController,
       private userData: UserData,
-      public fbservice: FirebaseService) { }
+      public db: FirebaseService) { }
   
   ngAfterViewInit() {
     this.getUsername();
   }
 
   getUsername() {
-    this.userData.getUsernameStorage().then((username) => {
-      this.username = username;
-    });
+    this.useremail = this.db.currentUserEmail();
   }
 
   updatePicture() {
@@ -68,235 +52,146 @@ export class PersonalProfilePage {
       }
     });
   }
-  
-  resetPassword() {
-    let modal = Modal.create(ResetPasswordPage);
-    this.nav.present(modal);
-    modal.onDismiss((data: any[]) => {
-      if (data) {
-        this.doResetPassword(data);
-      }
-    });
-  }
 
   deleteAccount() {
     this.nav.present(
       Alert.create({
         title: 'Please Confirm',
-        message: 'Delete your account and ALL your data?',
+        message: 'Are you sure you want to delete your account and ALL your data?',
         buttons: [
           {
             text: 'Cancel',
             handler: () => {
-              console.log('Cancel RemoveUser clicked');
+              //console.log('Cancel RemoveUser clicked');
             }
           },
           {
             text: 'Delete',
             handler: () => {
-              this.modalRemoveUser();
+              this.doRemoveUser();
             }
           }
         ]
       })
     )
   }
-
-  private modalRemoveUser() {
-    let modal = Modal.create(RemoveUserPage);
-    this.nav.present(modal);
-    modal.onDismiss((data: any[]) => {
-      if (data) {
-        this.doRemoveUser(data);
-      }
-    });
-  }
-
-  /*private refreshUser() {
-    this.fbservice.getUserProfile().then(thisUser => {
-      this.user = thisUser;
-    })
-  }
   
-  private saveUser() {
-    this.fbservice.saveUserProfile(this.user);
-    let alert = Alert.create({
-      title: 'Saved Successfully',
-      buttons: [{
-        text: 'OK',
-        handler: () => {
-        }
-      }]
-    });
-    this.nav.present(alert);
-  }*/
-  
-  private doChangeEmail(data): void {
+  private doChangeEmail(newemail): void {
 
-    console.log(data);
-
-    /*// Show loading component due to the time it takes Firebase to complete
     let loading = Loading.create({
       content: 'Please wait...'
     });
     this.nav.present(loading);
-    
+        
     var myAlert: {
       title?: string, 
       subtitle?: string
     } = {};
-    this.auth.ref.changeEmail({
-      oldEmail: data.oldemail,
-      newEmail: data.newemail,
-      password: data.password
-    }, (error) => {
-      if (error) {
-        switch (error.code) {
-          case "INVALID_PASSWORD":
-            myAlert.title = 'Invalid Password';
-            myAlert.subtitle = 'The specified user account password is incorrect.';
-            break;
-          case "INVALID_USER":
-            myAlert.title = 'Invalid User';
-            myAlert.subtitle = 'The specified user account does not exist.';
-            break;
-          default:
-            myAlert.title = 'Error creating user';
-            myAlert.subtitle = error;
-        }
-      } else {
+
+    this.db.updateEmail(newemail)
+      .then(() => {
         myAlert.title = 'DONE';
         myAlert.subtitle = 'User email changed successfully!';
+        this.DisplayResult(myAlert, loading, false);
+        this.useremail = this.db.currentUserEmail();
+      }        
+    )
+    .catch(
+      (error) => {          
+        switch (error.code) {
+          case "auth/invalid-email":
+            myAlert.title = 'Invalid Email';
+            myAlert.subtitle = 'The new email used is invalid!';
+            break;
+          case "auth/email-already-in-use":
+            myAlert.title = 'Email already in use';
+            myAlert.subtitle = 'That email is already in use by another user!';
+            break;
+          case "auth/requires-recent-login":
+            myAlert.title = 'Session timed out';
+            myAlert.subtitle = 'This action requires a recent login!';
+            break;
+        }
+        this.DisplayResult(myAlert, loading, false);
       }
-      
-      // We need to authenticate user again with new email to refresh auth token
-      this.auth.signInWithEmailPassword(data.newemail, data.password)
-      .then(() => this.DisplayResult(myAlert, loading))
-      .catch(() => this.DisplayResult(myAlert, loading));
-    });*/
+    );
+
   }
   
-  private doChangePassword(data): void {
-    
-    console.log(data);
+  private doChangePassword(newpassword): void {
 
-    /*// Show loading component due to the time it takes Firebase to complete
     let loading = Loading.create({
       content: 'Please wait...'
     });
     this.nav.present(loading);
-    
+
     var myAlert: {
       title?: string, 
       subtitle?: string
     } = {};
-    this.auth.ref.changePassword({
-      email: data.email,
-      oldPassword: data.oldpassword,
-      newPassword: data.newpassword
-    }, (error) => {
-      if (error) {
-        switch (error.code) {
-          case "INVALID_PASSWORD":
-            myAlert.title = 'Invalid Password';
-            myAlert.subtitle = 'The specified user account password is incorrect.';
-            break;
-          case "INVALID_USER":
-            myAlert.title = 'Invalid User';
-            myAlert.subtitle = 'The specified user account does not exist.';
-            break;
-          default:
-            myAlert.title = 'Error changing password';
-            myAlert.subtitle = error;
-        }
-      } else {
+
+    this.db.updatePassword(newpassword)
+      .then(() => {
         myAlert.title = 'DONE';
-        myAlert.subtitle = 'User password changed successfully!';
+        myAlert.subtitle = 'Password changed successfully!';
+        this.DisplayResult(myAlert, loading, false);
+        this.useremail = this.db.currentUserEmail();
+      }        
+    )
+    .catch(
+      (error) => {          
+        switch (error.code) {
+          case "auth/weak-password":
+            myAlert.title = 'Weak Password';
+            myAlert.subtitle = 'Your new password is not strong enough!';
+            break;
+          case "auth/requires-recent-login":
+            myAlert.title = 'Session timed out';
+            myAlert.subtitle = 'This action requires a recent login!';
+            break;
+        }
+        this.DisplayResult(myAlert, loading, false);
       }
-      this.DisplayResult(myAlert, loading);      
-    });*/
+    );
     
   }
-  
-  private doResetPassword(data): void {
 
-    console.log(data);
+  private doRemoveUser(): void {
     
-    /*// Show loading component due to the time it takes Firebase to complete
     let loading = Loading.create({
       content: 'Please wait...'
     });
     this.nav.present(loading);
-    
+
     var myAlert: {
       title?: string, 
       subtitle?: string
     } = {};
-    this.auth.ref.resetPassword({
-      email: data.email
-    }, (error) => {
-      if (error) {
-        switch (error.code) {
-          case "INVALID_USER":
-            myAlert.title = 'Invalid User';
-            myAlert.subtitle = 'The specified user account does not exist.';
-            break;
-          default:
-            myAlert.title = 'Error resetting password';
-            myAlert.subtitle = error;
-        }
-      } else {
+
+    this.db.deleteUser()
+      .then(() => {
         myAlert.title = 'DONE';
-        myAlert.subtitle = 'Password reset email sent successfully!';
-      }
-      this.DisplayResult(myAlert, loading);
-    });*/
-    
-  }
-
-  private doRemoveUser(data): void {
-    
-    console.log(data);
-
-    /*// Remove user consists of 3 steps
-    // 1) Remove personal profile info under members node
-    this.auth.ref.child('members').child(this.auth.id).remove();
-    
-    // 2) Remove account information under houses node
-    if (this.user.groupid != null) {
-      this.auth.ref.child('houses').child(this.user.groupid).remove();
-    }
-    
-    // 3) Remove user from Firebase
-    var myAlert: {
-      title?: string, 
-      subtitle?: string
-    } = {};
-    this.auth.ref.removeUser({
-      email: this.auth.authData.password.email,
-      password: data.password
-    }, (error) => {
-      if (error) {
+        myAlert.subtitle = 'User account deleted successfully!';
+        this.DisplayResult(myAlert, loading,true);
+      }        
+    )
+    .catch(
+      (error) => {          
         switch (error.code) {
-          case "INVALID_USER":
-            console.log("The specified user account does not exist.");
+          case "auth/requires-recent-login":
+            myAlert.title = 'Session timed out';
+            myAlert.subtitle = 'This action requires a recent login!';
             break;
-          case "INVALID_PASSWORD":
-            console.log("The specified user account password is incorrect.");
-            break;
-          default:
-            console.log("Error removing user:", error);
         }
-      } else {
-        console.log("User account deleted successfully!");
+        this.DisplayResult(myAlert, loading, false);
       }
-    });
-    // Navigate out of the app
-    this.nav.setRoot(TutorialPage, {}, {animate: true, direction: 'reverse'});*/
+    );
   }
   
-  private DisplayResult(myAlert, loading): void {
+  private DisplayResult(myAlert, loading, logoff): void {
+
     loading.dismiss();
+
     let alert = Alert.create({
       title: myAlert.title,
       subTitle: myAlert.subtitle,
@@ -305,12 +200,15 @@ export class PersonalProfilePage {
         handler: () => {
           let navTransition = alert.dismiss();
           navTransition.then(() => {
-            this.nav.pop();
+            if (logoff) {
+              this.db.logout();
+              this.nav.setRoot(TutorialPage);
+            }
           });
         }
       }]
     });
     this.nav.present(alert);
-  } 
+  }
   
 }

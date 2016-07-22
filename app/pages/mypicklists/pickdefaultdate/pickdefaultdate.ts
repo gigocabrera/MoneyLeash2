@@ -18,13 +18,13 @@ export class PickDefaultDatePage {
     value?: string
   } = {};
   
-  constructor(private nav: NavController, private fbservice: FirebaseService) {
+  constructor(private nav: NavController, private db: FirebaseService) {
     // Get list of default date options from shared service
-    this.defaultDateOptions = fbservice.getDefaultDateOptions();
+    this.defaultDateOptions = db.getDefaultDateOptions();
   }
   
   pickPreference() {
-    this.fbservice.pickDefaultDateSelected(this.itemselected);
+    this.db.pickDefaultDateSelected(this.itemselected);
     this.nav.pop();
   }
   
@@ -33,7 +33,7 @@ export class PickDefaultDatePage {
   }
   
   onPageWillEnter() {
-    this.itemselected = this.fbservice.getDefaultDateSelected();
+    this.itemselected = this.db.getDefaultDateSelected();
   }
     
 }

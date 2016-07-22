@@ -19,42 +19,49 @@ export class FirebaseService {
         storageBucket: "brilliant-inferno-1044.appspot.com",
     };
     firebase.initializeApp(config);
-}
+  }
 
-onAuthStateChanged(_function) {
-  return firebase.auth().onAuthStateChanged((_currentUser) => {
-    if (_currentUser) {
-      console.log("User " + _currentUser.uid + " is logged in with " + _currentUser.provider);
-      _function(_currentUser);
-    } else {
-      console.log("User is logged out");
-      _function(null)
-    }
-  })
-}
+  // FIREBASE REFERENCES
+  // -----------------------------------------------------------------
 
-uid() {
-  return firebase.auth().currentUser.uid;
-}
+  onAuthStateChanged(_function) {
+    return firebase.auth().onAuthStateChanged((_currentUser) => {
+      if (_currentUser) {
+        console.log("User " + _currentUser.uid + " is logged in with " + _currentUser.provider);
+        _function(_currentUser);
+      } else {
+        console.log("User is logged out");
+        _function(null)
+      }
+    })
+  }
 
-currentUser() {
-  return firebase.auth().currentUser
-}
+  uid() {
+    return firebase.auth().currentUser.uid;
+  }
 
-logout() {
-  return firebase.auth().signOut()
-}
+  currentUser() {
+    return firebase.auth().currentUser
+  }
 
-createUser(credentials) {
-  return new Observable(observer => {
+  currentUserEmail() {
+    return firebase.auth().currentUser.email;
+  }
+
+  logout() {
+    return firebase.auth().signOut()
+  }
+
+  createUser(credentials) {
+    return new Observable(observer => {
       return firebase.auth().createUserWithEmailAndPassword(credentials.email, credentials.password)
-        .then((authData) => {
-            //console.log("User created successfully with payload-", authData);
-            observer.next(authData)
-        }).catch((_error) => {
-            console.log("Login Failed!", _error);
-            observer.error(_error)
-        })
+      .then((authData) => {
+          //console.log("User created successfully with payload-", authData);
+          observer.next(authData)
+      }).catch((_error) => {
+          //console.log("Create User Failed!", _error);
+          observer.error(_error)
+      })
     });
   }
 
@@ -66,7 +73,7 @@ createUser(credentials) {
             //console.log("Authenticated successfully with payload-", authData);
             observer.next(authData)
         }).catch(function (_error) {
-            console.log("Login Failed!", _error);
+            //console.log("Login Failed!", _error);
             observer.error(_error)
         })
     });
@@ -91,7 +98,7 @@ createUser(credentials) {
     refPref.update({defaultdate: 'none'});
     refPref.update({defaultbalance: 'current'});*/
   }  
-  
+
   loadPreferences() {
     return new Promise((resolve, reject) => {
       firebase.database().ref('/members/' + this.uid() + '/mypreferences').once('value', snapshot => {
@@ -108,14 +115,14 @@ createUser(credentials) {
       }
     }
   }
-  
+
   // PREFERENCES
   myPreferences: {
     defaultdate?: string, 
     defaultbalance?: string,
     usetouchid?: string
   } = {};
-  
+
   savePreferences() {
     /*firebase.database().child('members').child(firebase.User.uid).child("mypreferences").update(pref);*/
   }
@@ -125,7 +132,7 @@ createUser(credentials) {
           { text: 'No default date', value: 'none' },
           { text: 'Today\'s date', value: 'today' },
           { text: 'Last date used', value: 'last' }];
-  
+
   getDefaultDateOptions() {
     return this.defaultDateOptions;
   }
@@ -141,13 +148,13 @@ createUser(credentials) {
   pickDefaultDateSelected(valueKey) {
     this.myPreferences.defaultdate = valueKey;
   }
-  
+
   // DEFAULT BALANCE PREFERENCES
   defaultBalanceOptions = [
           { text: 'Current Balance', value: 'current' },
           { text: 'Cleared Balance', value: 'clear' },
           { text: 'Today\'s Balance', value: 'today' }];
-  
+
   getDefaultBalanceOptions() {
     return this.defaultBalanceOptions;
   }
@@ -163,7 +170,7 @@ createUser(credentials) {
   pickDefaultBalanceSelected(valueKey) {
     this.myPreferences.defaultbalance = valueKey;
   }
-  
+
   // DEFAULT SECURITY PREFERENCES
   getDefaultSecuritySelected() {
     return this.myPreferences.usetouchid;
@@ -176,6 +183,54 @@ createUser(credentials) {
   loadGlobalData() {
     this.loadPreferences().then(thisPreferences => {
       this.myPreferences = thisPreferences;
+    });
+  }
+
+  // PERSONAL PROFILE METHODS
+  // -----------------------------------------------------------------
+
+  // UPDATE EMAIL
+  updateEmail(newEmail) {
+    return new Promise((resolve: () => void, reject: (reason: Error) => void) => {
+      let user = firebase.auth().currentUser;
+      user.updateEmail(newEmail)
+      .then(function() {
+        //console.log("Email changed successfully!");
+        resolve();
+      }).catch(function(error) {
+        //console.error("Error: ", error);
+        reject(error);
+      });
+    });
+  }
+
+  // UPDATE PASSWORD
+  updatePassword(newPassword) {
+    return new Promise((resolve: () => void, reject: (reason: Error) => void) => {
+      let user = firebase.auth().currentUser;
+      user.updatePassword(newPassword)
+      .then(function() {
+        //console.log("Password changed successfully!");
+        resolve();
+      }).catch(function(error) {
+        //console.error("Error: ", error);
+        reject(error);
+      });
+    });
+  }
+
+  // UPDATE PASSWORD
+  deleteUser() {
+    return new Promise((resolve: () => void, reject: (reason: Error) => void) => {
+      let user = firebase.auth().currentUser;
+      user.delete()
+      .then(function() {
+        //console.log("User deleted successfully!");
+        resolve();
+      }).catch(function(error) {
+        //console.error("Error: ", error);
+        reject(error);
+      });
     });
   }
 

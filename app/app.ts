@@ -65,8 +65,8 @@ class MoneyLeashApp {
   ];
   
   // Default root page
-  //rootPage: any = TutorialPage;
-  rootPage: any = SettingsPage; // for testing purposes only
+  rootPage: any = TutorialPage;
+  //rootPage: any = SettingsPage; // for testing purposes only
   loggedIn = false;
 
   constructor(

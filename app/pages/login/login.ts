@@ -19,10 +19,10 @@ export class LoginPage {
   constructor(
     private nav: NavController,
     private userData: UserData,
-    private fbservice: FirebaseService) {}
+    private db: FirebaseService) {}
 
   private LoginSuccess(): void {
-    this.fbservice.loadGlobalData();
+    this.db.loadGlobalData();
     this.nav.setRoot(AccountListPage, {}, {animate: true, direction: 'forward'});
   }
   
@@ -42,7 +42,7 @@ export class LoginPage {
     this.submitted = true;
 
     // Firebase login usig the email/password auth provider
-    this.fbservice.login(credentials)
+    this.db.login(credentials)
       .subscribe(
       (data: any) => {
         this.LoginSuccess();

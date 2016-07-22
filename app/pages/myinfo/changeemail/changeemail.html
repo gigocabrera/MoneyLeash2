@@ -7,17 +7,19 @@
       Change Email
     </ion-title>
     <ion-buttons end>
-      <button (click)="changeEmail(user)" mllightblue>Save</button>
+      <button (click)="changeEmail(newemail)" mllightblue>Save</button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 <ion-content class="outer-content">
   <ion-item-divider>
-    Enter you New Email
+    Enter your new email
   </ion-item-divider>
-  <ion-list>
-    <my-input class="item" type="email" icon="fa fa-at" title="Old Email" placeholder="Old Email" [(ngModel)]="user.oldemail" ></my-input>
-    <my-input class="item" type="email" icon="fa fa-at" title="New Email" placeholder="New Email" [(ngModel)]="user.newemail"></my-input>
-    <my-input class="item" type="password" icon="fa fa-lock" title="Password" placeholder="Password" [(ngModel)]="user.password"></my-input>
+  <ion-list class="reducedbottommargin">
+    <ion-item class="ml-input">
+      <i class="fa fa-at ml-fontawesome-left" item-left></i>
+      <ion-label stacked *ngIf="newemail != ''" mllightblue>New Email</ion-label>
+      <ion-input type="email" placeholder="New Email" [(ngModel)]="newemail"></ion-input>
+    </ion-item>
   </ion-list>
 </ion-content>

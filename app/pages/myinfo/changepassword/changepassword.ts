@@ -6,22 +6,19 @@ import {NavController, Alert, ViewController} from 'ionic-angular';
 })
 
 export class ChangePasswordPage { 
-  user: {
-    email?: string,
-    oldpassword?: string,
-    newpassword?: string
-  } = {};
+  
+  newpassword: string = '';
         
   constructor(
       private nav: NavController,
       private viewCtrl: ViewController) { }  
  
-  changePassword(user) {
-    this.dismiss(user);
+  changePassword(newpassword) {
+    this.dismiss(newpassword);
   }
   
-  dismiss(data) {
-    this.viewCtrl.dismiss(data);
+  dismiss(newpassword) {
+    this.viewCtrl.dismiss(newpassword);
   }
     
 }

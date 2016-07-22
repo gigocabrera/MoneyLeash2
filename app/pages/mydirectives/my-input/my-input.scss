@@ -60,9 +60,6 @@ ion-list > my-input.item {
 ion-list > my-input.item:first-child {
     border-top: 0;
 }
-ion-list > .ml-input.mlnobottomborder.item  {
-  border-bottom: 0;
-}
 .ml-input {
   height: 60px;
 }
@@ -78,4 +75,7 @@ ion-label[stacked] {
 }
 .ml-input-label {
   color: #eaeaea;
+}
+ion-list > .ml-input.mlnobottomborder.item  {
+  border-bottom: 0;
 }
