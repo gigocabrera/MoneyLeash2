@@ -22,7 +22,7 @@ export class LoginPage {
     private db: FirebaseService) {}
 
   private LoginSuccess(): void {
-    this.db.loadGlobalData();
+    this.db.loadMyPreferences();
     this.nav.setRoot(AccountListPage, {}, {animate: true, direction: 'forward'});
   }
   

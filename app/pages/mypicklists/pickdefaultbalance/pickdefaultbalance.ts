@@ -14,9 +14,7 @@ export class PickDefaultBalancePage {
     value?: string
   } = {};
   
-  itemselected: {
-    value?: string
-  } = {};
+  itemselected: string;
    
   constructor(
       private nav: NavController,

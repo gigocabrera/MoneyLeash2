@@ -21,16 +21,13 @@ export class FirebaseService {
     firebase.initializeApp(config);
   }
 
-  // FIREBASE REFERENCES
-  // -----------------------------------------------------------------
-
+  // Firebase User Properties
+  //-----------------------------------------------------
   onAuthStateChanged(_function) {
     return firebase.auth().onAuthStateChanged((_currentUser) => {
       if (_currentUser) {
-        console.log("User " + _currentUser.uid + " is logged in with " + _currentUser.provider);
         _function(_currentUser);
       } else {
-        console.log("User is logged out");
         _function(null)
       }
     })
@@ -56,10 +53,8 @@ export class FirebaseService {
     return new Observable(observer => {
       return firebase.auth().createUserWithEmailAndPassword(credentials.email, credentials.password)
       .then((authData) => {
-          //console.log("User created successfully with payload-", authData);
           observer.next(authData)
       }).catch((_error) => {
-          //console.log("Create User Failed!", _error);
           observer.error(_error)
       })
     });
@@ -70,16 +65,111 @@ export class FirebaseService {
     return new Observable(observer => {
       return firebase.auth().signInWithEmailAndPassword(credentials.email, credentials.password)
         .then(function (authData) {
-            //console.log("Authenticated successfully with payload-", authData);
             observer.next(authData)
         }).catch(function (_error) {
-            //console.log("Login Failed!", _error);
             observer.error(_error)
         })
     });
   }
 
+  // PREFERENCES
+  //-----------------------------------------------------
+  myPreferences = {
+    'defaultdate': '',
+    'defaultbalance': '',
+    'usetouchid': ''
+  }
+  
+  createDefaultPreferences() {
+    // After a user signs up we want to create some basic defaults for the app to work correctly
+    this.myPreferences.defaultdate = 'none';
+    this.myPreferences.defaultbalance = 'current';
+    this.myPreferences.usetouchid = 'false';
+    this.saveMyPreferences();
+  }  
+
+  loadMyPreferences() {
+    firebase.database().ref('/members/' + this.uid() + '/mypreferences').once('value').then(function(snapshot) {
+      this.myPreferences.defaultdate = snapshot.val().defaultdate;
+      this.myPreferences.defaultbalance = snapshot.val().defaultbalance;
+      this.myPreferences.usetouchid = snapshot.val().usetouchid;
+    });
+  }
+
+  saveMyPreferences() {
+    firebase.database().ref('members/' + this.uid() + "/mypreferences").update(this.myPreferences);
+  }
+
+  // DEFAULT DATE PREFERENCES
+  //-----------------------------------------------------
+  defaultDateOptions = [
+          { text: 'No default date', value: 'none' },
+          { text: 'Today\'s date', value: 'today' },
+          { text: 'Last date used', value: 'last' }];
+
+  getDefaultDateOptions() {
+    return this.defaultDateOptions;
+  }
+  getDefaultDateText(valueKey: string) {
+    return this.getText(valueKey,this.defaultDateOptions);
+  }
+  getDefaultDateSelected() {
+    return this.myPreferences.defaultdate;
+  }
+  getDefaultDateSelected_Text() {
+    return this.getDefaultDateText(this.myPreferences.defaultdate);
+  }
+  pickDefaultDateSelected(valueKey: string) {
+    this.myPreferences.defaultdate = valueKey;
+  }
+
+  // DEFAULT BALANCE PREFERENCES
+  //-----------------------------------------------------
+  defaultBalanceOptions = [
+          { text: 'Current Balance', value: 'current' },
+          { text: 'Cleared Balance', value: 'clear' },
+          { text: 'Today\'s Balance', value: 'today' }];
+
+  getDefaultBalanceOptions() {
+    return this.defaultBalanceOptions;
+  }
+  getDefaultBalanceText(valueKey: string) {
+    return this.getText(valueKey,this.defaultBalanceOptions);
+  }  
+  getDefaultBalanceSelected() {
+    return this.myPreferences.defaultbalance;
+  }
+  getDefaultBalanceSelected_Text() {
+    return this.getDefaultBalanceText(this.myPreferences.defaultbalance);
+  }  
+  pickDefaultBalanceSelected(valueKey: string) {
+    this.myPreferences.defaultbalance = valueKey;
+  }
+
+  // DEFAULT SECURITY PREFERENCES
+  //-----------------------------------------------------
+  getDefaultSecuritySelected() {
+    return this.myPreferences.usetouchid;
+  }
+  pickDefaultSecuritySelected(valueKey: string) {
+    this.myPreferences.usetouchid = valueKey;
+  }
+  
   // PERSONAL PROFILE
+  //-----------------------------------------------------
+  myInfo = {
+    'datecreated': '',
+    'dateupdated': '',
+    'email': '',
+    'firstname': '',
+    'lastname': '',
+    'groupadmin': '',
+    'groupname': '',
+    'groupnumber': '',
+    'groupjoincode': '',
+    'groupid': ''
+  }
+
   getUserProfile() {
     return new Promise((resolve, reject) => {
       firebase.database().ref('members/' + this.uid()).once('value', snapshot => {
@@ -89,149 +179,57 @@ export class FirebaseService {
   }
 
   saveUserProfile(user) {
-    /*firebase.database().child('members').child(firebase.User.uid).update(user);*/
+    firebase.database().ref('members/' + this.uid() + "/myinfo").update(this.myInfo);
   }
 
-  // PREFERENCES
-  createPreferences() {
-    /*var refPref = firebase.database().child("members").child(firebase.User.uid).child("mypreferences");
-    refPref.update({defaultdate: 'none'});
-    refPref.update({defaultbalance: 'current'});*/
-  }  
-
-  loadPreferences() {
-    return new Promise((resolve, reject) => {
-      firebase.database().ref('/members/' + this.uid() + '/mypreferences').once('value', snapshot => {
-          resolve(snapshot.val());
-      })
-    })
-  }  
-
-  // GLOBAL
-  getText(valueKey, arr) {
-    for (var i=0; i < arr.length; i++) {
-      if (arr[i].value === valueKey) {
-        return arr[i].text;
-      }
-    }
-  }
-
-  // PREFERENCES
-  myPreferences: {
-    defaultdate?: string, 
-    defaultbalance?: string,
-    usetouchid?: string
-  } = {};
-
-  savePreferences() {
-    /*firebase.database().child('members').child(firebase.User.uid).child("mypreferences").update(pref);*/
-  }
-
-  // DEFAULT DATE PREFERENCES
-  defaultDateOptions = [
-          { text: 'No default date', value: 'none' },
-          { text: 'Today\'s date', value: 'today' },
-          { text: 'Last date used', value: 'last' }];
-
-  getDefaultDateOptions() {
-    return this.defaultDateOptions;
-  }
-  getDefaultDateText(valueKey) {
-    return this.getText(valueKey,this.defaultDateOptions);
-  }  
-  getDefaultDateSelected() {
-    return this.myPreferences.defaultdate;
-  }
-  getDefaultDateSelected_Text() {
-    return this.getDefaultDateText(this.myPreferences.defaultdate);
-  }
-  pickDefaultDateSelected(valueKey) {
-    this.myPreferences.defaultdate = valueKey;
-  }
-
-  // DEFAULT BALANCE PREFERENCES
-  defaultBalanceOptions = [
-          { text: 'Current Balance', value: 'current' },
-          { text: 'Cleared Balance', value: 'clear' },
-          { text: 'Today\'s Balance', value: 'today' }];
-
-  getDefaultBalanceOptions() {
-    return this.defaultBalanceOptions;
-  }
-  getDefaultBalanceText(valueKey) {
-    return this.getText(valueKey,this.defaultBalanceOptions);
-  }  
-  getDefaultBalanceSelected() {
-    return this.myPreferences.defaultbalance;
-  }
-  getDefaultBalanceSelected_Text() {
-    return this.getDefaultBalanceText(this.myPreferences.defaultbalance);
-  }  
-  pickDefaultBalanceSelected(valueKey) {
-    this.myPreferences.defaultbalance = valueKey;
-  }
-
-  // DEFAULT SECURITY PREFERENCES
-  getDefaultSecuritySelected() {
-    return this.myPreferences.usetouchid;
-  }
-  pickDefaultSecuritySelected(valueKey) {
-    this.myPreferences.usetouchid = valueKey;
-  }
-
-  // PERSONAL PROFILE
-  loadGlobalData() {
-    this.loadPreferences().then(thisPreferences => {
-      this.myPreferences = thisPreferences;
-    });
-  }
-
-  // PERSONAL PROFILE METHODS
-  // -----------------------------------------------------------------
-
-  // UPDATE EMAIL
-  updateEmail(newEmail) {
+  updateEmail(newEmail: string) {
     return new Promise((resolve: () => void, reject: (reason: Error) => void) => {
       let user = firebase.auth().currentUser;
       user.updateEmail(newEmail)
       .then(function() {
-        //console.log("Email changed successfully!");
         resolve();
       }).catch(function(error) {
-        //console.error("Error: ", error);
         reject(error);
       });
     });
   }
 
-  // UPDATE PASSWORD
-  updatePassword(newPassword) {
+  updatePassword(newPassword: string) {
     return new Promise((resolve: () => void, reject: (reason: Error) => void) => {
       let user = firebase.auth().currentUser;
       user.updatePassword(newPassword)
       .then(function() {
-        //console.log("Password changed successfully!");
         resolve();
       }).catch(function(error) {
-        //console.error("Error: ", error);
         reject(error);
       });
     });
   }
 
-  // UPDATE PASSWORD
   deleteUser() {
     return new Promise((resolve: () => void, reject: (reason: Error) => void) => {
       let user = firebase.auth().currentUser;
       user.delete()
       .then(function() {
-        //console.log("User deleted successfully!");
         resolve();
       }).catch(function(error) {
-        //console.error("Error: ", error);
         reject(error);
       });
     });
+  }
+
+  // GLOBAL
+  //-----------------------------------------------------
+  getText(valueKey: string, arr) {
+    if (valueKey === undefined || valueKey === '') {
+      return '';
+    } else {
+      for (var i=0; i < arr.length; i++) {
+        if (arr[i].value === valueKey) {
+          return arr[i].text;
+        }
+      }
+    }
   }
 
 }

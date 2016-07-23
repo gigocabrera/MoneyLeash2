@@ -187,6 +187,34 @@ export class PersonalProfilePage {
       }
     );
   }
+
+  private logout(): void {
+    this.nav.present(
+      Alert.create({
+        title: 'Please Confirm',
+        message: 'Are you sure you want to logout?',
+        buttons: [
+          {
+            text: 'Cancel',
+            handler: () => {
+              //console.log('Cancel button clicked');
+            }
+          },
+          {
+            text: 'Logout',
+            handler: () => {
+              this.doLogout();
+            }
+          }
+        ]
+      })
+    )
+  }
+
+  private doLogout(): void {
+    this.db.logout();
+    this.nav.setRoot(TutorialPage);
+  }
   
   private DisplayResult(myAlert, loading, logoff): void {
 
@@ -201,8 +229,7 @@ export class PersonalProfilePage {
           let navTransition = alert.dismiss();
           navTransition.then(() => {
             if (logoff) {
-              this.db.logout();
-              this.nav.setRoot(TutorialPage);
+              this.doLogout();
             }
           });
         }

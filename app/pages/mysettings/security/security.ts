@@ -29,7 +29,7 @@ export class SecurityPage {
     }
 
     this.db.pickDefaultSecuritySelected(this.user.enabletouchid);
-    this.db.savePreferences();
+    this.db.saveMyPreferences();
     if (this.user.enabletouchid) {
       this.userData.setUserPwd(this.user.password);
     }

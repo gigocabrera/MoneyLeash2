@@ -12,6 +12,7 @@ export class SignupPage {
   showValidationMessage: boolean = false;
   submitted = false;
   validationMessage = "";
+  alertMessage = '';
 
   constructor(
     private nav: NavController,
@@ -20,7 +21,7 @@ export class SignupPage {
 
   private inputIsValid(credentials) : boolean {
     this.showValidationMessage = false;
-    this.validationMessage = '';
+    this.validationMessage = '';    
     if (credentials.email == null) {
       this.showValidationMessage = true;
       this.validationMessage = 'Please enter your email address';
@@ -38,60 +39,39 @@ export class SignupPage {
     _event.preventDefault();
     this.submitted = true;
     if (this.inputIsValid(credentials)) {
-      //
-      // Save email to localStorage
-      this.userData.handleSignup(credentials);
-      //
-      // Create user
       this.db.createUser(credentials).subscribe(
       (data: any) => {
-        //console.log("the data", data.email);
-        this.SignUpSuccess(credentials);
+        this.db.myInfo.email = credentials.email;
+        this.db.saveUserProfile(credentials);
+        this.db.createDefaultPreferences();
+        this.nav.setRoot(AccountListPage, {}, {animate: true, direction: 'forward'});
+        this.userData.handleSignup(credentials);
       },
       (error) => {
-        //console.log(error)
         this.SignUpError(error)
       });
     }
   }
-   
-  private SignUpSuccess(credentials): void {
-    //
-    // User has been created. Now Authenticate user (login) in Firebase
-    this.db.login(credentials)
-      .subscribe(
-      (data: any) => {
-        console.log("the data", data.email);
-        this.LoginSuccess(credentials);
-      },
-      (error) => {
-        console.log(error);
-        this.LoginError();
-    });
-  }
-  
-  private LoginSuccess(credentials): void {
-    //
-    // Save personal data to member node (personal profile)
-    this.db.saveUserProfile(credentials);
-    this.db.createPreferences();
-    this.nav.setRoot(AccountListPage, {}, {animate: true, direction: 'forward'});
-  }
   
   private SignUpError(error): void {
+    console.log(error);    
     switch (error.code) {
-      case "EMAIL_TAKEN":
-          this.validationMessage = "The specified email is already in use"
+      case "auth/email-already-in-use":
+          this.alertMessage = "The specified email is already in use!"
           break;
-      case "INVALID_EMAIL":
-          this.validationMessage = "The specified email is not a valid email address"
+      case "auth/invalid-email":
+          this.alertMessage = "The specified email is not valid!"
           break;
-      default:
-          this.validationMessage = "Oops. Something went wrong"
+      case "auth/operation-not-allowed":
+          this.alertMessage = "Your account has been disabled. Please contact support!"
+          break;
+      case "auth/weak-password":
+          this.alertMessage = "Your password is not strong enough!"
+          break;
     }
     let alert = Alert.create({
       title: 'Sign Up Failed',
-      subTitle: this.validationMessage,
+      subTitle: this.alertMessage,
       buttons: ['Ok']
     });
     this.nav.present(alert);

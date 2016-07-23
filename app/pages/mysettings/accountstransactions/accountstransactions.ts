@@ -2,12 +2,10 @@ import {Component} from '@angular/core';
 import {NavController, Modal} from 'ionic-angular';
 import {PickDefaultDatePage} from '../../mypicklists/pickdefaultdate/pickdefaultdate';
 import {PickDefaultBalancePage} from '../../mypicklists/pickdefaultbalance/pickdefaultbalance';
-import {MyInput} from '../../mydirectives/my-input/my-input';
 import {FirebaseService} from '../../../providers/firebaseService'
 
 @Component({
-  templateUrl: 'build/pages/mysettings/accountstransactions/accountstransactions.html',
-  directives: [MyInput]
+  templateUrl: 'build/pages/mysettings/accountstransactions/accountstransactions.html'
 })
 
 export class AccountsTransactionsPage {
@@ -31,7 +29,7 @@ export class AccountsTransactionsPage {
   }
   
   save() {
-    this.db.savePreferences();
+    this.db.saveMyPreferences();
     this.nav.pop();
   }
   
