@@ -27,7 +27,7 @@ export class UserData {
     }
   }
 
-  handleLogin(credentials) {
+  saveLocalStorage(credentials) {
     this.storage.set(this.HAS_LOGGED_IN, true);
     this.setUsername(credentials.email);
     this.setUserPwd(credentials.password);
@@ -54,6 +54,10 @@ export class UserData {
     this.storage.set('userpwd', pwd);
   }
 
+  setEnableTouchID(enabletouchid) {
+    this.storage.set('enabletouchid', enabletouchid);
+  }
+
   getUsernameStorage() {
     return this.storage.get('username').then((value) => {
       return value;
@@ -62,6 +66,12 @@ export class UserData {
 
   getPasswordStorage() {
     return this.storage.get('userpwd').then((value) => {
+      return value;
+    });
+  }
+
+  getEnableTouchIDStorage() {
+    return this.storage.get('enabletouchid').then((value) => {
       return value;
     });
   }

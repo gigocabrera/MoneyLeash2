@@ -1,38 +1,29 @@
 import {Component} from '@angular/core';
 import {NavController, Modal} from 'ionic-angular';
 import {UserData} from '../../../providers/user-data';
-import {MyInput} from '../../mydirectives/my-input/my-input';
 import {FirebaseService} from '../../../providers/firebaseService'
 
 @Component({
-  templateUrl: 'build/pages/mysettings/security/security.html',
-  directives: [MyInput]
+  templateUrl: 'build/pages/mysettings/security/security.html'
 })
 
 export class SecurityPage {
-  user: {
-    email?: string,
-    password?: string,
-    enabletouchid?: string
-  } = {};
   
+  enabletouchid: string = '';
+
   constructor(
       private nav: NavController,
       private userData: UserData,
       private db: FirebaseService) {}
   
   save() {
-    if (this.user.enabletouchid === "true"){
-      this.user.enabletouchid = "false"
+    if (this.enabletouchid){
+      this.userData.setEnableTouchID(true);
     } else {
-      this.user.enabletouchid = "true"
-    }
-
-    this.db.pickDefaultSecuritySelected(this.user.enabletouchid);
+      this.userData.setEnableTouchID(false);
+    }    
+    this.db.pickDefaultSecuritySelected(this.enabletouchid);
     this.db.saveMyPreferences();
-    if (this.user.enabletouchid) {
-      this.userData.setUserPwd(this.user.password);
-    }
     this.nav.pop();
   }
 
@@ -41,24 +32,13 @@ export class SecurityPage {
   }
 
   loadDefaults() {
-    this.user.enabletouchid = this.db.getDefaultSecuritySelected();
-    this.userData.getUsernameStorage().then((username) => {
-      this.user.email = username;
-    });
-    this.userData.getPasswordStorage().then((userpwd) => {
-      this.user.password = userpwd;
-    });
+    this.enabletouchid = this.db.getDefaultSecuritySelected();
   }
 
-  stateChange(event) {
-    if (event.checked) {
-      this.userData.getUsernameStorage().then((username) => {
-        this.user.email = username;
-      });
-    } else {
-      this.user.email = '';
-      this.user.password = '';
-    }
+  getEnableTouchID() {
+    this.userData.getEnableTouchIDStorage().then((touchid) => {
+      this.enabletouchid = touchid;
+    });
   }
   
 }

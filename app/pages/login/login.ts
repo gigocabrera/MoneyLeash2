@@ -22,7 +22,7 @@ export class LoginPage {
     private db: FirebaseService) {}
 
   private LoginSuccess(): void {
-    this.db.loadMyPreferences();
+    this.db.getMyPreferences();
     this.nav.setRoot(AccountListPage, {}, {animate: true, direction: 'forward'});
   }
   
@@ -35,14 +35,11 @@ export class LoginPage {
     this.nav.present(alert);
   }
   
-  doLogin(credentials, _event) {
-
+  /*doLoginObservable(credentials, _event) {
     _event.preventDefault();
-    this.userData.handleLogin(credentials);
+    this.userData.saveLocalStorage(credentials);
     this.submitted = true;
-
-    // Firebase login usig the email/password auth provider
-    this.db.login(credentials)
+    this.db.loginObservable(credentials)
       .subscribe(
       (data: any) => {
         this.LoginSuccess();
@@ -50,7 +47,21 @@ export class LoginPage {
       (error) => {
         console.log(error);
         this.LoginError();
-      });
+      }
+    );
+  }*/
+
+  doLogin(credentials, _event) {
+    _event.preventDefault();
+    this.userData.saveLocalStorage(credentials);
+    this.submitted = true;
+    this.db.login(credentials).then(() => {
+        this.LoginSuccess();
+      }).catch(
+      (error) => {
+        this.LoginError();
+      }
+    );
   }
 
   doSignup() {

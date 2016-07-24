@@ -49,7 +49,7 @@ export class FirebaseService {
     return firebase.auth().signOut()
   }
 
-  createUser(credentials) {
+  /*createUserObservable(credentials) {
     return new Observable(observer => {
       return firebase.auth().createUserWithEmailAndPassword(credentials.email, credentials.password)
       .then((authData) => {
@@ -58,9 +58,20 @@ export class FirebaseService {
           observer.error(_error)
       })
     });
+  }*/
+
+  createUser(credentials) {
+    return new Promise((resolve: () => void, reject: (reason: Error) => void) => {
+      firebase.auth().createUserWithEmailAndPassword(credentials.email, credentials.password)
+      .then(function() {
+        resolve();
+      }).catch(function(error) {
+        reject(error);
+      });
+    });
   }
 
-  login(credentials) {
+  /*loginObservable(credentials) {
     var that = this
     return new Observable(observer => {
       return firebase.auth().signInWithEmailAndPassword(credentials.email, credentials.password)
@@ -70,29 +81,40 @@ export class FirebaseService {
             observer.error(_error)
         })
     });
+  }*/
+
+  login(credentials) {
+    return new Promise((resolve: () => void, reject: (reason: Error) => void) => {
+      firebase.auth().signInWithEmailAndPassword(credentials.email, credentials.password)
+      .then(function() {
+        resolve();
+      }).catch(function(error) {
+        reject(error);
+      });
+    });
   }
 
   // PREFERENCES
   //-----------------------------------------------------
   myPreferences = {
-    'defaultdate': '',
-    'defaultbalance': '',
-    'usetouchid': ''
-  }
+    defaultbalance: '',
+    defaultdate: '',
+    usetouchid: ''
+  } 
   
   createDefaultPreferences() {
-    // After a user signs up we want to create some basic defaults for the app to work correctly
+    // After a user signs up we want to create some basic defaults
     this.myPreferences.defaultdate = 'none';
     this.myPreferences.defaultbalance = 'current';
     this.myPreferences.usetouchid = 'false';
     this.saveMyPreferences();
   }  
 
-  loadMyPreferences() {
-    firebase.database().ref('/members/' + this.uid() + '/mypreferences').once('value').then(function(snapshot) {
-      this.myPreferences.defaultdate = snapshot.val().defaultdate;
-      this.myPreferences.defaultbalance = snapshot.val().defaultbalance;
-      this.myPreferences.usetouchid = snapshot.val().usetouchid;
+  getMyPreferences() {
+    firebase.database().ref('/members/' + this.uid() + '/mypreferences').once('value', snapshot => {
+      this.myPreferences = snapshot.val();
+    }).catch(function(error) {
+        //console.log(error);
     });
   }
 

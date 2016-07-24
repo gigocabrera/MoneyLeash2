@@ -34,12 +34,12 @@ export class SignupPage {
     }
     return true;
   }
-  
-  doSignup(credentials, _event) {
+
+  /*doSignupObservable(credentials, _event) {
     _event.preventDefault();
     this.submitted = true;
     if (this.inputIsValid(credentials)) {
-      this.db.createUser(credentials).subscribe(
+      this.db.createUserObservable(credentials).subscribe(
       (data: any) => {
         this.db.myInfo.email = credentials.email;
         this.db.saveUserProfile(credentials);
@@ -50,6 +50,25 @@ export class SignupPage {
       (error) => {
         this.SignUpError(error)
       });
+    }
+  }*/
+  
+  doSignup(credentials, _event) {
+    _event.preventDefault();
+    this.submitted = true;
+    if (this.inputIsValid(credentials)) {
+      this.db.createUser(credentials).then(() => {
+          this.db.myInfo.email = credentials.email;
+          this.userData.saveLocalStorage(credentials);
+          this.db.saveUserProfile(credentials);
+          this.db.createDefaultPreferences();
+          this.nav.setRoot(AccountListPage, {}, {animate: true, direction: 'forward'});
+          this.userData.handleSignup(credentials);
+        }).catch(
+        (error) => {
+          this.SignUpError(error);
+        }
+      );
     }
   }
   

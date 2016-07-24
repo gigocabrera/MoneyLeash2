@@ -94,6 +94,7 @@ export class PersonalProfilePage {
         myAlert.subtitle = 'User email changed successfully!';
         this.DisplayResult(myAlert, loading, false);
         this.useremail = this.db.currentUserEmail();
+        this.userData.setUsername(newemail);
       }        
     )
     .catch(
@@ -136,6 +137,7 @@ export class PersonalProfilePage {
         myAlert.subtitle = 'Password changed successfully!';
         this.DisplayResult(myAlert, loading, false);
         this.useremail = this.db.currentUserEmail();
+        this.userData.setUserPwd(newpassword);
       }        
     )
     .catch(
