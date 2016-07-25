@@ -9,8 +9,13 @@ export class UserData {
   storage = new Storage(LocalStorage);
   email = '';
   password = '';
+  enabletouchid = '';
 
-  constructor(private events: Events) {}
+  constructor(private events: Events) {
+    this.storage.get('enabletouchid').then((value) => {
+      this.enabletouchid = value;
+    });
+  }
 
   hasFavorite(sessionName) {
     return (this._favorites.indexOf(sessionName) > -1);

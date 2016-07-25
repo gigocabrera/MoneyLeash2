@@ -1,6 +1,5 @@
-import {Component} from '@angular/core';
+import {Component, Injectable} from '@angular/core';
 import {NavController} from 'ionic-angular';
-import {Injectable} from '@angular/core';
 import {UserData} from '../../../providers/user-data';
 import {AboutPage} from '../../../pages/about/about';
 import {PersonalProfilePage} from '../../myinfo/personalprofile/personalprofile';

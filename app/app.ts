@@ -1,5 +1,5 @@
-import {Component, ViewChild} from '@angular/core';
-import {ionicBootstrap, Events, Platform, Nav, MenuController} from 'ionic-angular';
+import {Component, ViewChild, NgZone} from '@angular/core';
+import {ionicBootstrap, Events, Platform, Nav, MenuController, Alert} from 'ionic-angular';
 import {StatusBar, Splashscreen} from 'ionic-native';
 
 // Data
@@ -25,6 +25,8 @@ import {SettingsPage} from './pages/mysettings/settings/settings';
 // Firebase service
 import {FirebaseService} from './providers/firebaseService';
 
+declare var touchid: any;
+
 interface PageObj {
   title: string;
   component: any;
@@ -39,7 +41,7 @@ interface PageObj {
 })
 
 class MoneyLeashApp {
-  
+
   // the root nav is a child of the root app component
   // @ViewChild(Nav) gets a reference to the app's root nav
   @ViewChild(Nav) nav: Nav;
@@ -68,8 +70,10 @@ class MoneyLeashApp {
   rootPage: any = TutorialPage;
   //rootPage: any = SettingsPage; // for testing purposes only
   loggedIn = false;
+  enabletouchid = false;
 
   constructor(
+    ngZone: NgZone, 
     private events: Events,
     private userData: UserData,
     private menu: MenuController,
@@ -79,6 +83,39 @@ class MoneyLeashApp {
     platform.ready().then(() => {
       StatusBar.styleLightContent();
       Splashscreen.hide();
+      if (this.enabletouchid) {
+        
+        console.log('touchid is enabled');
+        
+        touchid.checkSupport(() => {          
+          
+          console.log('check touchid support');
+
+          touchid.authenticate((result) => {
+
+            console.log('touchid authenticate');
+
+            ngZone.run(() => {
+                //this.authenticated = true;
+                console.log('touchid is authenticated');
+            });
+          }, (error) => {
+            this.nav.present(Alert.create({
+                title: "Attention!",
+                subTitle: error,
+                buttons: ["Close"]
+            }));
+          }, "Please Authenticate");
+        }, (error) => {
+          this.nav.present(Alert.create({
+              title: "Attention!",
+              subTitle: "Touch ID is not supported",
+              buttons: ["Close"]
+          }));
+        });
+      } else {
+        console.log('touchid is enabled');
+      }
     });
 
     // decide which menu items should be hidden by current login status stored in local storage
