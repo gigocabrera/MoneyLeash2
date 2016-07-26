@@ -94,6 +94,17 @@ export class FirebaseService {
     });
   }
 
+  loginauto(email, password) {
+    return new Promise((resolve: () => void, reject: (reason: Error) => void) => {
+      firebase.auth().signInWithEmailAndPassword(email, password)
+      .then(function() {
+        resolve();
+      }).catch(function(error) {
+        reject(error);
+      });
+    });
+  }
+
   // PREFERENCES
   //-----------------------------------------------------
   myPreferences = {

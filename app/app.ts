@@ -8,6 +8,7 @@ import {UserData} from './providers/user-data';
 // Intro and Login pages
 import {TutorialPage} from './pages/tutorial/tutorial';
 import {LoginPage} from './pages/login/login';
+import {LoginAutoPage} from './pages/loginauto/loginauto';
 import {SignupPage} from './pages/signup/signup';
 import {LogoutPage} from './pages/logout/logout';
 
@@ -70,41 +71,40 @@ class MoneyLeashApp {
   rootPage: any = TutorialPage;
   //rootPage: any = SettingsPage; // for testing purposes only
   loggedIn = false;
-  enabletouchid = false;
+  enabletouchid = '';
 
   constructor(
-    ngZone: NgZone, 
+    private ngZone: NgZone, 
     private events: Events,
     private userData: UserData,
     private menu: MenuController,
     platform: Platform
   ) {
+
+    this.userData.getEnableTouchIDStorage().then((touchid) => {
+      this.enabletouchid = touchid;
+    });
+
     // Call any initial plugins when ready
     platform.ready().then(() => {
       StatusBar.styleLightContent();
       Splashscreen.hide();
-      if (this.enabletouchid) {
-        
-        console.log('touchid is enabled');
-        
-        touchid.checkSupport(() => {          
-          
-          console.log('check touchid support');
-
+      //
+      // Check if TouchID has been selected
+      if (this.enabletouchid === 'true') {
+        //
+        // Check if TouchID is supported
+        touchid.checkSupport(() => {
           touchid.authenticate((result) => {
-
-            console.log('touchid authenticate');
-
-            ngZone.run(() => {
-                //this.authenticated = true;
-                console.log('touchid is authenticated');
-            });
+              ngZone.run(() => {
+                  this.nav.setRoot(LoginAutoPage);
+              });
           }, (error) => {
-            this.nav.present(Alert.create({
-                title: "Attention!",
-                subTitle: error,
-                buttons: ["Close"]
-            }));
+              this.nav.present(Alert.create({
+                  title: "Attention!",
+                  subTitle: error,
+                  buttons: ["Close"]
+              }));
           }, "Please Authenticate");
         }, (error) => {
           this.nav.present(Alert.create({
@@ -114,7 +114,7 @@ class MoneyLeashApp {
           }));
         });
       } else {
-        console.log('touchid is enabled');
+        console.log('TouchID is NOT enabled!');
       }
     });
 

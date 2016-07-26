@@ -17,11 +17,7 @@ export class SecurityPage {
       private db: FirebaseService) {}
   
   save() {
-    if (this.enabletouchid){
-      this.userData.setEnableTouchID(true);
-    } else {
-      this.userData.setEnableTouchID(false);
-    }    
+    this.userData.setEnableTouchID(this.enabletouchid);
     this.db.pickDefaultSecuritySelected(this.enabletouchid);
     this.db.saveMyPreferences();
     this.nav.pop();
