@@ -18,6 +18,7 @@ export class LoginAutoPage {
     private db: FirebaseService) {}
 
     onPageWillEnter() {
+      this.userData.autoLoginLocalStorage();
       this.doautologin();
     }
 
