@@ -7,13 +7,19 @@ export class UserData {
   _favorites = [];
   HAS_LOGGED_IN = 'hasLoggedIn';
   storage = new Storage(LocalStorage);
-  email = '';
-  password = '';
+  username = '';
+  userpwd = '';
   enabletouchid = '';
 
   constructor(private events: Events) {
     this.storage.get('enabletouchid').then((value) => {
       this.enabletouchid = value;
+    });
+    this.storage.get('username').then((value) => {
+      this.username = value;
+    });
+    this.storage.get('userpwd').then((value) => {
+      this.userpwd = value;
     });
   }
 

@@ -69,7 +69,6 @@ class MoneyLeashApp {
   
   // Default root page
   rootPage: any = TutorialPage;
-  //rootPage: any = SettingsPage; // for testing purposes only
   loggedIn = false;
   enabletouchid = '';
 
@@ -81,9 +80,9 @@ class MoneyLeashApp {
     platform: Platform
   ) {
 
-    this.userData.getEnableTouchIDStorage().then((touchid) => {
+    /*this.userData.getEnableTouchIDStorage().then((touchid) => {
       this.enabletouchid = touchid;
-    });
+    });*/
 
     // Call any initial plugins when ready
     platform.ready().then(() => {
@@ -91,7 +90,7 @@ class MoneyLeashApp {
       Splashscreen.hide();
       //
       // Check if TouchID has been selected
-      if (this.enabletouchid === 'true') {
+      if (this.userData.enabletouchid === 'true') {
         //
         // Check if TouchID is supported
         touchid.checkSupport(() => {

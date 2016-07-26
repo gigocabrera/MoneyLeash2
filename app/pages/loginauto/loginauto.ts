@@ -12,31 +12,17 @@ import {FirebaseService} from '../../providers/firebaseService'
 
 export class LoginAutoPage {
 
-  submitted = false;
-  useremail: '';
-  userpwd: '';
-
   constructor(
     private nav: NavController,
     private userData: UserData,
-    private db: FirebaseService) {
+    private db: FirebaseService) {}
 
-      this.userData.getUsernameStorage().then((username) => {
-        this.useremail = username;
-        console.log(this.useremail);
-      });
-
-      this.userData.getPasswordStorage().then((pwd) => {
-        this.userpwd = pwd;
-        console.log(this.userpwd);
-      });
-
-      this.autologin(this.useremail, this.userpwd);
+    onPageWillEnter() {
+      this.doautologin();
     }
 
-    autologin(email, pwd) {
-      console.log('LOGIN AUTO START HERE');
-      this.db.loginauto(email, pwd).then(() => {
+    doautologin() {
+      this.db.loginauto(this.userData.username, this.userData.userpwd).then(() => {
           this.db.getMyPreferences();
           this.nav.setRoot(AccountListPage);
         }).catch(
@@ -50,5 +36,5 @@ export class LoginAutoPage {
         }
       );
     }
-  
+
 }

@@ -94,9 +94,9 @@ export class FirebaseService {
     });
   }
 
-  loginauto(email, password) {
+  loginauto(useremail, userpwd) {
     return new Promise((resolve: () => void, reject: (reason: Error) => void) => {
-      firebase.auth().signInWithEmailAndPassword(email, password)
+      firebase.auth().signInWithEmailAndPassword(useremail, userpwd)
       .then(function() {
         resolve();
       }).catch(function(error) {
