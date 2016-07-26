@@ -69,8 +69,11 @@ class MoneyLeashApp {
   
   // Default root page
   rootPage: any = TutorialPage;
+  
+  // Local variables
   loggedIn = false;
   enabletouchid = '';
+  autologin: boolean = false;
 
   constructor(
     private ngZone: NgZone, 
@@ -79,10 +82,6 @@ class MoneyLeashApp {
     private menu: MenuController,
     platform: Platform
   ) {
-
-    /*this.userData.getEnableTouchIDStorage().then((touchid) => {
-      this.enabletouchid = touchid;
-    });*/
 
     // Call any initial plugins when ready
     platform.ready().then(() => {
@@ -96,7 +95,8 @@ class MoneyLeashApp {
         touchid.checkSupport(() => {
           touchid.authenticate((result) => {
               ngZone.run(() => {
-                  this.nav.setRoot(LoginAutoPage);
+                  this.userData.autoLoginLocalStorage();
+                  this.autologin = true;
               });
           }, (error) => {
               this.nav.present(Alert.create({
@@ -122,6 +122,11 @@ class MoneyLeashApp {
       this.enableMenu(hasLoggedIn === 'true');
     });
     this.listenToLoginEvents();
+    
+    // If TouchID is enabled and fully authenticated, do autologin
+    if (this.autologin) {
+      this.nav.setRoot(LoginAutoPage);
+    }
   }
 
   openPage(page: PageObj) {

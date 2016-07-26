@@ -38,6 +38,11 @@ export class UserData {
     }
   }
 
+  autoLoginLocalStorage() {
+    this.storage.set(this.HAS_LOGGED_IN, true);
+    this.events.publish('user:login');
+  }
+
   saveLocalStorage(credentials) {
     this.storage.set(this.HAS_LOGGED_IN, true);
     this.setUsername(credentials.email);
