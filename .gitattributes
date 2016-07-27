@@ -62,4 +62,8 @@
 #*.rtf   diff=astextplain
 #*.RTF   diff=astextplain
 
-*.rb linguist-language=Java
+special-vendored-path/* linguist-vendored
+*.java linguist-vendored=false
+
+# platforms folders
+- ^[Pp]latforms/android
