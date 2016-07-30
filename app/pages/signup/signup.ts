@@ -2,6 +2,8 @@ import {Component} from '@angular/core';
 import {NavController, Alert, Loading} from 'ionic-angular';
 import {UserData} from '../../providers/user-data';
 import {AccountListPage} from '../mymoney/account-list/account-list';
+
+// Firebase service
 import {FirebaseService} from '../../providers/firebaseService'
 
 @Component({
@@ -58,12 +60,9 @@ export class SignupPage {
     this.submitted = true;
     if (this.inputIsValid(credentials)) {
       this.db.createUser(credentials).then(() => {
-          this.db.myInfo.email = credentials.email;
           this.userData.saveLocalStorage(credentials);
-          this.db.saveUserProfile(credentials);
-          this.db.createDefaultPreferences();
+          this.db.createInitialSetup(credentials);
           this.nav.setRoot(AccountListPage, {}, {animate: true, direction: 'forward'});
-          this.userData.handleSignup(credentials);
         }).catch(
         (error) => {
           this.SignUpError(error);

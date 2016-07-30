@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar mlnavbar>  
-    <ion-title>Preferences</ion-title>
+    <ion-title>Account Preferences</ion-title>
     <ion-buttons end>
       <button (click)="save()" mllightblue>
         Save
@@ -9,21 +9,21 @@
   </ion-navbar>
 </ion-header>
 <ion-content class="outer-content">
-  <ion-item-divider>
+  <ion-item-divider mlitemdivider class='mlbottomborder'>
     Select your preferences below
   </ion-item-divider>
   <ion-list>
     <ion-item class="ml-input" (click)="pickDefaultDate()">
       <i class="fa fa-calendar ml-fontawesome-left" item-left></i>
-      <ion-label stacked *ngIf="defaultdate != ''" mllightblue>Default Date</ion-label>
+      <ion-label stacked *ngIf="defaultdate != ''">Default Date</ion-label>
       <ion-input type="text" placeholder="Default Date" [(ngModel)]="defaultdate" readonly></ion-input>
-      <ion-icon name="arrow-forward" item-right class="ml-chevron-right" mllightblue></ion-icon>
+      <ion-icon name="arrow-forward" item-right class="ml-chevron-right"></ion-icon>
     </ion-item>
     <ion-item class="ml-input" (click)="pickDefaultBalance()">
       <i class="fa fa-money ml-fontawesome-left" item-left></i>
-      <ion-label stacked *ngIf="defaultbalance != ''" mllightblue>Default Balance</ion-label>
+      <ion-label stacked *ngIf="defaultbalance != ''">Default Balance</ion-label>
       <ion-input type="text" placeholder="Default Balance" [(ngModel)]="defaultbalance" readonly></ion-input>
-      <ion-icon name="arrow-forward" item-right class="ml-chevron-right" mllightblue></ion-icon>
+      <ion-icon name="arrow-forward" item-right class="ml-chevron-right"></ion-icon>
     </ion-item>
   </ion-list>
 </ion-content>

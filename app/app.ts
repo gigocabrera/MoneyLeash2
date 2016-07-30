@@ -147,10 +147,6 @@ class MoneyLeashApp {
       this.enableMenu(true);
     });
 
-    this.events.subscribe('user:signup', () => {
-      this.enableMenu(true);
-    });
-
     this.events.subscribe('user:logout', () => {
       this.enableMenu(false);
     });

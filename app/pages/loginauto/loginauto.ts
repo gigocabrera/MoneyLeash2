@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {NavController, Alert} from 'ionic-angular';
 import {UserData} from '../../providers/user-data';
+import {LoginPage} from '../login/login';
 import {AccountListPage} from '../mymoney/account-list/account-list';
 
 // Firebase service
@@ -28,12 +29,9 @@ export class LoginAutoPage {
           this.nav.setRoot(AccountListPage);
         }).catch(
         (error) => {
-          let alert = Alert.create({
-            title: 'Login Failed',
-            subTitle: error.code,
-            buttons: ['Ok']
-          });
-          this.nav.present(alert);
+          // There was a problem with auto login. Redirect to login page
+          // (a) account deleted; (b) account disabled; (c) loss connection to firebase; (d) etc.
+          this.nav.setRoot(LoginPage);
         }
       );
     }

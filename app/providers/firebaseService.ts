@@ -2,6 +2,10 @@ import {Injectable} from '@angular/core';
 import 'rxjs/Rx';
 import {Observable} from "rxjs/Observable";
 
+// myInfo model
+import {MyInfo} from './myinfo.model';
+import {MyHouse} from './myhouse.model';
+
 // Firebase
 declare var firebase: any;
 
@@ -9,6 +13,10 @@ declare var firebase: any;
 export class FirebaseService {
 
   authCallback: any;
+
+  // Commonly-used Firebase references.
+  usersRef = null;
+  housesRef = null;
 
   constructor() {
     // Initialize Firebase
@@ -19,6 +27,11 @@ export class FirebaseService {
         storageBucket: "brilliant-inferno-1044.appspot.com",
     };
     firebase.initializeApp(config);
+
+    // Commonly-used Firebase references.
+    this.usersRef        = firebase.database().ref().child('users');
+    this.housesRef       = firebase.database().ref().child('houses');
+
   }
 
   // Firebase User Properties
@@ -105,6 +118,27 @@ export class FirebaseService {
     });
   }
 
+  // CREATE INITIAL SETUP 
+  //-----------------------------------------------------
+  createInitialSetup(credentials) {
+
+    // Create myinfo node in Firebase to hold user details
+    var user = new MyInfo();
+    user.namefirst = this.parseEmail(credentials.email);
+    this.saveUserProfile(user);
+
+    // Create default preferences for new user
+    this.createDefaultPreferences();
+
+    // House information under Users node in Firebase
+    var house = new MyHouse();
+    house.housenumber = this.RandomHouseCode();
+    this.saveHouse(house);
+
+    // Create new house under houses in Firebase for new user
+    this.createHouse(credentials);
+  }
+
   // PREFERENCES
   //-----------------------------------------------------
   myPreferences = {
@@ -122,7 +156,7 @@ export class FirebaseService {
   }  
 
   getMyPreferences() {
-    firebase.database().ref('/members/' + this.uid() + '/mypreferences').once('value', snapshot => {
+    this.usersRef(this.uid() + '/mypreferences').once('value', snapshot => {
       this.myPreferences = snapshot.val();
     }).catch(function(error) {
         //console.log(error);
@@ -130,7 +164,90 @@ export class FirebaseService {
   }
 
   saveMyPreferences() {
-    firebase.database().ref('members/' + this.uid() + "/mypreferences").update(this.myPreferences);
+    this.usersRef.child(this.uid() + "/mypreferences").update(this.myPreferences);  
+  }
+
+  // HOUSE DATA
+  //-----------------------------------------------------
+  getHouse() {
+    
+  }
+
+  saveHouse(house) {
+    this.usersRef.child(this.uid() + "/myhouse").update(house);
+  }
+
+  // HOUSE DATA
+  //-----------------------------------------------------
+  createHouse(credentials) {
+    
+    // Set basic house defaults
+    var housemember = {
+        isadmin: true,
+        createdby: credentials.email,
+        dateCreated: firebase.database['ServerValue']['TIMESTAMP'], 
+    };
+
+    // Create a new node under houses and get the key
+    var key = this.housesRef.push().key;
+
+    // Save reference of new house key to the myhouses.houseid node 
+    this.usersRef.child(this.uid() + "/myhouse").update({houseid : key});
+
+    // Save reference of new key to the myhouses.houseid node
+    this.housesRef.child(key + "/housemembers/" + this.uid()).update(housemember);
+
+    // Save default Account Types
+    var refTypes = this.housesRef.child(key + "/memberaccounttypes/");
+    refTypes.push({ name: 'Checking', icon: '0' });
+    refTypes.push({ name: 'Savings', icon: '0' });
+    refTypes.push({ name: 'Credit Card', icon: '0' });
+    refTypes.push({ name: 'Debit Card', icon: '0' });
+    refTypes.push({ name: 'Investment', icon: '0' });
+    refTypes.push({ name: 'Brokerage', icon: '0' });
+
+    // Save default categories
+    var refCatIncome = this.housesRef.child(key + "/membercategories/Income");
+    refCatIncome.push({ categoryname: 'Income', categoryparent: '', categorysort: 'Income', categorytype: 'Income' });
+    refCatIncome.push({ categoryname: 'Beginning Balance', categoryparent: 'Income', categorysort: 'Income:Beginning Balance', categorytype: 'Income' });
+
+    var refCatExpense = this.housesRef.child(key + "/membercategories/Expense");
+    refCatExpense.push({ categoryname: 'Auto', categoryparent: '', categorysort: 'Auto', categorytype: 'Expense' });
+    refCatExpense.push({ categoryname: 'Gasoline', categoryparent: 'Auto', categorysort: 'Auto:Gas', categorytype: 'Expense' });
+    refCatExpense.push({ categoryname: 'Car Payment', categoryparent: 'Auto', categorysort: 'Auto:Car Payment', categorytype: 'Expense' });
+
+    // Save default Payees
+    var refPayee = this.housesRef.child(key + "/memberpayees");
+    refPayee.push({ lastamount: '', lastcategory: '', lastcategoryid: '', payeename: 'Beginning Balance' });
+
+  }
+
+  getMember() {
+    
+  }
+
+  saveMember(house) {
+    //this.usersRef(this.uid() + "/myhouse").update(house);
+  }
+
+  // ACCOUNT TYPES
+  //-----------------------------------------------------
+  getMyAccountTypes() {
+    this.usersRef(this.uid() + '/mypreferences').once('value', snapshot => {
+      this.myPreferences = snapshot.val();
+    }).catch(function(error) {
+        //console.log(error);
+    });
+  }
+
+  createDefaultAccountTypes() {
+    var refTypes = firebase.database().ref('houses/' + this.uid() + "/mypreferences");
+    refTypes.push({ name: 'Checking', icon: '0' });
+    refTypes.push({ name: 'Savings', icon: '0' });
+    refTypes.push({ name: 'Credit Card', icon: '0' });
+    refTypes.push({ name: 'Debit Card', icon: '0' });
+    refTypes.push({ name: 'Investment', icon: '0' });
+    refTypes.push({ name: 'Brokerage', icon: '0' });
   }
 
   // DEFAULT DATE PREFERENCES
@@ -190,29 +307,16 @@ export class FirebaseService {
   
   // PERSONAL PROFILE
   //-----------------------------------------------------
-  myInfo = {
-    'datecreated': '',
-    'dateupdated': '',
-    'email': '',
-    'firstname': '',
-    'lastname': '',
-    'groupadmin': '',
-    'groupname': '',
-    'groupnumber': '',
-    'groupjoincode': '',
-    'groupid': ''
-  }
-
   getUserProfile() {
     return new Promise((resolve, reject) => {
-      firebase.database().ref('members/' + this.uid()).once('value', snapshot => {
+      this.usersRef(this.uid()).once('value', snapshot => {
           resolve(snapshot.val());
       })
     })
   }
 
   saveUserProfile(user) {
-    firebase.database().ref('members/' + this.uid() + "/myinfo").update(this.myInfo);
+    this.usersRef.child(this.uid() + "/myinfo").update(user);
   }
 
   updateEmail(newEmail: string) {
@@ -263,6 +367,12 @@ export class FirebaseService {
         }
       }
     }
+  }
+  parseEmail(emailAddress) {
+    return emailAddress.substring(0, emailAddress.indexOf("@"));
+  }
+  RandomHouseCode() {
+      return Math.floor((Math.random() * 100000000) + 100);
   }
 
 }

@@ -23,21 +23,6 @@ export class UserData {
     });
   }
 
-  hasFavorite(sessionName) {
-    return (this._favorites.indexOf(sessionName) > -1);
-  }
-
-  addFavorite(sessionName) {
-    this._favorites.push(sessionName);
-  }
-
-  removeFavorite(sessionName) {
-    let index = this._favorites.indexOf(sessionName)
-    if (index > -1) {
-      this._favorites.splice(index, 1);
-    }
-  }
-
   autoLoginLocalStorage() {
     this.storage.set(this.HAS_LOGGED_IN, true);
     this.events.publish('user:login');
@@ -48,13 +33,6 @@ export class UserData {
     this.setUsername(credentials.email);
     this.setUserPwd(credentials.password);
     this.events.publish('user:login');
-  }
-
-  handleSignup(credentials) {
-    this.storage.set(this.HAS_LOGGED_IN, true);
-    this.setUsername(credentials.email);
-    this.setUserPwd(credentials.password);
-    this.events.publish('user:signup');
   }
 
   logout() {

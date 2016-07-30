@@ -4,6 +4,7 @@ import {UserData} from '../../../providers/user-data';
 import {AboutPage} from '../../../pages/about/about';
 import {PersonalProfilePage} from '../../myinfo/personalprofile/personalprofile';
 import {AccountsTransactionsPage} from '../../mysettings/accountstransactions/accountstransactions';
+import {AccountTypesPage} from '../../mysettings/accounttypes/accounttypes';
 import {SecurityPage} from '../../mysettings/security/security';
 
 interface PageObj {
@@ -22,7 +23,8 @@ export class SettingsPage {
   // the login page disables the left menu
   settingsPages: PageObj[] = [
     { title: 'Personal Profile', component: PersonalProfilePage, icon: 'ios-contact-outline' },
-      { title: 'Accounts / Transactions', component: AccountsTransactionsPage, icon: 'ios-construct-outline' },
+      { title: 'Accounts and Transactions', component: AccountsTransactionsPage, icon: 'ios-construct-outline' },
+      { title: 'Accounts Types', component: AccountTypesPage, icon: 'ios-list-box-outline' },
       { title: 'Security', component: SecurityPage, icon: 'ios-lock-outline' },
       { title: 'Report a Bug', component: '', icon: 'ios-bug-outline' },
       { title: 'Suggest a Feature', component: '', icon: 'ios-bulb-outline' },
