@@ -10,6 +10,7 @@ export class UserData {
   username = '';
   userpwd = '';
   enabletouchid = '';
+  appversion = '';
 
   constructor(private events: Events) {
     this.storage.get('enabletouchid').then((value) => {

@@ -1,6 +1,6 @@
 import {Component, ViewChild, NgZone} from '@angular/core';
 import {ionicBootstrap, Events, Platform, Nav, MenuController, Alert} from 'ionic-angular';
-import {StatusBar, Splashscreen} from 'ionic-native';
+import {AppVersion, StatusBar, Splashscreen} from 'ionic-native';
 
 // Data
 import {UserData} from './providers/user-data';
@@ -73,6 +73,7 @@ class MoneyLeashApp {
   // Local variables
   loggedIn = false;
   enabletouchid = '';
+  appversion = '';
 
   constructor(
     private ngZone: NgZone, 
@@ -86,6 +87,12 @@ class MoneyLeashApp {
     platform.ready().then(() => {
       StatusBar.styleLightContent();
       Splashscreen.hide();
+      AppVersion.getVersionNumber().then(ver => {
+        this.appversion = ver;
+        this.userData.appversion = ver;
+      }).catch(function(error) {
+        console.log(error);
+      });
       //
       // Check if TouchID has been selected
       if (this.userData.enabletouchid === 'true') {

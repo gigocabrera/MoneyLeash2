@@ -26,13 +26,14 @@ export class LoginPage {
     this.nav.setRoot(AccountListPage, {}, {animate: true, direction: 'forward'});
   }
   
-  private LoginError(): void {
+  private LoginError(error): void {
     let alert = Alert.create({
       title: 'Login Failed',
       subTitle: 'Please check your email and/or password and try again',
       buttons: ['Ok']
     });
     this.nav.present(alert);
+    console.log(error);
   }
   
   /*doLoginObservable(credentials, _event) {
@@ -59,7 +60,7 @@ export class LoginPage {
         this.LoginSuccess();
       }).catch(
       (error) => {
-        this.LoginError();
+        this.LoginError(error);
       }
     );
   }
