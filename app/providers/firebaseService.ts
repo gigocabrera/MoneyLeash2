@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
-import 'rxjs/Rx';
-import {Observable} from "rxjs/Observable";
+import {ReplaySubject} from 'rxjs/ReplaySubject';
 
 // myInfo model
 import {MyInfo} from './myinfo.model';
@@ -12,7 +11,9 @@ declare var firebase: any;
 @Injectable()
 export class FirebaseService {
 
-  authCallback: any;
+  private _todos$: any;
+  private _db: any;
+  private _todosRef: any;
 
   constructor() {
     // Initialize Firebase
@@ -23,6 +24,17 @@ export class FirebaseService {
         storageBucket: "brilliant-inferno-1044.appspot.com",
     };
     firebase.initializeApp(config);
+
+    this._db = firebase.database().ref('/');
+    //this._todosRef = firebase.database().ref('houses/' + this.myHousePointer.houseid + '/memberaccounttypes' );
+    this._todosRef = firebase.database().ref('houses/-KNt_q97POfdtH4P2eyL/memberaccounttypes');
+    this._todosRef.on('child_added', this.handleData, this);
+    this._todos$ = new ReplaySubject();
+  }
+  
+  get todos()
+  {
+      return this._todos$;
   }
 
   // Firebase User Properties
@@ -122,9 +134,9 @@ export class FirebaseService {
     this.createDefaultPreferences();
 
     // House information under Users node in Firebase
-    var house = new MyHouse();
-    house.housenumber = this.RandomHouseCode();
-    this.saveHouse(house);
+    var myhouse = new MyHouse();
+    myhouse.housenumber = this.RandomHouseCode();
+    this.saveMyHouse(myhouse);
 
     // Create new house under houses in Firebase for new user
     this.createHouse(credentials);
@@ -136,7 +148,7 @@ export class FirebaseService {
     defaultbalance: '',
     defaultdate: '',
     usetouchid: ''
-  } 
+  }
   
   createDefaultPreferences() {
     // After a user signs up we want to create some basic defaults
@@ -158,17 +170,26 @@ export class FirebaseService {
     firebase.database().ref('/users/' + this.uid() + '/mypreferences').update(this.myPreferences);
   }
 
-  // HOUSE DATA
+  // MyHouse POINTER
   //-----------------------------------------------------
-  getHouse() {
-    
+  myHousePointer = {
+    houseid: '',
+    housenumber: ''
+  } 
+
+  getMyHouse() {
+    firebase.database().ref('/users/' + this.uid() + '/myhouse').once('value', snapshot => {
+      this.myHousePointer = snapshot.val();
+    }).catch(function(error) {
+        //console.log(error);
+    });
   }
 
-  saveHouse(house) {
-    firebase.database().ref('/users/' + this.uid() + '/myhouse').update(house);
+  saveMyHouse(myhouse) {
+    firebase.database().ref('/users/' + this.uid() + '/myhouse').update(myhouse);
   }
 
-  // HOUSE DATA
+  // HOUSE MAIN DATA
   //-----------------------------------------------------
   createHouse(credentials) {
     
@@ -184,6 +205,7 @@ export class FirebaseService {
 
     // Save reference of new house key to the myhouses.houseid node 
     firebase.database().ref('/users/' + this.uid() + '/myhouse').update({houseid : key});
+    this.myHousePointer.houseid = key;
 
     // Save reference of new key to the myhouses.houseid node
     firebase.database().ref('/houses/' + key + "/housemembers/" + this.uid()).update(housemember);
@@ -219,13 +241,13 @@ export class FirebaseService {
   saveMember(house) {
     //this.usersRef(this.uid() + "/myhouse").update(house);
   }
-
+  
   // ACCOUNT TYPES
   //-----------------------------------------------------
-  getMyAccountTypes() {
-    
+  myAccTypes = {
+    name: '',
+    icon: ''
   }
-
   createDefaultAccountTypes() {
     var refTypes = firebase.database().ref('houses/' + this.uid() + "/mypreferences");
     refTypes.push({ name: 'Checking', icon: '0' });
@@ -234,6 +256,14 @@ export class FirebaseService {
     refTypes.push({ name: 'Debit Card', icon: '0' });
     refTypes.push({ name: 'Investment', icon: '0' });
     refTypes.push({ name: 'Brokerage', icon: '0' });
+  }
+
+  getMyAccountTypes() {
+    return this._todos$;
+  }
+
+  saveAccountType() {
+    //firebase.database().ref('/users/' + this.uid() + '/mypreferences').update(this.myPreferences);
   }
 
   // DEFAULT DATE PREFERENCES
@@ -359,6 +389,26 @@ export class FirebaseService {
   }
   RandomHouseCode() {
       return Math.floor((Math.random() * 100000000) + 100);
+  }
+  handleData(snap)
+  {
+    try {
+      // Firebase stores everything as an object, but we want an array.
+      var keys = Object.keys(snap.val());
+      console.log('keys: ', keys, snap.val());
+      // variable to store the todos added
+      var data = [];
+      // Loop through the keys and push the todos into an array
+      for( var i = 0; i < keys.length; ++i)
+      {
+        data.push(snap.val()[keys[i]]);
+      }
+      // Tell our observer we have new data
+      this._todos$.next(snap.val());
+    }
+    catch (error) {
+      console.log('catching', error);
+    }
   }
 
 }

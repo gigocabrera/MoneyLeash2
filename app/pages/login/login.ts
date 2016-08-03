@@ -23,6 +23,7 @@ export class LoginPage {
 
   private LoginSuccess(): void {
     this.db.getMyPreferences();
+    this.db.getMyHouse();
     this.nav.setRoot(AccountListPage, {}, {animate: true, direction: 'forward'});
   }
   

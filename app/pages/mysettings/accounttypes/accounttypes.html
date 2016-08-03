@@ -9,10 +9,15 @@
   </ion-navbar>
 </ion-header>
 <ion-content class="outer-content">
-  <ion-item-divider mlitemdivider>
-    Available Account Types
-  </ion-item-divider>
   <ion-list>
-    here
+    <ion-item-divider mlitemdivider>
+      Account Types
+    </ion-item-divider>
+    <ion-list>
+      <button ion-item *ngFor="let todo of todos" (click)="openPage(p)">
+        <ion-icon item-left name="ios-cash-outline"></ion-icon>
+        {{todo.name}}
+      </button>
+    </ion-list>
   </ion-list>
 </ion-content>

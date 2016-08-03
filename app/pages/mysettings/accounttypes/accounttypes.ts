@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {NavController, Modal} from 'ionic-angular';
-import {PickDefaultDatePage} from '../../mypicklists/pickdefaultdate/pickdefaultdate';
-import {PickDefaultBalancePage} from '../../mypicklists/pickdefaultbalance/pickdefaultbalance';
+
+// Firebase service
 import {FirebaseService} from '../../../providers/firebaseService'
 
 @Component({
@@ -10,13 +10,16 @@ import {FirebaseService} from '../../../providers/firebaseService'
 
 export class AccountTypesPage {
   
-  defaultdate: string = '';
-  defaultbalance: string = '';
+  public todos: any[] = [];
   
-  constructor(private nav: NavController, private db: FirebaseService) {}
-  
-  onPageWillEnter() {
-    //this.loadDefaults();
+  constructor(private nav: NavController, private db: FirebaseService) {
+    let that = this;
+    this.db.todos.subscribe((data) => {
+      that.todos.push(data);
+      //console.log(that.todos)
+    }, (err) => {
+      console.error(err);
+    });
   }
   
 }
