@@ -23,7 +23,12 @@ import {ReportListPage} from './pages/mymoney/report-list/report-list';
 // Settings pages
 import {SettingsPage} from './pages/mysettings/settings/settings';
 
-// Firebase service
+// Firebase
+import {
+    FIREBASE_PROVIDERS, defaultFirebase,
+    AngularFire, firebaseAuthConfig, AuthProviders,
+    AuthMethods
+} from 'angularfire2';
 import {FirebaseService} from './providers/firebaseService';
 
 declare var touchid: any;
@@ -38,7 +43,23 @@ interface PageObj {
 
 @Component({
   templateUrl: 'build/app.html',
-  providers:[FirebaseService],
+  providers: [
+    FirebaseService,
+    FIREBASE_PROVIDERS,
+    // Initialize Firebase app  
+    defaultFirebase({
+      apiKey: "AIzaSyAjiJc9cXvd3bzl-aW0wbQC6sajr6RH5hg",
+      authDomain: "brilliant-inferno-1044.firebaseapp.com",
+      databaseURL: "https://brilliant-inferno-1044.firebaseio.com",
+      storageBucket: "brilliant-inferno-1044.appspot.com",
+    }),
+    firebaseAuthConfig({
+      provider: AuthProviders.Password,
+      method: AuthMethods.Password,
+      remember: 'default',
+      scope: ['email']
+    })
+  ]
 })
 
 class MoneyLeashApp {

@@ -16,66 +16,25 @@ export class FirebaseService {
   private _todosRef: any;
 
   constructor() {
-    // Initialize Firebase
-    var config = {
-        apiKey: "AIzaSyAjiJc9cXvd3bzl-aW0wbQC6sajr6RH5hg",
-        authDomain: "brilliant-inferno-1044.firebaseapp.com",
-        databaseURL: "https://brilliant-inferno-1044.firebaseio.com",
-        storageBucket: "brilliant-inferno-1044.appspot.com",
-    };
-    firebase.initializeApp(config);
-
-    this._db = firebase.database().ref('/');
-    //this._todosRef = firebase.database().ref('houses/' + this.myHousePointer.houseid + '/memberaccounttypes' );
-    this._todosRef = firebase.database().ref('houses/-KNt_q97POfdtH4P2eyL/memberaccounttypes');
-    this._todosRef.on('child_added', this.handleData, this);
-    this._todos$ = new ReplaySubject();
-  }
-  
-  get todos()
-  {
-      return this._todos$;
+    
   }
 
   // Firebase User Properties
   //-----------------------------------------------------
-  onAuthStateChanged(_function) {
-    return firebase.auth().onAuthStateChanged((_currentUser) => {
-      if (_currentUser) {
-        _function(_currentUser);
-      } else {
-        _function(null)
-      }
-    })
-  }
-
   uid() {
     return firebase.auth().currentUser.uid;
   }
-
   currentUser() {
     return firebase.auth().currentUser
   }
-
   currentUserEmail() {
     return firebase.auth().currentUser.email;
   }
-
   logout() {
     return firebase.auth().signOut()
   }
 
-  /*createUserObservable(credentials) {
-    return new Observable(observer => {
-      return firebase.auth().createUserWithEmailAndPassword(credentials.email, credentials.password)
-      .then((authData) => {
-          observer.next(authData)
-      }).catch((_error) => {
-          observer.error(_error)
-      })
-    });
-  }*/
-
+/*
   createUser(credentials) {
     return new Promise((resolve: () => void, reject: (reason: Error) => void) => {
       firebase.auth().createUserWithEmailAndPassword(credentials.email, credentials.password)
@@ -86,18 +45,6 @@ export class FirebaseService {
       });
     });
   }
-
-  /*loginObservable(credentials) {
-    var that = this
-    return new Observable(observer => {
-      return firebase.auth().signInWithEmailAndPassword(credentials.email, credentials.password)
-        .then(function (authData) {
-            observer.next(authData)
-        }).catch(function (_error) {
-            observer.error(_error)
-        })
-    });
-  }*/
 
   login(credentials) {
     return new Promise((resolve: () => void, reject: (reason: Error) => void) => {
@@ -120,7 +67,8 @@ export class FirebaseService {
       });
     });
   }
-
+*/
+  
   // CREATE INITIAL SETUP 
   //-----------------------------------------------------
   createInitialSetup(credentials) {

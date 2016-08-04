@@ -1,7 +1,6 @@
 import {Component} from '@angular/core';
 import {NavController, Modal} from 'ionic-angular';
-
-// Firebase service
+import {AngularFire, FirebaseListObservable} from 'angularfire2';
 import {FirebaseService} from '../../../providers/firebaseService'
 
 @Component({
@@ -10,16 +9,10 @@ import {FirebaseService} from '../../../providers/firebaseService'
 
 export class AccountTypesPage {
   
-  public todos: any[] = [];
+  public items: FirebaseListObservable<any[]>;
   
-  constructor(private nav: NavController, private db: FirebaseService) {
-    let that = this;
-    this.db.todos.subscribe((data) => {
-      that.todos.push(data);
-      //console.log(that.todos)
-    }, (err) => {
-      console.error(err);
-    });
+  constructor(private nav: NavController, private db: FirebaseService, af: AngularFire) {    
+    this.items = af.database.list('houses/-KNt_q97POfdtH4P2eyL/memberaccounttypes'); 
   }
   
 }

@@ -3,7 +3,8 @@ import {NavController, Alert, Loading} from 'ionic-angular';
 import {UserData} from '../../providers/user-data';
 import {AccountListPage} from '../mymoney/account-list/account-list';
 
-// Firebase service
+// Firebase
+import {AngularFire, AuthProviders, AuthMethods} from 'angularfire2';
 import {FirebaseService} from '../../providers/firebaseService'
 
 @Component({
@@ -19,7 +20,8 @@ export class SignupPage {
   constructor(
     private nav: NavController,
     private userData: UserData,
-    public db: FirebaseService) {}
+    private db: FirebaseService,
+    private af: AngularFire) {}
 
   private inputIsValid(credentials) : boolean {
     this.showValidationMessage = false;
@@ -36,35 +38,19 @@ export class SignupPage {
     }
     return true;
   }
-
-  /*doSignupObservable(credentials, _event) {
-    _event.preventDefault();
-    this.submitted = true;
-    if (this.inputIsValid(credentials)) {
-      this.db.createUserObservable(credentials).subscribe(
-      (data: any) => {
-        this.db.myInfo.email = credentials.email;
-        this.db.saveUserProfile(credentials);
-        this.db.createDefaultPreferences();
-        this.nav.setRoot(AccountListPage, {}, {animate: true, direction: 'forward'});
-        this.userData.handleSignup(credentials);
-      },
-      (error) => {
-        this.SignUpError(error)
-      });
-    }
-  }*/
   
   doSignup(credentials, _event) {
     _event.preventDefault();
     this.submitted = true;
     if (this.inputIsValid(credentials)) {
-      this.db.createUser(credentials).then(() => {
-          this.userData.saveLocalStorage(credentials);
-          this.db.createInitialSetup(credentials);
-          this.nav.setRoot(AccountListPage, {}, {animate: true, direction: 'forward'});
-        }).catch(
-        (error) => {
+      
+      this.af.auth.createUser(credentials)
+      .then((user) => {
+        this.userData.saveLocalStorage(credentials);
+        this.db.createInitialSetup(credentials);
+        this.nav.setRoot(AccountListPage, {}, {animate: true, direction: 'forward'});
+      })
+      .catch((error) => {
           this.SignUpError(error);
         }
       );

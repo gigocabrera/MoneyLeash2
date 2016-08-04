@@ -5,6 +5,7 @@ import {LoginPage} from '../login/login';
 import {AccountListPage} from '../mymoney/account-list/account-list';
 
 // Firebase service
+import {AngularFire, AuthProviders, AuthMethods} from 'angularfire2';
 import {FirebaseService} from '../../providers/firebaseService'
 
 @Component({
@@ -16,7 +17,8 @@ export class LoginAutoPage {
   constructor(
     private nav: NavController,
     private userData: UserData,
-    private db: FirebaseService) {}
+    private db: FirebaseService,
+    private af: AngularFire) {}
 
     onPageWillEnter() {
       this.userData.autoLoginLocalStorage();
@@ -24,16 +26,17 @@ export class LoginAutoPage {
     }
 
     doautologin() {
-      this.db.loginauto(this.userData.username, this.userData.userpwd).then(() => {
-          this.db.getMyPreferences();
-          this.nav.setRoot(AccountListPage);
-        }).catch(
-        (error) => {
-          // There was a problem with auto login. Redirect to login page
+      this.af.auth.login({email: this.userData.username, password: this.userData.userpwd}, {
+        provider: AuthProviders.Password,
+        method: AuthMethods.Password
+      }).then((authData) => {
+        this.db.getMyPreferences();
+        this.nav.setRoot(AccountListPage);
+      }).catch((error) => {
+        // There was a problem with auto login. Redirect to login page
           // (a) account deleted; (b) account disabled; (c) loss connection to firebase; (d) etc.
           this.nav.setRoot(LoginPage);
-        }
-      );
+      });      
     }
 
 }
