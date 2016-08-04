@@ -1,6 +1,6 @@
 import {Component, ViewChild, NgZone} from '@angular/core';
 import {ionicBootstrap, Events, Platform, Nav, MenuController, Alert} from 'ionic-angular';
-import {AppVersion, StatusBar, Splashscreen} from 'ionic-native';
+import {AppVersion, StatusBar, Splashscreen, TouchID} from 'ionic-native';
 
 // Data
 import {UserData} from './providers/user-data';
@@ -96,9 +96,25 @@ class MoneyLeashApp {
       //
       // Check if TouchID has been selected
       if (this.userData.enabletouchid === 'true') {
+        
         //
         // Check if TouchID is supported
-        touchid.checkSupport(() => {
+
+        TouchID.isAvailable()
+          .then(
+            res => {
+              TouchID.verifyFingerprint('Scan your fingerprint please')
+              .then(
+                res => console.log('Ok', res),
+                err => console.error('Error', err)
+              );
+            },
+            err => {
+              console.error('TouchID is not available', err)
+            }
+          );
+
+        /*touchid.checkSupport(() => {
           touchid.authenticate((result) => {
               ngZone.run(() => {
                 this.enableMenu(true);
@@ -118,9 +134,11 @@ class MoneyLeashApp {
               subTitle: "Touch ID is not supported",
               buttons: ["Close"]
           }));
-        });
+        });*/
+
+
       } else {
-        console.log('TouchID is NOT enabled!');
+        console.log('TouchID setting is NOT enabled!');
       }
     });
 
