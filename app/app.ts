@@ -44,6 +44,7 @@ interface PageObj {
 @Component({
   templateUrl: 'build/app.html',
   providers: [
+    UserData,
     FirebaseService,
     FIREBASE_PROVIDERS,
     // Initialize Firebase app  
@@ -117,47 +118,21 @@ class MoneyLeashApp {
       //
       // Check if TouchID has been selected
       if (this.userData.enabletouchid === 'true') {
-        
         //
         // Check if TouchID is supported
-
         TouchID.isAvailable()
-          .then(
-            res => {
-              TouchID.verifyFingerprint('Scan your fingerprint please')
-              .then(
-                res => console.log('Ok', res),
-                err => console.error('Error', err)
-              );
-            },
-            err => {
-              console.error('TouchID is not available', err)
-            }
-          );
-
-        /*touchid.checkSupport(() => {
-          touchid.authenticate((result) => {
-              ngZone.run(() => {
-                this.enableMenu(true);
-                this.listenToLoginEvents();
-                this.nav.setRoot(LoginAutoPage);
-              });
-          }, (error) => {
-              this.nav.present(Alert.create({
-                  title: "Attention!",
-                  subTitle: error,
-                  buttons: ["Close"]
-              }));
-          }, "Please Authenticate");
-        }, (error) => {
-          this.nav.present(Alert.create({
-              title: "Attention!",
-              subTitle: "Touch ID is not supported",
-              buttons: ["Close"]
-          }));
-        });*/
-
-
+        .then(
+          res => {
+            TouchID.verifyFingerprint('Scan your fingerprint please')
+            .then(
+              res => console.log('Ok', res),
+              err => console.error('Error', err)
+            );
+          },
+          err => {
+            console.error('TouchID is not available', err)
+          }
+        );
       } else {
         console.log('TouchID setting is NOT enabled!');
       }
@@ -217,6 +192,4 @@ class MoneyLeashApp {
 // See the theming docs for the default values:
 // http://ionicframework.com/docs/v2/theming/platform-specific-styles/
 
-ionicBootstrap(MoneyLeashApp, [UserData], {
-  tabbarPlacement: 'bottom'
-});
+ionicBootstrap(MoneyLeashApp);

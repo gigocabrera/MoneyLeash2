@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {NavController, Alert, ActionSheet, Modal, Loading} from 'ionic-angular';
+import {NavController, Alert, AlertController, ActionSheet, Modal, ModalController, Loading, LoadingController} from 'ionic-angular';
 import {ChangeEmailPage} from '../../myinfo/changeemail/changeemail';
 import {ChangePasswordPage} from '../../myinfo/changepassword/changepassword';
 import {TutorialPage} from '../../tutorial/tutorial';
@@ -18,6 +18,9 @@ export class PersonalProfilePage {
 
   constructor(
       private nav: NavController,
+      private modalController: ModalController,
+      private alertController: AlertController,
+      private loadingController: LoadingController,
       private userData: UserData,
       public db: FirebaseService) { }
   
@@ -34,9 +37,9 @@ export class PersonalProfilePage {
   }
 
   changeEmail() {
-    let modal = Modal.create(ChangeEmailPage);
-    this.nav.present(modal);
-    modal.onDismiss((data: any[]) => {
+    let modal = this.modalController.create(ChangeEmailPage);
+    modal.present(modal);
+    modal.onDidDismiss((data: any[]) => {
       if (data) {
         this.doChangeEmail(data);
       }
@@ -44,9 +47,9 @@ export class PersonalProfilePage {
   }
   
   changePassword() {
-    let modal = Modal.create(ChangePasswordPage);
-    this.nav.present(modal);
-    modal.onDismiss((data: any[]) => {
+    let modal = this.modalController.create(ChangePasswordPage);
+    modal.present(modal);
+    modal.onDidDismiss((data: any[]) => {
       if (data) {
         this.doChangePassword(data);
       }
@@ -54,34 +57,33 @@ export class PersonalProfilePage {
   }
 
   deleteAccount() {
-    this.nav.present(
-      Alert.create({
-        title: 'Please Confirm',
-        message: 'Are you sure you want to delete your account and ALL your data?',
-        buttons: [
-          {
-            text: 'Cancel',
-            handler: () => {
-              //console.log('Cancel RemoveUser clicked');
-            }
-          },
-          {
-            text: 'Delete',
-            handler: () => {
-              this.doRemoveUser();
-            }
+    let alert = this.alertController.create({
+      title: 'Please Confirm',
+      message: 'Are you sure you want to delete your account and ALL your data?',
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: () => {
+            //console.log('Cancel RemoveUser clicked');
           }
-        ]
-      })
-    )
+        },
+        {
+          text: 'Delete',
+          handler: () => {
+            this.doRemoveUser();
+          }
+        }
+      ]
+    });
+    alert.present();
   }
   
   private doChangeEmail(newemail): void {
 
-    let loading = Loading.create({
+    let loading = this.loadingController.create({
       content: 'Please wait...'
     });
-    this.nav.present(loading);
+    loading.present();
         
     var myAlert: {
       title?: string, 
@@ -121,10 +123,10 @@ export class PersonalProfilePage {
   
   private doChangePassword(newpassword): void {
 
-    let loading = Loading.create({
+    let loading = this.loadingController.create({
       content: 'Please wait...'
     });
-    this.nav.present(loading);
+    loading.present();
 
     var myAlert: {
       title?: string, 
@@ -160,10 +162,10 @@ export class PersonalProfilePage {
 
   private doRemoveUser(): void {
     
-    let loading = Loading.create({
+    let loading = this.loadingController.create({
       content: 'Please wait...'
     });
-    this.nav.present(loading);
+    loading.present();
 
     var myAlert: {
       title?: string, 
@@ -191,26 +193,25 @@ export class PersonalProfilePage {
   }
 
   private logout(): void {
-    this.nav.present(
-      Alert.create({
-        title: 'Please Confirm',
-        message: 'Are you sure you want to logout?',
-        buttons: [
-          {
-            text: 'Cancel',
-            handler: () => {
-              //console.log('Cancel button clicked');
-            }
-          },
-          {
-            text: 'Logout',
-            handler: () => {
-              this.doLogout();
-            }
+    let alert = this.alertController.create({
+      title: 'Please Confirm',
+      message: 'Are you sure you want to logout?',
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: () => {
+            //console.log('Cancel RemoveUser clicked');
           }
-        ]
-      })
-    )
+        },
+        {
+          text: 'Logout',
+          handler: () => {
+            this.doLogout();
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 
   private doLogout(): void {
@@ -222,7 +223,7 @@ export class PersonalProfilePage {
 
     loading.dismiss();
 
-    let alert = Alert.create({
+    let alert = this.alertController.create({
       title: myAlert.title,
       subTitle: myAlert.subtitle,
       buttons: [{
@@ -237,7 +238,7 @@ export class PersonalProfilePage {
         }
       }]
     });
-    this.nav.present(alert);
+    alert.present();
   }
   
 }

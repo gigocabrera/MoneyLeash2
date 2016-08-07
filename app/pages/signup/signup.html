@@ -17,9 +17,9 @@
     </div>
     <div id="divSignupForm">
       <form #signupCredentials="ngForm" id="signupForm">
-        <button (click)="doSignup(signupCredentials.value, $event)" type="submit" block><ion-icon name="ios-arrow-forward"></ion-icon></button>      
-        <ion-input ngControl="email" type="email" placeholder="email"></ion-input>
-        <ion-input ngControl="password" type="password" placeholder="password"></ion-input>
+        <button (click)="doSignup(signupCredentials.value)" type="submit" block><ion-icon name="ios-arrow-forward"></ion-icon></button>      
+        <ion-input type="email" [(ngModel)]="user.email" name="email" placeholder="email"></ion-input>
+        <ion-input type="password" [(ngModel)]="user.password" name="password" placeholder="password"></ion-input>
       </form>
     </div>
   </ion-list>

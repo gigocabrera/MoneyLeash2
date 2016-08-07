@@ -9,10 +9,10 @@
       <ion-icon name="ios-lock-outline"></ion-icon>
     </div>
     <div id="divLoginForm">
-      <form #loginCredentials="ngForm" id="loginFormId">
-        <button (click)="doLogin(loginCredentials.value, $event)" type="submit" block><ion-icon name="ios-power"></ion-icon></button>      
-        <ion-input ngControl="email" type="email" placeholder="email"></ion-input>
-        <ion-input ngControl="password" type="password" placeholder="password"></ion-input>
+      <form #loginForm="ngForm" id="loginFormId">
+        <button block (click)="doLogin(loginForm.value)"><ion-icon name="ios-power"></ion-icon></button>
+        <ion-input type="email" [(ngModel)]="user.email" name="email" placeholder="email"></ion-input>
+        <ion-input type="password" [(ngModel)]="user.password" name="password" placeholder="password"></ion-input>
       </form>
     </div>
     <div id="divLinks">

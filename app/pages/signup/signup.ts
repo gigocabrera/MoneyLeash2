@@ -1,10 +1,10 @@
 import {Component} from '@angular/core';
-import {NavController, Alert, Loading} from 'ionic-angular';
+import {NavController, Alert, AlertController, Loading} from 'ionic-angular';
 import {UserData} from '../../providers/user-data';
 import {AccountListPage} from '../mymoney/account-list/account-list';
 
 // Firebase
-import {AngularFire, AuthProviders, AuthMethods} from 'angularfire2';
+import {FirebaseAuth} from 'angularfire2';
 import {FirebaseService} from '../../providers/firebaseService'
 
 @Component({
@@ -12,49 +12,28 @@ import {FirebaseService} from '../../providers/firebaseService'
 })
 export class SignupPage {
   
-  showValidationMessage: boolean = false;
+  user = {'email': '', 'password': ''};
   submitted = false;
-  validationMessage = "";
   alertMessage = '';
 
   constructor(
     private nav: NavController,
+    private alertController: AlertController,
     private userData: UserData,
     private db: FirebaseService,
-    private af: AngularFire) {}
-
-  private inputIsValid(credentials) : boolean {
-    this.showValidationMessage = false;
-    this.validationMessage = '';    
-    if (credentials.email == null) {
-      this.showValidationMessage = true;
-      this.validationMessage = 'Please enter your email address';
-      return false;
-    }
-    if (credentials.password == null) {
-      this.showValidationMessage = true;
-      this.validationMessage = 'Please enter a password';
-      return false;
-    }
-    return true;
-  }
+    private auth: FirebaseAuth) {}
   
   doSignup(credentials, _event) {
-    _event.preventDefault();
-    this.submitted = true;
-    if (this.inputIsValid(credentials)) {
-      
-      this.af.auth.createUser(credentials)
-      .then((user) => {
-        this.userData.saveLocalStorage(credentials);
-        this.db.createInitialSetup(credentials);
-        this.nav.setRoot(AccountListPage, {}, {animate: true, direction: 'forward'});
-      })
-      .catch((error) => {
-          this.SignUpError(error);
-        }
-      );
-    }
+    this.auth.createUser(credentials)
+    .then((authData) => {
+      this.userData.saveLocalStorage(credentials);
+      this.db.createInitialSetup(credentials);
+      this.nav.setRoot(AccountListPage, {}, {animate: true, direction: 'forward'});
+    })
+    .catch((error) => {
+        this.SignUpError(error);
+      }
+    );
   }
   
   private SignUpError(error): void {
@@ -73,21 +52,21 @@ export class SignupPage {
           this.alertMessage = "Your password is not strong enough!"
           break;
     }
-    let alert = Alert.create({
+    let alert = this.alertController.create({
       title: 'Sign Up Failed',
       subTitle: this.alertMessage,
       buttons: ['Ok']
     });
-    this.nav.present(alert);
+    alert.present();
   }
   
   private LoginError(): void {
-    let alert = Alert.create({
+    let alert = this.alertController.create({
       title: 'Login Failed',
       subTitle: 'Please check your email and/or password and try again',
       buttons: ['Ok']
     });
-    this.nav.present(alert);
+    alert.present();
   }
   
 }

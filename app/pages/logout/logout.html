@@ -7,13 +7,15 @@
       <ion-icon name="log-out"></ion-icon>
       <h1 style="color: #fff;text-align: center;"><strong>You're now logged out!</strong></h1>
     </div>
-    <ion-row responsive-sm>
-        <ion-col>
-          <button (click)="doLogin(loginForm)" type="submit" mlnavbarmenu block>Login</button>
-        </ion-col>
-        <ion-col>
-          <button (click)="doSignup()" light block>Signup</button>
-        </ion-col>
-      </ion-row>
-  </ion-list>
+    <div padding>
+      <ion-row responsive-sm>
+          <ion-col>
+            <button (click)="doLogin(loginForm)" type="submit" mlnavbarmenu block>Login</button>
+          </ion-col>
+          <ion-col>
+            <button (click)="doSignup()" light block>Signup</button>
+          </ion-col>
+        </ion-row>
+      </div>
+    </ion-list>
 </ion-content>

@@ -11,13 +11,7 @@ declare var firebase: any;
 @Injectable()
 export class FirebaseService {
 
-  private _todos$: any;
-  private _db: any;
-  private _todosRef: any;
-
-  constructor() {
-    
-  }
+  constructor() {}
 
   // Firebase User Properties
   //-----------------------------------------------------
@@ -34,41 +28,6 @@ export class FirebaseService {
     return firebase.auth().signOut()
   }
 
-/*
-  createUser(credentials) {
-    return new Promise((resolve: () => void, reject: (reason: Error) => void) => {
-      firebase.auth().createUserWithEmailAndPassword(credentials.email, credentials.password)
-      .then(function() {
-        resolve();
-      }).catch(function(error) {
-        reject(error);
-      });
-    });
-  }
-
-  login(credentials) {
-    return new Promise((resolve: () => void, reject: (reason: Error) => void) => {
-      firebase.auth().signInWithEmailAndPassword(credentials.email, credentials.password)
-      .then(function() {
-        resolve();
-      }).catch(function(error) {
-        reject(error);
-      });
-    });
-  }
-
-  loginauto(useremail, userpwd) {
-    return new Promise((resolve: () => void, reject: (reason: Error) => void) => {
-      firebase.auth().signInWithEmailAndPassword(useremail, userpwd)
-      .then(function() {
-        resolve();
-      }).catch(function(error) {
-        reject(error);
-      });
-    });
-  }
-*/
-  
   // CREATE INITIAL SETUP 
   //-----------------------------------------------------
   createInitialSetup(credentials) {
@@ -206,10 +165,6 @@ export class FirebaseService {
     refTypes.push({ name: 'Brokerage', icon: '0' });
   }
 
-  getMyAccountTypes() {
-    return this._todos$;
-  }
-
   saveAccountType() {
     //firebase.database().ref('/users/' + this.uid() + '/mypreferences').update(this.myPreferences);
   }
@@ -337,26 +292,6 @@ export class FirebaseService {
   }
   RandomHouseCode() {
       return Math.floor((Math.random() * 100000000) + 100);
-  }
-  handleData(snap)
-  {
-    try {
-      // Firebase stores everything as an object, but we want an array.
-      var keys = Object.keys(snap.val());
-      console.log('keys: ', keys, snap.val());
-      // variable to store the todos added
-      var data = [];
-      // Loop through the keys and push the todos into an array
-      for( var i = 0; i < keys.length; ++i)
-      {
-        data.push(snap.val()[keys[i]]);
-      }
-      // Tell our observer we have new data
-      this._todos$.next(snap.val());
-    }
-    catch (error) {
-      console.log('catching', error);
-    }
   }
 
 }
