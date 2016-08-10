@@ -18,7 +18,7 @@ export class TutorialPage {
   slides: Slide[];
   showSkip = true;
 
-  constructor(private nav: NavController, private menu: MenuController) {
+  constructor(public nav: NavController, public menu: MenuController) {
     this.slides = [
       {
         title: '<strong>MoneyLeash</strong>',
@@ -58,6 +58,11 @@ export class TutorialPage {
   ionViewDidEnter() {
     this.menu.enable(false);
     this.menu.swipeEnable(false);
+  }
+
+  ionViewWillLeave() {
+    this.menu.enable(true);
+    this.menu.swipeEnable(true);
   }
 
 }

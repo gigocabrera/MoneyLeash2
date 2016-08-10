@@ -8,14 +8,83 @@
 </ion-header>
 <ion-content class="outer-content">
   <ion-list>
-    <ion-item-divider mlitemdivider>
-      Settings and Preferences
-    </ion-item-divider>
-    <ion-list>
-      <button ion-item *ngFor="let p of settingsPages" (click)="openPage(p)">
-        <ion-icon item-left [name]="p.icon"></ion-icon>
-        {{p.title}}
-      </button>
-    </ion-list>
+    <ion-list-header>
+      Personal Profile
+    </ion-list-header>
+    <button ion-item>
+      <ion-icon item-left name="ios-contact-outline"></ion-icon>
+      Name
+      <ion-note item-right>
+        Luis
+      </ion-note>
+    </button>
+    <button ion-item>
+      <ion-icon item-left name="ios-at-outline"></ion-icon>
+      Email
+      <ion-note item-right>
+        guni@test.com
+      </ion-note>
+    </button>
+  </ion-list>
+  <ion-list>
+    <ion-list-header>
+      Accounts and Transactions
+    </ion-list-header>
+    <button ion-item>
+      <ion-icon item-left name="ios-calendar-outline"></ion-icon>
+      Default Date
+      <ion-note item-right>
+        Today's date
+      </ion-note>
+    </button>
+    <button ion-item>
+      <ion-icon item-left name="ios-cash-outline"></ion-icon>
+      Default Balance
+      <ion-note item-right>
+        Cleared balance
+      </ion-note>
+    </button>
+  </ion-list>
+  <ion-list>
+    <ion-list-header>
+      Security
+    </ion-list-header>
+    <ion-item>
+      <ion-icon item-left name="finger-print"></ion-icon>
+      <ion-label>Enable TouchID</ion-label>
+      <ion-toggle secondary></ion-toggle>
+    </ion-item>
+  </ion-list>
+  <ion-list>
+    <ion-list-header>
+      APP
+    </ion-list-header>
+    <button ion-item>
+      <ion-icon item-left name="code"></ion-icon>
+      Version
+      <ion-note item-right>
+        2.0.0
+      </ion-note>
+    </button>
+    <button ion-item>
+      <ion-icon item-left name="ios-bug-outline"></ion-icon>
+      Report a bug
+    </button>
+    <button ion-item>
+      <ion-icon item-left name="ios-bulb-outline"></ion-icon>
+      Suggest a feature
+    </button>
+    <button ion-item>
+      <ion-icon item-left name="ios-heart-outline"></ion-icon>
+      Write a review
+    </button>
+    <button ion-item>
+      <ion-icon item-left name="ios-help-circle-outline"></ion-icon>
+      Contact support
+    </button>
+    <button ion-item>
+      <ion-icon item-left name="ios-pin-outline"></ion-icon>
+      About
+    </button>
   </ion-list>
 </ion-content>

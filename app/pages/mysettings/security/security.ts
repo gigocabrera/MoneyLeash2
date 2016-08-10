@@ -12,9 +12,9 @@ export class SecurityPage {
   enabletouchid: string = '';
 
   constructor(
-      private nav: NavController,
-      private userData: UserData,
-      private db: FirebaseService) {}
+      public nav: NavController,
+      public userData: UserData,
+      public db: FirebaseService) {}
   
   save() {
     this.userData.setEnableTouchID(this.enabletouchid);

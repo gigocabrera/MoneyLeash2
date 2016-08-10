@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {NavController, Alert, AlertController, Loading, LoadingController} from 'ionic-angular';
+import {NavController, Alert, AlertController, Loading, LoadingController, MenuController} from 'ionic-angular';
 import {UserData} from '../../providers/user-data';
 import {SignupPage} from '../signup/signup';
 import {ForgotPasswordPage} from '../forgot-password/forgot-password';
@@ -20,12 +20,13 @@ export class LoginPage {
   user = {'email': '', 'password': ''};
 
   constructor(
-    private nav: NavController,
-    private alertController: AlertController,
-    private userData: UserData,
-    private db: FirebaseService,
-    private loadingController: LoadingController,
-    private auth: FirebaseAuth) {}
+    public nav: NavController,
+    public menu: MenuController,
+    public alertController: AlertController,
+    public userData: UserData,
+    public db: FirebaseService,
+    public loadingController: LoadingController,
+    public auth: FirebaseAuth) {}
 
   public doLogin(credentials) {
     //
@@ -75,6 +76,16 @@ export class LoginPage {
   
   doForgotPassword() {
     this.nav.push(ForgotPasswordPage);
+  }
+
+  ionViewDidEnter() {
+    this.menu.enable(false);
+    this.menu.swipeEnable(false);
+  }
+
+  ionViewWillLeave() {
+    this.menu.enable(true);
+    this.menu.swipeEnable(true);
   }
   
 }

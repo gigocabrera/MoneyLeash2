@@ -13,7 +13,7 @@ export class AccountsTransactionsPage {
   defaultdate: string = '';
   defaultbalance: string = '';
   
-  constructor(private nav: NavController, private db: FirebaseService) {}
+  constructor(public nav: NavController, public db: FirebaseService) {}
   
   pickDefaultDate() {
     this.nav.push(PickDefaultDatePage);
@@ -34,7 +34,7 @@ export class AccountsTransactionsPage {
   }
   
   onPageWillEnter() {
-    this.loadDefaults();
+    //this.loadDefaults();
   }
   
 }

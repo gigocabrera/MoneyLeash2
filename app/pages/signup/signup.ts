@@ -17,11 +17,11 @@ export class SignupPage {
   alertMessage = '';
 
   constructor(
-    private nav: NavController,
-    private alertController: AlertController,
-    private userData: UserData,
-    private db: FirebaseService,
-    private auth: FirebaseAuth) {}
+    public nav: NavController,
+    public alertController: AlertController,
+    public userData: UserData,
+    public db: FirebaseService,
+    public auth: FirebaseAuth) {}
   
   doSignup(credentials, _event) {
     this.auth.createUser(credentials)

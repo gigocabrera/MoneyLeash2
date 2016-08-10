@@ -17,8 +17,8 @@ export class PickDefaultBalancePage {
   itemselected: string;
    
   constructor(
-      private nav: NavController,
-      private db: FirebaseService) {
+      public nav: NavController,
+      public db: FirebaseService) {
         this.defaultBalanceOptions = db.getDefaultBalanceOptions();
       }
   

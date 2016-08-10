@@ -51,7 +51,8 @@ ion-item-divider[mlitemdivider] {
 }
 
 /* Styles for MoneyLeash MyInput fields */
-
+/* ------------------------------------ */
+/*
 .ml-icon-left:before {
   display: block;
   text-align: center;
@@ -131,6 +132,7 @@ ion-label[stacked] {
 ion-list > .ml-input.mlnobottomborder.item  {
   border-bottom: 0;
 }
+/* END */
 
 /* Styles for icons on Login, Sign up, Forgot Password forms */
 #divLoginHeading {

@@ -10,7 +10,7 @@ export class ReportListPage {
   submitted = false;
 
   constructor(
-      private nav: NavController) {}
+      public nav: NavController) {}
       
   private openAbout(): void {
     //this.nav.push(AboutPage);

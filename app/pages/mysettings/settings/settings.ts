@@ -33,7 +33,7 @@ export class SettingsPage {
       { title: 'About', component: AboutPage, icon: 'ios-pin-outline' }
   ];
   
-  constructor(private nav: NavController) {    
+  constructor(public nav: NavController) {    
   }
   
   openPage(page: PageObj) {

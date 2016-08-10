@@ -10,7 +10,7 @@ export class ForgotPasswordPage {
   user = {'email': ''};
   submitted = false;
 
-  constructor(private nav: NavController, private userData: UserData, private menu: MenuController) {}
+  constructor(public nav: NavController, public userData: UserData, public menu: MenuController) {}
 
   public doForgotPassword(credentials) {
     

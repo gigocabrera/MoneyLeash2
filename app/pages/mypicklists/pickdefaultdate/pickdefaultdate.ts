@@ -16,7 +16,7 @@ export class PickDefaultDatePage {
   
   itemselected: string;
   
-  constructor(private nav: NavController, private db: FirebaseService) {
+  constructor(public nav: NavController, public db: FirebaseService) {
     this.defaultDateOptions = db.getDefaultDateOptions();
   }
   

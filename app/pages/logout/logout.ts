@@ -7,7 +7,7 @@ import {SignupPage} from '../signup/signup';
   templateUrl: 'build/pages/logout/logout.html'
 })
 export class LogoutPage {
-  constructor(private nav: NavController, private menu: MenuController) {}
+  constructor(public nav: NavController, public menu: MenuController) {}
   
   doLogin(form) {
     this.nav.push(LoginPage, {}, {animate: true, direction: 'reverse'});

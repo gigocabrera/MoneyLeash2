@@ -1,6 +1,6 @@
 import {Component, ViewChild, NgZone} from '@angular/core';
 import {ionicBootstrap, Events, Platform, Nav, MenuController, Alert} from 'ionic-angular';
-import {AppVersion, StatusBar, Splashscreen, TouchID} from 'ionic-native';
+import {StatusBar, Splashscreen, TouchID} from 'ionic-native';
 
 // Data
 import {UserData} from './providers/user-data';
@@ -12,7 +12,7 @@ import {LoginAutoPage} from './pages/loginauto/loginauto';
 import {SignupPage} from './pages/signup/signup';
 import {LogoutPage} from './pages/logout/logout';
 
-// My Money pages
+// myMoney pages
 import {AccountListPage} from './pages/mymoney/account-list/account-list';
 import {CategoryListPage} from './pages/mymoney/category-list/category-list';
 import {BudgetListPage} from './pages/mymoney/budget-list/budget-list';
@@ -20,7 +20,7 @@ import {RecurringListPage} from './pages/mymoney/recurring-list/recurring-list';
 import {PayeeListPage} from './pages/mymoney/payee-list/payee-list';
 import {ReportListPage} from './pages/mymoney/report-list/report-list';
 
-// Settings pages
+// mySettings pages
 import {SettingsPage} from './pages/mysettings/settings/settings';
 
 // Firebase
@@ -32,14 +32,6 @@ import {
 import {FirebaseService} from './providers/firebaseService';
 
 declare var touchid: any;
-
-interface PageObj {
-  title: string;
-  component: any;
-  icon: string;
-  color: string;
-  index?: number;
-}
 
 @Component({
   templateUrl: 'build/app.html',
@@ -68,26 +60,6 @@ class MoneyLeashApp {
   // the root nav is a child of the root app component
   // @ViewChild(Nav) gets a reference to the app's root nav
   @ViewChild(Nav) nav: Nav;
-
-  // List of pages that can be navigated to from the left menu
-  // the left menu only works after login
-  // the login page disables the left menu
-  appPages: PageObj[] = [
-    { title: 'Accounts', component: AccountListPage, icon: 'ios-browsers-outline', color: '', },
-    { title: 'Budgets', component: BudgetListPage, icon: 'ios-color-wand-outline', color: '', },
-    { title: 'Categories', component: CategoryListPage, icon: 'ios-attach-outline', color: '', },
-    { title: 'Payees', component: PayeeListPage, icon: 'ios-contacts-outline', color: '', },
-    { title: 'Recurring', component: RecurringListPage, icon: 'ios-sync-outline', color: '', },
-    { title: 'Reports', component: ReportListPage, icon: 'ios-trending-up-outline', color: '', },
-    { title: 'Settings', component: SettingsPage, icon: 'ios-settings-outline', color: '', },
-  ];
-  loggedInPages: PageObj[] = [
-    { title: 'Logout', component: LogoutPage, icon: 'log-out', color: '#f53d3d', }
-  ];
-  loggedOutPages: PageObj[] = [
-    { title: 'Login', component: LoginPage, icon: 'log-in', color: '', },
-    { title: 'Signup', component: SignupPage, icon: 'person-add', color: '', }
-  ];
   
   // Default root page
   rootPage: any = TutorialPage;
@@ -95,26 +67,40 @@ class MoneyLeashApp {
   // Local variables
   loggedIn = false;
   enabletouchid = '';
-  appversion = '';
+  pages: Array<{title: string, component: any, icon: string, color: string}>;
+  logoutPage: Array<{title: string, component: any, icon: string, color: string}>;
 
   constructor(
-    private ngZone: NgZone, 
-    private events: Events,
-    private userData: UserData,
-    private menu: MenuController,
-    platform: Platform
-  ) {
+    public ngZone: NgZone, 
+    public events: Events,
+    public userData: UserData,
+    public menu: MenuController,
+    public platform: Platform) {
 
+      this.initializeApp();
+
+      // List of pages that can be navigated to from the left menu
+      // the left menu only works after login
+      // the login page disables the left menu
+      this.pages = [
+        { title: 'Accounts', component: AccountListPage, icon: 'ios-browsers-outline', color: '', },
+        { title: 'Budgets', component: BudgetListPage, icon: 'ios-color-wand-outline', color: '', },
+        { title: 'Categories', component: CategoryListPage, icon: 'ios-attach-outline', color: '', },
+        { title: 'Payees', component: PayeeListPage, icon: 'ios-contacts-outline', color: '', },
+        { title: 'Recurring', component: RecurringListPage, icon: 'ios-sync-outline', color: '', },
+        { title: 'Reports', component: ReportListPage, icon: 'ios-trending-up-outline', color: '', },
+        { title: 'Settings', component: SettingsPage, icon: 'ios-settings-outline', color: '', },
+      ];
+      this.logoutPage = [
+        { title: 'Logout', component: LogoutPage, icon: 'md-log-out', color: '#f53d3d', }
+      ];
+  }
+
+  initializeApp() {
     // Call any initial plugins when ready
-    platform.ready().then(() => {
+    this.platform.ready().then(() => {
       StatusBar.styleLightContent();
       Splashscreen.hide();
-      AppVersion.getVersionNumber().then(ver => {
-        this.appversion = ver;
-        this.userData.appversion = ver;
-      }).catch(function(error) {
-        console.log(error);
-      });
       //
       // Check if TouchID has been selected
       if (this.userData.enabletouchid === 'true') {
@@ -125,8 +111,10 @@ class MoneyLeashApp {
           res => {
             TouchID.verifyFingerprint('Scan your fingerprint please')
             .then(
-              res => console.log('Ok', res),
-              err => console.error('Error', err)
+              res => {
+                this.nav.setRoot(LoginAutoPage);
+              },
+              err => {console.error('Error', err)}
             );
           },
           err => {
@@ -137,15 +125,9 @@ class MoneyLeashApp {
         console.log('TouchID setting is NOT enabled!');
       }
     });
-
-    // decide which menu items should be hidden by current login status stored in local storage
-    this.userData.hasLoggedIn().then((hasLoggedIn) => {
-      this.enableMenu(hasLoggedIn === 'true');
-    });
-    this.listenToLoginEvents();
   }
 
-  openPage(page: PageObj) {
+  openPage(page) {
     // the nav component was found using @ViewChild(Nav)
     // reset the nav to remove previous pages and only have this page
     // we wouldn't want the back button to show in this scenario
@@ -158,28 +140,14 @@ class MoneyLeashApp {
     if (page.title === 'Logout') {
       // Give the menu time to close before changing to logged out
       setTimeout(() => {
-        this.userData.logout();
+        this.signOut();
       }, 1000);
     }
-  }
-
-  listenToLoginEvents() {
-    this.events.subscribe('user:login', () => {
-      this.enableMenu(true);
-    });
-
-    this.events.subscribe('user:logout', () => {
-      this.enableMenu(false);
-    });
-  }
-
-  enableMenu(loggedIn) {
-    this.menu.enable(loggedIn, 'loggedInMenu');
-    this.menu.enable(!loggedIn, 'loggedOutMenu');
   }
   
    signOut(): void {
     //this.auth.signOut();
+    this.userData.logout();
   } 
 }
 

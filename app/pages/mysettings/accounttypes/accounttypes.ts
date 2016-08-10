@@ -11,7 +11,7 @@ export class AccountTypesPage {
   
   public items: FirebaseListObservable<any[]>;
   
-  constructor(private nav: NavController, private db: FirebaseService, af: AngularFire) {    
+  constructor(public nav: NavController, public db: FirebaseService, af: AngularFire) {    
     this.items = af.database.list('houses/-KNt_q97POfdtH4P2eyL/memberaccounttypes'); 
   }
   
