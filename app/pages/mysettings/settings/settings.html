@@ -11,19 +11,12 @@
     <ion-list-header>
       Personal Profile
     </ion-list-header>
-    <button ion-item>
-      <ion-icon item-left name="ios-contact-outline"></ion-icon>
-      Name
-      <ion-note item-right>
-        Luis
-      </ion-note>
-    </button>
-    <button ion-item>
-      <ion-icon item-left name="ios-at-outline"></ion-icon>
-      Email
-      <ion-note item-right>
-        guni@test.com
-      </ion-note>
+    <button ion-item (click)="openPersonalProfile()">
+      <ion-avatar item-left>
+          <img src="https://s3-us-west-1.amazonaws.com/sfdc-demo/people/caroline_kingsley.jpg"/>
+      </ion-avatar>
+      <h2>Gina Cabrera</h2>
+      <p>gina@test.com</p>
     </button>
   </ion-list>
   <ion-list>

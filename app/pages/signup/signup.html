@@ -13,11 +13,12 @@
         </div>
     </div>       
     <div id="divLoginHeading">
-      <ion-icon name="ios-create-outline"></ion-icon>
+      <ion-icon name="ios-checkmark-circle-outline"></ion-icon>
     </div>
     <div id="divSignupForm">
       <form #signupCredentials="ngForm" id="signupForm">
         <button (click)="doSignup(signupCredentials.value)" type="submit" block><ion-icon name="ios-arrow-forward"></ion-icon></button>      
+        <ion-input type="text" [(ngModel)]="user.fullname" name="fullname" placeholder="full name"></ion-input>
         <ion-input type="email" [(ngModel)]="user.email" name="email" placeholder="email"></ion-input>
         <ion-input type="password" [(ngModel)]="user.password" name="password" placeholder="password"></ion-input>
       </form>

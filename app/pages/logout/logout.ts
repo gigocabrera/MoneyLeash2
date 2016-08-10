@@ -18,9 +18,13 @@ export class LogoutPage {
   }
   
   ionViewDidEnter() {
-    this.menu.enable(false, "loggedInMenu");
-    this.menu.enable(false, "loggedOutMenu");
-    this.menu.swipeEnable(false, "loggedOutMenu");
+    this.menu.enable(false);
+    this.menu.swipeEnable(false);
+  }
+
+  ionViewWillLeave() {
+    this.menu.enable(true);
+    this.menu.swipeEnable(true);
   }
   
 }

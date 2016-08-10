@@ -34,7 +34,8 @@ export class FirebaseService {
 
     // Create myinfo node in Firebase to hold user details
     var user = new MyInfo();
-    user.namefirst = this.parseEmail(credentials.email);
+    user.fullname = credentials.fullname;
+    user.email = this.currentUserEmail();
     this.saveUserProfile(user);
 
     // Create default preferences for new user
