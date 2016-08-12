@@ -4,16 +4,16 @@
       <button (click)="dismiss()" mllightblue>Cancel</button>
     </ion-buttons>
     <ion-title>
-      Pick Default Balance
+      Default Balance
     </ion-title>
     <ion-buttons end>
-      <button (click)="pickPreference(itemselected)" mllightblue>Select</button>
+      <button (click)="pickPreference(itemselected)" mllightblue>Save</button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 <ion-content class="outer-content">
-  <ion-item-divider mlitemdivider>
-    Default balance to display 
+  <ion-item-divider>
+    Select default balance 
   </ion-item-divider>
   <ion-list radio-group [(ngModel)]="itemselected" class="reducedbottommargin">
     <ion-item *ngFor="let item of defaultBalanceOptions">
@@ -22,8 +22,8 @@
     </ion-item>
   </ion-list>
   <div id="mlhelptext">
-    <h *ngIf="itemselected=='current'">The current balance will be shown in the Accounts Summary screen</h>
-    <h *ngIf="itemselected=='clear'">The cleared balance will be shown in the Accounts Summary screen</h>
-    <h *ngIf="itemselected=='today'">Today's balance will be shown in the Accounts Summary screen</h>
+    <h *ngIf="itemselected=='Current'">The current balance is the balance calculated up to the last transaction in your account register. This balance will be shown in the Accounts Summary screen</h>
+    <h *ngIf="itemselected=='Clear'">The cleared balance is the balance calculated from the transactions that have been flagged as cleared in your account register. This balance will be shown in the Accounts Summary screen</h>
+    <h *ngIf="itemselected=='Today'">Today's balance will be shown in the Accounts Summary screen</h>
   </div>
 </ion-content>

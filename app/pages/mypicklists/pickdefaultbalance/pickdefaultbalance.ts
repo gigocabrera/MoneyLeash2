@@ -1,7 +1,5 @@
 import {Component} from '@angular/core';
-import {NavController, ViewController} from 'ionic-angular';
-import {AccountsTransactionsPage} from '../../mysettings/accountstransactions/accountstransactions';
-import {FirebaseService} from '../../../providers/firebaseService'
+import {NavController, ViewController, NavParams} from 'ionic-angular';
 
 @Component({
   templateUrl: 'build/pages/mypicklists/pickdefaultbalance/pickdefaultbalance.html'
@@ -16,23 +14,22 @@ export class PickDefaultBalancePage {
   
   itemselected: string;
    
-  constructor(
-      public nav: NavController,
-      public db: FirebaseService) {
-        this.defaultBalanceOptions = db.getDefaultBalanceOptions();
-      }
-  
-  pickPreference() {
-    this.db.pickDefaultBalanceSelected(this.itemselected);
-    this.nav.pop();
+  constructor(public nav: NavController, public viewCtrl: ViewController, public navParams: NavParams) {
+
+    this.defaultBalanceOptions = [
+          { text: 'Current Balance', value: 'Current' },
+          { text: 'Cleared Balance', value: 'Clear' },
+          { text: 'Today\'s Balance', value: 'Today' }];
+
+    this.itemselected = this.navParams.data.paramBalance;
   }
   
-  dismiss() {
-    this.nav.pop();
+  pickPreference(balanceSelected) {
+    this.dismiss(balanceSelected);
   }
-  
-  onPageWillEnter() {
-    this.itemselected = this.db.getDefaultBalanceSelected();
+
+  dismiss(balanceSelected) {
+    this.viewCtrl.dismiss(balanceSelected);
   }
     
 }

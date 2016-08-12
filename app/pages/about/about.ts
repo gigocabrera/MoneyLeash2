@@ -1,6 +1,5 @@
 import {Component} from '@angular/core';
-import {Platform, PopoverController, ViewController, Popover} from 'ionic-angular';
-import {AppVersion} from 'ionic-native';
+import {PopoverController, ViewController, Popover} from 'ionic-angular';
 
 @Component({
   template: `
@@ -25,21 +24,9 @@ class PopoverPage {
 export class AboutPage {
   
   conferenceDate = '2047-05-17';
-  appversion = '';
 
   constructor(
-    public popoverCtrl: PopoverController,
-    public platform: Platform) {
-
-    platform.ready().then(() => {
-      AppVersion.getVersionNumber().then(ver => {
-        this.appversion = ver;
-        //this.userData.appversion = ver;
-      }).catch(function(error) {
-        console.log(error);
-      });
-    });
-  }
+    public popoverCtrl: PopoverController) {}
 
   presentPopover(event) {
     let popover = this.popoverCtrl.create(PopoverPage);

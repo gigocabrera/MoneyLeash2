@@ -4,16 +4,16 @@
       <button (click)="dismiss()" mllightblue>Cancel</button>
     </ion-buttons>
     <ion-title>
-      Pick Default Date
+      Default Date
     </ion-title>
     <ion-buttons end>
-      <button (click)="pickPreference()" mllightblue>Select</button>
+      <button (click)="pickPreference(itemselected)" mllightblue>Select</button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 <ion-content class="outer-content">
-  <ion-item-divider mlitemdivider>
-    Default date when entering a new transaction
+  <ion-item-divider>
+    Select default date when entering a new transaction
   </ion-item-divider>
   <ion-list radio-group [(ngModel)]="itemselected" class="reducedbottommargin">
     <ion-item *ngFor="let item of defaultDateOptions">

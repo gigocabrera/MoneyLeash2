@@ -1,7 +1,5 @@
 import {Component} from '@angular/core';
-import {NavController} from 'ionic-angular';
-import {AccountsTransactionsPage} from '../../mysettings/accountstransactions/accountstransactions';
-import {FirebaseService} from '../../../providers/firebaseService'
+import {NavController, ViewController, NavParams} from 'ionic-angular';
 
 @Component({
   templateUrl: 'build/pages/mypicklists/pickdefaultdate/pickdefaultdate.html'
@@ -16,21 +14,23 @@ export class PickDefaultDatePage {
   
   itemselected: string;
   
-  constructor(public nav: NavController, public db: FirebaseService) {
-    this.defaultDateOptions = db.getDefaultDateOptions();
+  constructor(public nav: NavController, public viewCtrl: ViewController, public navParams: NavParams) {
+
+    this.defaultDateOptions = [
+          { text: 'No default date', value: 'None' },
+          { text: 'Today\'s date', value: 'Today' },
+          { text: 'Last date used', value: 'Last' }];
+    
+    this.itemselected = this.navParams.data.paramDate;
+
   }
-  
-  pickPreference() {
-    this.db.pickDefaultDateSelected(this.itemselected);
-    this.nav.pop();
+
+  pickPreference(dateSelected) {
+    this.dismiss(dateSelected);
   }
-  
-  dismiss() {
-    this.nav.pop();
-  }
-  
-  onPageWillEnter() {
-    this.itemselected = this.db.getDefaultDateSelected();
+
+  dismiss(dateSelected) {
+    this.viewCtrl.dismiss(dateSelected);
   }
     
 }

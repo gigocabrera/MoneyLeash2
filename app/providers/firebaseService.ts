@@ -170,61 +170,6 @@ export class FirebaseService {
     //firebase.database().ref('/users/' + this.uid() + '/mypreferences').update(this.myPreferences);
   }
 
-  // DEFAULT DATE PREFERENCES
-  //-----------------------------------------------------
-  defaultDateOptions = [
-          { text: 'No default date', value: 'none' },
-          { text: 'Today\'s date', value: 'today' },
-          { text: 'Last date used', value: 'last' }];
-
-  getDefaultDateOptions() {
-    return this.defaultDateOptions;
-  }
-  getDefaultDateText(valueKey: string) {
-    return this.getText(valueKey,this.defaultDateOptions);
-  }
-  getDefaultDateSelected() {
-    return this.myPreferences.defaultdate;
-  }
-  getDefaultDateSelected_Text() {
-    return this.getDefaultDateText(this.myPreferences.defaultdate);
-  }
-  pickDefaultDateSelected(valueKey: string) {
-    this.myPreferences.defaultdate = valueKey;
-  }
-
-  // DEFAULT BALANCE PREFERENCES
-  //-----------------------------------------------------
-  defaultBalanceOptions = [
-          { text: 'Current Balance', value: 'current' },
-          { text: 'Cleared Balance', value: 'clear' },
-          { text: 'Today\'s Balance', value: 'today' }];
-
-  getDefaultBalanceOptions() {
-    return this.defaultBalanceOptions;
-  }
-  getDefaultBalanceText(valueKey: string) {
-    return this.getText(valueKey,this.defaultBalanceOptions);
-  }  
-  getDefaultBalanceSelected() {
-    return this.myPreferences.defaultbalance;
-  }
-  getDefaultBalanceSelected_Text() {
-    return this.getDefaultBalanceText(this.myPreferences.defaultbalance);
-  }  
-  pickDefaultBalanceSelected(valueKey: string) {
-    this.myPreferences.defaultbalance = valueKey;
-  }
-
-  // DEFAULT SECURITY PREFERENCES
-  //-----------------------------------------------------
-  getDefaultSecuritySelected() {
-    return this.myPreferences.usetouchid;
-  }
-  pickDefaultSecuritySelected(valueKey: string) {
-    this.myPreferences.usetouchid = valueKey;
-  }
-  
   // PERSONAL PROFILE
   //-----------------------------------------------------
   getUserProfile() {

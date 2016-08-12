@@ -24,28 +24,25 @@ import {ReportListPage} from './pages/mymoney/report-list/report-list';
 import {SettingsPage} from './pages/mysettings/settings/settings';
 
 // Firebase
-import {
-    FIREBASE_PROVIDERS, defaultFirebase,
-    AngularFire, firebaseAuthConfig, AuthProviders,
-    AuthMethods
-} from 'angularfire2';
+import {FIREBASE_PROVIDERS, defaultFirebase,AngularFire, firebaseAuthConfig, AuthProviders, AuthMethods} from 'angularfire2';
 import {FirebaseService} from './providers/firebaseService';
 
 declare var touchid: any;
+
+const COMMON_CONFIG = {
+  apiKey: "AIzaSyAjiJc9cXvd3bzl-aW0wbQC6sajr6RH5hg",
+  authDomain: "brilliant-inferno-1044.firebaseapp.com",
+  databaseURL: "https://brilliant-inferno-1044.firebaseio.com",
+  storageBucket: "brilliant-inferno-1044.appspot.com",
+};
 
 @Component({
   templateUrl: 'build/app.html',
   providers: [
     UserData,
     FirebaseService,
-    FIREBASE_PROVIDERS,
-    // Initialize Firebase app  
-    defaultFirebase({
-      apiKey: "AIzaSyAjiJc9cXvd3bzl-aW0wbQC6sajr6RH5hg",
-      authDomain: "brilliant-inferno-1044.firebaseapp.com",
-      databaseURL: "https://brilliant-inferno-1044.firebaseio.com",
-      storageBucket: "brilliant-inferno-1044.appspot.com",
-    }),
+    FIREBASE_PROVIDERS,  
+    defaultFirebase(COMMON_CONFIG),
     firebaseAuthConfig({
       provider: AuthProviders.Password,
       method: AuthMethods.Password,
