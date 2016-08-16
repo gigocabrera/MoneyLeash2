@@ -20,12 +20,16 @@ will stay as an **open source** project. Your feedback/help would be greatly app
 - Install the ionic CLI (`npm install -g ionic@beta`)
 - Run `ionic serve` in a terminal from the project root
 
+You may also need to:
+
+- Delete the platform/ios folder and run `ionic build ios` so that the platform and all the plugins where installed by the build process.
+
+- Need to install `ionic plugin add cordova-plugin-app-version`
+
+
 ## Firebase Data Structure
 
-The database structure gets built automatically from the app when you register a user for the first time. No need to manually buld the schema. 
-But here it is to give you an idea of how the data is organized.
-
-![Money Leash Transactions](https://github.com/gigocabrera/moneyleash/blob/master/Firebase_data_structure.png)
+The database structure gets built automatically by the app when you register a new user. No need to manually buld the schema.
 
 ## Firebase Security and Rules
 
@@ -38,7 +42,7 @@ However, the rules need to be enhanced to: (1) prevent users from modifying a ho
 
 ## Live Demo
 
- - [Money Leash Demo](http://www.moneyleash.com/)
+ - coming soon
 
 
 ## Contribute

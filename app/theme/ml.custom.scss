@@ -2,12 +2,12 @@
 @import url("https://fonts.googleapis.com/css?family=PT+Sans");
 @import url("https://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700");
 
-/* Styles toolbar titles */
+/* Styles for toolbar titles */
 .toolbar[mlnavbar] .toolbar-title {
   color: #fff;
 }
 
-/* Styles for ML divider */
+/* Styles for item divider */
 ion-item-divider[mlitemdivider] {
   border-top: 0px solid #c8c7cc;
 }
@@ -29,22 +29,23 @@ ion-item-divider[mlitemdivider] {
   font-size: 14px;
 }
 
-/* custom chevron icon */
+/* Custom chevron icon */
 .ml-chevron-right {
   color: #c8c7cc
 }
 
-/* custom styles for help text  */
+/* Styles for help text  */
 #mlhelptext {
   padding: 0 10px 0 10px;
   font-size: 13px;
   color: #8e8e93;
 }
 
-/* custom styles for ion-list showing help text  */
+/* Custom styles for ion-list showing help text  */
 .reducedbottommargin {
   margin: -1px 0 15px 0;
 }
+
 /* Force border bottom in ion-list */
 .mlbottomborder {
     border-bottom: 2px solid #c8c7cc;
@@ -52,7 +53,7 @@ ion-item-divider[mlitemdivider] {
 
 /* Styles for MoneyLeash MyInput fields */
 /* ------------------------------------ */
-/*
+
 .ml-icon-left:before {
   display: block;
   text-align: center;
@@ -70,41 +71,36 @@ ion-item-divider[mlitemdivider] {
 .ml-fontawesome-left {
   background-color: #f0f0f0;
   text-align: center;
-  height: 60px;
+  height: 58px;
   width: 60px;
+  margin-top: 1px;
+  margin-bottom: 1px;
 }
 .ml-input i {
   margin: 0;
+  position: fixed;
 }
 .ml-input i:before {
   font-size: 24px;
   color: #b9b9b9;
   line-height: 57px;
 }
-my-input.item {
-  padding-left: 0;
-}
 .ml-input {
   padding: 0;
 }
-.ml-input .item-inner {
-  border-bottom: 0;
-  margin-left: 7px;
-  padding-top: 3px;
-}
-ion-list > .ml-input.item {
+/*ion-list > .ml-input.item {
   border-bottom: 1px solid #c8c7cc;
-}
-ion-list > .ml-input.item:first-child {
-    border-top: 0;
 }
 ion-list > .ml-input.item:last-child {
   border-bottom: 1px solid #c8c7cc;
+}*/
+.ml-input .item-inner {
+  border-bottom: 0;
+  margin-left: 7px;
+  padding-top: 0;
 }
-ion-list .ml-input .item-inner {
-    border-bottom: 0;
-}
-ion-list .ml-input {
+
+/*ion-list .ml-input {
     border-bottom: 0;
 }
 ion-list > my-input.item {
@@ -112,7 +108,7 @@ ion-list > my-input.item {
 }
 ion-list > my-input.item:first-child {
     border-top: 0;
-}
+}*/
 .ml-input {
   height: 60px;
 }
@@ -132,7 +128,9 @@ ion-label[stacked] {
 ion-list > .ml-input.mlnobottomborder.item  {
   border-bottom: 0;
 }
-/* END */
+/*.ml-input ion-input {
+  margin-left: 60px;
+}*/
 
 /* Styles for icons on Login, Sign up, Forgot Password forms */
 #divLoginHeading {

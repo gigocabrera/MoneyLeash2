@@ -15,5 +15,9 @@ export class AccountTypesPage {
     this.items = af.database.list('houses/' + this.navParams.data.paramHouseid + '/memberaccounttypes');
 
   }
+
+  addNew() {
+    
+  }
   
 }
