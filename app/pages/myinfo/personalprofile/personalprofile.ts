@@ -1,35 +1,28 @@
 import {Component} from '@angular/core';
-import {NavController, Alert, AlertController, ActionSheet, Modal, ModalController, Loading, LoadingController} from 'ionic-angular';
+import {NavController, Alert, AlertController, ActionSheet, Modal, ModalController, Loading, LoadingController, NavParams} from 'ionic-angular';
 import {ChangeEmailPage} from '../../myinfo/changeemail/changeemail';
 import {ChangePasswordPage} from '../../myinfo/changepassword/changepassword';
 import {TutorialPage} from '../../tutorial/tutorial';
-import {UserData} from '../../../providers/user-data';
-
-// Firebase service
-import {FirebaseService} from '../../../providers/firebaseService'
+import {SettingsData} from '../../../providers/settings-data';
 
 @Component({
-  templateUrl: 'build/pages/myinfo/personalprofile/personalprofile.html'
+  templateUrl: 'build/pages/myinfo/personalprofile/personalprofile.html',
+  providers: [SettingsData]
 })
 
 export class PersonalProfilePage {
   
-  useremail: string;
+  public userSettings: any;
 
   constructor(
       private nav: NavController,
       private modalController: ModalController,
       private alertController: AlertController,
       private loadingController: LoadingController,
-      private userData: UserData,
-      public db: FirebaseService) { }
-  
-  ngAfterViewInit() {
-    this.getUsername();
-  }
+      public navParams: NavParams,
+      public settingsData: SettingsData) {
 
-  getUsername() {
-    this.useremail = this.db.currentUserEmail();
+        this.userSettings = this.navParams.data.paramSettings;
   }
 
   updatePicture() {
@@ -90,13 +83,13 @@ export class PersonalProfilePage {
       subtitle?: string
     } = {};
 
-    this.db.updateEmail(newemail)
+    this.settingsData.updateEmail(newemail)
       .then(() => {
         myAlert.title = 'DONE';
         myAlert.subtitle = 'User email changed successfully!';
         this.DisplayResult(myAlert, loading, false);
-        this.useremail = this.db.currentUserEmail();
-        this.userData.setUsername(newemail);
+        //this.useremail = this.db.currentUserEmail();
+        //this.userData.setUsername(newemail);
       }        
     )
     .catch(
@@ -118,7 +111,6 @@ export class PersonalProfilePage {
         this.DisplayResult(myAlert, loading, false);
       }
     );
-
   }
   
   private doChangePassword(newpassword): void {
@@ -133,13 +125,11 @@ export class PersonalProfilePage {
       subtitle?: string
     } = {};
 
-    this.db.updatePassword(newpassword)
+    this.settingsData.updatePassword(newpassword)
       .then(() => {
         myAlert.title = 'DONE';
         myAlert.subtitle = 'Password changed successfully!';
         this.DisplayResult(myAlert, loading, false);
-        this.useremail = this.db.currentUserEmail();
-        this.userData.setUserPwd(newpassword);
       }        
     )
     .catch(
@@ -156,8 +146,7 @@ export class PersonalProfilePage {
         }
         this.DisplayResult(myAlert, loading, false);
       }
-    );
-    
+    ); 
   }
 
   private doRemoveUser(): void {
@@ -172,7 +161,7 @@ export class PersonalProfilePage {
       subtitle?: string
     } = {};
 
-    this.db.deleteUser()
+    this.settingsData.deleteUser()
       .then(() => {
         myAlert.title = 'DONE';
         myAlert.subtitle = 'User account deleted successfully!';
@@ -215,7 +204,7 @@ export class PersonalProfilePage {
   }
 
   private doLogout(): void {
-    this.db.logout();
+    //this.db.logout();
     this.nav.setRoot(TutorialPage);
   }
   

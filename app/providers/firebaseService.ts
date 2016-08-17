@@ -184,42 +184,6 @@ export class FirebaseService {
     firebase.database().ref('/users/' + this.uid() + "/myinfo").update(user);
   }
 
-  updateEmail(newEmail: string) {
-    return new Promise((resolve: () => void, reject: (reason: Error) => void) => {
-      let user = firebase.auth().currentUser;
-      user.updateEmail(newEmail)
-      .then(function() {
-        resolve();
-      }).catch(function(error) {
-        reject(error);
-      });
-    });
-  }
-
-  updatePassword(newPassword: string) {
-    return new Promise((resolve: () => void, reject: (reason: Error) => void) => {
-      let user = firebase.auth().currentUser;
-      user.updatePassword(newPassword)
-      .then(function() {
-        resolve();
-      }).catch(function(error) {
-        reject(error);
-      });
-    });
-  }
-
-  deleteUser() {
-    return new Promise((resolve: () => void, reject: (reason: Error) => void) => {
-      let user = firebase.auth().currentUser;
-      user.delete()
-      .then(function() {
-        resolve();
-      }).catch(function(error) {
-        reject(error);
-      });
-    });
-  }
-
   // GLOBAL
   //-----------------------------------------------------
   getText(valueKey: string, arr) {

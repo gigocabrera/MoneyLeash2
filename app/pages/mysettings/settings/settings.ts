@@ -43,7 +43,7 @@ export class SettingsPage {
   }
   
   openPersonalProfile() {
-    this.nav.push(PersonalProfilePage);
+    this.nav.push(PersonalProfilePage, {paramSettings: this.userSettings});
   }
 
   openAccountTypes() {
