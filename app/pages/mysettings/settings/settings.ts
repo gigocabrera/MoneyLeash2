@@ -2,11 +2,14 @@ import {Component} from '@angular/core';
 import {Platform, NavController, ModalController} from 'ionic-angular';
 import {AppVersion} from 'ionic-native';
 
+// Pages
 import {AboutPage} from '../../../pages/about/about';
 import {PersonalProfilePage} from '../../myinfo/personalprofile/personalprofile';
 import {AccountTypesPage} from '../../mysettings/accounttypes/accounttypes';
 import {PickDefaultBalancePage} from '../../mypicklists/pickdefaultbalance/pickdefaultbalance';
 import {PickDefaultDatePage} from '../../mypicklists/pickdefaultdate/pickdefaultdate';
+
+// Services
 import {SettingsData} from '../../../providers/settings-data';
 
 @Component({
@@ -37,8 +40,6 @@ export class SettingsPage {
     this.settingsData.getSettingsData().on('value', (data) => {
       this.userSettings = data.val();
       this.houseid = this.userSettings.houseid;
-      this.imgsrc = ''; //this.userSettings.profilepic;
-
     });
   }
   
@@ -59,7 +60,6 @@ export class SettingsPage {
   }
 
   changeDefaltBalance() {
-    console.log(this.userSettings.defaultbalance);
     let modal = this.modalController.create(PickDefaultBalancePage, {paramBalance: this.userSettings.defaultbalance});
     modal.present(modal);
     modal.onDidDismiss((data: any) => {

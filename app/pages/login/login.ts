@@ -7,7 +7,6 @@ import {AccountListPage} from '../mymoney/account-list/account-list';
 
 // Firebase
 import {FirebaseAuth} from 'angularfire2';
-import {FirebaseService} from '../../providers/firebaseService'
 
 @Component({
   templateUrl: 'build/pages/login/login.html'
@@ -24,7 +23,6 @@ export class LoginPage {
     public menu: MenuController,
     public alertController: AlertController,
     public userData: UserData,
-    public db: FirebaseService,
     public loadingController: LoadingController,
     public auth: FirebaseAuth) {}
 

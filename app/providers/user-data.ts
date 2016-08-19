@@ -4,8 +4,6 @@ import {Storage, LocalStorage, Events} from 'ionic-angular';
 @Injectable()
 export class UserData {
   
-  _favorites = [];
-  HAS_LOGGED_IN = 'hasLoggedIn';
   storage = new Storage(LocalStorage);
   username = '';
   userpwd = '';
@@ -25,20 +23,13 @@ export class UserData {
   }
 
   autoLoginLocalStorage() {
-    this.storage.set(this.HAS_LOGGED_IN, true);
     this.events.publish('user:login');
   }
 
   saveLocalStorage(credentials) {
-    this.storage.set(this.HAS_LOGGED_IN, true);
     this.setUsername(credentials.email);
     this.setUserPwd(credentials.password);
     this.events.publish('user:login');
-  }
-
-  logout() {
-    this.storage.remove(this.HAS_LOGGED_IN);
-    this.events.publish('user:logout');
   }
 
   setUsername(username) {
@@ -67,13 +58,6 @@ export class UserData {
 
   getEnableTouchIDStorage() {
     return this.storage.get('enabletouchid').then((value) => {
-      return value;
-    });
-  }
-
-  // return a promise
-  hasLoggedIn() {
-    return this.storage.get(this.HAS_LOGGED_IN).then((value) => {
       return value;
     });
   }

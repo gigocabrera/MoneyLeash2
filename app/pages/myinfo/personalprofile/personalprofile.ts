@@ -1,18 +1,27 @@
 import {Component} from '@angular/core';
 import {NavController, Alert, AlertController, ActionSheet, Modal, ModalController, Loading, LoadingController, NavParams} from 'ionic-angular';
+import {Camera} from 'ionic-native';
+
+// Pages
+import {ChangeNamePage} from '../../myinfo/changename/changename';
 import {ChangeEmailPage} from '../../myinfo/changeemail/changeemail';
 import {ChangePasswordPage} from '../../myinfo/changepassword/changepassword';
 import {TutorialPage} from '../../tutorial/tutorial';
-import {SettingsData} from '../../../providers/settings-data';
+
+// Services
+import {PersonalProfileData} from '../../../providers/personalprofile-data';
+import {UserData} from '../../../providers/user-data';
+import {FirebaseAuth} from 'angularfire2';
 
 @Component({
   templateUrl: 'build/pages/myinfo/personalprofile/personalprofile.html',
-  providers: [SettingsData]
+  providers: [PersonalProfileData]
 })
 
 export class PersonalProfilePage {
   
   public userSettings: any;
+  public userPicture: any;
 
   constructor(
       private nav: NavController,
@@ -20,13 +29,60 @@ export class PersonalProfilePage {
       private alertController: AlertController,
       private loadingController: LoadingController,
       public navParams: NavParams,
-      public settingsData: SettingsData) {
+      public profileData: PersonalProfileData,
+      public userData: UserData,
+      public auth: FirebaseAuth) {
 
         this.userSettings = this.navParams.data.paramSettings;
   }
 
-  updatePicture() {
-    console.log('Update picture clicked');
+  updateName() {
+    let modal = this.modalController.create(ChangeNamePage);
+    modal.present(modal);
+    modal.onDidDismiss((data: any[]) => {
+      if (data) {
+        this.doChangeName(data);
+      }
+    });
+  }
+
+  takePicture(){
+    Camera.getPicture({
+      quality : 95,
+      destinationType : Camera.DestinationType.DATA_URL,
+      sourceType : Camera.PictureSourceType.CAMERA,
+      allowEdit : true,
+      encodingType: Camera.EncodingType.PNG,
+      targetWidth: 500,
+      targetHeight: 500,
+      saveToPhotoAlbum: true
+    }).then(imageData => {
+      const b64toBlob = (b64Data, contentType='', sliceSize=512) => {
+        const byteCharacters = atob(b64Data);
+        const byteArrays = [];
+
+        for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+          const slice = byteCharacters.slice(offset, offset + sliceSize);
+
+          const byteNumbers = new Array(slice.length);
+          for (let i = 0; i < slice.length; i++) {
+            byteNumbers[i] = slice.charCodeAt(i);
+          }
+
+          const byteArray = new Uint8Array(byteNumbers);
+
+          byteArrays.push(byteArray);
+        }
+
+        const blob = new Blob(byteArrays, {type: contentType});
+        return blob;
+      }
+
+      this.userPicture = b64toBlob(imageData, 'image/png');
+
+    }, error => {
+      console.log("ERROR -> " + JSON.stringify(error));
+    });
   }
 
   changeEmail() {
@@ -63,12 +119,16 @@ export class PersonalProfilePage {
         {
           text: 'Delete',
           handler: () => {
-            this.doRemoveUser();
+            this.doRemoveUserAndDeleteAllData();
           }
         }
       ]
     });
     alert.present();
+  }
+
+  private doChangeName(newname): void {
+    this.profileData.updateName(newname);
   }
   
   private doChangeEmail(newemail): void {
@@ -77,19 +137,28 @@ export class PersonalProfilePage {
       content: 'Please wait...'
     });
     loading.present();
-        
+
     var myAlert: {
       title?: string, 
       subtitle?: string
     } = {};
 
-    this.settingsData.updateEmail(newemail)
+    this.profileData.updateEmail(newemail)
       .then(() => {
+        //
+        // Update email displayed on the screen
+        // TODO: THIS IS NOT UPDATING/WORKING
+        this.userSettings.email = newemail;
+        // Update localStorage with new email. This is to guaratee
+        // that TouchID, if enabled, is still fully functional
+        this.userData.setUsername(newemail);
+        //
+        // Update email node under user profile 
+        this.profileData.updateEmailNode(newemail);
+        //
         myAlert.title = 'DONE';
         myAlert.subtitle = 'User email changed successfully!';
         this.DisplayResult(myAlert, loading, false);
-        //this.useremail = this.db.currentUserEmail();
-        //this.userData.setUsername(newemail);
       }        
     )
     .catch(
@@ -125,7 +194,7 @@ export class PersonalProfilePage {
       subtitle?: string
     } = {};
 
-    this.settingsData.updatePassword(newpassword)
+    this.profileData.updatePassword(newpassword)
       .then(() => {
         myAlert.title = 'DONE';
         myAlert.subtitle = 'Password changed successfully!';
@@ -149,8 +218,8 @@ export class PersonalProfilePage {
     ); 
   }
 
-  private doRemoveUser(): void {
-    
+  private doRemoveUserAndDeleteAllData(): void {
+
     let loading = this.loadingController.create({
       content: 'Please wait...'
     });
@@ -161,12 +230,15 @@ export class PersonalProfilePage {
       subtitle?: string
     } = {};
 
-    this.settingsData.deleteUser()
+    // Delete data
+    this.profileData.deleteData(this.userSettings.houseid);
+
+    // Delete user
+    this.profileData.deleteUser()
       .then(() => {
-        myAlert.title = 'DONE';
-        myAlert.subtitle = 'User account deleted successfully!';
-        this.DisplayResult(myAlert, loading,true);
-      }        
+        loading.dismiss();
+        this.nav.setRoot(TutorialPage);
+      }
     )
     .catch(
       (error) => {          
@@ -189,7 +261,7 @@ export class PersonalProfilePage {
         {
           text: 'Cancel',
           handler: () => {
-            //console.log('Cancel RemoveUser clicked');
+            //console.log('Cancel clicked');
           }
         },
         {
@@ -204,7 +276,7 @@ export class PersonalProfilePage {
   }
 
   private doLogout(): void {
-    //this.db.logout();
+    this.auth.logout();
     this.nav.setRoot(TutorialPage);
   }
   

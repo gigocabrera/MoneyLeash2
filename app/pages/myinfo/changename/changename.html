@@ -4,21 +4,21 @@
       <button (click)="dismiss()" mllightblue>Cancel</button>
     </ion-buttons>
     <ion-title>
-      Change Password
+      Update Your Name
     </ion-title>
     <ion-buttons end>
-      <button (click)="changePassword(newpassword)" mllightblue>Save</button>
+      <button (click)="changeName(newname)" mllightblue>Save</button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 <ion-content class="outer-content">
   <ion-item-divider>
-    Enter you New password
+    Enter your name
   </ion-item-divider>
   <ion-list>
     <ion-item class="ml-input">
-      <i class="fa fa-lock ml-fontawesome-left" item-left></i>
-      <ion-input type="password" placeholder="New Password" [(ngModel)]="newpassword"></ion-input>
+      <i class="fa fa-at ml-fontawesome-left" item-left></i>
+      <ion-input type="text" placeholder="Full Name" [(ngModel)]="newname"></ion-input>
     </ion-item>
   </ion-list>
 </ion-content>

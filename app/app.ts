@@ -24,8 +24,7 @@ import {ReportListPage} from './pages/mymoney/report-list/report-list';
 import {SettingsPage} from './pages/mysettings/settings/settings';
 
 // Firebase
-import {FIREBASE_PROVIDERS, defaultFirebase,AngularFire, firebaseAuthConfig, AuthProviders, AuthMethods} from 'angularfire2';
-import {FirebaseService} from './providers/firebaseService';
+import {FIREBASE_PROVIDERS, defaultFirebase,AngularFire, firebaseAuthConfig, FirebaseAuth, AuthProviders, AuthMethods} from 'angularfire2';
 
 declare var touchid: any;
 
@@ -40,7 +39,6 @@ const COMMON_CONFIG = {
   templateUrl: 'build/app.html',
   providers: [
     UserData,
-    FirebaseService,
     FIREBASE_PROVIDERS,  
     defaultFirebase(COMMON_CONFIG),
     firebaseAuthConfig({
@@ -72,7 +70,8 @@ class MoneyLeashApp {
     public events: Events,
     public userData: UserData,
     public menu: MenuController,
-    public platform: Platform) {
+    public platform: Platform,
+    public auth: FirebaseAuth) {
 
       this.initializeApp();
 
@@ -143,8 +142,8 @@ class MoneyLeashApp {
   }
   
    signOut(): void {
-    //this.auth.signOut();
-    this.userData.logout();
+    this.auth.logout();
+    this.nav.setRoot(LogoutPage);
   } 
 }
 

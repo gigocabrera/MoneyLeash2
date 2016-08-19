@@ -32,7 +32,7 @@ export class LoginAutoPage {
         provider: AuthProviders.Password,
         method: AuthMethods.Password
       }).then((authData) => {
-        this.db.getMyPreferences();
+        //this.db.getMyPreferences();
         this.nav.setRoot(AccountListPage);
         loading.dismiss();
       }).catch((error) => {
