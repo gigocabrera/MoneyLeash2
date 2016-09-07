@@ -1,0 +1,14 @@
+<ion-header>
+  <ion-navbar mlnavbar>  
+    <button menuToggle>
+      <ion-icon name="menu" mllightblue></ion-icon>
+    </button>  
+    <ion-title>Profile Photo</ion-title>
+    <ion-buttons end>
+      <button (click)="savePicture()" mllightblue>Save</button>
+    </ion-buttons>  
+  </ion-navbar>
+</ion-header>
+<ion-content class='picturebg'>
+  <img src="{{userPicture}}" width="100%" />
+</ion-content>

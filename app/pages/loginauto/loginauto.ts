@@ -25,8 +25,6 @@ export class LoginAutoPage {
       });
       loading.present();
 
-      this.userData.autoLoginLocalStorage();
-
       // Login user with Firebase
       this.auth.login({email: this.userData.username, password: this.userData.userpwd}).then((authData) => {
         //this.db.getMyPreferences();

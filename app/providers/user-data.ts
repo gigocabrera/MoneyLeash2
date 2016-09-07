@@ -22,14 +22,9 @@ export class UserData {
     });
   }
 
-  autoLoginLocalStorage() {
-    this.events.publish('user:login');
-  }
-
   saveLocalStorage(credentials) {
     this.setUsername(credentials.email);
     this.setUserPwd(credentials.password);
-    this.events.publish('user:login');
   }
 
   setUsername(username) {

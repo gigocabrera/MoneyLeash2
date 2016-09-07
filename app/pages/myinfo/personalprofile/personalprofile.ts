@@ -7,6 +7,7 @@ import {ChangeNamePage} from '../../myinfo/changename/changename';
 import {ChangeEmailPage} from '../../myinfo/changeemail/changeemail';
 import {ChangePasswordPage} from '../../myinfo/changepassword/changepassword';
 import {TutorialPage} from '../../tutorial/tutorial';
+import {PersonalProfilePhotoPage} from '../../myinfo/personalprofilephoto/personalprofilephoto';
 
 // Services
 import {PersonalProfileData} from '../../../providers/personalprofile-data';
@@ -24,16 +25,17 @@ export class PersonalProfilePage {
   public userPicture: any;
 
   constructor(
-      private nav: NavController,
-      private modalController: ModalController,
-      private alertController: AlertController,
-      private loadingController: LoadingController,
+      public nav: NavController,
+      public modalController: ModalController,
+      public alertController: AlertController,
+      public loadingController: LoadingController,
       public navParams: NavParams,
       public profileData: PersonalProfileData,
       public userData: UserData,
-      public auth: FirebaseAuth) {
+      public auth: FirebaseAuth) {}
 
-        this.userSettings = this.navParams.data.paramSettings;
+  ngOnInit() {
+    this.userSettings = this.navParams.data.paramSettings;
   }
 
   updateName() {
@@ -46,43 +48,8 @@ export class PersonalProfilePage {
     });
   }
 
-  takePicture(){
-    Camera.getPicture({
-      quality : 95,
-      destinationType : Camera.DestinationType.DATA_URL,
-      sourceType : Camera.PictureSourceType.CAMERA,
-      allowEdit : true,
-      encodingType: Camera.EncodingType.PNG,
-      targetWidth: 500,
-      targetHeight: 500,
-      saveToPhotoAlbum: true
-    }).then(imageData => {
-      const b64toBlob = (b64Data, contentType='', sliceSize=512) => {
-        const byteCharacters = atob(b64Data);
-        const byteArrays = [];
-
-        for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
-          const slice = byteCharacters.slice(offset, offset + sliceSize);
-
-          const byteNumbers = new Array(slice.length);
-          for (let i = 0; i < slice.length; i++) {
-            byteNumbers[i] = slice.charCodeAt(i);
-          }
-
-          const byteArray = new Uint8Array(byteNumbers);
-
-          byteArrays.push(byteArray);
-        }
-
-        const blob = new Blob(byteArrays, {type: contentType});
-        return blob;
-      }
-
-      this.userPicture = b64toBlob(imageData, 'image/png');
-
-    }, error => {
-      console.log("ERROR -> " + JSON.stringify(error));
-    });
+  takePicture() {
+    this.nav.push(PersonalProfilePhotoPage);
   }
 
   changeEmail() {

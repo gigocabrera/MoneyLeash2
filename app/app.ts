@@ -2,9 +2,6 @@ import {Component, ViewChild, NgZone} from '@angular/core';
 import {ionicBootstrap, Events, Platform, Nav, MenuController, Alert} from 'ionic-angular';
 import {StatusBar, Splashscreen, TouchID} from 'ionic-native';
 
-// Data
-import {UserData} from './providers/user-data';
-
 // Intro and Login pages
 import {TutorialPage} from './pages/tutorial/tutorial';
 import {LoginPage} from './pages/login/login';
@@ -12,7 +9,7 @@ import {LoginAutoPage} from './pages/loginauto/loginauto';
 import {SignupPage} from './pages/signup/signup';
 import {LogoutPage} from './pages/logout/logout';
 
-// myMoney pages
+// App pages
 import {AccountListPage} from './pages/mymoney/account-list/account-list';
 import {CategoryListPage} from './pages/mymoney/category-list/category-list';
 import {BudgetListPage} from './pages/mymoney/budget-list/budget-list';
@@ -20,11 +17,12 @@ import {RecurringListPage} from './pages/mymoney/recurring-list/recurring-list';
 import {PayeeListPage} from './pages/mymoney/payee-list/payee-list';
 import {ReportListPage} from './pages/mymoney/report-list/report-list';
 
-// mySettings pages
+// Settings pages
 import {SettingsPage} from './pages/mysettings/settings/settings';
 
-// Firebase
+// Services
 import {FIREBASE_PROVIDERS, defaultFirebase,AngularFire, firebaseAuthConfig, FirebaseAuth, AuthProviders, AuthMethods} from 'angularfire2';
+import {UserData} from './providers/user-data';
 
 declare var touchid: any;
 

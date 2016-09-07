@@ -11,6 +11,7 @@ import {PickDefaultDatePage} from '../../mypicklists/pickdefaultdate/pickdefault
 
 // Services
 import {SettingsData} from '../../../providers/settings-data';
+import {UserData} from '../../../providers/user-data';
 
 @Component({
   templateUrl: 'build/pages/mysettings/settings/settings.html',
@@ -27,7 +28,8 @@ export class SettingsPage {
     public nav: NavController,
     public modalController: ModalController,
     public platform: Platform,
-    public settingsData: SettingsData) {
+    public settingsData: SettingsData,
+    public userData: UserData) {
 
     platform.ready().then(() => {
       AppVersion.getVersionNumber().then(ver => {
@@ -57,6 +59,7 @@ export class SettingsPage {
 
   toggleTouchID(e) {
     this.settingsData.updateTouchID(e.checked);
+    this.userData.setEnableTouchID(e.checked);
   }
 
   changeDefaltBalance() {
