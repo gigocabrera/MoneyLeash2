@@ -5,7 +5,7 @@
     </ion-buttons>
   </ion-navbar>
 </ion-header>
-<ion-content>
+<ion-content no-bounce>
   <ion-slides [options]="{pager: true}" (ionWillChange)="onSlideChangeStart($event)">
     <ion-slide *ngFor="let slide of slides">
       <div class="divImage">

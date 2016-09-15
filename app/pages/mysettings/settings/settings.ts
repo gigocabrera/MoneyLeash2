@@ -1,4 +1,6 @@
 import {Component} from '@angular/core';
+import {Subscription} from 'rxjs/Subscription';
+
 import {Platform, NavController, ModalController} from 'ionic-angular';
 import {AppVersion} from 'ionic-native';
 
@@ -12,6 +14,7 @@ import {PickDefaultDatePage} from '../../mypicklists/pickdefaultdate/pickdefault
 // Services
 import {SettingsData} from '../../../providers/settings-data';
 import {UserData} from '../../../providers/user-data';
+import {UserInfo} from '../../../models/userinfo.model';
 
 @Component({
   templateUrl: 'build/pages/mysettings/settings/settings.html',
@@ -23,6 +26,8 @@ export class SettingsPage {
   public userSettings: any;
   public houseid: string;
   public imgsrc: string;
+  public info: UserInfo[] = [];
+  public subscription: Subscription;
   
   constructor(
     public nav: NavController,
@@ -38,13 +43,20 @@ export class SettingsPage {
         console.log(error);
       });
     });
+  }
 
-    this.settingsData.getSettingsData().on('value', (data) => {
+  ionViewLoaded() {
+    this.settingsData.getUserData().on('value', (data) => {
       this.userSettings = data.val();
       this.houseid = this.userSettings.houseid;
     });
+    /*this.subscription = this.settingsData.getUserDataFromObservable().subscribe(pref => {
+      this.info.push(pref);
+      console.log(this.info);
+    });*/
+
   }
-  
+
   openPersonalProfile() {
     this.nav.push(PersonalProfilePage, {paramSettings: this.userSettings});
   }
