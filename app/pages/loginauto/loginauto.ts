@@ -1,12 +1,18 @@
+// angular
 import {Component} from '@angular/core';
+
+// ionic
 import {NavController, Alert, LoadingController} from 'ionic-angular';
-import {UserData} from '../../providers/user-data';
+
+// pages
 import {LoginPage} from '../login/login';
 import {AccountListPage} from '../mymoney/account-list/account-list';
 
-// Firebase
-import {FirebaseAuth} from 'angularfire2';
-//import {FirebaseService} from '../../providers/firebaseService'
+// services
+import {UserData} from '../../providers/user-data';
+
+// firebase
+declare var firebase: any;
 
 @Component({
   templateUrl: 'build/pages/loginauto/loginauto.html'
@@ -14,11 +20,14 @@ import {FirebaseAuth} from 'angularfire2';
 
 export class LoginAutoPage {
 
+  public fireAuth: any;
+
   constructor(
     public nav: NavController,
     public loadingController: LoadingController,
-    public userData: UserData,
-    public auth: FirebaseAuth) {
+    public userData: UserData) {
+
+      this.fireAuth = firebase.auth();
 
       let loading = this.loadingController.create({
         content: 'Please wait...'
@@ -26,7 +35,7 @@ export class LoginAutoPage {
       loading.present();
 
       // Login user with Firebase
-      this.auth.login({email: this.userData.username, password: this.userData.userpwd}).then((authData) => {
+      this.fireAuth.signInWithEmailAndPassword({email: this.userData.username, password: this.userData.userpwd}).then((authData) => {
         //this.db.getMyPreferences();
         loading.dismiss();
         this.nav.setRoot(AccountListPage);

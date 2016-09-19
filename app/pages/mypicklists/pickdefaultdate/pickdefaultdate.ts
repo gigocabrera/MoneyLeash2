@@ -14,7 +14,10 @@ export class PickDefaultDatePage {
   
   itemselected: string;
   
-  constructor(public nav: NavController, public viewCtrl: ViewController, public navParams: NavParams) {
+  constructor(
+    public nav: NavController, 
+    public viewCtrl: ViewController, 
+    public navParams: NavParams) {
 
     this.defaultDateOptions = [
           { text: 'No default date', value: 'None' },

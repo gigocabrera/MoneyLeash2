@@ -1,28 +1,34 @@
+// angular
 import {Component} from '@angular/core';
+
+// ionic
 import {NavController, Alert, AlertController, ActionSheet, Modal, ModalController, Loading, LoadingController, NavParams} from 'ionic-angular';
 import {Camera} from 'ionic-native';
 
-// Pages
+// pages
 import {ChangeNamePage} from '../../myinfo/changename/changename';
 import {ChangeEmailPage} from '../../myinfo/changeemail/changeemail';
 import {ChangePasswordPage} from '../../myinfo/changepassword/changepassword';
 import {TutorialPage} from '../../tutorial/tutorial';
 import {PersonalProfilePhotoPage} from '../../myinfo/personalprofilephoto/personalprofilephoto';
 
-// Services
-import {PersonalProfileData} from '../../../providers/personalprofile-data';
+// services
+import {SettingsData} from '../../../providers/settings-data';
 import {UserData} from '../../../providers/user-data';
-import {FirebaseAuth} from 'angularfire2';
+
+// firebase
+declare var firebase: any;
 
 @Component({
   templateUrl: 'build/pages/myinfo/personalprofile/personalprofile.html',
-  providers: [PersonalProfileData]
+  providers: [SettingsData]
 })
 
 export class PersonalProfilePage {
   
   public userSettings: any;
   public userPicture: any;
+  public fireAuth: any;
 
   constructor(
       public nav: NavController,
@@ -30,11 +36,14 @@ export class PersonalProfilePage {
       public alertController: AlertController,
       public loadingController: LoadingController,
       public navParams: NavParams,
-      public profileData: PersonalProfileData,
-      public userData: UserData,
-      public auth: FirebaseAuth) {}
+      public settingsData: SettingsData,
+      public userData: UserData) {
 
-  ngOnInit() {
+        this.fireAuth = firebase.auth();
+
+      }
+
+  ionViewLoaded() {
     this.userSettings = this.navParams.data.paramSettings;
   }
 
@@ -95,7 +104,7 @@ export class PersonalProfilePage {
   }
 
   private doChangeName(newname): void {
-    this.profileData.updateName(newname);
+    this.settingsData.updateName(newname);
   }
   
   private doChangeEmail(newemail): void {
@@ -110,7 +119,7 @@ export class PersonalProfilePage {
       subtitle?: string
     } = {};
 
-    this.profileData.updateEmail(newemail)
+    this.settingsData.updateEmail(newemail)
       .then(() => {
         //
         // Update email displayed on the screen
@@ -121,7 +130,7 @@ export class PersonalProfilePage {
         this.userData.setUsername(newemail);
         //
         // Update email node under user profile 
-        this.profileData.updateEmailNode(newemail);
+        this.settingsData.updateEmailNode(newemail);
         //
         myAlert.title = 'DONE';
         myAlert.subtitle = 'User email changed successfully!';
@@ -161,7 +170,7 @@ export class PersonalProfilePage {
       subtitle?: string
     } = {};
 
-    this.profileData.updatePassword(newpassword)
+    this.settingsData.updatePassword(newpassword)
       .then(() => {
         myAlert.title = 'DONE';
         myAlert.subtitle = 'Password changed successfully!';
@@ -198,17 +207,17 @@ export class PersonalProfilePage {
     } = {};
 
     // Delete data
-    this.profileData.deleteData(this.userSettings.houseid);
+    this.settingsData.deleteData(this.userSettings.houseid);
 
     // Delete user
-    this.profileData.deleteUser()
+    this.settingsData.deleteUser()
       .then(() => {
         loading.dismiss();
         this.nav.setRoot(TutorialPage);
       }
     )
     .catch(
-      (error) => {          
+      (error) => {
         switch (error.code) {
           case "auth/requires-recent-login":
             myAlert.title = 'Session timed out';
@@ -243,7 +252,7 @@ export class PersonalProfilePage {
   }
 
   private doLogout(): void {
-    this.auth.logout();
+    this.fireAuth.signOut();
     this.nav.setRoot(TutorialPage);
   }
   

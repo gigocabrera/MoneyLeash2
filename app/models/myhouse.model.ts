@@ -1,5 +1,5 @@
 
-// Firebase
+// firebase
 declare var firebase: any;
 
 export interface IMyHouse {

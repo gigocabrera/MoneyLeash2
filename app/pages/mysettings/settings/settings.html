@@ -40,6 +40,9 @@
     <button ion-item (click)="openAccountTypes()">
       <ion-icon item-left name="ios-list-outline"></ion-icon>
       Account Types
+      <ion-badge item-right light>
+        {{ userSettings?.accounttypescount }}
+      </ion-badge>
     </button>
   </ion-list>
   <ion-list>

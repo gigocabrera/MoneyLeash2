@@ -1,17 +1,18 @@
+// angular
 import {Component} from '@angular/core';
-import {Subscription} from 'rxjs/Subscription';
 
+// ionic
 import {Platform, NavController, ModalController} from 'ionic-angular';
 import {AppVersion} from 'ionic-native';
 
-// Pages
+// pages
 import {AboutPage} from '../../../pages/about/about';
 import {PersonalProfilePage} from '../../myinfo/personalprofile/personalprofile';
 import {AccountTypesPage} from '../../mysettings/accounttypes/accounttypes';
 import {PickDefaultBalancePage} from '../../mypicklists/pickdefaultbalance/pickdefaultbalance';
 import {PickDefaultDatePage} from '../../mypicklists/pickdefaultdate/pickdefaultdate';
 
-// Services
+// services
 import {SettingsData} from '../../../providers/settings-data';
 import {UserData} from '../../../providers/user-data';
 import {UserInfo} from '../../../models/userinfo.model';
@@ -27,7 +28,6 @@ export class SettingsPage {
   public houseid: string;
   public imgsrc: string;
   public info: UserInfo[] = [];
-  public subscription: Subscription;
   
   constructor(
     public nav: NavController,
@@ -50,11 +50,6 @@ export class SettingsPage {
       this.userSettings = data.val();
       this.houseid = this.userSettings.houseid;
     });
-    /*this.subscription = this.settingsData.getUserDataFromObservable().subscribe(pref => {
-      this.info.push(pref);
-      console.log(this.info);
-    });*/
-
   }
 
   openPersonalProfile() {

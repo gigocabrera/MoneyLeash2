@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar mlnavbar>
+    <ion-buttons start>
+      <button (click)="dismiss()" mllightblue>Cancel</button>
+    </ion-buttons>
+    <ion-title>
+      {{ title }}
+    </ion-title>
+    <ion-buttons end>
+      <button (click)="save(newtype)" mllightblue>Save</button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-item-divider>
+    Enter your name
+  </ion-item-divider>
+  <ion-list>
+    <ion-item class="ml-input">
+      <i class="fa fa-at ml-fontawesome-left" item-left></i>
+      <ion-input type="text" placeholder="Account Type" [(ngModel)]="newtype"></ion-input>
+    </ion-item>
+  </ion-list>
+</ion-content>

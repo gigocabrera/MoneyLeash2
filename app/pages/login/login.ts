@@ -1,12 +1,19 @@
+// angular
 import {Component} from '@angular/core';
+
+// ionic
 import {NavController, Alert, AlertController, Loading, LoadingController, MenuController} from 'ionic-angular';
-import {UserData} from '../../providers/user-data';
+
+// pages
 import {SignupPage} from '../signup/signup';
 import {ForgotPasswordPage} from '../forgot-password/forgot-password';
 import {AccountListPage} from '../mymoney/account-list/account-list';
 
-// Firebase
-import {FirebaseAuth} from 'angularfire2';
+// services
+import {UserData} from '../../providers/user-data';
+
+// firebase
+declare var firebase: any;
 
 @Component({
   templateUrl: 'build/pages/login/login.html'
@@ -14,8 +21,7 @@ import {FirebaseAuth} from 'angularfire2';
 
 export class LoginPage {
 
-  public loading: Loading;
-  submitted = false;
+  public fireAuth: any;
   user = {'email': '', 'password': ''};
 
   constructor(
@@ -23,43 +29,37 @@ export class LoginPage {
     public menu: MenuController,
     public alertController: AlertController,
     public userData: UserData,
-    public loadingController: LoadingController,
-    public auth: FirebaseAuth) {}
+    public loadingController: LoadingController) {
+
+      this.fireAuth = firebase.auth();
+
+    }
 
   public doLogin(credentials) {
-    //
-    // Show loading control in case of network latency
-    //this.showLoading();
-    //
-    // Save credentials to localstorage and flag form as submitted
-    this.userData.saveLocalStorage(credentials);
-    this.submitted = true;
-    //
-    // Login user with Firebase
-    this.auth.login(credentials).then((authData) => {
-      //this.loading.dismiss();
-      this.LoginSuccess();
-    }).catch((error) => {
-      this.LoginError(error);
-    })
-  }
-
-  showLoading() {
+    
     let loading = this.loadingController.create({
       content: 'Please wait...'
     });
     loading.present();
+    
+    // Save credentials to localstorage and flag form as submitted
+    this.userData.saveLocalStorage(credentials);
+    
+    // Login user with Firebase
+    this.fireAuth.signInWithEmailAndPassword(credentials.email, credentials.password).then((authData) => {
+      this.LoginSuccess(loading);
+    }).catch((error) => {
+      loading.dismiss();
+      this.LoginError(error);
+    })
   }
   
-  private LoginSuccess(): void {
-    //this.db.getMyPreferences();
-    //this.db.getMyHouse();
+  private LoginSuccess(loading): void {
+    loading.dismiss();
     this.nav.setRoot(AccountListPage, {}, {animate: true, direction: 'forward'});
-    //this.loading.dismiss();
   }
   
   private LoginError(error): void {
-    //this.loading.dismiss();
     let alert = this.alertController.create({
       title: 'Login Failed',
       subTitle: 'Please check your email and/or password and try again',

@@ -1,51 +1,37 @@
+// angular
 import {Component, ViewChild, NgZone} from '@angular/core';
+
+// ionic
 import {ionicBootstrap, Events, Platform, Nav, MenuController, Alert} from 'ionic-angular';
 import {StatusBar, Splashscreen, TouchID} from 'ionic-native';
 
-// Intro and Login pages
+// intro and login pages
 import {TutorialPage} from './pages/tutorial/tutorial';
 import {LoginPage} from './pages/login/login';
 import {LoginAutoPage} from './pages/loginauto/loginauto';
 import {SignupPage} from './pages/signup/signup';
 import {LogoutPage} from './pages/logout/logout';
 
-// App pages
+// app pages
 import {AccountListPage} from './pages/mymoney/account-list/account-list';
 import {CategoryListPage} from './pages/mymoney/category-list/category-list';
 import {BudgetListPage} from './pages/mymoney/budget-list/budget-list';
 import {RecurringListPage} from './pages/mymoney/recurring-list/recurring-list';
 import {PayeeListPage} from './pages/mymoney/payee-list/payee-list';
 import {ReportListPage} from './pages/mymoney/report-list/report-list';
-
-// Settings pages
 import {SettingsPage} from './pages/mysettings/settings/settings';
 
-// Services
-import {FIREBASE_PROVIDERS, defaultFirebase,AngularFire, firebaseAuthConfig, FirebaseAuth, AuthProviders, AuthMethods} from 'angularfire2';
+// services
 import {UserData} from './providers/user-data';
+
+// firebase
+declare var firebase: any;
 
 declare var touchid: any;
 
-const COMMON_CONFIG = {
-  apiKey: "AIzaSyAjiJc9cXvd3bzl-aW0wbQC6sajr6RH5hg",
-  authDomain: "brilliant-inferno-1044.firebaseapp.com",
-  databaseURL: "https://brilliant-inferno-1044.firebaseio.com",
-  storageBucket: "brilliant-inferno-1044.appspot.com",
-};
-
 @Component({
   templateUrl: 'build/app.html',
-  providers: [
-    UserData,
-    FIREBASE_PROVIDERS,  
-    defaultFirebase(COMMON_CONFIG),
-    firebaseAuthConfig({
-      provider: AuthProviders.Password,
-      method: AuthMethods.Password,
-      remember: 'default',
-      scope: ['email']
-    })
-  ]
+  providers: [UserData]
 })
 
 class MoneyLeashApp {
@@ -57,8 +43,8 @@ class MoneyLeashApp {
   // Default root page
   rootPage: any = TutorialPage;
   
-  // Local variables
-  loggedIn = false;
+  // variables
+  public fireAuth: any;
   enabletouchid = '';
   pages: Array<{title: string, component: any, icon: string, color: string}>;
   logoutPage: Array<{title: string, component: any, icon: string, color: string}>;
@@ -68,8 +54,9 @@ class MoneyLeashApp {
     public events: Events,
     public userData: UserData,
     public menu: MenuController,
-    public platform: Platform,
-    public auth: FirebaseAuth) {
+    public platform: Platform) {
+
+      this.fireAuth = firebase.auth();
 
       this.initializeApp();
 
@@ -140,7 +127,7 @@ class MoneyLeashApp {
   }
   
    signOut(): void {
-    this.auth.logout();
+    this.fireAuth.signOut();
     this.nav.setRoot(LogoutPage);
   } 
 }

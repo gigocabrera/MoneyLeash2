@@ -14,7 +14,7 @@
       Account Types
     </ion-item-divider>
     <ion-list>
-      <button ion-item *ngFor="let item of items | async" (click)="openPage(item)">
+      <button ion-item *ngFor="let item of items" (click)="edit(item)">
         <ion-icon item-left name="ios-cash-outline"></ion-icon>
         {{item.name}}
       </button>
