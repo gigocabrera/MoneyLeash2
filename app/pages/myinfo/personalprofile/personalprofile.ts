@@ -140,15 +140,15 @@ export class PersonalProfilePage {
     .catch(
       (error) => {          
         switch (error.code) {
-          case "auth/invalid-email":
+          case 'auth/invalid-email':
             myAlert.title = 'Invalid Email';
             myAlert.subtitle = 'The new email used is invalid!';
             break;
-          case "auth/email-already-in-use":
+          case 'auth/email-already-in-use':
             myAlert.title = 'Email already in use';
             myAlert.subtitle = 'That email is already in use by another user!';
             break;
-          case "auth/requires-recent-login":
+          case 'auth/requires-recent-login':
             myAlert.title = 'Session timed out';
             myAlert.subtitle = 'This action requires a recent login!';
             break;

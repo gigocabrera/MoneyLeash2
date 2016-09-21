@@ -13,11 +13,11 @@
 </ion-header>
 <ion-content>
   <ion-item-divider>
-    Enter your name
+    How do you want to call this account type?
   </ion-item-divider>
   <ion-list>
     <ion-item class="ml-input">
-      <i class="fa fa-at ml-fontawesome-left" item-left></i>
+      <i class="{{item.icon}} ml-fontawesome-left" item-left></i>
       <ion-input type="text" placeholder="Account Type" [(ngModel)]="newtype"></ion-input>
     </ion-item>
   </ion-list>

@@ -22,6 +22,7 @@ declare var firebase: any;
 export class LoginPage {
 
   public fireAuth: any;
+  public houseid: string;
   user = {'email': '', 'password': ''};
 
   constructor(
@@ -42,28 +43,42 @@ export class LoginPage {
     });
     loading.present();
     
-    // Save credentials to localstorage and flag form as submitted
+    // Save credentials to localstorage
     this.userData.saveLocalStorage(credentials);
     
     // Login user with Firebase
     this.fireAuth.signInWithEmailAndPassword(credentials.email, credentials.password).then((authData) => {
       this.LoginSuccess(loading);
     }).catch((error) => {
-      loading.dismiss();
-      this.LoginError(error);
+      this.LoginError(error, loading);
     })
   }
   
   private LoginSuccess(loading): void {
     loading.dismiss();
+    
+    this.userData.loadUserPreferences();
+    this.settingsData.getUserData().on('value', (data) => {
+      this.userSettings = data.val();
+      this.houseid = this.userSettings.houseid;
+    });
+
+
     this.nav.setRoot(AccountListPage, {}, {animate: true, direction: 'forward'});
   }
   
-  private LoginError(error): void {
+  private LoginError(error, loading): void {
     let alert = this.alertController.create({
       title: 'Login Failed',
       subTitle: 'Please check your email and/or password and try again',
-      buttons: ['Ok']
+      buttons: [
+        {
+          text: 'Ok',
+          handler: () => {
+            loading.dismiss();
+          }
+        }
+      ]
     });
     alert.present();
   }

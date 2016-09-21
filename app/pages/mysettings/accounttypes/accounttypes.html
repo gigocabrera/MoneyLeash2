@@ -9,15 +9,13 @@
   </ion-navbar>
 </ion-header>
 <ion-content class="outer-content">
-  <ion-list>
-    <ion-item-divider mlitemdivider>
+  <ion-list class="ml-button">
+    <ion-list-header>
       Account Types
-    </ion-item-divider>
-    <ion-list>
+    </ion-list-header>
       <button ion-item *ngFor="let item of items" (click)="edit(item)">
-        <ion-icon item-left name="ios-cash-outline"></ion-icon>
+        <i class="{{item.icon}} ml-fontawesome-left" item-left></i>
         {{item.name}}
       </button>
     </ion-list>
-  </ion-list>
 </ion-content>

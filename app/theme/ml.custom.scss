@@ -48,10 +48,10 @@ ion-item-divider[mlitemdivider] {
 
 /* Force border bottom in ion-list */
 .mlbottomborder {
-    border-bottom: 2px solid #c8c7cc;
+    border-bottom: 1px solid #c8c7cc;
 }
 
-/* Styles for MoneyLeash MyInput fields */
+/* Styles for MoneyLeash Input fields */
 /* ------------------------------------ */
 .ml-icon-left:before {
   display: block;
@@ -87,27 +87,11 @@ ion-item-divider[mlitemdivider] {
 .ml-input {
   padding: 0;
 }
-/*ion-list > .ml-input.item {
-  border-bottom: 1px solid #c8c7cc;
-}
-ion-list > .ml-input.item:last-child {
-  border-bottom: 1px solid #c8c7cc;
-}*/
 .ml-input .item-inner {
   border-bottom: 0;
   margin-left: 7px;
   padding-top: 0;
 }
-
-/*ion-list .ml-input {
-    border-bottom: 0;
-}
-ion-list > my-input.item {
-  border-top: 1px solid #c8c7cc;
-}
-ion-list > my-input.item:first-child {
-    border-top: 0;
-}*/
 .ml-input {
   height: 60px;
 }
@@ -131,6 +115,26 @@ ion-list > .ml-input.mlnobottomborder.item  {
   margin-left: 60px;
 }
 
+/* Styles for MoneyLeash Button fields */
+/* ------------------------------------ */
+.ml-button i {
+  margin: 0;
+}
+.ml-button .item {
+  padding-left: 0;
+  border-bottom: 1px solid #c8c7cc;
+}
+.ml-button i:before {
+  font-size: 24px;
+  color: #b9b9b9;
+  line-height: 57px;
+}
+.ml-button .item .item-inner {
+  border-bottom: 0;
+  margin-left: 7px;
+  padding-top: 0;
+}
+
 /* Styles for icons on Login, Sign up, Forgot Password forms */
 #divLoginHeading {
   text-align: center;
@@ -148,3 +152,169 @@ ion-list > .ml-input.mlnobottomborder.item  {
 .toast-message {
   color: #31C0E6;
 }
+
+/* Styles for Net Worth row */
+.netWorthRow {
+    display: block;
+    font-weight: normal;
+    font: 18px 'PT Sans Narrow', sans-serif;
+    text-align: center;
+}
+
+
+/* Styles for Accounts & Transactions Screens */
+.mlaccounts {
+  padding: 10px;
+}
+.AccountScreenPadding {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+.customItemPadding.item-complex.item-icon-left .item-content {
+  padding-left: 44px;
+}
+.customAccDesc {
+  text-align: left;
+  height: 37px;
+  font: 20px 'PT Sans Narrow', sans-serif;
+  font-weight: bold;
+}
+.customTransDesc {
+  font-size: 20px;
+  font-weight: bold;
+}
+.customTransDesc span small {
+  position: absolute;
+  font: 13px 'Helvetica Neue', sans-serif;
+  top: 40px;
+  left: 16px;
+  color: #A0A0A0;
+  font-weight: normal;
+}
+.customTransDesc span small > i {
+  padding-right: 3px;
+}
+.customAccAmt {
+  text-align: right;
+  font: 20px 'PT Sans Narrow', sans-serif;
+  font-weight: bold;
+  margin-top: -10px;
+  margin-right: 15px;
+}
+.customAccAmt span {
+  position: relative;
+  top: 8px;
+}
+.customAccAmt span small {
+  position: absolute;
+  font: 16px 'PT Sans Narrow', sans-serif;
+  top: 20px;
+  right: 0;
+  color: #A0A0A0;
+  font-weight: bold;
+}
+.customTransAmt {
+  height: 37px;
+  font-weight: bold;
+  padding-right: 20px;
+  font-size: 18px;
+}
+.customTransAmt span {
+  position: relative;
+  top: 1px;
+}
+.customTransAmt span small {
+  position: absolute;
+  font: 16px 'PT Sans Narrow', sans-serif;
+  top: 20px;
+  right: 0;
+  color: #A0A0A0;
+  font-weight: bold;
+}
+.textRed {
+  color: #CE1B31;
+}
+.Expense {
+  color: #CE1B31;
+}
+.textBlack {
+  color: #000;
+}
+.textGreen {
+  color: #1AAC57;
+}
+.Income {
+  color: #1AAC57;
+}
+.right {
+    text-align: right;
+}
+/*
+.transactionIsCleared .item-content {
+  background-color: #eee;
+  -webkit-transition: all linear 0.5s;
+  -o-transition: all linear 0.5s;
+  transition: all linear 0.5s;
+}
+.item-toggle-option .toggle {
+    position: absolute;
+    top: 8px;
+    right: 16px;
+    z-index: 3;
+}
+.toggleTransactionCleared {
+	text-align: center;
+	width: 52px;
+	height: auto;
+	position: absolute;
+	margin: auto 0;
+    margin-left: auto;
+    margin-right: auto;
+	border: none;
+	-webkit-appearance: none;
+    -moz-appearance: none;
+	-ms-appearance: none;
+	-o-appearance: none;
+	appearance: none;
+    background-color: transparent;
+}
+.toggleTransactionCleared:after {
+	content: '\f00c';
+	line-height: 43px;
+	font-size: 17px;
+	color: #ebebeb;
+	text-shadow: 0 -1px 0 #bfbfbf;
+    font-family: FontAwesome;
+}
+.toggleTransactionCleared:checked:after {
+	color: #00A2E8;
+	bottom: 1px;
+	position: relative;
+}
+.button-float {
+    background: #00A2E8 !important;
+    color: white !important;
+    z-index: 12 !important;
+    position: absolute !important;
+    bottom: 15px !important;
+    right: 41%;
+    width: 65px;
+    height: 65px;
+    border-radius: 50% !important;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26) !important;
+    -webkit-transform: translate3d(0, 0, 0) !important;
+    transform: translate3d(0, 0, 0) !important;
+    -webkit-transition: 0.2s linear !important;
+    transition: 0.2s linear !important;
+    -webkit-transition-property: -webkit-transform, all !important;
+    transition-property: transform, all !important;
+}
+.button-float:hover {
+    -webkit-transform: translate3d(0, -1px, 0) !important;
+    transform: translate3d(0, -1px, 0) !important;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4) !important;
+    background: #0076A8 !important;
+}
+.button-float .icon:before {
+    font-size: 34px;
+}*/

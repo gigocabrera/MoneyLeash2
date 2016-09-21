@@ -58,7 +58,7 @@ export class AccountTypesPage {
     });
   }
   
-  private doAddEditType(newtype): void {
-    console.log(newtype);
+  private doAddEditType(item): void {
+    this.settingsData.updateAccountType(this.navParams.data.paramHouseid, item);
   }
 }

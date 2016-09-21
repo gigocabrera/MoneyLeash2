@@ -67,12 +67,12 @@ export class SignUpData {
 
     // Save default Account Types
     var refTypes = this.housedata.child(key + "/memberaccounttypes/");
-    refTypes.push({ name: 'Checking', icon: '0' });
-    refTypes.push({ name: 'Savings', icon: '0' });
-    refTypes.push({ name: 'Credit Card', icon: '0' });
-    refTypes.push({ name: 'Debit Card', icon: '0' });
-    refTypes.push({ name: 'Investment', icon: '0' });
-    refTypes.push({ name: 'Brokerage', icon: '0' });
+    refTypes.push({ name: 'Checking', icon: 'fa fa-university' });
+    refTypes.push({ name: 'Savings', icon: 'fa fa-life-ring' });
+    refTypes.push({ name: 'Credit Card', icon: 'fa fa-credit-card' });
+    refTypes.push({ name: 'Debit Card', icon: 'fa fa-credit-card' });
+    refTypes.push({ name: 'Investment', icon: 'fa fa-suitcase' });
+    refTypes.push({ name: 'Brokerage', icon: 'fa fa-suitcase' });
 
     // Save default categories
     var refCatIncome = this.housedata.child(key + "/membercategories/Income");

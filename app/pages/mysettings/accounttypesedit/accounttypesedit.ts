@@ -30,11 +30,12 @@ export class AccountTypesEditPage {
   }
 
   save(newtype) {
-    this.dismiss(newtype);
+    this.item.name = newtype;
+    this.dismiss(this.item);
   }
   
-  dismiss(newtype) {
-    this.viewCtrl.dismiss(newtype);
+  dismiss(item) {
+    this.viewCtrl.dismiss(item);
   }
     
 }

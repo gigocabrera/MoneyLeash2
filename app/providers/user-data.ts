@@ -1,16 +1,31 @@
+// angular
 import {Injectable} from '@angular/core';
+
+// ionic
 import {Storage, LocalStorage, Events} from 'ionic-angular';
+
+// firebase
+declare var firebase: any;
 
 @Injectable()
 export class UserData {
   
-  storage = new Storage(LocalStorage);
-  username = '';
-  userpwd = '';
-  enabletouchid = '';
-  appversion = '';
+  public storage = new Storage(LocalStorage);
+  public username = '';
+  public userpwd = '';
+  public enabletouchid = '';
+  public appversion = '';
+  public userdata: any;
+  public housedata: any;
+  public profilepicdata: any;
+  public userSettings: any;
 
   constructor(private events: Events) {
+
+    this.userdata = firebase.database().ref('/users/');
+    this.housedata = firebase.database().ref('/houses/');
+    this.profilepicdata = firebase.storage().ref('/profilepics/');
+
     this.storage.get('enabletouchid').then((value) => {
       this.enabletouchid = value;
     });
@@ -20,6 +35,7 @@ export class UserData {
     this.storage.get('userpwd').then((value) => {
       this.userpwd = value;
     });
+
   }
 
   saveLocalStorage(credentials) {
@@ -54,6 +70,40 @@ export class UserData {
   getEnableTouchIDStorage() {
     return this.storage.get('enabletouchid').then((value) => {
       return value;
+    });
+  }
+
+  
+  // Firebase methods 
+
+  uid() {
+    return firebase.auth().currentUser.uid;
+  }
+
+  currentUser() {
+    return firebase.auth().currentUser
+  }
+
+  currentUserEmail() {
+    return firebase.auth().currentUser.email;
+  }
+
+  logout() {
+    return firebase.auth().signOut()
+  }
+
+  houseid() {
+    return this.userSettings.houseid;
+  }
+
+  getUserData(): any {
+    return this.userdata.child(firebase.auth().currentUser.uid);
+  }
+
+  loadUserPreferences() {
+    this.getUserData().on('value', (data) => {
+      this.userSettings = data.val();
+      this.houseid = this.userSettings.houseid;
     });
   }
    

@@ -2,9 +2,6 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 
-// models
-import {UserInfo} from '../models/userinfo.model';
-
 declare var firebase: any;
 
 @Injectable()
@@ -49,6 +46,10 @@ export class SettingsData {
 
   updateName(newname: string) {
     this.userdata.child(this.user.uid).update({'fullname' : newname});
+  }
+
+  updateAccountType(houseid: string, item: any): any {
+    this.housedata.child(houseid + '/memberaccounttypes/' + item.id).update(item);
   }
 
   updateEmail(newEmail: string) {
