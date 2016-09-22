@@ -13,15 +13,13 @@ import {TutorialPage} from '../../tutorial/tutorial';
 import {PersonalProfilePhotoPage} from '../../myinfo/personalprofilephoto/personalprofilephoto';
 
 // services
-import {SettingsData} from '../../../providers/settings-data';
 import {UserData} from '../../../providers/user-data';
 
 // firebase
 declare var firebase: any;
 
 @Component({
-  templateUrl: 'build/pages/myinfo/personalprofile/personalprofile.html',
-  providers: [SettingsData]
+  templateUrl: 'build/pages/myinfo/personalprofile/personalprofile.html'
 })
 
 export class PersonalProfilePage {
@@ -36,7 +34,6 @@ export class PersonalProfilePage {
       public alertController: AlertController,
       public loadingController: LoadingController,
       public navParams: NavParams,
-      public settingsData: SettingsData,
       public userData: UserData) {
 
         this.fireAuth = firebase.auth();
@@ -104,7 +101,7 @@ export class PersonalProfilePage {
   }
 
   private doChangeName(newname): void {
-    this.settingsData.updateName(newname);
+    this.userData.updateName(newname);
   }
   
   private doChangeEmail(newemail): void {
@@ -119,7 +116,7 @@ export class PersonalProfilePage {
       subtitle?: string
     } = {};
 
-    this.settingsData.updateEmail(newemail)
+    this.userData.updateEmail(newemail)
       .then(() => {
         //
         // Update email displayed on the screen
@@ -130,7 +127,7 @@ export class PersonalProfilePage {
         this.userData.setUsername(newemail);
         //
         // Update email node under user profile 
-        this.settingsData.updateEmailNode(newemail);
+        this.userData.updateEmailNode(newemail);
         //
         myAlert.title = 'DONE';
         myAlert.subtitle = 'User email changed successfully!';
@@ -170,7 +167,7 @@ export class PersonalProfilePage {
       subtitle?: string
     } = {};
 
-    this.settingsData.updatePassword(newpassword)
+    this.userData.updatePassword(newpassword)
       .then(() => {
         myAlert.title = 'DONE';
         myAlert.subtitle = 'Password changed successfully!';
@@ -207,10 +204,10 @@ export class PersonalProfilePage {
     } = {};
 
     // Delete data
-    this.settingsData.deleteData(this.userSettings.houseid);
+    this.userData.deleteData(this.userSettings.houseid);
 
     // Delete user
-    this.settingsData.deleteUser()
+    this.userData.deleteUser()
       .then(() => {
         loading.dismiss();
         this.nav.setRoot(TutorialPage);

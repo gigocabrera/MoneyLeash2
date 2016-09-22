@@ -2,7 +2,7 @@
 import {Component} from '@angular/core';
 
 // ionic
-import {NavController, NavParams} from 'ionic-angular';
+import {NavController} from 'ionic-angular';
 
 // pages
 import {AccountPage} from '../../mymoney/account/account';
@@ -13,23 +13,21 @@ import {UserData} from '../../../providers/user-data';
 
 @Component({
   templateUrl: 'build/pages/mymoney/account-list/account-list.html',
-  providers: [AccountsData, UserData]
+  providers: [AccountsData]
 })
 
 export class AccountListPage {
 
   public accounts: {};
   public networth: any;
+  public houseid: string;
 
   constructor(
       public nav: NavController,
-      public navParams: NavParams,
       public accountsData: AccountsData,
       public userData: UserData) {}
 
   ionViewLoaded() {
-
-    console.log(this.userData.houseid());
 
     this.accountsData.getAllAccounts(this.userData.houseid()).on('value', (accounts) => {
       

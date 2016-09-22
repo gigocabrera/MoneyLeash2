@@ -6,11 +6,10 @@ import {NavController, Alert, AlertController, ActionSheet, Modal, ModalControll
 import {Camera} from 'ionic-native';
 
 // services
-import {SettingsData} from '../../../providers/settings-data';
+import {UserData} from '../../../providers/user-data';
 
 @Component({
-  templateUrl: 'build/pages/myinfo/personalprofilephoto/personalprofilephoto.html',
-  providers: [SettingsData]
+  templateUrl: 'build/pages/myinfo/personalprofilephoto/personalprofilephoto.html'
 })
 
 export class PersonalProfilePhotoPage {
@@ -24,7 +23,7 @@ export class PersonalProfilePhotoPage {
       public modalController: ModalController,
       public alertController: AlertController,
       public loadingController: LoadingController,
-      public settingsData: SettingsData) {
+      public userData: UserData) {
 
         // Initialize camera on load
         this.takePicture();
@@ -35,7 +34,7 @@ export class PersonalProfilePhotoPage {
   }
 
   savePicture() {
-    this.settingsData.savePicture(this.userPictureblob);
+    this.userData.savePicture(this.userPictureblob);
     this.dismiss();
   }
 

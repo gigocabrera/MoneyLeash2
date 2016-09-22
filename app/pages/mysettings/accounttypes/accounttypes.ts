@@ -8,11 +8,10 @@ import {ModalController, NavParams} from 'ionic-angular';
 import {AccountTypesEditPage} from '../../mysettings/accounttypesedit/accounttypesedit';
 
 // services
-import {SettingsData} from '../../../providers/settings-data';
+import {UserData} from '../../../providers/user-data';
 
 @Component({
-  templateUrl: 'build/pages/mysettings/accounttypes/accounttypes.html',
-  providers: [SettingsData]
+  templateUrl: 'build/pages/mysettings/accounttypes/accounttypes.html'
 })
 
 export class AccountTypesPage {
@@ -22,10 +21,10 @@ export class AccountTypesPage {
   constructor( 
     public navParams: NavParams,
     public modalController: ModalController,
-    public settingsData: SettingsData) {}
+    public userData: UserData) {}
 
   ionViewLoaded() {
-    this.settingsData.getAccountTypes(this.navParams.data.paramHouseid).on('value', (snapshot) => {
+    this.userData.getAccountTypes(this.navParams.data.paramHouseid).on('value', (snapshot) => {
       let rawList= [];
       snapshot.forEach( snap => {
         rawList.push({
@@ -59,6 +58,6 @@ export class AccountTypesPage {
   }
   
   private doAddEditType(item): void {
-    this.settingsData.updateAccountType(this.navParams.data.paramHouseid, item);
+    this.userData.updateAccountType(this.navParams.data.paramHouseid, item);
   }
 }

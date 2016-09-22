@@ -2,7 +2,7 @@
 import {Injectable} from '@angular/core';
 
 // ionic
-import {Storage, LocalStorage, Events} from 'ionic-angular';
+import {Storage, LocalStorage} from 'ionic-angular';
 
 // firebase
 declare var firebase: any;
@@ -20,7 +20,7 @@ export class UserData {
   public profilepicdata: any;
   public userSettings: any;
 
-  constructor(private events: Events) {
+  constructor() {
 
     this.userdata = firebase.database().ref('/users/');
     this.housedata = firebase.database().ref('/houses/');
@@ -73,9 +73,6 @@ export class UserData {
     });
   }
 
-  
-  // Firebase methods 
-
   uid() {
     return firebase.auth().currentUser.uid;
   }
@@ -100,11 +97,82 @@ export class UserData {
     return this.userdata.child(firebase.auth().currentUser.uid);
   }
 
-  loadUserPreferences() {
-    this.getUserData().on('value', (data) => {
-      this.userSettings = data.val();
-      this.houseid = this.userSettings.houseid;
+  getAccountTypes(paramHouseid): any {
+    return this.housedata.child(paramHouseid + '/memberaccounttypes');
+  }
+
+  updateTouchID(ischecked: boolean): any {
+    this.userdata.child(firebase.auth().currentUser.uid).update({'enabletouchid' : ischecked});
+  }
+
+  updateDefaultBalance(newdefaultbalance: string): any {
+    this.userdata.child(firebase.auth().currentUser.uid).update({'defaultbalance' : newdefaultbalance});
+  }
+
+  updateDefaultDate(newdefaultdate: string): any {
+    this.userdata.child(firebase.auth().currentUser.uid).update({'defaultdate' : newdefaultdate});
+  }
+
+  updateName(newname: string) {
+    this.userdata.child(firebase.auth().currentUser.uid).update({'fullname' : newname});
+  }
+
+  updateEmail(newEmail: string) {
+    return new Promise((resolve: () => void, reject: (reason: Error) => void) => {
+      let user = firebase.auth().currentUser;
+      user.updateEmail(newEmail)
+      .then(function() {
+        resolve();
+      }).catch(error => {
+        reject(error);
+      });
     });
+  }
+
+  updatePassword(newPassword: string) {    
+    return new Promise((resolve: () => void, reject: (reason: Error) => void) => {
+      let user = firebase.auth().currentUser;
+      user.updatePassword(newPassword)
+      .then(function() {
+        resolve();
+      }).catch(function(error) {
+        reject(error);
+      });
+    });
+  }
+
+  deleteData(houseid) {
+    //
+    // Delete ALL user data
+    this.housedata.child(houseid).remove();
+    this.userdata.child(firebase.auth().currentUser.uid).remove();
+  }
+
+  deleteUser() {
+    return new Promise((resolve: () => void, reject: (reason: Error) => void) => {
+      let user = firebase.auth().currentUser;
+      user.delete()
+      .then(function() {
+        resolve();
+      }).catch(function(error) {
+        reject(error);
+      });
+    });
+  }
+
+  savePicture(pic): any {
+    this.profilepicdata.child(firebase.auth().currentUser.uid).child('profilepicture.png')
+      .put(pic).then((savedpicture) => {
+        this.userdata.child(firebase.auth().currentUser.uid).update({'profilepic' : savedpicture.downloadURL});
+      });
+  }
+
+  updateEmailNode(newemail): any {
+    this.userdata.child(firebase.auth().currentUser.uid).update({'email' : newemail});
+  }
+
+  updateAccountType(houseid: string, item: any): any {
+    this.housedata.child(houseid + '/memberaccounttypes/' + item.id).update(item);
   }
    
 }

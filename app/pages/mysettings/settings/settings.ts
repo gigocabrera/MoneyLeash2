@@ -13,13 +13,11 @@ import {PickDefaultBalancePage} from '../../mypicklists/pickdefaultbalance/pickd
 import {PickDefaultDatePage} from '../../mypicklists/pickdefaultdate/pickdefaultdate';
 
 // services
-import {SettingsData} from '../../../providers/settings-data';
 import {UserData} from '../../../providers/user-data';
 import {UserInfo} from '../../../models/userinfo.model';
 
 @Component({
-  templateUrl: 'build/pages/mysettings/settings/settings.html',
-  providers: [SettingsData]
+  templateUrl: 'build/pages/mysettings/settings/settings.html'
 })
 export class SettingsPage {
 
@@ -33,7 +31,6 @@ export class SettingsPage {
     public nav: NavController,
     public modalController: ModalController,
     public platform: Platform,
-    public settingsData: SettingsData,
     public userData: UserData) {
 
     platform.ready().then(() => {
@@ -46,10 +43,7 @@ export class SettingsPage {
   }
 
   ionViewLoaded() {
-    this.settingsData.getUserData().on('value', (data) => {
-      this.userSettings = data.val();
-      this.houseid = this.userSettings.houseid;
-    });
+    this.userSettings = this.userData.userSettings;
   }
 
   openPersonalProfile() {
@@ -65,7 +59,7 @@ export class SettingsPage {
   }
 
   toggleTouchID(e) {
-    this.settingsData.updateTouchID(e.checked);
+    this.userData.updateTouchID(e.checked);
     this.userData.setEnableTouchID(e.checked);
   }
 
@@ -74,7 +68,7 @@ export class SettingsPage {
     modal.present(modal);
     modal.onDidDismiss((data: any) => {
       if (data) {
-        this.settingsData.updateDefaultBalance(data);
+        this.userData.updateDefaultBalance(data);
       }
     });
   }
@@ -84,7 +78,7 @@ export class SettingsPage {
     modal.present(modal);
     modal.onDidDismiss((data: any) => {
       if (data) {
-        this.settingsData.updateDefaultDate(data);
+        this.userData.updateDefaultDate(data);
       }
     });
   }

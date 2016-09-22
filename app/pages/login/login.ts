@@ -22,7 +22,6 @@ declare var firebase: any;
 export class LoginPage {
 
   public fireAuth: any;
-  public houseid: string;
   user = {'email': '', 'password': ''};
 
   constructor(
@@ -56,15 +55,10 @@ export class LoginPage {
   
   private LoginSuccess(loading): void {
     loading.dismiss();
-    
-    this.userData.loadUserPreferences();
-    this.settingsData.getUserData().on('value', (data) => {
-      this.userSettings = data.val();
-      this.houseid = this.userSettings.houseid;
+    this.userData.getUserData().on('value', (data) => {
+      this.userData.userSettings = data.val(); 
+      this.nav.setRoot(AccountListPage, {}, {animate: true, direction: 'forward'});
     });
-
-
-    this.nav.setRoot(AccountListPage, {}, {animate: true, direction: 'forward'});
   }
   
   private LoginError(error, loading): void {

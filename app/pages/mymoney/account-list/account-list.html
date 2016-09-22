@@ -12,6 +12,40 @@
   </ion-navbar>
 </ion-header>
 <ion-content>
+
+  <ion-list>
+
+    <ion-item-group>
+
+      <ion-item-divider sticky>
+        Checking
+      </ion-item-divider>
+
+      <ion-item-sliding *ngFor="let account of accounts">
+
+        <button ion-item (click)="viewtransactions(account)">
+          <h3>{{ account.accountname }}</h3>
+          <p>
+            {{account.balancecleared}} &mdash;
+            {{account.balancetoday}}:
+          </p>
+        </button>
+
+        <ion-item-options>
+          <button favorite (click)="edit(account)">
+            Favorite
+          </button>
+          <button danger (click)="delete(account)">
+            Remove
+          </button>
+        </ion-item-options>
+
+      </ion-item-sliding>
+
+    </ion-item-group>
+
+  </ion-list>
+
   <ion-item-divider mlitemdivider class="netWorthRow">
     Net Worth: <strong>{{networth}}</strong>
   </ion-item-divider>
