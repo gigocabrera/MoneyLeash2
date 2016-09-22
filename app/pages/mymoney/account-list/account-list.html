@@ -24,19 +24,35 @@
       <ion-item-sliding *ngFor="let account of accounts">
 
         <button ion-item (click)="viewtransactions(account)">
-          <h3>{{ account.accountname }}</h3>
-          <p>
-            {{account.balancecleared}} &mdash;
-            {{account.balancetoday}}:
-          </p>
+          
+          <ion-row>
+            <ion-col width-50>
+              <div class="customAccDesc">
+                <span>
+                    {{ account.accountname }}
+                </span>
+              </div>
+            </ion-col>
+            <ion-col width-50>  
+              <div class="customAccAmt  {{ account.BalanceClass }}">
+                <span>
+                  {{ account.balancecleared }}
+                  <small>
+                    {{ account.balancetoday }}
+                  </small>
+                </span>
+              </div>
+            </ion-col>
+          </ion-row>
+
         </button>
 
         <ion-item-options>
-          <button favorite (click)="edit(account)">
-            Favorite
+          <button mlgreen (click)="edit(account)">
+            Edit
           </button>
           <button danger (click)="delete(account)">
-            Remove
+            Delete
           </button>
         </ion-item-options>
 
@@ -46,28 +62,4 @@
 
   </ion-list>
 
-  <ion-item-divider mlitemdivider class="netWorthRow">
-    Net Worth: <strong>{{networth}}</strong>
-  </ion-item-divider>
-  <ion-list>
-    <ion-row *ngFor="let account of accounts" (click)="viewtransactions(account)" class="mlaccounts mlbottomborder">
-      <ion-col width-50>  
-        <div class="customAccDesc">
-          <span>
-              {{ account.accountname }}
-          </span>
-        </div>
-      </ion-col>
-      <ion-col width-50>  
-        <div class="customAccAmt  {{ account.BalanceClass }}">
-          <span>
-            {{ account.balancecleared }}
-            <small>
-              {{ account.balancetoday }}
-            </small>
-          </span>
-        </div>
-      </ion-col>
-    </ion-row>
-  </ion-list>
 </ion-content>
