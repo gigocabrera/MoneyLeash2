@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">Cancel</button>
+    </ion-buttons>
+    <ion-title>
+      {{ title }}
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="save(newtype)">Save</button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="outer-content">
+  <ion-list-header>
+    Enter Account Type Name
+  </ion-list-header>
+  <ion-list>
+    <ion-item class="ml-input">
+      <ion-icon item-left [name]="thisicon"></ion-icon>
+      <ion-input type="text" placeholder="Account Type" [(ngModel)]="thisname"></ion-input>
+    </ion-item>
+  </ion-list>
+</ion-content>

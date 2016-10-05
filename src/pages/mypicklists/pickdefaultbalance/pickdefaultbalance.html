@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">Cancel</button>
+    </ion-buttons>
+    <ion-title>
+      Default Balance
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="pickPreference(itemselected)">Save</button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="outer-content">
+  <ion-list-header>
+    Select default balance
+  </ion-list-header>
+  <ion-list radio-group [(ngModel)]="itemselected" class="reducedbottommargin">
+    <ion-item *ngFor="let item of defaultBalanceOptions">
+        <ion-label>{{item.text}}</ion-label>
+        <ion-radio [value]="item.value"></ion-radio>
+    </ion-item>
+  </ion-list>
+  <div padding class="divhelptext">
+    <p *ngIf="itemselected=='Current'">The current balance is the balance calculated up to the last transaction in your account register. This balance will be shown in the Accounts Summary screen</p>
+    <p *ngIf="itemselected=='Clear'">The cleared balance is the balance calculated from the transactions that have been flagged as cleared in your account register. This balance will be shown in the Accounts Summary screen</p>
+    <p *ngIf="itemselected=='Today'">Today's balance will be shown in the Accounts Summary screen</p>
+  </div>
+</ion-content>

@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-navbar>  
+    <button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>  
+    <ion-title>Personal Profile</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <div>
+    <ion-card>
+      <ion-card-content>
+        <img src="{{ userSettings?.profilepic }}"/>
+        <h2>{{ userSettings?.fullname }}</h2>
+        <h3>{{ userSettings?.email }}</h3>
+      </ion-card-content>
+    </ion-card>
+    <ion-list>
+      <button ion-item (click)="updateName()">Change Name</button>
+      <button ion-item (click)="takePicture()">Change Picture</button>
+      <button ion-item (click)="changeEmail()">Change Email</button>
+      <button ion-item (click)="changePassword()">Change Password</button>
+      <button ion-item (click)="deleteAccount()">Delete Account</button>
+      <button ion-item (click)="logout()">Logout</button>
+    </ion-list>
+  </div>
+</ion-content>
