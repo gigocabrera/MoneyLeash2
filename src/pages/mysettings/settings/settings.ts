@@ -56,9 +56,10 @@ export class SettingsPage {
     this.nav.push(AboutPage);
   }
 
-  toggleTouchID(e) {
-    this.userData.updateTouchID(e.checked);
-    this.userData.setEnableTouchID(e.checked);
+  toggleTouchID() {
+    console.log(this.userSettings.enabletouchid);
+    this.userData.updateTouchID(this.userSettings.enabletouchid);
+    this.userData.setEnableTouchID(this.userSettings.enabletouchid);
   }
 
   changeDefaltBalance() {
