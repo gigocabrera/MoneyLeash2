@@ -19,7 +19,6 @@ import { UserData } from '../../../providers/user-data';
 export class SettingsPage {
 
   appversion = '';
-  userSettings: any;
   houseid: string;
   imgsrc: string;
   
@@ -38,16 +37,12 @@ export class SettingsPage {
     });
   }
 
-  ionViewDidLoad() {
-    this.userSettings = this.userData.userSettings;
-  }
-
   openPersonalProfile() {
-    this.nav.push(PersonalProfilePage, {paramSettings: this.userSettings});
+    this.nav.push(PersonalProfilePage, {paramSettings: this.userData.user});
   }
 
   openAccountTypes() {
-    this.nav.push(AccountTypesPage, {paramHouseid: this.userSettings.houseid});
+    this.nav.push(AccountTypesPage, {paramHouseid: this.userData.houseid});
   }
 
   openAboutPage() {
@@ -59,7 +54,7 @@ export class SettingsPage {
   }
 
   changeDefaltBalance() {
-    let modal = this.modalController.create(PickDefaultBalancePage, {paramBalance: this.userSettings.defaultbalance});
+    let modal = this.modalController.create(PickDefaultBalancePage, {paramBalance: this.userData.user.defaultbalance});
     modal.present(modal);
     modal.onDidDismiss((data: any) => {
       if (data) {
@@ -69,7 +64,7 @@ export class SettingsPage {
   }
 
   changeDefaltDate() {
-    let modal = this.modalController.create(PickDefaultDatePage, {paramDate: this.userSettings.defaultdate});
+    let modal = this.modalController.create(PickDefaultDatePage, {paramDate: this.userData.user.defaultdate});
     modal.present(modal);
     modal.onDidDismiss((data: any) => {
       if (data) {
