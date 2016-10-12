@@ -31,11 +31,11 @@ export class PickDefaultDatePage {
   }
 
   pickPreference(dateSelected) {
-    this.dismiss(dateSelected);
+    this.viewCtrl.dismiss(dateSelected);
   }
 
-  dismiss(dateSelected) {
-    this.viewCtrl.dismiss(dateSelected);
+  dismiss() {
+    this.viewCtrl.dismiss();
   }
     
 }

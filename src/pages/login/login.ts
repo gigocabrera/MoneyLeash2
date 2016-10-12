@@ -11,8 +11,8 @@ import { AccountListPage } from '../mymoney/account-list/account-list';
 import { UserData } from '../../providers/user-data';
 
 @Component({
-  templateUrl: 'login.html',
-  selector: 'page-login'
+  selector: 'page-login',
+  templateUrl: 'login.html'
 })
 export class LoginPage {
   

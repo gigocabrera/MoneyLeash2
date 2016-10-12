@@ -1,4 +1,4 @@
-var ngTemplate = require('../dist/plugins/ng-template').ngTemplate;
+var ngTemplate = require('@ionic/app-scripts/dist/plugins/ng-template').ngTemplate;
 var nodeResolve = require('rollup-plugin-node-resolve');
 var commonjs = require('rollup-plugin-commonjs');
 var globals = require('rollup-plugin-node-globals');
@@ -41,13 +41,16 @@ var rollupConfig = {
   plugins: [
     ngTemplate(),
     builtins(),
-    commonjs({
+    commonjs(
+    {
       include: [
-        'node_modules/rxjs/**', // firebase needs rxjs to avoid build errors
-        'node_modules/firebase/**', // here we're calling firebase.
+        'node_modules/rxjs/**',
+        'node_modules/angularfire2/**',
+        'node_modules/firebase/**'
       ],
       namedExports: {
-        'node_modules/firebase/firebase.js': ['initializeApp', 'auth', 'database'],
+        'node_modules/angularfire2/node_modules/firebase/firebase.js': ['initializeApp', 'auth', 'database'],
+        'node_modules/angularfire2/node_modules/firebase/firebase-browser.js': ['initializeApp', 'auth', 'database']
       }
     }),
     nodeResolve({

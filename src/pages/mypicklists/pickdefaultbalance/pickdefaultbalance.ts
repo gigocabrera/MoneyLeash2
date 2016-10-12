@@ -27,11 +27,11 @@ export class PickDefaultBalancePage {
   }
   
   pickPreference(balanceSelected) {
-    this.dismiss(balanceSelected);
+    this.viewCtrl.dismiss(balanceSelected);
   }
 
-  dismiss(balanceSelected) {
-    this.viewCtrl.dismiss(balanceSelected);
+  dismiss() {
+    this.viewCtrl.dismiss();
   }
     
 }

@@ -12,5 +12,9 @@ export class CategoryListPage {
 
   constructor(
       public nav: NavController) {}
-       
+  
+  add() {
+    
+  }
+  
 }

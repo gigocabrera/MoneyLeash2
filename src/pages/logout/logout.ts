@@ -7,6 +7,7 @@ import { LoginPage } from '../login/login';
 import { SignupPage } from '../signup/signup';
 
 @Component({
+  selector: 'page-logout',
   templateUrl: 'logout.html'
 })
 export class LogoutPage {
@@ -14,11 +15,11 @@ export class LogoutPage {
     public nav: NavController, 
     public menu: MenuController) {}
   
-  doLogin(form) {
+  onLogin() {
     this.nav.push(LoginPage, {}, {animate: true, direction: 'reverse'});
   }
 
-  doSignup() {
+  onSignup() {
     this.nav.push(SignupPage, {}, {animate: true, direction: 'reverse'});
   }
   

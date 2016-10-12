@@ -12,5 +12,9 @@ export class RecurringListPage {
 
   constructor(
       public nav: NavController) {}
-      
+  
+  add() {
+    
+  }
+  
 }

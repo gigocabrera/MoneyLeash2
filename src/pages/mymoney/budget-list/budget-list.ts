@@ -13,4 +13,9 @@ export class BudgetListPage {
   constructor(
       public nav: NavController) {}
   
+
+  add() {
+    
+  }
+  
 }

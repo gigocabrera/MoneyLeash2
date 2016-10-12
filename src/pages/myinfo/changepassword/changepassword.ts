@@ -14,11 +14,11 @@ export class ChangePasswordPage {
       public viewCtrl: ViewController) { }  
  
   changePassword(newpassword) {
-    this.dismiss(newpassword);
+    this.viewCtrl.dismiss(newpassword);
   }
   
-  dismiss(newpassword) {
-    this.viewCtrl.dismiss(newpassword);
+  dismiss() {
+    this.viewCtrl.dismiss();
   }
     
 }

@@ -13,4 +13,8 @@ export class PayeeListPage {
   constructor(
       public nav: NavController) {}
   
+  add() {
+    
+  }
+  
 }

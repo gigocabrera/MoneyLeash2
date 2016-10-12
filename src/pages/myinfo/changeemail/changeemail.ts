@@ -14,11 +14,11 @@ export class ChangeEmailPage {
     public viewCtrl: ViewController) {}
   
   changeEmail(newemail) {
-    this.dismiss(newemail);
+    this.viewCtrl.dismiss(newemail);
   }
   
-  dismiss(newemail) {
-    this.viewCtrl.dismiss(newemail);
+  dismiss() {
+    this.viewCtrl.dismiss();
   }
     
 }

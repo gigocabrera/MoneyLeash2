@@ -12,5 +12,9 @@ export class ReportListPage {
 
   constructor(
       public nav: NavController) {}
-      
+  
+  add() {
+    
+  }
+  
 }

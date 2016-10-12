@@ -8,17 +8,17 @@ import { ViewController } from 'ionic-angular';
 
 export class ChangeNamePage { 
 
-  newemail: string = '';
+  newname: string = '';
 
   constructor(
     public viewCtrl: ViewController) {}
   
   changeName(newname) {
-    this.dismiss(newname);
+    this.viewCtrl.dismiss(newname);
   }
   
-  dismiss(newname) {
-    this.viewCtrl.dismiss(newname);
+  dismiss() {
+    this.viewCtrl.dismiss();
   }
     
 }

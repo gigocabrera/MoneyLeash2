@@ -9,6 +9,10 @@ import { NavController } from 'ionic-angular';
 
 export class AccountPage {
 
+  accountname: string = '';
+  accountbegindate?: string;
+  accounttype?: string;
+
   constructor(
       public nav: NavController) {}
 

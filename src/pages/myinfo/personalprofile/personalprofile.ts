@@ -272,5 +272,9 @@ export class PersonalProfilePage {
     });
     alert.present();
   }
+
+  logout() {
+    this.doLogout();
+  }
   
 }
