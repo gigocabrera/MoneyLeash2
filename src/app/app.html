@@ -1,6 +1,4 @@
-
 <ion-menu [content]="content">
-
   <ion-toolbar mlgreen>
     <ion-title>MoneyLeash</ion-title>
   </ion-toolbar>
@@ -9,7 +7,7 @@
       <ion-list-header>
         Navigate
       </ion-list-header>
-      <button ion-item menuClose *ngFor="let p of appPages" (click)="openPage(p)">
+      <button ion-item menuClose *ngFor="let p of pages" (click)="openPage(p)">
         <ion-icon item-left [name]="p.icon" [ngStyle]="{'color':p.color}"></ion-icon>
         {{p.title}}
       </button>
@@ -18,14 +16,13 @@
       <ion-list-header>
         Account
       </ion-list-header>
-      <button ion-item menuClose *ngFor="let p of logoutPage" (click)="openPage(p)">
+      <button ion-item menuClose *ngFor="let p of logoutpages" (click)="openPage(p)">
         <ion-icon item-left [name]="p.icon" [ngStyle]="{'color':p.color}"></ion-icon>
         {{p.title}}
       </button>
     </ion-list>
   </ion-content>
-
 </ion-menu>
 
-<!-- main navigation -->
+<!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
 <ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>

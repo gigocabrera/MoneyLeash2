@@ -12,18 +12,16 @@ import { PickDefaultDatePage } from '../../mypicklists/pickdefaultdate/pickdefau
 
 // services
 import { UserData } from '../../../providers/user-data';
-import { UserInfo } from '../../../models/userinfo.model';
 
 @Component({
   templateUrl: 'settings.html'
 })
 export class SettingsPage {
 
-  public appversion = '';
-  public userSettings: any;
-  public houseid: string;
-  public imgsrc: string;
-  public info: UserInfo[] = [];
+  appversion = '';
+  userSettings: any;
+  houseid: string;
+  imgsrc: string;
   
   constructor(
     public nav: NavController,
@@ -56,10 +54,8 @@ export class SettingsPage {
     this.nav.push(AboutPage);
   }
 
-  toggleTouchID() {
-    console.log(this.userSettings.enabletouchid);
-    this.userData.updateTouchID(this.userSettings.enabletouchid);
-    this.userData.setEnableTouchID(this.userSettings.enabletouchid);
+  toggleTouchID(e) {
+    this.userData.updateTouchID(e.checked)
   }
 
   changeDefaltBalance() {

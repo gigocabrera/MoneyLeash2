@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 
 import { NavController } from 'ionic-angular';
 
+// app pages
+import { AccountPage } from '../account/account';
+
 // services
 import {AccountData} from '../../../providers/account-data';
 import {UserData} from '../../../providers/user-data';
@@ -23,7 +26,7 @@ export class AccountListPage {
 
   ionViewDidLoad() {
 
-    this.accountData.getAllAccounts(this.userData.houseid()).on('value', (accounts) => {
+    /*this.accountData.getAllAccounts(this.userData.houseid()).on('value', (accounts) => {
       
       let rawList= [];
       var clearedBal = 0;
@@ -60,12 +63,16 @@ export class AccountListPage {
       this.accounts = rawList;
       this.networth = netWorth.toFixed(2);
 
-    });
+    });*/
   }
 
   viewtransactions (account) {
     console.log('edit here');
     //this.nav.push(AccountPage, {paramSettings: this.userSettings});
+  }
+
+  createAccount() {
+    this.nav.push(AccountPage);
   }
   
 }

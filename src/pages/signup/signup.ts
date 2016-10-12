@@ -6,7 +6,6 @@ import { AccountListPage } from '../mymoney/account-list/account-list';
 
 // Services
 import { UserData } from '../../providers/user-data';
-import { SignupData } from '../../providers/signup-data';
 
 @Component({
   selector: 'page-signup',
@@ -22,8 +21,7 @@ export class SignupPage {
     public nav: NavController,
     public alertController: AlertController,
     public loadingController: LoadingController,
-    public userData: UserData,
-    public signupData: SignupData) { }
+    public userData: UserData) { }
   
   onSignup(form) {
     this.submitted = true;
@@ -33,11 +31,11 @@ export class SignupPage {
       });
       loading.present();
 
-      this.signupData.createUser(this.signup).then(() => {
-          this.userData.saveLocalStorage(this.signup);
-          this.signupData.createInitialSetup(this.signup);
+      this.userData.createUser(this.signup).then(() => {
+          //this.userData.saveLocalStorage(this.signup);
+          this.userData.createInitialSetup(this.signup);
           this.nav.setRoot(AccountListPage, {}, {animate: true, direction: 'forward'});
-          loading.dismiss();        
+          loading.dismiss();
         }).catch(
         (error) => {
           this.SignUpError(error);

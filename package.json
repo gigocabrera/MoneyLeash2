@@ -1,10 +1,11 @@
 {
-  "name": "ionic-conference-app",
-  "description": "Ionic Conference App",
-  "license": "Apache-2.0",
+  "name": "MoneyLeash",
+  "author": "Luis Cabrera",
+  "homepage": "http://moneyleash.com/",
+  "private": true,
   "repository": {
     "type": "git",
-    "url": "https://github.com/driftyco/ionic-conference-app.git"
+    "url": "https://github.com/gigocabrera/MoneyLeash2"
   },
   "scripts": {
     "build": "ionic-app-scripts build",
@@ -16,29 +17,27 @@
     "run:before": "build"
   },
   "dependencies": {
-    "ionic-angular": "2.0.0-rc.0",
-    "ionicons" : "^3.0.0",
-    "@ionic/storage": "^1.0.3",
-    "ionic-native": "^2.0.3"
+    "@ionic/app-scripts": "0.0.28",
+    "@ionic/storage": "1.1.6",
+    "angularfire2": "^2.0.0-beta.5",
+    "firebase": "^3.4.1",
+    "ionic-angular": "^2.0.0-rc.0",
+    "ionic-native": "^2.0.3",
+    "ionicons": "^3.0.0"
   },
   "devDependencies": {
-    "@ionic/app-scripts": "^0.0.23",
+    "@ionic/app-scripts": "0.0.28",
+    "@types/request": "0.0.30",
     "typescript": "^2.0.3"
   },
+  "description": "Don't let your money run wild. Keep it on a leash!",
   "cordovaPlugins": [
+    "cordova-plugin-device",
+    "cordova-plugin-console",
     "cordova-plugin-whitelist",
-    {
-      "locator": "https://github.com/VersoSolutions/CordovaClipboard",
-      "id": "com.verso.cordova.clipboard"
-    },
-    {
-      "locator": "https://github.com/apache/cordova-plugin-splashscreen.git",
-      "id": "cordova-plugin-splashscreen"
-    },
-    "cordova-plugin-crosswalk-webview"
+    "cordova-plugin-splashscreen",
+    "cordova-plugin-statusbar",
+    "ionic-plugin-keyboard"
   ],
-  "cordovaPlatforms": [
-    "ios",
-    "android"
-  ]
+  "cordovaPlatforms": []
 }

@@ -1,18 +1,34 @@
 <ion-header>
   <ion-navbar>
-    <button menuToggle>
+    <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>Accounts</ion-title>
     <ion-buttons end>
-      <button (click)="presentFilter()">
-        <ion-icon name="add"></ion-icon>
-      </button>
+      <button ion-button (click)="save()">Save</button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
 <ion-content>
   <ion-list>
-    Accounts here
+    
+    <ion-item class="ml-input">
+      <ion-icon name="ios-clipboard-outline" item-left></ion-icon>
+      <ion-input type="text" placeholder="Account Name" [(ngModel)]="accountname"></ion-input>
+      <ion-icon name="arrow-forward" item-right></ion-icon>
+    </ion-item>
+
+    <ion-item class="ml-input">
+      <ion-icon name="ios-calendar-outline" item-left></ion-icon>
+      <ion-input type="text" placeholder="Begin Date" [(ngModel)]="accountbegindate"></ion-input>
+      <ion-icon name="arrow-forward" item-right></ion-icon>
+    </ion-item>
+
+    <ion-item class="ml-input">
+      <ion-icon name="ios-cash-outline" item-left></ion-icon>
+      <ion-input type="text" placeholder="Account Type" [(ngModel)]="accounttype"></ion-input>
+      <ion-icon name="arrow-forward" item-right></ion-icon>
+    </ion-item>
+
   </ion-list>
 </ion-content>

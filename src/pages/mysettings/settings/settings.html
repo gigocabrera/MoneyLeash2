@@ -52,7 +52,7 @@
     <ion-item>
       <ion-icon danger item-left name="finger-print"></ion-icon>
       <ion-label>Enable TouchID</ion-label>
-      <ion-toggle [(ngModel)]="userSettings.enabletouchid" (click)="toggleTouchID()" checked="{{ userSettings?.enabletouchid }}"></ion-toggle>
+      <ion-toggle (ionChange)="toggleTouchID($event)" checked="{{ userSettings?.enabletouchid }}"></ion-toggle>
     </ion-item>
   </ion-list>
   <ion-list>

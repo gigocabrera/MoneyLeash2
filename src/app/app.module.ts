@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 
 import { IonicApp, IonicModule } from 'ionic-angular';
-import { Storage } from '@ionic/storage';
+//import { Storage } from '@ionic/storage';
 
-import { MoneyLeashApp } from './app.component';
+import { MoneyLeash } from './app.component';
 
 // app pages
 import { AboutPage, PopoverPage } from '../pages/about/about';
@@ -42,12 +42,27 @@ import { TutorialPage } from '../pages/tutorial/tutorial';
 
 // services
 import { AccountData } from '../providers/account-data';
-import { SignupData } from '../providers/signup-data';
 import { UserData } from '../providers/user-data';
+
+import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
+
+// YOUR SETTINGS GOES HERE!
+export const firebaseConfig = {
+  apiKey: "AIzaSyAjiJc9cXvd3bzl-aW0wbQC6sajr6RH5hg",
+  authDomain: "brilliant-inferno-1044.firebaseapp.com",
+  databaseURL: "https://brilliant-inferno-1044.firebaseio.com",
+  storageBucket: "brilliant-inferno-1044.appspot.com",
+  messagingSenderId: "1097950001655"
+};
+
+const firebaseAuthConfig = {
+  provider: AuthProviders.Password,
+  method: AuthMethods.Password
+}
 
 @NgModule({
   declarations: [
-    MoneyLeashApp,
+    MoneyLeash,
     AboutPage,
     PopoverPage,
     ForgotPasswordPage,
@@ -75,11 +90,12 @@ import { UserData } from '../providers/user-data';
     TutorialPage
   ],
   imports: [
-    IonicModule.forRoot(MoneyLeashApp)
+    IonicModule.forRoot(MoneyLeash),
+    AngularFireModule.initializeApp(firebaseConfig, firebaseAuthConfig)
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MoneyLeashApp,
+    MoneyLeash,
     AboutPage,
     PopoverPage,
     ForgotPasswordPage,
@@ -106,6 +122,6 @@ import { UserData } from '../providers/user-data';
     SignupPage,
     TutorialPage
   ],
-  providers: [AccountData, SignupData, UserData, Storage]
+  providers: [AccountData, UserData]
 })
 export class AppModule {}

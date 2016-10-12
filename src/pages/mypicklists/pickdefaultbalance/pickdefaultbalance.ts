@@ -20,7 +20,7 @@ export class PickDefaultBalancePage {
 
     this.defaultBalanceOptions = [
           { text: 'Current Balance', value: 'Current' },
-          { text: 'Cleared Balance', value: 'Clear' },
+          { text: 'Cleared Balance', value: 'Cleared' },
           { text: 'Today\'s Balance', value: 'Today' }];
 
     this.itemselected = this.navParams.data.paramBalance;
