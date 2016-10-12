@@ -33,7 +33,7 @@ export class SignupPage {
 
       this.userData.createUser(this.signup).then(() => {
           //this.userData.saveLocalStorage(this.signup);
-          this.userData.createInitialSetup(this.signup);
+          //this.userData.createInitialSetup(this.signup);
           this.nav.setRoot(AccountListPage, {}, {animate: true, direction: 'forward'});
           loading.dismiss();
         }).catch(

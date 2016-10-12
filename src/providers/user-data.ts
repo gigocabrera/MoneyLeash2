@@ -20,18 +20,44 @@ export class UserData {
 
   constructor(public af: AngularFire) {
 
+    this.userdata = firebase.database().ref('/users/');
+    this.housedata = firebase.database().ref('/houses/');
     this.profilepicdata = firebase.storage().ref('/profilepics/');
 
   }
 
+  /**
+  * Creates a new user using the plain vanilla Firebase SDK
+  */
   createUser(credentials) {
+    return new Promise((resolve: () => void, reject: (reason: Error) => void) => {
+      firebase.auth().createUserWithEmailAndPassword(credentials.username, credentials.password)     
+      .then((authData) => {
+        this.currentuser = authData;
+        this.createInitialSetup(credentials);
+        resolve();
+      }).catch(error => {
+        reject(error);
+      });
+    });
+  }
+
+  /**
+  * Creates a new user and then logs the user in (AngularFire2). This is so cumbersome as the 
+  * plain vanilla SDK createUserWithEmailAndPassword function signs in the user automatically
+  */
+  createUser2(credentials) {
     var creds: any = { email: credentials.username, password: credentials.password };
     return new Promise((resolve: () => void, reject: (reason: Error) => void) => {
       this.af.auth.createUser(creds)     
-      .then((authData) => {
-        this.currentuser = authData;
-        resolve();
-      }).catch(error => {
+      .then((newUser) => {
+        this.af.auth.login({email: credentials.username,password: credentials.password})
+        .then((authData) => {
+          this.currentuser = authData;
+          resolve();
+        })
+      }).catch((error) => {
+        console.log(error);
         reject(error);
       });
     });
@@ -43,7 +69,7 @@ export class UserData {
       .then((authData) => {
         this.currentuser = authData;
         resolve();
-      }).catch(error => {
+      }).catch((error) => {
         reject(error);
       });
     });
@@ -62,13 +88,9 @@ export class UserData {
       housenumber: this.RandomHouseCode(),
       profilepic: 'http://www.gravatar.com/avatar?d=mm&s=140'
     };
-
-    console.log(this.currentuser.uid);
     
     // Save user profile
-    this.af.database.object('/users/' + this.currentuser.uid).update(profile);
-
-console.log('profile done');
+    this.userdata.child(this.currentuser.uid).update(profile);
 
     // Create House node
     this.createHouse(credentials);
@@ -79,29 +101,31 @@ console.log('profile done');
     // Set basic house defaults
     var housemember = {
         isadmin: true,
-        createdby: credentials.username,
+        createdby: credentials.email,
         dateCreated: firebase.database['ServerValue']['TIMESTAMP'],
     };
 
-    console.log(housemember);
-
     // Create node under houses and get the key
-    var key = this.af.database.list('/houses').push('').key;
-    //var key = this.housedata.push().key;
+    var key = this.housedata.push().key;
+
+    console.log(key);
 
     // Save key into the user->houseid node 
-    this.af.database.object('/users/' + this.currentuser.uid).update({houseid : key});
-    //this.userdata.child(this.currentuser.uid).update({houseid : key});
+    this.userdata.child(this.currentuser.uid).update({houseid : key});
+
+    console.log('key 0');
+    console.log(this.housedata);
+    console.log(this.currentuser.uid);
+    console.log(housemember);
 
     // Add member to housemembers node under Houses
     this.af.database.object('/houses/' + key + '/housemembers/' + this.currentuser.uid).update(housemember);
     //this.housedata.child(key + "/housemembers/" + this.currentuser.uid).update(housemember);
 
-    console.log('yo mama 1');
+    console.log('key 1');
 
     // Save default Account Types
-    //var refTypes = this.housedata.child(key + "/memberaccounttypes/");
-    var refTypes = this.af.database.list('/houses/' + key + '/housemembers/');
+    var refTypes = this.housedata.child(key + "/memberaccounttypes/");
     refTypes.push({ name: 'Checking', icon: 'fa fa-university' });
     refTypes.push({ name: 'Savings', icon: 'fa fa-life-ring' });
     refTypes.push({ name: 'Credit Card', icon: 'fa fa-credit-card' });
@@ -109,24 +133,28 @@ console.log('profile done');
     refTypes.push({ name: 'Investment', icon: 'fa fa-suitcase' });
     refTypes.push({ name: 'Brokerage', icon: 'fa fa-suitcase' });
 
-console.log('yo mama 2');
+    console.log('key 2');
 
     // Save default categories
-    //var refCatIncome = this.housedata.child(key + "/membercategories/Income");
-    var refCatIncome = this.af.database.list('/houses/' + key + '/membercategories/Income');
+    var refCatIncome = this.housedata.child(key + "/membercategories/Income");
     refCatIncome.push({ categoryname: 'Income', categoryparent: '', categorysort: 'Income', categorytype: 'Income' });
     refCatIncome.push({ categoryname: 'Beginning Balance', categoryparent: 'Income', categorysort: 'Income:Beginning Balance', categorytype: 'Income' });
 
-    //var refCatExpense = this.housedata.child(key + "/membercategories/Expense");
-    var refCatExpense = this.af.database.list('/houses/' + key + '/membercategories/Expense');
+    console.log('key 3');
+
+    var refCatExpense = this.housedata.child(key + "/membercategories/Expense");
     refCatExpense.push({ categoryname: 'Auto', categoryparent: '', categorysort: 'Auto', categorytype: 'Expense' });
     refCatExpense.push({ categoryname: 'Gasoline', categoryparent: 'Auto', categorysort: 'Auto:Gas', categorytype: 'Expense' });
     refCatExpense.push({ categoryname: 'Car Payment', categoryparent: 'Auto', categorysort: 'Auto:Car Payment', categorytype: 'Expense' });
 
+    console.log('key 4');
+
     // Save default Payees
-    //var refPayee = this.housedata.child(key + "/memberpayees");
-    var refPayee = this.af.database.list('/houses/' + key + '/memberpayees');
+    var refPayee = this.housedata.child(key + "/memberpayees");
     refPayee.push({ lastamount: '', lastcategory: '', lastcategoryid: '', payeename: 'Beginning Balance' });
+
+    console.log('key 5');
+
   }
 
   RandomHouseCode() {

@@ -19,6 +19,10 @@
         ".read": "auth != null && auth.uid === $uid",
         ".write": "auth != null && auth.uid === $uid"
       }
+    },
+    "images": {
+      ".read": true,
+      ".write": true
     }
   }
 }
