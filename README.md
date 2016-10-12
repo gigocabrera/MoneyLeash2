@@ -17,7 +17,8 @@ will stay as an **open source** project. Your feedback/help would be greatly app
 
 - Clone this repository.
 - Run `npm install` from the project root.
-- Install the ionic CLI (`npm install -g ionic@beta`)
+- Install Firebase types `npm install @types/request@0.0.30 --save-dev --save-exact`
+- Install AngularFire2 `npm install firebase angularfire2 --save`
 - Run `ionic serve` in a terminal from the project root
 
 You may also need to:
