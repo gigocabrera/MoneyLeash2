@@ -13,7 +13,7 @@ import { UserData } from '../../providers/user-data';
 })
 export class SignupPage {
   
-  signup: {fullname?: string, username?: string, password?: string} = {};
+  signup: {fullname?: string, email?: string, password?: string} = {};
   submitted = false;
   alertMessage: any;
 

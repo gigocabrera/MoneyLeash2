@@ -8,8 +8,6 @@ import { AngularFire } from 'angularfire2';
 @Injectable()
 export class UserData {
   
-  username = '';
-  userpwd = '';
   enabletouchid = '';
   appversion = '';
   user;
@@ -32,7 +30,7 @@ export class UserData {
   */
   createUser(credentials) {
     return new Promise((resolve: () => void, reject: (reason: Error) => void) => {
-      firebase.auth().createUserWithEmailAndPassword(credentials.username, credentials.password)     
+      firebase.auth().createUserWithEmailAndPassword(credentials.email, credentials.password)     
       .then((authData) => {
         this.userauth = authData;
         this.user = credentials;
@@ -49,11 +47,11 @@ export class UserData {
   * plain vanilla SDK createUserWithEmailAndPassword function signs in the user automatically
   */
   createUser2(credentials) {
-    var creds: any = { email: credentials.username, password: credentials.password };
+    var creds: any = { email: credentials.email, password: credentials.password };
     return new Promise((resolve: () => void, reject: (reason: Error) => void) => {
       this.af.auth.createUser(creds)     
       .then((newUser) => {
-        this.af.auth.login({email: credentials.username,password: credentials.password})
+        this.af.auth.login({email: credentials.email,password: credentials.password})
         .then((authData) => {
           this.userauth = authData;
           resolve();
@@ -67,7 +65,7 @@ export class UserData {
 
   login(credentials) {
     return new Promise((resolve: () => void, reject: (reason: Error) => void) => {
-      this.af.auth.login({email: credentials.username,password: credentials.password})     
+      this.af.auth.login({email: credentials.email,password: credentials.password})     
       .then((authData) => {
         this.userauth = authData;
         resolve();
@@ -95,7 +93,7 @@ export class UserData {
       datecreated: firebase.database['ServerValue']['TIMESTAMP'],
       defaultbalance: 'Current',
       defaultdate: 'None',
-      email: this.user.username,
+      email: this.user.email,
       enabletouchid: 'false',
       fullname: this.user.fullname,
       housenumber: this.RandomHouseCode(),
@@ -117,7 +115,7 @@ export class UserData {
     // Set basic house defaults
     var housemember = {
         isadmin: true,
-        createdby: this.user.username,
+        createdby: this.user.email,
         dateCreated: firebase.database['ServerValue']['TIMESTAMP'],
     };
 
@@ -212,7 +210,7 @@ export class UserData {
   }
 
   logout() {
-    //return firebase.auth().signOut()
+    return firebase.auth().signOut();
   }
 
   houseid() {

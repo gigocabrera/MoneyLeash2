@@ -4,7 +4,6 @@ import { StatusBar } from 'ionic-native';
 
 // intro and login pages
 import { TutorialPage } from '../pages/tutorial/tutorial';
-//import { LoginAutoPage } from '../pages/loginauto/loginauto';
 import { LogoutPage } from '../pages/logout/logout';
 
 // app pages
@@ -15,6 +14,9 @@ import {RecurringListPage } from '../pages/mymoney/recurring-list/recurring-list
 import {PayeeListPage } from '../pages/mymoney/payee-list/payee-list';
 import {ReportListPage } from '../pages/mymoney/report-list/report-list';
 import {SettingsPage } from '../pages/mysettings/settings/settings';
+
+// services
+import { UserData } from '../providers/user-data';
 
 @Component({
   templateUrl: 'app.html'
@@ -27,7 +29,10 @@ export class MoneyLeash {
   pages: Array<{title: string, component: any, icon: string, color: string}>;
   logoutpages: Array<{title: string, component: any, icon: string, color: string}>;
 
-  constructor(public platform: Platform) {
+  constructor(
+    public platform: Platform,
+    public userData: UserData) {
+    
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -59,4 +64,10 @@ export class MoneyLeash {
     // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);
   }
+
+  logout() {
+    this.userData.logout();
+    this.nav.setRoot(LogoutPage);
+  }
+
 }

@@ -16,7 +16,7 @@
       <ion-list-header>
         Account
       </ion-list-header>
-      <button ion-item menuClose *ngFor="let p of logoutpages" (click)="openPage(p)">
+      <button ion-item menuClose *ngFor="let p of logoutpages" (click)="logout()">
         <ion-icon item-left [name]="p.icon" [ngStyle]="{'color':p.color}"></ion-icon>
         {{p.title}}
       </button>

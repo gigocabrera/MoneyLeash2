@@ -16,12 +16,12 @@
 
     <form #loginForm="ngForm" novalidate>
       <ion-item>
-        <ion-label floating color="primary">Username</ion-label>
-        <ion-input [(ngModel)]="login.username" name="username" type="text" #username="ngModel" spellcheck="false" autocapitalize="off" required>
+        <ion-label floating color="primary">Email</ion-label>
+        <ion-input [(ngModel)]="login.email" name="email" type="text" #email="ngModel" spellcheck="false" autocapitalize="off" required>
         </ion-input>
       </ion-item>
-      <p [hidden]="username.valid || submitted == false" color="danger" padding-left>
-        Username is required
+      <p [hidden]="email.valid || submitted == false" color="danger" padding-left>
+        Email is required
       </p>
 
       <ion-item>

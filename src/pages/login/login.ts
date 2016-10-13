@@ -16,7 +16,7 @@ import { UserData } from '../../providers/user-data';
 })
 export class LoginPage {
   
-  login: {username?: string, password?: string} = {};
+  login: {email?: string, password?: string} = {};
   submitted = false;
   //public fireAuth: any;
 
@@ -26,7 +26,7 @@ export class LoginPage {
     public navCtrl: NavController, 
     public userData: UserData) {
 
-    this.login.username = 'guni@test.com';
+    this.login.email = 'guni@test.com';
     this.login.password = '111111';
 
    }

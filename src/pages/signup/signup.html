@@ -26,12 +26,12 @@
       </p>
 
       <ion-item>
-        <ion-label floating color="primary">Username</ion-label>
-        <ion-input [(ngModel)]="signup.username" name="username" type="text" #username="ngModel" required>
+        <ion-label floating color="primary">Email</ion-label>
+        <ion-input [(ngModel)]="signup.email" name="email" type="text" #email="ngModel" required>
         </ion-input>
       </ion-item>
-      <p [hidden]="username.valid || submitted == false" color="danger" padding-left>
-        Username is required
+      <p [hidden]="email.valid || submitted == false" color="danger" padding-left>
+        Email is required
       </p>
 
       <ion-item>

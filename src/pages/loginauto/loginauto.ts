@@ -32,7 +32,7 @@ export class LoginAutoPage {
       });
       loading.present();
 
-      // Login user with Firebase
+      /*// Login user with Firebase
       this.fireAuth.signInWithEmailAndPassword({email: this.userData.username, password: this.userData.userpwd}).then((authData) => {
         //this.db.getMyPreferences();
         loading.dismiss();
@@ -42,7 +42,7 @@ export class LoginAutoPage {
         // (a) account deleted; (b) account disabled; (c) loss connection to firebase; (d) etc.
         this.nav.setRoot(LoginPage);
         loading.dismiss();
-      })
+      })*/
     }
 
 }
