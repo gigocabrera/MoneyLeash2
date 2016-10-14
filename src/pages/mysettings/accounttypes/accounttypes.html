@@ -13,9 +13,9 @@
     <ion-list-header>
       Account Types
     </ion-list-header>
-      <button ion-item *ngFor="let item of items" (click)="edit(item)">
+      <button ion-item *ngFor="let item of items | async" (click)="edit(item)">
         <ion-icon item-left [name]="item.icon"></ion-icon>
-        {{item.name}}
+        {{ item.name }}
       </button>
     </ion-list>
 </ion-content>

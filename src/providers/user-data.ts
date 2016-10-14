@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import 'rxjs';
 
 // firebase/angularfire
-import { AngularFire } from 'angularfire2';
+import { AngularFire, FirebaseObjectObservable } from 'angularfire2';
 
 @Injectable()
 export class UserData {
@@ -42,32 +42,12 @@ export class UserData {
     });
   }
 
-  /**
-  * Creates a new user and then logs the user in (AngularFire2). This is so cumbersome as the 
-  * plain vanilla SDK createUserWithEmailAndPassword function signs in the user automatically
-  */
-  createUser2(credentials) {
-    var creds: any = { email: credentials.email, password: credentials.password };
-    return new Promise((resolve: () => void, reject: (reason: Error) => void) => {
-      this.af.auth.createUser(creds)     
-      .then((newUser) => {
-        this.af.auth.login({email: credentials.email,password: credentials.password})
-        .then((authData) => {
-          this.userauth = authData;
-          resolve();
-        })
-      }).catch((error) => {
-        console.log(error);
-        reject(error);
-      });
-    });
-  }
-
   login(credentials) {
     return new Promise((resolve: () => void, reject: (reason: Error) => void) => {
-      this.af.auth.login({email: credentials.email,password: credentials.password})     
+      this.af.auth.login({email: credentials.email,password: credentials.password})
       .then((authData) => {
         this.userauth = authData;
+        this.getUserData();
         resolve();
       }).catch((error) => {
         reject(error);
@@ -97,7 +77,8 @@ export class UserData {
       enabletouchid: 'false',
       fullname: this.user.fullname,
       housenumber: this.RandomHouseCode(),
-      profilepic: 'http://www.gravatar.com/avatar?d=mm&s=140'
+      profilepic: 'http://www.gravatar.com/avatar?d=mm&s=140',
+      accounttypescount: '6'
     };
     this.user.defaultbalance = profile.defaultbalance;
     this.user.defaultdate = profile.defaultdate;
@@ -120,20 +101,20 @@ export class UserData {
     };
 
     // Create node under houses and get the key
-    this.user.housekey = this.housedata.push().key;
+    this.user.houseid = this.housedata.push().key;
 
     // Save key into the user->houseid node 
-    this.userdata.child(this.userauth.uid).update({houseid : this.user.housekey});
+    this.userdata.child(this.userauth.uid).update({houseid : this.user.houseid});
 
     // Add member to housemembers node under Houses
-    this.housedata.child(this.user.housekey + "/housemembers/" + this.userauth.uid).update(housemember);
+    this.housedata.child(this.user.houseid + "/housemembers/" + this.userauth.uid).update(housemember);
 
   }
 
   createDefaultAccountTypes() {
 
     // default account types
-    var refTypes = this.housedata.child(this.user.housekey + "/memberaccounttypes/");
+    var refTypes = this.housedata.child(this.user.houseid + "/memberaccounttypes/");
     refTypes.push({ name: 'Checking', icon: 'ios-cash-outline' });
     refTypes.push({ name: 'Savings', icon: 'ios-cash-outline' });
     refTypes.push({ name: 'Credit Card', icon: 'ios-cash-outline' });
@@ -146,7 +127,7 @@ export class UserData {
   createDefaultCategoriesIncome() {
 
     // default income categories
-    var refCatIncome = this.housedata.child(this.user.housekey + "/membercategories/Income");
+    var refCatIncome = this.housedata.child(this.user.houseid + "/membercategories/Income");
     refCatIncome.push({ categoryname: 'Income', categoryparent: '', categorysort: 'Income', categorytype: 'Income' });
     refCatIncome.push({ categoryname: 'Beginning Balance', categoryparent: 'Income', categorysort: 'Income:Beginning Balance', categorytype: 'Income' });
 
@@ -155,7 +136,7 @@ export class UserData {
   createDefaultCategoriesExpense() {
 
     // default expense categories
-    var refCatExpense = this.housedata.child(this.user.housekey + "/membercategories/Expense");
+    var refCatExpense = this.housedata.child(this.user.houseid + "/membercategories/Expense");
     refCatExpense.push({ categoryname: 'Auto', categoryparent: '', categorysort: 'Auto', categorytype: 'Expense' });
     refCatExpense.push({ categoryname: 'Gasoline', categoryparent: 'Auto', categorysort: 'Auto:Gas', categorytype: 'Expense' });
     refCatExpense.push({ categoryname: 'Car Payment', categoryparent: 'Auto', categorysort: 'Auto:Car Payment', categorytype: 'Expense' });
@@ -165,7 +146,7 @@ export class UserData {
   createDefaultPayees() {
 
     // default payees
-    var refPayee = this.housedata.child(this.user.housekey + "/memberpayees");
+    var refPayee = this.housedata.child(this.user.houseid + "/memberpayees");
     refPayee.push({ lastamount: '', lastcategory: '', lastcategoryid: '', payeename: 'Beginning Balance' });
 
   }
@@ -213,38 +194,31 @@ export class UserData {
     return firebase.auth().signOut();
   }
 
-  houseid() {
-    return this.userSettings.houseid;
+  getUserData() { 
+    const thisuser$ : FirebaseObjectObservable<any> = this.af.database.object('/users/' + this.userauth.uid); 
+    thisuser$.subscribe((val) => {
+      this.user = val;
+    });
   }
 
-  getUserData() {
-    var snapProfile = this.af.database.object('/users/' + this.userauth.uid, { preserveSnapshot: true });
-    snapProfile.subscribe(snapshot => {
-      this.userSettings = snapshot.val();
-    })
-  }
-
-  getAccountTypes(paramHouseid) {
-    return this.housedata.child(paramHouseid + '/memberaccounttypes');
+  getAccountTypes() {
+    return this.af.database.list('/houses/' + this.user.houseid + '/memberaccounttypes');
   }
 
   updateTouchID(ischecked: boolean) {
-    this.af.database.object('/users/' + this.userauth.uid).update({'enabletouchid' : ischecked});
+    this.userdata.child(this.userauth.uid).update({'enabletouchid' : ischecked});
   }
 
   updateDefaultBalance(newdefaultbalance: string) {
-    this.userSettings.defaultbalance = newdefaultbalance;
-    this.af.database.object('/users/' + this.userauth.uid).update({'defaultbalance' : newdefaultbalance});
+    this.userdata.child(this.userauth.uid).update({'defaultbalance' : newdefaultbalance});
   }
 
   updateDefaultDate(newdefaultdate: string) {
-    this.userSettings.defaultdate = newdefaultdate;
-    this.af.database.object('/users/' + this.userauth.uid).update({'defaultdate' : newdefaultdate});
+    this.userdata.child(this.userauth.uid).update({'defaultdate' : newdefaultdate});
   }
 
   updateName(newname: string) {
-    this.userSettings.fullname = newname;
-    this.af.database.object('/users/' + this.userauth.uid).update({'fullname' : newname});
+    this.userdata.child(this.userauth.uid).update({'fullname' : newname});
   }
 
   updateEmail(newEmail: string) {
@@ -252,6 +226,8 @@ export class UserData {
       let user = firebase.auth().currentUser;
       user.updateEmail(newEmail)
       .then(function() {
+        this.user.email = newEmail;
+        this.updateEmailNode(newEmail);
         resolve();
       }).catch(error => {
         reject(error);
@@ -298,11 +274,18 @@ export class UserData {
   }
 
   updateEmailNode(newemail) {
-    //this.userdata.child(firebase.auth().currentUser.uid).update({'email' : newemail});
+    this.userdata.child(this.userauth.uid).update({'email' : newemail});
   }
 
-  updateAccountType(houseid: string, item) {
-    //this.housedata.child(houseid + '/memberaccounttypes/' + item.id).update(item);
+  addAccountType(item) {
+    const newType = this.af.database.list(this.user.houseid + '/memberaccounttypes/');
+    newType.push({ name: item.name, icon: item.icon });
+    /*var refTypes = this.housedata.child(this.user.houseid + "/memberaccounttypes/");
+    refTypes.push({ name: item.name, icon: item.icon })*/;
+  }
+
+  updateAccountType(item) {
+    this.housedata.child(this.user.houseid + '/memberaccounttypes/' + item.$key).update({ 'name' : item.name, 'icon' : item.icon });
   }
    
 }

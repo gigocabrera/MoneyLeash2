@@ -4,7 +4,7 @@ import { NavController, LoadingController } from 'ionic-angular';
 
 // app pages
 import { LoginPage } from '../login/login';
-import { AccountListPage } from '../mymoney/account-list/account-list';
+//import { AccountListPage } from '../mymoney/account-list/account-list';
 
 // services
 import { UserData } from '../../providers/user-data';

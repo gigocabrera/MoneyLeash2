@@ -7,7 +7,7 @@
       {{ title }}
     </ion-title>
     <ion-buttons end>
-      <button ion-button (click)="save(thisname)">Save</button>
+      <button ion-button (click)="save()">Save</button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -17,8 +17,8 @@
   </ion-list-header>
   <ion-list>
     <ion-item class="ml-input">
-      <ion-icon item-left [name]="thisicon"></ion-icon>
-      <ion-input type="text" placeholder="Account Type" [(ngModel)]="thisname"></ion-input>
+      <ion-icon item-left [name]="this.item.icon"></ion-icon>
+      <ion-input type="text" placeholder="Account Type" [(ngModel)]="this.item.name"></ion-input>
     </ion-item>
   </ion-list>
 </ion-content>

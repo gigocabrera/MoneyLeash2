@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { IonicApp, IonicModule } from 'ionic-angular';
 //import { Storage } from '@ionic/storage';
 
-import { MoneyLeash } from './app.component';
+import { MoneyLeashApp } from './app.component';
 
 // app pages
 import { AboutPage, PopoverPage } from '../pages/about/about';
@@ -62,7 +62,7 @@ const firebaseAuthConfig = {
 
 @NgModule({
   declarations: [
-    MoneyLeash,
+    MoneyLeashApp,
     AboutPage,
     PopoverPage,
     ForgotPasswordPage,
@@ -90,12 +90,12 @@ const firebaseAuthConfig = {
     TutorialPage
   ],
   imports: [
-    IonicModule.forRoot(MoneyLeash),
+    IonicModule.forRoot(MoneyLeashApp),
     AngularFireModule.initializeApp(firebaseConfig, firebaseAuthConfig)
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MoneyLeash,
+    MoneyLeashApp,
     AboutPage,
     PopoverPage,
     ForgotPasswordPage,

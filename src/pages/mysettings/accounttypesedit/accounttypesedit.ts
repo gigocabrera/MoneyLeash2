@@ -8,9 +8,7 @@ import { NavController, ViewController, NavParams } from 'ionic-angular';
 
 export class AccountTypesEditPage {
 
-  item: {name?: string, icon?: string} = {};
-  thisname: string;
-  thisicon: string;
+  item: {name?: string, icon?: string, $key?: string} = {};
   title: string;
 
   constructor(
@@ -19,20 +17,16 @@ export class AccountTypesEditPage {
     public viewCtrl: ViewController
   ) {
       this.item = this.navParams.data.paramItem;
-      if (this.item === undefined) {
+      if (this.item.name === undefined) {
         this.title = 'Add Account Type';
-        this.thisname = '';
-        this.thisicon = 'ios-cash-outline';
+        this.item.icon = 'ios-cash-outline';
       } else {
         this.title = 'Edit Account Type';
-        this.thisname = this.item.name;
-        this.thisicon = this.item.icon;        
-      }      
+      }
   }
 
-  save(newtype) {
-    //this.item.name = newtype;
-    this.viewCtrl.dismiss(newtype);
+  save() {
+    this.viewCtrl.dismiss(this.item);
   }
   
   dismiss() {

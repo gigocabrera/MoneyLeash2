@@ -26,7 +26,7 @@ export class LoginPage {
     public navCtrl: NavController, 
     public userData: UserData) {
 
-    this.login.email = 'guni@test.com';
+    this.login.email = 'paulina@test.com';
     this.login.password = '111111';
 
    }
@@ -48,8 +48,7 @@ export class LoginPage {
   }
 
   LoginSuccess() {
-    this.navCtrl.setRoot(AccountListPage, {}, {animate: true, direction: 'forward'});
-    this.userData.getUserData();    
+    this.navCtrl.setRoot(AccountListPage, {}, {animate: true, direction: 'forward'});    
   }
 
   LoginError(error) {

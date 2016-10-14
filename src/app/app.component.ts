@@ -21,7 +21,7 @@ import { UserData } from '../providers/user-data';
 @Component({
   templateUrl: 'app.html'
 })
-export class MoneyLeash {
+export class MoneyLeashApp {
   @ViewChild(Nav) nav: Nav;
 
   rootPage: any = TutorialPage;

@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 
 import { ModalController, NavParams } from 'ionic-angular';
 
+// firebase/angularfire
+import { FirebaseListObservable } from 'angularfire2';
+
 // app pages
 import { AccountTypesEditPage } from '../../mysettings/accounttypesedit/accounttypesedit';
 
@@ -14,7 +17,8 @@ import { UserData } from '../../../providers/user-data';
 
 export class AccountTypesPage {
 
-  public items: {};
+  items: FirebaseListObservable<any[]>;
+  item: {name?: string, icon?: string, $key?: string} = {};
 
   constructor( 
     public navParams: NavParams,
@@ -22,25 +26,15 @@ export class AccountTypesPage {
     public userData: UserData) {}
 
   ionViewDidLoad() {
-    this.userData.getAccountTypes(this.navParams.data.paramHouseid).on('value', (snapshot) => {
-      let rawList= [];
-      snapshot.forEach( snap => {
-        rawList.push({
-          id: snap.key,
-          name: snap.val().name,
-          icon: snap.val().icon
-        });
-      })
-      this.items = rawList;
-    });
+    this.items = this.userData.getAccountTypes();
   }
 
   addNew() {
-    let modal = this.modalController.create(AccountTypesEditPage);
+    let modal = this.modalController.create(AccountTypesEditPage, {'paramItem': this.item});
     modal.present(modal);
     modal.onDidDismiss((data: any[]) => {
       if (data) {
-        this.onEditType(data);
+        this.onAddType(data);
       }
     });
   }
@@ -55,7 +49,12 @@ export class AccountTypesPage {
     });
   }
   
-  onEditType(item): void {
-    this.userData.updateAccountType(this.navParams.data.paramHouseid, item);
+  onAddType(item) {
+    this.userData.updateAccountType(item);
   }
+
+  onEditType(item) {
+    this.userData.updateAccountType(item);
+  }
+
 }
