@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import 'rxjs';
 
 // firebase/angularfire
-import { AngularFire, FirebaseObjectObservable } from 'angularfire2';
+import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
 
 @Injectable()
 export class UserData {
@@ -201,7 +201,7 @@ export class UserData {
     });
   }
 
-  getAccountTypes() {
+  getAccountTypes(): FirebaseListObservable<any[]> {
     return this.af.database.list('/houses/' + this.user.houseid + '/memberaccounttypes');
   }
 
@@ -250,8 +250,8 @@ export class UserData {
   deleteData(houseid) {
     //
     // Delete ALL user data
-    /*this.housedata.child(houseid).remove();
-    this.userdata.child(firebase.auth().currentUser.uid).remove();*/
+    this.housedata.child(houseid).remove();
+    this.userdata.child(firebase.auth().currentUser.uid).remove();
   }
 
   deleteUser() {
@@ -278,10 +278,7 @@ export class UserData {
   }
 
   addAccountType(item) {
-    const newType = this.af.database.list(this.user.houseid + '/memberaccounttypes/');
-    newType.push({ name: item.name, icon: item.icon });
-    /*var refTypes = this.housedata.child(this.user.houseid + "/memberaccounttypes/");
-    refTypes.push({ name: item.name, icon: item.icon })*/;
+    this.housedata.child(this.user.houseid + "/memberaccounttypes/").push({ name: item.name, icon: item.icon });
   }
 
   updateAccountType(item) {

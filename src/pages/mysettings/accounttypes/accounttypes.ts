@@ -30,6 +30,7 @@ export class AccountTypesPage {
   }
 
   addNew() {
+    this.item = {};
     let modal = this.modalController.create(AccountTypesEditPage, {'paramItem': this.item});
     modal.present(modal);
     modal.onDidDismiss((data: any[]) => {
@@ -50,7 +51,7 @@ export class AccountTypesPage {
   }
   
   onAddType(item) {
-    this.userData.updateAccountType(item);
+    this.userData.addAccountType(item);
   }
 
   onEditType(item) {
