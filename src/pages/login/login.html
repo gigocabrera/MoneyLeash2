@@ -17,8 +17,7 @@
     <form #loginForm="ngForm" novalidate>
       <ion-item>
         <ion-label floating color="primary">Email</ion-label>
-        <ion-input [(ngModel)]="login.email" name="email" type="text" #email="ngModel" spellcheck="false" autocapitalize="off" required>
-        </ion-input>
+        <ion-input [(ngModel)]="login.email" name="email" type="text" #email="ngModel" spellcheck="false" autocapitalize="off" required></ion-input>
       </ion-item>
       <p [hidden]="email.valid || submitted == false" color="danger" padding-left>
         Email is required
@@ -26,8 +25,7 @@
 
       <ion-item>
         <ion-label floating color="primary">Password</ion-label>
-        <ion-input [(ngModel)]="login.password" name="password" type="password" #password="ngModel" required>
-        </ion-input>
+        <ion-input [(ngModel)]="login.password" name="password" type="password" #password="ngModel" required></ion-input>
       </ion-item>
       <p [hidden]="password.valid || submitted == false" color="danger" padding-left>
         Password is required

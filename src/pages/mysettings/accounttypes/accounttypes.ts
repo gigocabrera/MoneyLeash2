@@ -49,6 +49,10 @@ export class AccountTypesPage {
       }
     });
   }
+
+  delete(item) {
+    this.userData.deleteAccountType(item);
+  }
   
   onAddType(item) {
     this.userData.addAccountType(item);

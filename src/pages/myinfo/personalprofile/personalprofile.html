@@ -10,17 +10,17 @@
   <div>
     <ion-card>
       <ion-card-content>
-        <img src="{{ userSettings?.profilepic }}"/>
-        <h2>{{ userSettings?.fullname }}</h2>
-        <h3>{{ userSettings?.email }}</h3>
+        <img src="{{ userData.user?.profilepic }}"/>
+        <h2>{{ userData.user?.fullname }}</h2>
+        <h3>{{ userData.user?.email }}</h3>
       </ion-card-content>
     </ion-card>
     <ion-list>
-      <button ion-item (click)="updateName()">Change Name</button>
+      <button ion-item (click)="changeName()">Change Name</button>
       <button ion-item (click)="takePicture()">Change Picture</button>
       <button ion-item (click)="changeEmail()">Change Email</button>
       <button ion-item (click)="changePassword()">Change Password</button>
-      <button ion-item (click)="deleteAccount()">Delete Account</button>
+      <button ion-item (click)="deleteAll()">Delete All</button>
       <button ion-item (click)="logout()">Logout</button>
     </ion-list>
   </div>

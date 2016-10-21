@@ -72,7 +72,7 @@ export class AccountListPage {
   }
 
   createAccount() {
-    this.nav.push(AccountPage);
+    this.nav.push(AccountPage, {paramAccount: 'New'});
   }
   
 }

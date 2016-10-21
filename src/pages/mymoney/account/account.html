@@ -3,32 +3,36 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Accounts</ion-title>
+    <ion-title>
+      {{ title }}
+    </ion-title>
     <ion-buttons end>
-      <button ion-button (click)="save()">Save</button>
+      <button ion-button (click)="save(account)">Save</button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
 <ion-content>
   <ion-list>
-    
+    <ion-list-header>
+      {{ listheader }}
+    </ion-list-header>
     <ion-item class="ml-input">
-      <ion-icon name="ios-clipboard-outline" item-left></ion-icon>
-      <ion-input type="text" placeholder="Account Name" [(ngModel)]="accountname"></ion-input>
+      <ion-icon name="md-clipboard" item-left></ion-icon>
+      <ion-label floating color="primary">Account Name</ion-label>
+      <ion-input [(ngModel)]="account.accname" name="accname" type="text" #accname="ngModel" spellcheck="false" autocapitalize="on"></ion-input>
       <ion-icon name="arrow-forward" item-right></ion-icon>
     </ion-item>
-
     <ion-item class="ml-input">
-      <ion-icon name="ios-calendar-outline" item-left></ion-icon>
-      <ion-input type="text" placeholder="Begin Date" [(ngModel)]="accountbegindate"></ion-input>
+      <ion-icon name="md-calendar" item-left></ion-icon>
+      <ion-label floating color="primary">Account Open Date</ion-label>
+      <ion-datetime displayFormat="MMM DD YYYY" pickerFormat="MMM DD YYYY" [(ngModel)]="account.date"></ion-datetime>
       <ion-icon name="arrow-forward" item-right></ion-icon>
     </ion-item>
-
-    <ion-item class="ml-input">
-      <ion-icon name="ios-cash-outline" item-left></ion-icon>
-      <ion-input type="text" placeholder="Account Type" [(ngModel)]="accounttype"></ion-input>
+    <ion-item class="ml-input" (click)="pickAccountType()">
+      <ion-icon name="md-cash" item-left></ion-icon>
+      <ion-label floating color="primary">Account Type</ion-label>
+      <ion-input type="text" [(ngModel)]="account.type"></ion-input>
       <ion-icon name="arrow-forward" item-right></ion-icon>
     </ion-item>
-
   </ion-list>
 </ion-content>

@@ -221,6 +221,16 @@ export class UserData {
     this.userdata.child(this.userauth.uid).update({'fullname' : newname});
   }
 
+  updateAccountTypesCounter(operation: string) {
+    var count = parseInt(this.user.accounttypescount);
+    if (operation === 'add') {
+      count++;
+    } else {
+      count--;
+    }    
+    this.userdata.child(this.userauth.uid).update({'accounttypescount' : count});
+  }
+
   updateEmail(newEmail: string) {
     return new Promise((resolve: () => void, reject: (reason: Error) => void) => {
       let user = firebase.auth().currentUser;
@@ -247,10 +257,10 @@ export class UserData {
     });
   }
 
-  deleteData(houseid) {
+  deleteData() {
     //
     // Delete ALL user data
-    this.housedata.child(houseid).remove();
+    this.housedata.child(this.user.houseid).remove();
     this.userdata.child(firebase.auth().currentUser.uid).remove();
   }
 
@@ -279,10 +289,36 @@ export class UserData {
 
   addAccountType(item) {
     this.housedata.child(this.user.houseid + "/memberaccounttypes/").push({ name: item.name, icon: item.icon });
+    this.updateAccountTypesCounter('add');
+  }
+
+  deleteAccountType(item) {
+    this.housedata.child(this.user.houseid + '/memberaccounttypes/' + item.$key).remove();
+    this.updateAccountTypesCounter('delete');
   }
 
   updateAccountType(item) {
     this.housedata.child(this.user.houseid + '/memberaccounttypes/' + item.$key).update({ 'name' : item.name, 'icon' : item.icon });
+  }
+
+  handleData(snap)
+  {
+    try {
+      // Firebase stores everything as an object, but we want an array.
+      var keys = Object.keys(snap.val);
+      console.log('keys: ', keys, snap.val);
+      // variable to store the todos added
+      var data = [];
+      // Loop through the keys and push the todos into an array
+      for( var i = 0; i < keys.length; ++i)
+      {
+        data.push(snap.val()[keys[i]]);
+      }
+      console.log(data);
+    }
+    catch (error) {
+      console.log('catching', error);
+    }
   }
    
 }

@@ -22,7 +22,6 @@ declare var firebase: any;
 
 export class PersonalProfilePage {
   
-  public userSettings: any;
   public userPicture: any;
   public fireAuth: any;
 
@@ -38,12 +37,8 @@ export class PersonalProfilePage {
 
       }
 
-  ionViewDidLoad() {
-    this.userSettings = this.navParams.data.paramSettings;
-  }
-
-  updateName() {
-    let modal = this.modalController.create(ChangeNamePage);
+  changeName() {
+    let modal = this.modalController.create(ChangeNamePage, {paramFullName: this.userData.user.fullname});
     modal.present(modal);
     modal.onDidDismiss((data: any[]) => {
       if (data) {
@@ -57,7 +52,7 @@ export class PersonalProfilePage {
   }
 
   changeEmail() {
-    let modal = this.modalController.create(ChangeEmailPage);
+    let modal = this.modalController.create(ChangeEmailPage, {paramSettings: this.userData.user.email});
     modal.present(modal);
     modal.onDidDismiss((data: any[]) => {
       if (data) {
@@ -76,7 +71,7 @@ export class PersonalProfilePage {
     });
   }
 
-  deleteAccount() {
+  deleteAll() {
     let alert = this.alertController.create({
       title: 'Please Confirm',
       message: 'Are you sure you want to delete your account and ALL your data?',
@@ -117,9 +112,6 @@ export class PersonalProfilePage {
     this.userData.updateEmail(newemail)
       .then(() => {
         //
-        // Update email displayed on the screen
-        // TODO: THIS IS NOT UPDATING/WORKING
-        this.userSettings.email = newemail;
         // Update localStorage with new email. This is to guaratee
         // that TouchID, if enabled, is still fully functional
         this.userData.setUsername(newemail);
@@ -202,7 +194,7 @@ export class PersonalProfilePage {
     } = {};
 
     // Delete data
-    this.userData.deleteData(this.userSettings.houseid);
+    this.userData.deleteData();
 
     // Delete user
     this.userData.deleteUser()

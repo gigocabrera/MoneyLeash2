@@ -1,8 +1,5 @@
 import { Injectable } from '@angular/core';
 
-// firebase
-declare var firebase: any;
-
 @Injectable()
 export class AccountData {
 
@@ -13,14 +10,16 @@ export class AccountData {
   public userSettings: any;
 
   constructor() {
-    this.user = firebase.auth().currentUser;
+
+    /*this.user = firebase.auth().currentUser;
     this.userdata = firebase.database().ref('/users/');
     this.housedata = firebase.database().ref('/houses/');
-    this.profilepicdata = firebase.storage().ref('/profilepics/');
+    this.profilepicdata = firebase.storage().ref('/profilepics/');*/
+
   }
 
   getAllAccounts(houseid: string): any {
-    return this.housedata.child(houseid + '/memberaccounts');
+    //return this.housedata.child(houseid + '/memberaccounts');
   }
 
 }

@@ -8,6 +8,7 @@ import { LogoutPage } from '../pages/logout/logout';
 
 // app pages
 import {AccountListPage } from '../pages/mymoney/account-list/account-list';
+import {AccountPage } from '../pages/mymoney/account/account';
 import {CategoryListPage } from '../pages/mymoney/category-list/category-list';
 import {BudgetListPage } from '../pages/mymoney/budget-list/budget-list';
 import {RecurringListPage } from '../pages/mymoney/recurring-list/recurring-list';
@@ -25,6 +26,7 @@ export class MoneyLeashApp {
   @ViewChild(Nav) nav: Nav;
 
   rootPage: any = TutorialPage;
+  //rootPage: any = AccountPage;
 
   pages: Array<{title: string, component: any, icon: string, color: string}>;
   logoutpages: Array<{title: string, component: any, icon: string, color: string}>;

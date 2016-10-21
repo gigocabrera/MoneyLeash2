@@ -1,6 +1,12 @@
 import { Component } from '@angular/core';
 
-import { NavController } from 'ionic-angular';
+import { NavController, ModalController, NavParams } from 'ionic-angular';
+
+// app pages
+import { PickAccountTypePage } from '../../mypicklists/pickaccounttype/pickaccounttype';
+
+// services
+import { UserData } from '../../../providers/user-data';
 
 @Component({
   selector: 'page-account',
@@ -9,19 +15,44 @@ import { NavController } from 'ionic-angular';
 
 export class AccountPage {
 
-  accountname: string = '';
-  accountbegindate?: string;
-  accounttype?: string;
+  title: string;
+  listheader: string;
+  account: {accname?: string, date?: string, type?: string} = {};
+  item: any;
 
   constructor(
-      public nav: NavController) {}
+      public nav: NavController,
+      public modalController: ModalController,
+      public navParams: NavParams,
+      public userData: UserData) {
 
-  ionViewDidLoad() {
-    
+      this.item = this.navParams.data.paramAccount;
+        if (this.item === 'New') {
+          this.title = 'Create Account';
+          this.listheader = 'Enter Account Details';
+        } else {
+          this.title = 'Edit Account';
+          this.listheader = 'Edit Account Details';
+        }
+      }
+
+  save(account) {
+    //this.userData.save
+    console.log(account);
   }
 
-  save() {
-    
+  pickAccountType() {
+    let modal = this.modalController.create(PickAccountTypePage, {paramType: this.account.type});
+    modal.present(modal);
+    modal.onDidDismiss((data: any[]) => {
+      if (data) {
+        this.onPickAccountType(data);
+      }
+    });
+  }
+
+  onPickAccountType(item) {
+    this.account.type = item.name;
   }
   
 }

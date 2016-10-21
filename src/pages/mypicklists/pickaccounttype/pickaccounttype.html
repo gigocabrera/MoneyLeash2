@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">Cancel</button>
+    </ion-buttons>
+    <ion-title>
+      Account Type
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="outer-content">
+  <ion-list-header>
+    Select the Account Type
+  </ion-list-header>
+  <ion-list radio-group [(ngModel)]="itemselected.text">
+    <ion-item *ngFor="let item of items | async">
+        <ion-label>{{item.name}}</ion-label>
+        <ion-radio [value]="item.text" [checked]="itemselected.text" (click)="save(item)"></ion-radio>
+    </ion-item>
+  </ion-list>
+</ion-content>

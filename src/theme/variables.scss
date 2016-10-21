@@ -25,10 +25,23 @@ $background-color:  #fff;
 $colors: (
   primary:    #387ef5,
   secondary:  #32db64,
-  danger:     #f53d3d,
+  danger:     #ef473a,
   light:      #f4f4f4,
   dark:       #222,
-  favorite:   #69BB7B
+  favorite:   #69BB7B,
+  energized:  #f57d00,
+  twitter:           #53ACEB,
+  github:            #000000,
+  instagram:         #235D8D,
+  mlitemdivider:     #D3EAF0,
+  mlitemdividerBlack:#000000,
+  mllightblue:       #31C0E6,
+  mlwhite:           #ffffff,
+  mlgreen:           #28a54c,
+  mlnavbar:    (
+    base: #172F39,
+    contrast: #31C0E6
+  )
 );
 
 

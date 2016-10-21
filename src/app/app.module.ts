@@ -31,6 +31,7 @@ import { ReportListPage } from '../pages/mymoney/report-list/report-list';
 // mypicklists
 import { PickDefaultBalancePage } from '../pages/mypicklists/pickdefaultbalance/pickdefaultbalance';
 import { PickDefaultDatePage } from '../pages/mypicklists/pickdefaultdate/pickdefaultdate';
+import { PickAccountTypePage } from '../pages/mypicklists/pickaccounttype/pickaccounttype';
 
 // mysettings
 import { AccountTypesPage } from '../pages/mysettings/accounttypes/accounttypes';
@@ -83,6 +84,7 @@ const firebaseAuthConfig = {
     ReportListPage,
     PickDefaultBalancePage,
     PickDefaultDatePage,
+    PickAccountTypePage,
     AccountTypesPage,
     AccountTypesEditPage,
     SettingsPage,
@@ -90,7 +92,10 @@ const firebaseAuthConfig = {
     TutorialPage
   ],
   imports: [
-    IonicModule.forRoot(MoneyLeashApp),
+    IonicModule.forRoot(MoneyLeashApp, {
+      popoverEnter: 'popover-md-pop-in',
+      popoverLeave: 'popover-md-pop-out'
+    }),
     AngularFireModule.initializeApp(firebaseConfig, firebaseAuthConfig)
   ],
   bootstrap: [IonicApp],
@@ -116,6 +121,7 @@ const firebaseAuthConfig = {
     ReportListPage,
     PickDefaultBalancePage,
     PickDefaultDatePage,
+    PickAccountTypePage,
     AccountTypesPage,
     AccountTypesEditPage,
     SettingsPage,
