@@ -2,38 +2,80 @@
 page-tutorial{
   
   .toolbar-background {
-    background: #fff;
+    background: #172F39;
     border-color: transparent;
   }
-
+  .swiper-pagination-bullet {
+    background: #fff;
+  }
+  .button-clear {
+    color: #31C0E6;
+  } 
   .slide-zoom {
     height: 100%;
   }
-
-  .slide-title {
-    margin-top: 2.8rem;
-    font-weight: bolder;
+  .divImage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
-
+  .divText {
+    display: inline-block;
+  }
+  .divImage i {
+    width: 175px;
+    height: 175px;
+    border: 5px solid #fff;
+    border-radius: 100%;
+    font-size: 90px;
+    line-height: 38px;
+    color: #fff;
+    margin: 7% 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .introGreen {
+    background-color: #28a54c;
+  }
+  .introOrange {
+    background-color: #ff6600;
+  }
+  .introLightBlue {
+    background-color: #31C0E6;
+  }
+  .introYellow {
+    background-color: #f2c100;
+  }
+  .slide-title {
+    margin-top: 10%;
+  }
+  h2.slide-title {
+    color: #fff;
+    font: 30px 'PT Sans Narrow';
+  }
+  h2.app-title {
+    font: 50px 'PT Sans Narrow';
+  }
   .slide-image {
     max-height: 50%;
     max-width: 60%;
     margin: 36px 0;
   }
-
   b {
     font-weight: 500;
   }
-
   p {
     padding: 0 40px;
-    font-size: 14px;
+    font-size: 16px;
     line-height: 1.5;
-    color: #60646B;
-
+    color: #fff;
     b {
-      color: #000000;
+      color: #31c0e6;
     }
+  }
+  ion-slides {
+    background-color: #172F39; 
   }
 
 }

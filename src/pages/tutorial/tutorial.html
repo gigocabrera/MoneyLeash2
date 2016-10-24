@@ -1,7 +1,7 @@
 <ion-header no-shadow>
   <ion-navbar>
     <ion-buttons end *ngIf="showSkip">
-      <button ion-button (click)="startApp()" color="primary">Skip</button>
+      <button ion-button (click)="startApp()" color="mllightblue">Skip</button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
@@ -9,17 +9,27 @@
 <ion-content no-bounce>
   <ion-slides [options]="{pager: true}" (ionWillChange)="onSlideChangeStart($event)">
     <ion-slide *ngFor="let slide of slides">
-      <img [src]="slide.image" class="slide-image"/>
-      <h2 class="slide-title" [innerHTML]="slide.title"></h2>
-      <p [innerHTML]="slide.description"></p>
+      
+      <div class="divImage">
+        <i class="{{slide.icon}} {{slide.color}}"></i>
+      </div>
+      <div class="divText">
+        <h2 class="{{slide.class}}" [innerHTML]="slide.title"></h2>
+        <p [innerHTML]="slide.description"></p>
+      </div>
+
     </ion-slide>
     <ion-slide>
-      <img src="/assets/img/ica-slidebox-img-4.png" class="slide-image"/>
-      <h2 class="slide-title">Ready to Play?</h2>
-      <button ion-button icon-right large clear (click)="startApp()">
+      
+      <div class="divImage readyMargin">
+        <i class="fa fa-thumbs-o-up introOrange"></i>
+      </div>
+      <h2 class="slide-title">Ready to Begin?</h2>
+      <button ion-button large clear (click)="startApp()">
         Continue
         <ion-icon name="arrow-forward"></ion-icon>
       </button>
+
     </ion-slide>
   </ion-slides>
 </ion-content>
