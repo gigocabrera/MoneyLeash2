@@ -1,0 +1,60 @@
+
+// MoneyLeash Custom Styles
+
+// Fonts
+// --------------------------------------------------
+// http://www.localfont.com/
+@font-face {
+  font-family: 'PT Sans';
+  font-weight: 400;
+  font-style: normal;
+  src: url('../assets/fonts/PT-Sans-regular/PT-Sans-regular.eot');
+  src: url('../assets/fonts/PT-Sans-regular/PT-Sans-regular.eot?#iefix') format('embedded-opentype'),
+       local('PT Sans'),
+       local('PT-Sans-regular'),
+       url('../assets/fonts/PT-Sans-regular/PT-Sans-regular.woff2') format('woff2'),
+       url('../assets/fonts/PT-Sans-regular/PT-Sans-regular.woff') format('woff'),
+       url('../assets/fonts/PT-Sans-regular/PT-Sans-regular.ttf') format('truetype'),
+       url('../assets/fonts/PT-Sans-regular/PT-Sans-regular.svg#PTSans') format('svg');
+}
+@font-face {
+  font-family: 'PT Sans Narrow';
+  font-weight: 400;
+  font-style: normal;
+  src: url('../assets/fonts/PT-Sans-Narrow-regular/PT-Sans-Narrow-regular.eot');
+  src: url('../assets/fonts/PT-Sans-Narrow-regular/PT-Sans-Narrow-regular.eot?#iefix') format('embedded-opentype'),
+       local('PT Sans Narrow'),
+       local('PT-Sans-Narrow-regular'),
+       url('../assets/fonts/PT-Sans-Narrow-regular/PT-Sans-Narrow-regular.woff2') format('woff2'),
+       url('../assets/fonts/PT-Sans-Narrow-regular/PT-Sans-Narrow-regular.woff') format('woff'),
+       url('../assets/fonts/PT-Sans-Narrow-regular/PT-Sans-Narrow-regular.ttf') format('truetype'),
+       url('../assets/fonts/PT-Sans-Narrow-regular/PT-Sans-Narrow-regular.svg#PTSansNarrow') format('svg');
+}
+//$font-family-md-base: "PT Sans";
+//$font-family-ios-base: "PT Sans";
+//$font-family-wp-base: "PT Sans";
+
+
+// Toolbar
+// --------------------------------------------------
+$toolbar-ios-button-color: #31C0E6;
+$toolbar-md-button-color: #31C0E6;
+$toolbar-wp-button-color: #31C0E6;
+
+$toolbar-ios-title-text-color: #fff;
+$toolbar-md-title-text-color: #fff;
+$toolbar-wp-title-text-color: #fff;
+
+$toolbar-ios-title-font-size: 2rem;
+$toolbar-md-title-font-size: 2rem;
+$toolbar-wp-title-font-size: 2rem;
+
+.toolbar-title-ios {
+  font-family: 'PT Sans Narrow'
+}
+.toolbar-title-md {
+  font-family: 'PT Sans Narrow'
+}
+.toolbar-title-wp {
+  font-family: 'PT Sans Narrow'
+}

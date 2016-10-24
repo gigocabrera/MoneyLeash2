@@ -41,7 +41,8 @@ $colors: (
   mlnavbar:    (
     base: #172F39,
     contrast: #31C0E6
-  )
+  ),
+  mlnavbarbutton: #31C0E6
 );
 
 
@@ -64,26 +65,9 @@ $ionicons-font-path: "../assets/fonts";
 @import "ionicons";
 
 
-
-
-// MoneyLeash Custom Fonts
+// MoneyLeash
 // --------------------------------------------------
-// http://www.localfont.com/
+// Custom styles for app
+// http://
 
-@font-face {
-  font-family: 'PT Sans';
-  font-weight: 400;
-  font-style: normal;
-  src: url('../assets/fonts/PT-Sans-regular/PT-Sans-regular.eot');
-  src: url('../assets/fonts/PT-Sans-regular/PT-Sans-regular.eot?#iefix') format('embedded-opentype'),
-       local('PT Sans'),
-       local('PT-Sans-regular'),
-       url('../assets/fonts/PT-Sans-regular/PT-Sans-regular.woff2') format('woff2'),
-       url('../assets/fonts/PT-Sans-regular/PT-Sans-regular.woff') format('woff'),
-       url('../assets/fonts/PT-Sans-regular/PT-Sans-regular.ttf') format('truetype'),
-       url('../assets/fonts/PT-Sans-regular/PT-Sans-regular.svg#PTSans') format('svg');
-}
-
-//$font-family-md-base: "PT Sans";
-//$font-family-ios-base: "PT Sans";
-//$font-family-wp-base: "PT Sans";
+@import "ml.scss";

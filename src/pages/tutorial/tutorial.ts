@@ -29,7 +29,7 @@ export class TutorialPage {
         icon: 'fa fa-usd',
         color: 'introGreen',
         class: 'slide-title app-title',
-        image: 'assets/img/ica-slidebox-img-1.png',
+        image: '',
       },
       {
         title: 'What is MoneyLeash?',
@@ -37,7 +37,7 @@ export class TutorialPage {
         icon: 'fa fa-lightbulb-o',
         color: 'introYellow',
         class: 'slide-title',
-        image: 'assets/img/ica-slidebox-img-2.png',
+        image: '',
       },
       {
         title: ' Why Should I Use it?',
@@ -45,7 +45,7 @@ export class TutorialPage {
         icon: 'fa fa-question',
         color: 'introLightBlue',
         class: 'slide-title',
-        image: 'assets/img/ica-slidebox-img-3.png',
+        image: '',
       }
     ];
   }

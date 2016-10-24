@@ -11,7 +11,7 @@ import { UserData } from '../../providers/user-data';
 })
 export class ForgotPasswordPage {
   
-  forgotpassword = {'username': ''};
+  forgotpassword: {email?: string} = {};
   submitted = false;
 
   constructor(
