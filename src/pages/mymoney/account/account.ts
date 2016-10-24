@@ -37,8 +37,8 @@ export class AccountPage {
       }
 
   save(account) {
-    //this.userData.save
-    console.log(account);
+    this.userData.addAccount(account);
+    this.nav.pop();
   }
 
   pickAccountType() {

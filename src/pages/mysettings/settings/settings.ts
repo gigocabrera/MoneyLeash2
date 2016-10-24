@@ -19,7 +19,6 @@ import { UserData } from '../../../providers/user-data';
 export class SettingsPage {
 
   appversion = '';
-  houseid: string;
   imgsrc: string;
   
   constructor(

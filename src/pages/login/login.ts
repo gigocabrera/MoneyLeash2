@@ -48,7 +48,9 @@ export class LoginPage {
   }
 
   LoginSuccess() {
-    this.navCtrl.setRoot(AccountListPage, {}, {animate: true, direction: 'forward'});    
+    setTimeout(() => {
+        this.navCtrl.setRoot(AccountListPage, {}, {animate: true, direction: 'forward'});
+      }, 1000);    
   }
 
   LoginError(error) {

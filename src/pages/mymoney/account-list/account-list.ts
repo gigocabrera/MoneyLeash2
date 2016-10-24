@@ -6,7 +6,6 @@ import { NavController } from 'ionic-angular';
 import { AccountPage } from '../account/account';
 
 // services
-import {AccountData} from '../../../providers/account-data';
 import {UserData} from '../../../providers/user-data';
 
 @Component({
@@ -15,18 +14,16 @@ import {UserData} from '../../../providers/user-data';
 
 export class AccountListPage {
 
-  public accounts: {};
-  public networth: any;
-  public houseid: string;
+  accounts: {};
+  networth: any;
 
   constructor(
       public nav: NavController,
-      public accountData: AccountData,
       public userData: UserData) {}
 
   ionViewDidLoad() {
 
-    /*this.accountData.getAllAccounts(this.userData.houseid()).on('value', (accounts) => {
+    this.userData.getAllAccounts().on('value', (accounts) => {
       
       let rawList= [];
       var clearedBal = 0;
@@ -63,7 +60,7 @@ export class AccountListPage {
       this.accounts = rawList;
       this.networth = netWorth.toFixed(2);
 
-    });*/
+    });
   }
 
   viewtransactions (account) {

@@ -25,12 +25,10 @@ export class PickAccountTypePage {
     this.itemselected = {
       text: this.navParams.data.paramType
     }
-    //console.log(this.itemselected);
 
   }
   
   save(item) {
-    console.log(this.itemselected);
     this.viewCtrl.dismiss(item);
   }
   

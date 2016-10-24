@@ -42,7 +42,6 @@ import { SignupPage } from '../pages/signup/signup';
 import { TutorialPage } from '../pages/tutorial/tutorial';
 
 // services
-import { AccountData } from '../providers/account-data';
 import { UserData } from '../providers/user-data';
 
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
@@ -128,6 +127,6 @@ const firebaseAuthConfig = {
     SignupPage,
     TutorialPage
   ],
-  providers: [AccountData, UserData]
+  providers: [UserData]
 })
 export class AppModule {}

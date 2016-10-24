@@ -320,5 +320,24 @@ export class UserData {
       console.log('catching', error);
     }
   }
+
+  getAllAccounts() {
+    return this.housedata.child(this.user.houseid + '/memberaccounts');
+  }
+
+  addAccount(account) {
+    var newACcount = {
+        'accountname': account.accname,
+        'accounttype': account.type,
+        'autoclear': 'false',
+        'balancecleared': '0',
+        'balancecurrent': '0',
+        'balancetoday': '0',
+        'dateopen': account.date,
+        'transactionid': '',
+        'balanceclass': 'textRed'
+    }
+    this.housedata.child(this.user.houseid + "/memberaccounts/").push(newACcount);
+  }
    
 }

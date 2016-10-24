@@ -28,7 +28,8 @@
     "@angular/platform-server": "^2.0.0",
     "@ionic/storage": "^1.0.3",
     "angularfire2": "^2.0.0-beta.5",
-    "firebase": "^3.5.0",
+    "firebase": "^3.5.1",
+    "font-awesome": "^4.6.3",
     "ionic-angular": "^2.0.0-rc.1",
     "ionic-native": "^2.2.3",
     "ionicons": "^3.0.0",
@@ -52,6 +53,7 @@
   ],
   "cordovaPlatforms": [],
   "config": {
-    "ionic_rollup": "./scripts/rollup.config.js"
+    "ionic_rollup": "./scripts/rollup.config.js",
+    "ionic_copy": "./scripts/copy-custom-libs.js"
   }
 }
