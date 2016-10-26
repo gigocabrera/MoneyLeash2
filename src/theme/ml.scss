@@ -37,17 +37,17 @@
 
 // Toolbar
 // --------------------------------------------------
-$toolbar-ios-button-color: #31C0E6;
-$toolbar-md-button-color: #31C0E6;
-$toolbar-wp-button-color: #31C0E6;
-
+$toolbar-background:          #172F39;
+$toolbar-ios-button-color:    #31C0E6;
+$toolbar-md-button-color:     #31C0E6;
+$toolbar-wp-button-color:     #31C0E6;
 $toolbar-ios-title-text-color: #fff;
-$toolbar-md-title-text-color: #fff;
-$toolbar-wp-title-text-color: #fff;
-
-$toolbar-ios-title-font-size: 2rem;
-$toolbar-md-title-font-size: 2rem;
-$toolbar-wp-title-font-size: 2rem;
+$toolbar-md-title-text-color:  #fff;
+$toolbar-wp-title-text-color:  #fff;
+/*
+$toolbar-ios-title-font-size:   2rem;
+$toolbar-md-title-font-size:    2rem;
+$toolbar-wp-title-font-size:    2rem;
 
 .toolbar-title-ios {
   font-family: 'PT Sans Narrow'
@@ -58,3 +58,6 @@ $toolbar-wp-title-font-size: 2rem;
 .toolbar-title-wp {
   font-family: 'PT Sans Narrow'
 }
+*/
+
+$item-ios-divider-background: #D3EAF0;

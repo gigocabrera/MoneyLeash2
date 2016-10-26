@@ -16,12 +16,16 @@ export class UserData {
   housedata;
   profilepicdata;
   userSettings;
+  colors;
 
   constructor(public af: AngularFire) {
 
     this.userdata = firebase.database().ref('/users/');
     this.housedata = firebase.database().ref('/houses/');
     this.profilepicdata = firebase.storage().ref('/profilepics/');
+
+    //this.colors = {'navbar': "energized"};
+    this.colors = {'navbar': ""};
 
   }
 

@@ -27,6 +27,8 @@ import { CategoryListPage } from '../pages/mymoney/category-list/category-list';
 import { PayeeListPage } from '../pages/mymoney/payee-list/payee-list';
 import { RecurringListPage } from '../pages/mymoney/recurring-list/recurring-list';
 import { ReportListPage } from '../pages/mymoney/report-list/report-list';
+import { TransactionsPage } from '../pages/mymoney/transactions/transactions';
+import { TransactionPage } from '../pages/mymoney/transaction/transaction';
 
 // mypicklists
 import { PickDefaultBalancePage } from '../pages/mypicklists/pickdefaultbalance/pickdefaultbalance';
@@ -81,6 +83,8 @@ const firebaseAuthConfig = {
     PayeeListPage,
     RecurringListPage,
     ReportListPage,
+    TransactionsPage,
+    TransactionPage,
     PickDefaultBalancePage,
     PickDefaultDatePage,
     PickAccountTypePage,
@@ -118,6 +122,8 @@ const firebaseAuthConfig = {
     PayeeListPage,
     RecurringListPage,
     ReportListPage,
+    TransactionsPage,
+    TransactionPage,
     PickDefaultBalancePage,
     PickDefaultDatePage,
     PickAccountTypePage,

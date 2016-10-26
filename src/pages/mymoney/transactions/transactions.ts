@@ -2,19 +2,15 @@ import { Component } from '@angular/core';
 
 import { NavController } from 'ionic-angular';
 
-// app pages
-import { AccountPage } from '../account/account';
-import { TransactionsPage } from '../transactions/transactions';
-
 // services
 import {UserData} from '../../../providers/user-data';
 
 @Component({
-  selector: 'page-account-list',
-  templateUrl: 'account-list.html'
+  selector: 'page-transactions',
+  templateUrl: 'transactions.html'
 })
 
-export class AccountListPage {
+export class TransactionsPage {
 
   accounts: {};
   networth: any;
@@ -30,7 +26,7 @@ export class AccountListPage {
 
   ionViewDidLoad() {
 
-    this.userData.getAllAccounts().on('value', (accounts) => {
+    /*this.userData.getAllAccounts().on('value', (accounts) => {
       
       let rawList= [];
       var clearedBal = 0;
@@ -67,26 +63,22 @@ export class AccountListPage {
       this.accounts = rawList;
       this.networth = netWorth.toFixed(2);
 
-    });
+    });*/
   }
 
-  viewtransactions (account) {
-    this.nav.push(TransactionsPage, {paramAccount: account});
-  }
-
-  newAccount() {
-    this.nav.push(AccountPage, {paramAccount: 'New'});
+  newTransaction() {
+    //this.nav.push(AccountPage, {paramAccount: 'New'});
   }
 
   getnavbarcolor() {
     this.navbarcolor = this.userData.colors.navbar;
   }
 
-  edit(account) {
+  edit(transaction) {
 
   }
 
-  delete(account) {
+  delete(transaction) {
 
   }
   
