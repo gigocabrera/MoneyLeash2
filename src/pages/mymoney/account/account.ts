@@ -17,8 +17,8 @@ export class AccountPage {
 
   title: string;
   listheader: string;
-  account: {accname?: string, date?: string, type?: string} = {};
-  item: any;
+  //account: {accname?: string, date?: string, type?: string} = {};
+  account: any;
 
   constructor(
       public nav: NavController,
@@ -26,26 +26,22 @@ export class AccountPage {
       public navParams: NavParams,
       public userData: UserData) {
 
-    this.item = this.navParams.data.paramAccount;
-    console.log(this.item);
-    if (this.item === 'New') {
+    this.account = this.navParams.data.paramAccount;
+    if (this.account.mode === 'New') {
       this.title = 'Create Account';
       this.listheader = 'Enter Account Details';
-      this.item.mode = "add";
     } else {
       this.title = 'Edit Account';
       this.listheader = 'Edit Account Details';
-      this.account.accname = this.item.accountname;
-      this.account.date = this.item.dateopen;
-      this.account.type = this.item.accounttype;
-      this.item.mode = "edit";
     }
   }
 
   save(account) {
-    console.log(account);
-    console.log(this.item);
-    //this.userData.addAccount(account);
+    if (this.account.mode === 'New') {
+      this.userData.addAccount(account);
+    } else {
+      this.userData.updateAccount(account);
+    }
     this.nav.pop();
   }
 

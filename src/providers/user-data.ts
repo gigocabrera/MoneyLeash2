@@ -343,5 +343,13 @@ export class UserData {
     }
     this.housedata.child(this.user.houseid + "/memberaccounts/").push(newACcount);
   }
+
+  updateAccount(account) {
+    this.housedata.child(this.user.houseid + '/memberaccounts/' + account.$key).update({ 'accountname' : account.accountname, 'accounttype' : account.accounttype, 'dateopen' : account.dateopen });
+  }
+
+  deleteAccount(account) {
+    this.housedata.child(this.user.houseid + '/memberaccounts/' + account.$key).remove();
+  }
    
 }

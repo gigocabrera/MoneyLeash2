@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { NavController } from 'ionic-angular';
+import { NavController, AlertController } from 'ionic-angular';
 
 // app pages
 import { AccountPage } from '../account/account';
@@ -22,6 +22,7 @@ export class AccountListPage {
 
   constructor(
       public nav: NavController,
+      public alertController: AlertController,
       public userData: UserData) {
 
         this.navbarcolor = this.userData.colors.navbar;
@@ -54,13 +55,14 @@ export class AccountListPage {
 
         // Build account array
         rawList.push({
-          id: spanshot.key,
+          $key: spanshot.key,
           accountname: account.accountname,
           accounttype: account.accounttype,
           BalanceClass: account.BalanceClass,
           balancecleared: account.balancecleared,
           balancetoday: account.balancetoday,
-          dateopen: account.dateopen
+          dateopen: account.dateopen,
+          mode: 'Edit'
         });
       })
 
@@ -75,7 +77,17 @@ export class AccountListPage {
   }
 
   newAccount() {
-    this.nav.push(AccountPage, {paramAccount: 'New'});
+    var account = {
+          '$key': '',
+          'accountname': '',
+          'accounttype': '',
+          'BalanceClass': '',
+          'balancecleared': '',
+          'balancetoday': '',
+          'dateopen': '',
+          'mode': 'New'
+        }
+    this.nav.push(AccountPage, {paramAccount: account});
   }
 
   getnavbarcolor() {
@@ -88,8 +100,27 @@ export class AccountListPage {
   }
 
   delete(slidingItem, account) {
-    console.log(account);
     this.handleSlidingItems(slidingItem);
+    let alert = this.alertController.create({
+      title: 'Delete Account',
+      message: 'Are you sure you want to delete ' + account.accountname + ' and ALL the transactions?',
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: () => {
+            //console.log('Cancel RemoveUser clicked');
+            slidingItem.close();
+          }
+        },
+        {
+          text: 'Delete',
+          handler: () => {
+            this.userData.deleteAccount(account);
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 
   handleSlidingItems(slidingItem) {

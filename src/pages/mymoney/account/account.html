@@ -18,20 +18,20 @@
     </ion-item-divider>
     <ion-item class="ml-input">
       <ion-icon name="md-clipboard" item-left></ion-icon>
-      <ion-label floating color="primary">Account Name</ion-label>
-      <ion-input [(ngModel)]="account.accname" name="accname" type="text" #accname="ngModel" spellcheck="false" autocapitalize="on"></ion-input>
+      <ion-label floating>Account Name</ion-label>
+      <ion-input [(ngModel)]="account.accountname" name="accname" type="text" #accname="ngModel" spellcheck="false" autocapitalize="on"></ion-input>
       <ion-icon name="arrow-forward" item-right></ion-icon>
     </ion-item>
     <ion-item class="ml-input">
       <ion-icon name="md-calendar" item-left></ion-icon>
-      <ion-label floating color="primary">Account Open Date</ion-label>
-      <ion-datetime displayFormat="MMM DD YYYY" pickerFormat="MMM DD YYYY" [(ngModel)]="account.date"></ion-datetime>
+      <ion-label floating>Account Open Date</ion-label>
+      <ion-datetime displayFormat="MMM DD YYYY" pickerFormat="MMM DD YYYY" [(ngModel)]="account.dateopen"></ion-datetime>
       <ion-icon name="arrow-forward" item-right></ion-icon>
     </ion-item>
     <ion-item class="ml-input" (click)="pickAccountType()">
       <ion-icon name="md-cash" item-left></ion-icon>
-      <ion-label floating color="primary">Account Type</ion-label>
-      <ion-input type="text" [(ngModel)]="account.type"></ion-input>
+      <ion-label floating>Account Type</ion-label>
+      <ion-input type="text" [(ngModel)]="account.accounttype"></ion-input>
       <ion-icon name="arrow-forward" item-right></ion-icon>
     </ion-item>
   </ion-list>

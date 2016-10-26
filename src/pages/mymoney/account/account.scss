@@ -49,13 +49,13 @@ page-account {
   }
 
   .ml-input.input-has-focus ion-label[floating] {
-    -webkit-transform: translate3d(10px, 2px, 0);
-    transform: translate3d(10px, 2px, 0) scale(0.8);
+    -webkit-transform: translate3d(10px, 6px, 0);
+    transform: translate3d(10px, 6px, 0) scale(0.8);
   }
 
   .ml-input.input-has-value ion-label[floating] {
-    -webkit-transform: translate3d(10px, 2px, 0);
-    transform: translate3d(10px, 2px, 0) scale(0.8);
+    -webkit-transform: translate3d(10px, 6px, 0);
+    transform: translate3d(10px, 6px, 0) scale(0.8);
   }
 
 }
