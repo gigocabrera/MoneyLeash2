@@ -26,18 +26,26 @@ export class AccountPage {
       public navParams: NavParams,
       public userData: UserData) {
 
-      this.item = this.navParams.data.paramAccount;
-        if (this.item === 'New') {
-          this.title = 'Create Account';
-          this.listheader = 'Enter Account Details';
-        } else {
-          this.title = 'Edit Account';
-          this.listheader = 'Edit Account Details';
-        }
-      }
+    this.item = this.navParams.data.paramAccount;
+    console.log(this.item);
+    if (this.item === 'New') {
+      this.title = 'Create Account';
+      this.listheader = 'Enter Account Details';
+      this.item.mode = "add";
+    } else {
+      this.title = 'Edit Account';
+      this.listheader = 'Edit Account Details';
+      this.account.accname = this.item.accountname;
+      this.account.date = this.item.dateopen;
+      this.account.type = this.item.accounttype;
+      this.item.mode = "edit";
+    }
+  }
 
   save(account) {
-    this.userData.addAccount(account);
+    console.log(account);
+    console.log(this.item);
+    //this.userData.addAccount(account);
     this.nav.pop();
   }
 

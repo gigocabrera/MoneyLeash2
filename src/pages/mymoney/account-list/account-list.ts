@@ -82,12 +82,19 @@ export class AccountListPage {
     this.navbarcolor = this.userData.colors.navbar;
   }
 
-  edit(account) {
-
+  edit(slidingItem, account) {
+    this.handleSlidingItems(slidingItem);
+    this.nav.push(AccountPage, {paramAccount: account});
   }
 
-  delete(account) {
+  delete(slidingItem, account) {
+    console.log(account);
+    this.handleSlidingItems(slidingItem);
+  }
 
+  handleSlidingItems(slidingItem) {
+    // Close any open sliding items when the page updates
+    slidingItem.close();
   }
   
 }

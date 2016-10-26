@@ -17,7 +17,7 @@
       <ion-item-divider sticky>
         Checking
       </ion-item-divider>      
-      <ion-item-sliding *ngFor="let account of accounts">
+      <ion-item-sliding *ngFor="let account of accounts" #slidingItem>
         <ion-item (click)="viewtransactions(account)" class="ml-item">
           <ion-row>
             <ion-col width-50>
@@ -41,10 +41,10 @@
           <ion-icon name="arrow-forward" item-right color="mliconarrowblue"></ion-icon>
         </ion-item>
         <ion-item-options>
-          <button ion-button color="energized" (click)="edit(account)">
+          <button ion-button color="energized" (click)="edit(slidingItem, account)">
             Edit
           </button>
-          <button ion-button color="danger" (click)="delete(account)">
+          <button ion-button color="danger" (click)="delete(slidingItem, account)">
             Delete
           </button>
         </ion-item-options>
