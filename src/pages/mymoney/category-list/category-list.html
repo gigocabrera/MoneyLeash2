@@ -1,18 +1,44 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar [color]="navbarcolor">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>Categories</ion-title>
     <ion-buttons end>
-      <button ion-button (click)="add()">
+      <button ion-button (click)="newCategory()">
         <ion-icon name="md-add"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
-<ion-content>
+<ion-content class="outer-content">
   <ion-list>
-    Categories here
+    
+    <ion-item-group *ngFor="let group of groups">
+      
+      <ion-item-divider sticky>
+        {{group.name}}
+      </ion-item-divider>
+      
+      <ion-item-sliding *ngFor="let category of group.categories" #slidingItem>
+        <ion-item (click)="edit(slidingItem, category)" class="ml-item" [ngClass]="{mlindent: category.category.categoryparent !== ''}">
+          
+          <ion-icon name="md-attach" [ngClass]="{circleIconGreen: group.name === 'Income',circleIconRed: group.name === 'Expense'}"></ion-icon>
+          {{ category.category.categoryname }}
+          <ion-icon name="arrow-forward" item-right color="mliconarrowblue"></ion-icon>
+
+        </ion-item>
+
+        <ion-item-options>
+          <button ion-button color="energized" (click)="edit(slidingItem, category)">
+            Edit
+          </button>
+          <button ion-button color="danger" (click)="delete(slidingItem, category)">
+            Delete
+          </button>
+        </ion-item-options>
+
+      </ion-item-sliding>
+    </ion-item-group>
   </ion-list>
 </ion-content>

@@ -1,0 +1,62 @@
+
+page-category {
+
+  .ml-input {
+    padding: 0;
+    border-bottom: 1px solid #c8c7cc;
+    height: 60px;
+  }
+
+  .ml-input.item-block .item-inner{
+    border-bottom: 0;
+  }
+
+  .ml-input.item-block:first-child {
+    border-top: 0;
+  }
+
+  .ml-input ion-icon[item-left] {
+    background-color: #f0f0f0;
+    width: 61px;
+    height: 60px;
+    margin: 0;
+  }
+
+  .ml-input ion-icon[item-right] {
+    color: #c8c7cc
+  }
+
+  .ml-input ion-icon[item-left]:before {
+    color: #999999;
+    margin-top: 17px;
+    font-size: 28px;
+  }
+
+  .ml-input input {
+    padding-left: 10px;
+  }
+
+  .ml-input ion-datetime {
+    padding: 0px 8px 8px 10px;
+  }
+
+  .ml-input ion-label {
+    margin: 8px 8px 13px 0;
+  }
+
+  .ml-input ion-label[floating] {
+    -webkit-transform: translate3d(10px, 13px, 0);
+    transform: translate3d(10px, 13px, 0);
+  }
+
+  .ml-input.input-has-focus ion-label[floating] {
+    -webkit-transform: translate3d(10px, 6px, 0);
+    transform: translate3d(10px, 6px, 0) scale(0.8);
+  }
+
+  .ml-input.input-has-value ion-label[floating] {
+    -webkit-transform: translate3d(10px, 6px, 0);
+    transform: translate3d(10px, 6px, 0) scale(0.8);
+  }
+
+}

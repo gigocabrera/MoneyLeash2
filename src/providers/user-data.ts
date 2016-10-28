@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 
+import { Observable } from "rxjs/Observable"
+
 import 'rxjs';
 
 // firebase/angularfire
@@ -231,7 +233,7 @@ export class UserData {
       count++;
     } else {
       count--;
-    }    
+    }
     this.userdata.child(this.userauth.uid).update({'accounttypescount' : count});
   }
 
@@ -325,6 +327,9 @@ export class UserData {
     }
   }
 
+  //
+  // ACCOUNTS
+  //
   getAllAccounts() {
     return this.housedata.child(this.user.houseid + '/memberaccounts');
   }
@@ -351,5 +356,51 @@ export class UserData {
   deleteAccount(account) {
     this.housedata.child(this.user.houseid + '/memberaccounts/' + account.$key).remove();
   }
+
+  //
+  // CATEGORIES
+  //
+  getAllCategories() {
+    return this.af.database.list('/houses/' + this.user.houseid + '/membercategories', { preserveSnapshot: true});
+  }
+
+  getCatsTest() {
+    return this.af.database.list('/houses/' + this.user.houseid + '/membercategories').map( (arr) => { return arr.reverse(); } );
+  }
+
+  addCategory(category) {
+    var newCategory = {
+        'accountname': category.accname,
+        'accounttype': category.type,
+        'autoclear': 'false',
+        'balancecleared': '0',
+        'balancecurrent': '0',
+        'balancetoday': '0',
+        'dateopen': category.date,
+        'transactionid': '',
+        'balanceclass': 'textRed'
+    }
+    //this.housedata.child(this.user.houseid + "/membercategories/").push(newCategory);
+  }
+
+  updateCategory(category) {
+    //this.housedata.child(this.user.houseid + '/membercategories/' + category.$key).update({ 'accountname' : category.accountname, 'accounttype' : category.accounttype, 'dateopen' : category.dateopen });
+  }
+
+  deleteCategory(category) {
+    //this.housedata.child(this.user.houseid + '/membercategories/' + category.$key).remove();
+  }
+
+  /*
+  // Find an item in the array
+  //http://stackoverflow.com/questions/2713599/how-do-i-select-an-item-out-of-a-javascript-array-when-i-only-know-a-value-for-o
+  find_in_array(arr, name, value) {
+    for (var i = 0, len = arr.length; i<len; i++) {
+        if (name in arr[i] && arr[i][name] == value) return i;
+    };
+    return false;
+  }
+  var id = find_in_array(measurements.page[0].line, 'lineid', 22);
+  */
    
 }

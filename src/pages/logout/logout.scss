@@ -2,18 +2,19 @@
 page-logout {
 
   .toolbar-background {
-      background: #fff;
-      border-color: transparent;
-    }
-    
-  .logo {
-    padding: 20px 0;
-    min-height: 200px;
-    text-align: center;
+    background: transparent;
+    border-color: transparent;
   }
-
-  .logo img {
-    max-width: 150px;
+  #divHeading {
+    text-align: center;
+    margin-top: 10px;
+  }
+  #divHeading ion-icon {
+    color: #285264;
+    font-size: 125px;
+  }
+  .logoutScreen {
+    background-color: #172F39;
   }
 
 } 

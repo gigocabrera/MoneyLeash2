@@ -15,11 +15,11 @@ export class LogoutPage {
     public nav: NavController, 
     public menu: MenuController) {}
   
-  onLogin() {
+  doLogin(form) {
     this.nav.push(LoginPage, {}, {animate: true, direction: 'reverse'});
   }
 
-  onSignup() {
+  doSignup() {
     this.nav.push(SignupPage, {}, {animate: true, direction: 'reverse'});
   }
   

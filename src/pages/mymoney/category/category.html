@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      {{ title }}
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="save(category)">Save</button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-list>
+    <ion-item-divider>
+      {{ listheader }}
+    </ion-item-divider>
+    <ion-item class="ml-input">
+      <ion-icon name="md-clipboard" item-left></ion-icon>
+      <ion-label floating>Category Name</ion-label>
+      <ion-input [(ngModel)]="category.categoryname" name="categoryname" type="text" #accname="ngModel" spellcheck="false" autocapitalize="on"></ion-input>
+      <ion-icon name="arrow-forward" item-right></ion-icon>
+    </ion-item>
+    <ion-item class="ml-input" (click)="pickCategoryType()">
+      <ion-icon name="md-clipboard" item-left></ion-icon>
+      <ion-label floating>Category Type</ion-label>
+      <ion-input [(ngModel)]="category.categortype" name="categorytype" type="text" #accname="ngModel" spellcheck="false" autocapitalize="on"></ion-input>
+      <ion-icon name="arrow-forward" item-right></ion-icon>
+    </ion-item>
+    <ion-item class="ml-input" (click)="pickCategoryParent()">
+      <ion-icon name="md-cash" item-left></ion-icon>
+      <ion-label floating>Parent Category</ion-label>
+      <ion-input type="text" [(ngModel)]="category.categoryparent"></ion-input>
+      <ion-icon name="arrow-forward" item-right></ion-icon>
+    </ion-item>
+  </ion-list>
+</ion-content>

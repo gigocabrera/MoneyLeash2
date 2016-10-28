@@ -23,6 +23,7 @@ import { PersonalProfilePhotoPage } from '../pages/myinfo/personalprofilephoto/p
 import { AccountPage } from '../pages/mymoney/account/account';
 import { AccountListPage } from '../pages/mymoney/account-list/account-list';
 import { BudgetListPage } from '../pages/mymoney/budget-list/budget-list';
+import { CategoryPage } from '../pages/mymoney/category/category';
 import { CategoryListPage } from '../pages/mymoney/category-list/category-list';
 import { PayeeListPage } from '../pages/mymoney/payee-list/payee-list';
 import { RecurringListPage } from '../pages/mymoney/recurring-list/recurring-list';
@@ -79,6 +80,7 @@ const firebaseAuthConfig = {
     AccountPage,
     AccountListPage,
     BudgetListPage,
+    CategoryPage,
     CategoryListPage,
     PayeeListPage,
     RecurringListPage,
@@ -118,6 +120,7 @@ const firebaseAuthConfig = {
     AccountPage,
     AccountListPage,
     BudgetListPage,
+    CategoryPage,
     CategoryListPage,
     PayeeListPage,
     RecurringListPage,
