@@ -26,22 +26,7 @@ export class CategoryListPage {
       public alertController: AlertController,
       public userData: UserData) {}
   
-  ionViewDidLoad() {
-
-    this.test = this.userData.getCatsTest().subscribe(categoryTypes => {
-      
-      console.log(categoryTypes);
-      console.log(categoryTypes.key);
-
-      for (var i = 0, len = this.test.length; i<len; i++) {
-        
-        console.log(this.test[i]);
-
-      };
-
-
-    })
-    
+  ionViewDidLoad() {    
 
     this.userData.getAllCategories().subscribe(categoryTypes => {
       

@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 
-import { Observable } from "rxjs/Observable"
-
 import 'rxjs';
 
 // firebase/angularfire
@@ -364,10 +362,6 @@ export class UserData {
     return this.af.database.list('/houses/' + this.user.houseid + '/membercategories', { preserveSnapshot: true});
   }
 
-  getCatsTest() {
-    return this.af.database.list('/houses/' + this.user.houseid + '/membercategories').map( (arr) => { return arr.reverse(); } );
-  }
-
   addCategory(category) {
     var newCategory = {
         'accountname': category.accname,
@@ -380,7 +374,7 @@ export class UserData {
         'transactionid': '',
         'balanceclass': 'textRed'
     }
-    //this.housedata.child(this.user.houseid + "/membercategories/").push(newCategory);
+    this.housedata.child(this.user.houseid + "/membercategories/").push(newCategory);
   }
 
   updateCategory(category) {
