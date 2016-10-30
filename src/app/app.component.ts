@@ -1,9 +1,10 @@
 import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
-import { StatusBar } from 'ionic-native';
+import { StatusBar, Splashscreen, TouchID } from 'ionic-native';
 
 // intro and login pages
 import { TutorialPage } from '../pages/tutorial/tutorial';
+import { LoginAutoPage } from '../pages/loginauto/loginauto';
 import { LogoutPage } from '../pages/logout/logout';
 
 // app pages
@@ -52,10 +53,33 @@ export class MoneyLeashApp {
   }
 
   initializeApp() {
+    // Call any initial plugins when ready
     this.platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
-      StatusBar.styleDefault();
+      StatusBar.styleLightContent();
+      Splashscreen.hide();
+      //
+      // Check if TouchID has been selected
+      if (this.userData.enabletouchid === 'true') {
+        //
+        // Check if TouchID is supported
+        TouchID.isAvailable()
+        .then(
+          res => {
+            TouchID.verifyFingerprint('Scan your fingerprint please')
+            .then(
+              res => {
+                this.nav.setRoot(LoginAutoPage);
+              },
+              err => {console.error('Error', err)}
+            );
+          },
+          err => {
+            console.error('TouchID is not available', err)
+          }
+        );
+      } else {
+        console.log('TouchID setting is NOT enabled!');
+      }
     });
   }
 

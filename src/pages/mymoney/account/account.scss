@@ -35,12 +35,16 @@ page-account {
     padding-left: 10px;
   }
 
+  .ml-input ion-input {
+    margin-top: -1px;
+  }
+
   .ml-input ion-datetime {
     padding: 0px 8px 8px 10px;
   }
 
   .ml-input ion-label {
-    margin: 8px 8px 13px 0;
+    margin: 5px 8px 13px 0;
   }
 
   .ml-input ion-label[floating] {
@@ -50,12 +54,12 @@ page-account {
 
   .ml-input.input-has-focus ion-label[floating] {
     -webkit-transform: translate3d(10px, 6px, 0);
-    transform: translate3d(10px, 6px, 0) scale(0.8);
+    transform: translate3d(10px, 4px, 0) scale(0.8);
   }
 
   .ml-input.input-has-value ion-label[floating] {
     -webkit-transform: translate3d(10px, 6px, 0);
-    transform: translate3d(10px, 6px, 0) scale(0.8);
+    transform: translate3d(10px, 4px, 0) scale(0.8);
   }
 
 }
