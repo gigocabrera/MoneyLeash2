@@ -13,32 +13,41 @@
 </ion-header>
 <ion-content class="outer-content">
   <ion-list>
-    
-    <ion-item-group *ngFor="let group of groups">
-      
       <ion-item-divider sticky>
-        {{group.name}}
+        Income Categories
       </ion-item-divider>
-      
-      <ion-item-sliding *ngFor="let category of group.categories" #slidingItem>
-        <ion-item (click)="edit(slidingItem, category)" class="ml-item" [ngClass]="{mlindent: category.category.categoryparent !== ''}">
-          
-          <ion-icon name="md-attach" [ngClass]="{circleIconGreen: group.name === 'Income',circleIconRed: group.name === 'Expense'}"></ion-icon>
-          {{ category.category.categoryname }}
+      <ion-item-sliding *ngFor="let incomecat of incomeCategories | async" #slidingItem>
+        <ion-item (click)="edit(slidingItem, incomecat)" class="ml-item" [ngClass]="{mlindent: incomecat.categoryparent !== ''}">
+          <ion-icon name="md-attach" class="circleIconGreen"></ion-icon>
+          {{ incomecat.categoryname }}
           <ion-icon name="arrow-forward" item-right color="mliconarrowblue"></ion-icon>
-
         </ion-item>
-
         <ion-item-options>
-          <button ion-button color="energized" (click)="edit(slidingItem, category)">
+          <button ion-button color="energized" (click)="edit(slidingItem, incomecat)">
             Edit
           </button>
-          <button ion-button color="danger" (click)="delete(slidingItem, category)">
+          <button ion-button color="danger" (click)="delete(slidingItem, incomecat)">
             Delete
           </button>
         </ion-item-options>
-
       </ion-item-sliding>
-    </ion-item-group>
+      <ion-item-divider sticky>
+        Expense Categories
+      </ion-item-divider>
+      <ion-item-sliding *ngFor="let expensecat of expenseCategories | async" #slidingItem>
+        <ion-item (click)="edit(slidingItem, expensecat)" class="ml-item" [ngClass]="{mlindent: expensecat.categoryparent !== ''}">
+          <ion-icon name="md-attach" class="circleIconRed"></ion-icon>
+          {{ expensecat.categoryname }}
+          <ion-icon name="arrow-forward" item-right color="mliconarrowblue"></ion-icon>
+        </ion-item>
+        <ion-item-options>
+          <button ion-button color="energized" (click)="edit(slidingItem, expensecat)">
+            Edit
+          </button>
+          <button ion-button color="danger" (click)="delete(slidingItem, expensecat)">
+            Delete
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
   </ion-list>
 </ion-content>

@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 
 import { NavController, AlertController } from 'ionic-angular';
 
+import { FirebaseListObservable } from 'angularfire2';
+
 // app pages
 import { CategoryPage } from '../category/category';
 
@@ -15,11 +17,12 @@ import {UserData} from '../../../providers/user-data';
 
 export class CategoryListPage {
 
-  groups = [];
-  categories = [];
+  //groups = [];
+  //categories: [];
+  incomeCategories: FirebaseListObservable<any>;
+  expenseCategories: FirebaseListObservable<any>;
   previousgroup: string;
   previouscategory: string;
-  test;
 
   constructor(
       public nav: NavController,
@@ -28,7 +31,12 @@ export class CategoryListPage {
   
   ionViewDidLoad() {    
 
-    this.userData.getAllCategories().subscribe(categoryTypes => {
+    this.incomeCategories = this.userData.getAllIncomeCategories();
+    console.log(this.incomeCategories);
+    this.expenseCategories = this.userData.getAllExpenseCategories();
+    console.log(this.expenseCategories);
+
+    /*this.userData.getAllCategories().subscribe(categoryTypes => {
       
       categoryTypes.forEach(category => {
 
@@ -56,7 +64,7 @@ export class CategoryListPage {
         this.groups.push({ 'name': category.key, 'categories': this.categories});
       });
       
-    });
+    });*/
 
   }
   

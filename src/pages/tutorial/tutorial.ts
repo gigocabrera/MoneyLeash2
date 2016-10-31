@@ -24,8 +24,8 @@ export class TutorialPage {
   constructor(private nav: NavController, private menu: MenuController) {
     this.slides = [
       {
-        title: 'MoneyLeash',
-        description: 'Don\'t let your money run wild... <br />Keep it on a <b>Leash!</b>',
+        title: '<strong>MoneyLeash</strong>',
+        description: 'Don\'t let your money run wild... <br />Keep it on a <b>Leash <i class="fa fa-heart-o"></i></b>',
         icon: 'fa fa-usd',
         color: 'introGreen',
         class: 'slide-title app-title',
@@ -33,7 +33,7 @@ export class TutorialPage {
       },
       {
         title: 'What is MoneyLeash?',
-        description: '<b>Money Leash</b> is an open source money management app designed with the most advanced mobile technologies available. It will allow you to track expenses, budgets, recurring bills, and much much more!',
+        description: '<b>MoneyLeash</b> is an open source, money management app designed with the most advanced mobile technologies available. It will allow you to track expenses, budgets, recurring bills, and much much more!',
         icon: 'fa fa-lightbulb-o',
         color: 'introYellow',
         class: 'slide-title',
@@ -41,7 +41,7 @@ export class TutorialPage {
       },
       {
         title: ' Why Should I Use it?',
-        description: 'With <b>Money Leash</b> you can tell your money where to go, instead of asking your money where it went!',
+        description: 'With <b>MoneyLeash</b> you can tell your money where to go, instead of asking your money where it went!',
         icon: 'fa fa-question',
         color: 'introLightBlue',
         class: 'slide-title',

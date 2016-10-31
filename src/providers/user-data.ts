@@ -361,6 +361,12 @@ export class UserData {
   getAllCategories() {
     return this.af.database.list('/houses/' + this.user.houseid + '/membercategories', { preserveSnapshot: true});
   }
+  getAllIncomeCategories() {
+    return this.af.database.list('/houses/' + this.user.houseid + '/membercategories/Income');
+  }
+  getAllExpenseCategories() {
+    return this.af.database.list('/houses/' + this.user.houseid + '/membercategories/Expense');
+  }
 
   addCategory(category) {
     var newCategory = {

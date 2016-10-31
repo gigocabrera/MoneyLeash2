@@ -26,7 +26,6 @@ export class CategoryPage {
       public userData: UserData) {
 
     this.category = this.navParams.data.paramCategory;
-    console.log(this.category);
     if (this.category.mode === 'New') {
       this.title = 'Create Category';
       this.listheader = 'Enter Category Details';
