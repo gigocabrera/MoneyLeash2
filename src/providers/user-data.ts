@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 
+import { NativeStorage } from 'ionic-native';
+
 import 'rxjs';
 
 // firebase/angularfire
@@ -165,33 +167,51 @@ export class UserData {
   }
 
   setUsername(username) {
-    //this.storage.set('username', username);
+    NativeStorage.setItem('username', username)
+    .then(
+      () => console.log('Stored item!'),
+      error => console.error('Error storing item', error)
+    )
   }
 
   setUserPwd(pwd) {
-    //this.storage.set('userpwd', pwd);
+    NativeStorage.setItem('userpwd', pwd)
+    .then(
+      () => console.log('Stored item!'),
+      error => console.error('Error storing item', error)
+    )
   }
 
   setEnableTouchID(enabletouchid) {
-    //this.storage.set('enabletouchid', enabletouchid);
+    NativeStorage.setItem('enabletouchid', enabletouchid)
+    .then(
+      () => console.log('Stored item!'),
+      error => console.error('Error storing item', error)
+    )
   }
 
   getUsernameStorage() {
-    /*return this.storage.get('username').then((value) => {
-      return value;
-    });*/
+    NativeStorage.getItem('username')
+    .then(
+      data => console.log(data),
+      error => console.error(error)
+    )
   }
 
   getPasswordStorage() {
-    /*return this.storage.get('userpwd').then((value) => {
-      return value;
-    });*/
+    NativeStorage.getItem('userpwd')
+    .then(
+      data => console.log(data),
+      error => console.error(error)
+    )
   }
 
   getEnableTouchIDStorage() {
-    /*return this.storage.get('enabletouchid').then((value) => {
-      return value;
-    });*/
+    NativeStorage.getItem('enabletouchid')
+    .then(
+      data => console.log(data),
+      error => console.error(error)
+    )
   }
 
   logout() {

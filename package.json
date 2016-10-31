@@ -53,7 +53,6 @@
   ],
   "cordovaPlatforms": [],
   "config": {
-    "ionic_rollup": "./scripts/rollup.config.js",
     "ionic_copy": "./scripts/copy-custom-libs.js"
   }
 }

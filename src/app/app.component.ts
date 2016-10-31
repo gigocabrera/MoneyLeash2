@@ -19,6 +19,9 @@ import {SettingsPage } from '../pages/mysettings/settings/settings';
 // services
 import { UserData } from '../providers/user-data';
 
+// firebase
+import firebase from 'firebase';
+
 @Component({
   templateUrl: 'app.html'
 })
