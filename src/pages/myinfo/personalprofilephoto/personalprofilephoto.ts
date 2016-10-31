@@ -14,7 +14,7 @@ export class PersonalProfilePhotoPage {
   
   public userSettings: any;
   public userPicture: any;
-  public userPictureblob: any;
+  //public userPictureblob: any;
 
   constructor(
       public nav: NavController,
@@ -29,7 +29,7 @@ export class PersonalProfilePhotoPage {
   }
 
   savePicture() {
-    this.userData.savePicture(this.userPictureblob);
+    this.userData.savePicture(this.userPicture);
     this.dismiss();
   }
 
@@ -44,7 +44,7 @@ export class PersonalProfilePhotoPage {
       targetHeight: 800,
       saveToPhotoAlbum: false
     }).then(imageData => {
-      this.userPictureblob = imageData;
+      this.userPicture = imageData;
     }, error => {
       console.log("ERROR -> " + JSON.stringify(error));
     });
