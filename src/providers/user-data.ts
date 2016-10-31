@@ -285,6 +285,10 @@ export class UserData {
       .put(pic).then((savedpicture) => {
         this.userdata.child(firebase.auth().currentUser.uid).update({'profilepic' : savedpicture.downloadURL});
       });*/
+    this.profilepicdata.child(firebase.auth().currentUser.uid).child('profilepicture.png')
+    .putString(pic, 'base64', {contentType: 'image/png'}).then((savedpicture) => {
+      this.userdata.child(firebase.auth().currentUser.uid).update({'profilepic' : savedpicture.downloadURL});
+    });
   }
 
   updateEmailNode(newemail) {

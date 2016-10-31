@@ -44,6 +44,23 @@ export class PersonalProfilePhotoPage {
       targetHeight: 800,
       saveToPhotoAlbum: false
     }).then(imageData => {
+      this.userPictureblob = imageData;
+    }, error => {
+      console.log("ERROR -> " + JSON.stringify(error));
+    });
+  }
+
+  /*takePicture(){
+    Camera.getPicture({
+      quality : 95,
+      destinationType : Camera.DestinationType.DATA_URL,
+      sourceType : Camera.PictureSourceType.CAMERA,
+      allowEdit : true,
+      encodingType: Camera.EncodingType.PNG,
+      targetWidth: 800,
+      targetHeight: 800,
+      saveToPhotoAlbum: false
+    }).then(imageData => {
       const b64toBlob = (b64Data, contentType='', sliceSize=512) => {
         const byteCharacters = atob(b64Data);
         const byteArrays = [];
@@ -64,6 +81,6 @@ export class PersonalProfilePhotoPage {
     }, error => {
       console.log("ERROR -> " + JSON.stringify(error));
     });
-  }
+  }*/
   
 }
