@@ -38,9 +38,9 @@
       </ion-note>
     </button>
     <button ion-item (click)="openAccountTypes()">
-      <ion-icon item-left name="ios-list-outline"></ion-icon>
+      <ion-icon item-left name="ios-browsers-outline"></ion-icon>
       Account Types
-      <ion-badge item-right light>
+      <ion-badge item-right color="light">
         {{ userData.user?.accounttypescount }}
       </ion-badge>
     </button>
@@ -50,7 +50,7 @@
       Security
     </ion-list-header>
     <ion-item>
-      <ion-icon danger item-left name="finger-print"></ion-icon>
+      <ion-icon item-left name="finger-print" color="danger"></ion-icon>
       <ion-label>Enable TouchID</ion-label>
       <ion-toggle (ionChange)="toggleTouchID($event)" checked="{{ userData.user?.enabletouchid }}"></ion-toggle>
     </ion-item>

@@ -32,9 +32,7 @@ export class CategoryListPage {
   ionViewDidLoad() {    
 
     this.incomeCategories = this.userData.getAllIncomeCategories();
-    console.log(this.incomeCategories);
     this.expenseCategories = this.userData.getAllExpenseCategories();
-    console.log(this.expenseCategories);
 
     /*this.userData.getAllCategories().subscribe(categoryTypes => {
       

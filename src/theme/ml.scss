@@ -5,19 +5,6 @@
 // --------------------------------------------------
 // http://www.localfont.com/
 @font-face {
-  font-family: 'PT Sans';
-  font-weight: 400;
-  font-style: normal;
-  src: url('../assets/fonts/PT-Sans-regular/PT-Sans-regular.eot');
-  src: url('../assets/fonts/PT-Sans-regular/PT-Sans-regular.eot?#iefix') format('embedded-opentype'),
-       local('PT Sans'),
-       local('PT-Sans-regular'),
-       url('../assets/fonts/PT-Sans-regular/PT-Sans-regular.woff2') format('woff2'),
-       url('../assets/fonts/PT-Sans-regular/PT-Sans-regular.woff') format('woff'),
-       url('../assets/fonts/PT-Sans-regular/PT-Sans-regular.ttf') format('truetype'),
-       url('../assets/fonts/PT-Sans-regular/PT-Sans-regular.svg#PTSans') format('svg');
-}
-@font-face {
   font-family: 'PT Sans Narrow';
   font-weight: 400;
   font-style: normal;
@@ -30,6 +17,21 @@
        url('../assets/fonts/PT-Sans-Narrow-regular/PT-Sans-Narrow-regular.ttf') format('truetype'),
        url('../assets/fonts/PT-Sans-Narrow-regular/PT-Sans-Narrow-regular.svg#PTSansNarrow') format('svg');
 }
+
+@font-face {
+  font-family: 'PT Sans Narrow';
+  font-weight: 700;
+  font-style: normal;
+  src: url('../assets/fonts/PT-Sans-Narrow-700/PT-Sans-Narrow-700.eot');
+  src: url('../assets/fonts/PT-Sans-Narrow-700/PT-Sans-Narrow-700.eot?#iefix') format('embedded-opentype'),
+       local('PT Sans Narrow Bold'),
+       local('PT-Sans-Narrow-700'),
+       url('../assets/fonts/PT-Sans-Narrow-700/PT-Sans-Narrow-700.woff2') format('woff2'),
+       url('../assets/fonts/PT-Sans-Narrow-700/PT-Sans-Narrow-700.woff') format('woff'),
+       url('../assets/fonts/PT-Sans-Narrow-700/PT-Sans-Narrow-700.ttf') format('truetype'),
+       url('../assets/fonts/PT-Sans-Narrow-700/PT-Sans-Narrow-700.svg#PTSansNarrow') format('svg');
+}
+
 //$font-family-md-base: "PT Sans";
 //$font-family-ios-base: "PT Sans";
 //$font-family-wp-base: "PT Sans";
@@ -60,4 +62,16 @@ $toolbar-wp-title-font-size:    2rem;
 }
 */
 
+// ion-item-divider
+// --------------------------------------------------
 //$item-ios-divider-background: #D3EAF0;
+
+// Alert control - Custom Text Color
+// --------------------------------------------------
+.alertDanger .button-inner{
+  background-color: white;
+  color: red;
+  button{
+    color: red;
+  }
+}

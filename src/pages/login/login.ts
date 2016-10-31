@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { AlertController, MenuController , NavController } from 'ionic-angular';
+import { AlertController, MenuController , NavController, LoadingController } from 'ionic-angular';
 
 // app pages
 import { SignupPage } from '../signup/signup';
@@ -18,12 +18,12 @@ export class LoginPage {
   
   login: {email?: string, password?: string} = {};
   submitted = false;
-  //public fireAuth: any;
 
   constructor(
     public alertController: AlertController,
     public menuCtrl: MenuController,
-    public navCtrl: NavController, 
+    public navCtrl: NavController,
+    public loadingCtrl: LoadingController, 
     public userData: UserData) {
 
     this.login.email = 'paulina@test.com';
@@ -32,6 +32,14 @@ export class LoginPage {
    }
 
   onLogin(form) {
+    
+    let loading = this.loadingCtrl.create({
+      spinner: 'ios',
+      dismissOnPageChange: true,
+      content: 'Please wait...',
+    });
+    loading.present();
+
     this.submitted = true;
     if (form.valid) {
       this.userData.login(this.login)
@@ -40,7 +48,8 @@ export class LoginPage {
         }        
       )
       .catch(
-        (error) => {          
+        (error) => {
+          loading.dismiss();     
           this.LoginError(error);
         }
       );
