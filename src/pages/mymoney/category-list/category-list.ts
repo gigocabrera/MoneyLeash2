@@ -29,7 +29,7 @@ export class CategoryListPage {
       public alertController: AlertController,
       public userData: UserData) {}
   
-  ionViewDidLoad() {    
+  ionViewDidLoad() {
 
     this.incomeCategories = this.userData.getAllIncomeCategories();
     this.expenseCategories = this.userData.getAllExpenseCategories();

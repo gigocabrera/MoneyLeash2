@@ -19,13 +19,13 @@ export class PickAccountTypePage {
   constructor(
     public viewCtrl: ViewController, 
     public navParams: NavParams,
-    public userData: UserData) {
-    
+    public userData: UserData) {}
+
+  ionViewDidLoad() {
     this.loadAccountTypes();
     this.itemselected = {
       text: this.navParams.data.paramType
     }
-
   }
   
   save(item) {

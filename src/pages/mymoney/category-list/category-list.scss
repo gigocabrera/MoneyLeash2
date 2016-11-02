@@ -1,31 +1,24 @@
 
+$categories: (
+  income: color($colors, mlgreen),
+  expense: color($colors, mlred),
+);
+
+@function auxiliary-categories() {
+  @return map-remove($categories);
+}
+
 page-category-list {
 
-  .mlindent {
-    padding-left: 40px;
-  }
-  .ml-item ion-label {
-    margin-top: 0;
-    margin-bottom: 4px;
-    height: 30px;
-    /*font-family: 'PT Sans Narrow';*/
-    font-size: 17px;
-  }
-  .circleIconGreen {
-    color: #28a54c;
-    padding: 3px;
-  }
-  .circleIconGreen:before {
-    font-size: 20px;
-  }
-  .circleIconRed {
-    /*background: #CE1B31;
-    color: #fff;*/
-    color: #CE1B31;
-    padding: 3px;
-  }
-  .circleIconRed:before {
-    font-size: 20px;
+  @each $track, $value in auxiliary-categories() {
+    ion-item-sliding[track=#{$track}] ion-label {
+      border-left: 2px solid $value;
+      padding-left: 10px;
+    }
+
+    ion-item-sliding[track=#{$track}].mlindent {
+      padding-left: 20px;
+    }
   }
 
 }

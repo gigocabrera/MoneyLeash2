@@ -19,15 +19,15 @@ export class PickDefaultDatePage {
   constructor(
     public nav: NavController, 
     public viewCtrl: ViewController, 
-    public navParams: NavParams) {
+    public navParams: NavParams) {}
 
+  ionViewDidLoad() {
     this.defaultDateOptions = [
           { text: 'No default date', value: 'None' },
           { text: 'Today\'s date', value: 'Today' },
           { text: 'Last date used', value: 'Last' }];
     
     this.itemselected = this.navParams.data.paramDate;
-
   }
 
   pickPreference(dateSelected) {

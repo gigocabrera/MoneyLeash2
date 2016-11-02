@@ -35,6 +35,8 @@ import { TransactionPage } from '../pages/mymoney/transaction/transaction';
 import { PickDefaultBalancePage } from '../pages/mypicklists/pickdefaultbalance/pickdefaultbalance';
 import { PickDefaultDatePage } from '../pages/mypicklists/pickdefaultdate/pickdefaultdate';
 import { PickAccountTypePage } from '../pages/mypicklists/pickaccounttype/pickaccounttype';
+import { PickCategoryTypePage } from '../pages/mypicklists/pickcategorytype/pickcategorytype';
+import { PickCategoryParentPage } from '../pages/mypicklists/pickcategoryparent/pickcategoryparent';
 
 // mysettings
 import { AccountTypesPage } from '../pages/mysettings/accounttypes/accounttypes';
@@ -90,6 +92,8 @@ const firebaseAuthConfig = {
     PickDefaultBalancePage,
     PickDefaultDatePage,
     PickAccountTypePage,
+    PickCategoryTypePage,
+    PickCategoryParentPage,
     AccountTypesPage,
     AccountTypesEditPage,
     SettingsPage,
@@ -130,6 +134,8 @@ const firebaseAuthConfig = {
     PickDefaultBalancePage,
     PickDefaultDatePage,
     PickAccountTypePage,
+    PickCategoryTypePage,
+    PickCategoryParentPage,
     AccountTypesPage,
     AccountTypesEditPage,
     SettingsPage,

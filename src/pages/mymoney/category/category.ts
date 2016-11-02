@@ -3,7 +3,8 @@ import { Component } from '@angular/core';
 import { NavController, ModalController, NavParams } from 'ionic-angular';
 
 // app pages
-//import { PickAccountTypePage } from '../../mypicklists/pickaccounttype/pickaccounttype';
+import { PickCategoryTypePage } from '../../mypicklists/pickcategorytype/pickcategorytype';
+import { PickCategoryParentPage } from '../../mypicklists/pickcategoryparent/pickcategoryparent';
 
 // services
 import { UserData } from '../../../providers/user-data';
@@ -44,26 +45,28 @@ export class CategoryPage {
     this.nav.pop();
   }
 
-  /*pickAccountType() {
-    let modal = this.modalController.create(PickAccountTypePage, {paramType: this.account.type});
+  pickCategoryType() {
+    let modal = this.modalController.create(PickCategoryTypePage, {paramCategoryType: this.category.categorytype});
     modal.present(modal);
     modal.onDidDismiss((data: any[]) => {
       if (data) {
-        this.onPickAccountType(data);
+        this.onPickCategoryType(data);
       }
     });
-  }*/
-
-  onPickAccountType(item) {
-    this.category.type = item.name;
   }
 
-  pickCategoryType() {
-
-  }
+  onPickCategoryType(item) {
+    this.category.categorytype = item.text;
+  }  
 
   pickCategoryParent() {
-
+    let modal = this.modalController.create(PickCategoryParentPage, {paramCategory: this.category});
+    modal.present(modal);
+    modal.onDidDismiss((data: any[]) => {
+      if (data) {
+        this.onPickCategoryType(data);
+      }
+    });
   }
   
 }

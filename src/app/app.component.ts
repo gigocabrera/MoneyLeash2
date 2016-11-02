@@ -56,6 +56,7 @@ export class MoneyLeashApp {
   }
 
   initializeApp() {
+
     // Call any initial plugins when ready
     this.platform.ready().then(() => {
       StatusBar.styleLightContent();

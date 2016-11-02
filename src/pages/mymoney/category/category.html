@@ -13,26 +13,29 @@
 </ion-header>
 <ion-content>
   <ion-list>
-    <ion-item-divider>
-      {{ listheader }}
+
+    <ion-item-divider color="mllightblue">
+      <ion-label>
+        {{ listheader }}
+      </ion-label>
     </ion-item-divider>
     <ion-item class="ml-input">
       <ion-icon name="md-clipboard" item-left></ion-icon>
       <ion-label floating>Category Name</ion-label>
-      <ion-input [(ngModel)]="category.categoryname" name="categoryname" type="text" #accname="ngModel" spellcheck="false" autocapitalize="on"></ion-input>
-      <ion-icon name="arrow-forward" item-right></ion-icon>
+      <ion-input [(ngModel)]="category.categoryname" name="categoryname" type="text" #categoryname="ngModel" spellcheck="false" autocapitalize="on"></ion-input>
+      <ion-icon name="arrow-forward" item-right color="mliconarrowblue"></ion-icon>
     </ion-item>
     <ion-item class="ml-input" (click)="pickCategoryType()">
       <ion-icon name="md-clipboard" item-left></ion-icon>
       <ion-label floating>Category Type</ion-label>
-      <ion-input [(ngModel)]="category.categortype" name="categorytype" type="text" #accname="ngModel" spellcheck="false" autocapitalize="on"></ion-input>
-      <ion-icon name="arrow-forward" item-right></ion-icon>
+      <ion-input [(ngModel)]="category.categorytype" name="categorytype" type="text" #categorytype="ngModel"></ion-input>
+      <ion-icon name="arrow-forward" item-right color="mliconarrowblue"></ion-icon>
     </ion-item>
     <ion-item class="ml-input" (click)="pickCategoryParent()">
       <ion-icon name="md-cash" item-left></ion-icon>
       <ion-label floating>Parent Category</ion-label>
-      <ion-input type="text" [(ngModel)]="category.categoryparent"></ion-input>
-      <ion-icon name="arrow-forward" item-right></ion-icon>
+      <ion-input [(ngModel)]="category.categoryparent" name="categoryparent" type="text" #categoryparent="ngModel"></ion-input>
+      <ion-icon name="arrow-forward" item-right color="mliconarrowblue"></ion-icon>
     </ion-item>
   </ion-list>
 </ion-content>

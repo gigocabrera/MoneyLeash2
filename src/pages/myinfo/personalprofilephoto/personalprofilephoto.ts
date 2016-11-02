@@ -18,10 +18,10 @@ export class PersonalProfilePhotoPage {
 
   constructor(
       public nav: NavController,
-      public userData: UserData) {
+      public userData: UserData) {}
 
-        // Initialize camera on load
-        this.takePicture();
+  ionViewDidLoad() {
+    this.takePicture();
   }
 
   dismiss() {

@@ -60,7 +60,7 @@ export class UserData {
       });
     });
   }
-
+  
   createInitialSetup() {
 
     this.createUserProfile();
@@ -193,7 +193,10 @@ export class UserData {
   getUsernameStorage() {
     NativeStorage.getItem('username')
     .then(
-      data => console.log(data),
+      data => {
+        console.log(data);
+        return data;
+      },
       error => console.error(error)
     )
   }
@@ -201,7 +204,10 @@ export class UserData {
   getPasswordStorage() {
     NativeStorage.getItem('userpwd')
     .then(
-      data => console.log(data),
+      data => {
+        console.log(data);
+        return data;
+      },
       error => console.error(error)
     )
   }
@@ -301,10 +307,6 @@ export class UserData {
   }
 
   savePicture(pic) {
-    /*this.profilepicdata.child(firebase.auth().currentUser.uid).child('profilepicture.png')
-      .put(pic).then((savedpicture) => {
-        this.userdata.child(firebase.auth().currentUser.uid).update({'profilepic' : savedpicture.downloadURL});
-      });*/
     this.profilepicdata.child(firebase.auth().currentUser.uid).child('profilepicture.png')
     .putString(pic, 'base64', {contentType: 'image/png'}).then((savedpicture) => {
       this.userdata.child(firebase.auth().currentUser.uid).update({'profilepic' : savedpicture.downloadURL});
@@ -390,6 +392,9 @@ export class UserData {
   }
   getAllExpenseCategories() {
     return this.af.database.list('/houses/' + this.user.houseid + '/membercategories/Expense');
+  }
+  getParentCategories(type) {
+    return this.housedata.child(this.user.houseid + '/membercategories/' + type).orderByChild('categorysort');
   }
 
   addCategory(category) {

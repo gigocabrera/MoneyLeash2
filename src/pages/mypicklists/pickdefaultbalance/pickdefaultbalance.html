@@ -4,7 +4,7 @@
       <button ion-button (click)="dismiss()">Cancel</button>
     </ion-buttons>
     <ion-title>
-      Default Balance
+      Pick Default Balance
     </ion-title>
     <ion-buttons end>
       <button ion-button (click)="pickPreference(itemselected)">Save</button>
@@ -16,7 +16,7 @@
     Select default balance
   </ion-list-header>
   <ion-list radio-group [(ngModel)]="itemselected" class="reducedbottommargin">
-    <ion-item *ngFor="let item of defaultBalanceOptions">
+    <ion-item *ngFor="let item of defaultItems">
         <ion-label>{{item.text}}</ion-label>
         <ion-radio [value]="item.value"></ion-radio>
     </ion-item>

@@ -9,25 +9,29 @@ import { NavController, ViewController, NavParams } from 'ionic-angular';
 
 export class PickDefaultBalancePage {  
   
-  defaultBalanceOptions: {
+  defaultItems: {
     description?: string,
     value?: string
   } = {};
   
   itemselected: string;
    
-  constructor(public nav: NavController, public viewCtrl: ViewController, public navParams: NavParams) {
+  constructor(
+    public nav: NavController, 
+    public viewCtrl: ViewController, 
+    public navParams: NavParams) {}
 
-    this.defaultBalanceOptions = [
+  ionViewDidLoad() {
+    this.defaultItems = [
           { text: 'Current Balance', value: 'Current' },
           { text: 'Cleared Balance', value: 'Cleared' },
-          { text: 'Today\'s Balance', value: 'Today' }];
-
+          { text: 'Today\'s Balance', value: 'Today' }
+    ];
     this.itemselected = this.navParams.data.paramBalance;
   }
   
-  pickPreference(balanceSelected) {
-    this.viewCtrl.dismiss(balanceSelected);
+  pickPreference(itemselected) {
+    this.viewCtrl.dismiss(itemselected);
   }
 
   dismiss() {
