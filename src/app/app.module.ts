@@ -26,6 +26,7 @@ import { BudgetListPage } from '../pages/mymoney/budget-list/budget-list';
 import { CategoryPage } from '../pages/mymoney/category/category';
 import { CategoryListPage } from '../pages/mymoney/category-list/category-list';
 import { PayeeListPage } from '../pages/mymoney/payee-list/payee-list';
+import { PayeePage } from '../pages/mymoney/payee/payee';
 import { RecurringListPage } from '../pages/mymoney/recurring-list/recurring-list';
 import { ReportListPage } from '../pages/mymoney/report-list/report-list';
 import { TransactionsPage } from '../pages/mymoney/transactions/transactions';
@@ -85,6 +86,7 @@ const firebaseAuthConfig = {
     CategoryPage,
     CategoryListPage,
     PayeeListPage,
+    PayeePage,
     RecurringListPage,
     ReportListPage,
     TransactionsPage,
@@ -127,6 +129,7 @@ const firebaseAuthConfig = {
     CategoryPage,
     CategoryListPage,
     PayeeListPage,
+    PayeePage,
     RecurringListPage,
     ReportListPage,
     TransactionsPage,

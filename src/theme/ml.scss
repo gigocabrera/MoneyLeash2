@@ -32,12 +32,14 @@
        url('../assets/fonts/PT-Sans-Narrow-700/PT-Sans-Narrow-700.svg#PTSansNarrow') format('svg');
 }
 
+// Font base family
+// --------------------------------------------------
 //$font-family-md-base: "PT Sans";
 //$font-family-ios-base: "PT Sans";
 //$font-family-wp-base: "PT Sans";
 
 
-// Toolbar
+// Toolbar custom styles
 // --------------------------------------------------
 $toolbar-background:          #172F39;
 $toolbar-ios-button-color:    #31C0E6;
@@ -73,4 +75,14 @@ $toolbar-wp-title-font-size:    2rem;
   button{
     color: red;
   }
+}
+
+// Menu custom styles
+// --------------------------------------------------
+.item .mlmenuicon {
+  font-size: 32px;
+}
+.mlmenuitem {
+  font-family: 'PT Sans Narrow';
+  font-size: 20px;
 }

@@ -84,7 +84,6 @@ export class CategoryListPage {
   }
 
   delete(slidingItem, category) {
-    this.handleSlidingItems(slidingItem);
     let alert = this.alertController.create({
       title: 'Delete Category',
       message: 'Are you sure you want to delete ' + category.categoryname + ' and ALL the transactions?',
@@ -93,18 +92,24 @@ export class CategoryListPage {
           text: 'Cancel',
           handler: () => {
             //console.log('Cancel RemoveUser clicked');
-            slidingItem.close();
+            this.handleSlidingItems(slidingItem);
           }
         },
         {
           text: 'Delete',
+          cssClass: 'alertDanger',
           handler: () => {
+            this.handleSlidingItems(slidingItem);
             this.userData.deleteCategory(category);
           }
         }
       ]
     });
     alert.present();
+  }
+
+  showTransactions() {
+    console.log('TO DO: show transactions view');
   }
 
   handleSlidingItems(slidingItem) {

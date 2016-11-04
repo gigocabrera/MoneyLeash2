@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      {{ title }}
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="save()">Save</button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-list>
+
+    <ion-item-divider color="mllightblue">
+      <ion-label>
+        {{ listheader }}
+      </ion-label>
+    </ion-item-divider>
+    <ion-item class="ml-input">
+      <ion-icon name="md-clipboard" item-left></ion-icon>
+      <ion-label floating>Payee Name</ion-label>
+      <ion-input [(ngModel)]="payee.payeename" name="payeename" type="text" #payeename="ngModel" spellcheck="false" autocapitalize="on"></ion-input>
+      <ion-icon name="arrow-forward" item-right color="mliconarrowblue"></ion-icon>
+    </ion-item>
+  </ion-list>
+</ion-content>

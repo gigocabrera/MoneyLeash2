@@ -1,18 +1,38 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar [color]="navbarcolor">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>Payees</ion-title>
     <ion-buttons end>
-      <button ion-button (click)="add()">
+      <button ion-button (click)="newPayee()">
         <ion-icon name="md-add"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
-<ion-content>
+<ion-content class="outer-content">
   <ion-list>
-    Payees here
+    <ion-item-group *ngFor="let group of groupedPayees">
+      <ion-item-divider sticky>
+        <ion-label>
+          {{group.letter}}
+        </ion-label>
+      </ion-item-divider>      
+      <ion-item-sliding *ngFor="let payee of group.payees" #slidingItem>
+        <button ion-item (click)="showTransactions(slidingItem)">
+          <ion-icon item-left name="ios-contact-outline"></ion-icon>
+          {{ payee.payeename }}
+        </button>
+        <ion-item-options>
+          <button ion-button color="energized" (click)="edit(slidingItem, payee)">
+            Edit
+          </button>
+          <button ion-button color="danger" (click)="delete(slidingItem, payee)">
+            Delete
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-item-group>
   </ion-list>
 </ion-content>

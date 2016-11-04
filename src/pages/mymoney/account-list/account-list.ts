@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 
 import { NavController, AlertController } from 'ionic-angular';
 
+// firebase
+import { FirebaseListObservable } from 'angularfire2';
+
 // app pages
 import { AccountPage } from '../account/account';
 import { TransactionsPage } from '../transactions/transactions';
@@ -16,9 +19,12 @@ import {UserData} from '../../../providers/user-data';
 
 export class AccountListPage {
 
-  accounts: {};
-  networth: any;
+  //accounts: {};
   navbarcolor: string;
+  
+  accounts: FirebaseListObservable<any>;
+  groupedAccounts = [];
+  networth: any;
 
   constructor(
       public nav: NavController,
@@ -31,7 +37,56 @@ export class AccountListPage {
 
   ionViewDidLoad() {
 
-    this.userData.getAllAccounts().on('value', (accounts) => {
+    var that = this;
+    this.userData.getAccounts()
+    .subscribe( allaccounts => {
+
+      let currenttype = false;
+      let currentAccounts = [];
+      let clearedBal = 0;
+      let netWorth = 0;
+
+      allaccounts.forEach(account => {
+
+        let tempAccount = ({
+          $key: account.$key,
+          accountname: account.accountname,
+          accounttype: account.accounttype,
+          autoclear: account.autoclear,
+          balanceclass: account.balanceclass,
+          balancecleared: account.balancecleared,
+          balancecurrent: account.balancecurrent,
+          balancetoday: account.balancetoday,
+          dateopen: account.dateopen,
+          transactionid: account.transactionid
+        });
+
+        // Calculate Net Worth
+        tempAccount.balanceclass = '';
+        clearedBal = parseFloat(tempAccount.balancecleared);
+        netWorth = netWorth + clearedBal;
+        if (clearedBal > 0) {
+          tempAccount.balanceclass = 'textGreen';
+        } else if (clearedBal < 0){
+          tempAccount.balanceclass = 'textRed';
+        } else {
+          tempAccount.balanceclass = 'textBlack';
+        }
+
+        if(tempAccount.accounttype != currenttype){
+          currenttype = tempAccount.accounttype;
+          let newGroup = {
+            acctype: currenttype,
+            accounts: []
+          };
+          currentAccounts = newGroup.accounts;
+          that.groupedAccounts.push(newGroup);
+        }
+        currentAccounts.push(tempAccount);
+      });
+    });
+
+    /*this.userData.getAllAccounts().on('value', (accounts) => {
       
       let rawList= [];
       var clearedBal = 0;
@@ -69,7 +124,7 @@ export class AccountListPage {
       this.accounts = rawList;
       this.networth = netWorth.toFixed(2);
 
-    });
+    });*/
   }
 
   viewtransactions (account) {

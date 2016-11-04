@@ -12,8 +12,8 @@
         Navigate
       </ion-list-header>
       <button ion-item menuClose *ngFor="let p of pages" (click)="openPage(p)">
-        <ion-icon item-left [name]="p.icon" [ngStyle]="{'color':p.color}"></ion-icon>
-        {{p.title}}
+        <ion-icon item-left [name]="p.icon" [ngStyle]="{'color':p.color}" class="mlmenuicon"></ion-icon>
+        <span class="mlmenuitem">{{p.title}}</span>
       </button>
     </ion-list>
     <ion-list>
@@ -22,7 +22,7 @@
       </ion-list-header>
       <button ion-item menuClose *ngFor="let p of logoutpages" (click)="logout()">
         <ion-icon item-left [name]="p.icon" [ngStyle]="{'color':p.color}"></ion-icon>
-        {{p.title}}
+        <span class="mlmenuitem">{{p.title}}</span>
       </button>
     </ion-list>
   </ion-content>

@@ -20,7 +20,8 @@ export class PickCategoryParentPage {
     public userData: UserData) {}
 
   ionViewDidLoad() {    
-    this.itemselected = this.navParams.data.paramCategory;    
+    this.itemselected = this.navParams.data.paramCategory;
+    console.log(this.navParams.data.paramCategory);
     this.userData.getParentCategories(this.itemselected.categorytype).on('value', (categories) => {
       let rawList= [];
       categories.forEach( spanshot => {

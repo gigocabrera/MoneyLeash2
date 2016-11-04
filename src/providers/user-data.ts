@@ -224,15 +224,15 @@ export class UserData {
     return firebase.auth().signOut();
   }
 
+  //
+  // PERSONAL PROFILE
+  //-----------------------------------------------------------------------
+
   getUserData() { 
     const thisuser$ : FirebaseObjectObservable<any> = this.af.database.object('/users/' + this.userauth.uid); 
     thisuser$.subscribe((val) => {
       this.user = val;
     });
-  }
-
-  getAccountTypes(): FirebaseListObservable<any[]> {
-    return this.af.database.list('/houses/' + this.user.houseid + '/memberaccounttypes');
   }
 
   updateTouchID(ischecked: boolean) {
@@ -317,6 +317,14 @@ export class UserData {
     this.userdata.child(this.userauth.uid).update({'email' : newemail});
   }
 
+  //
+  // ACCOUNT TYPES
+  //-----------------------------------------------------------------------
+
+  getAccountTypes(): FirebaseListObservable<any[]> {
+    return this.af.database.list('/houses/' + this.user.houseid + '/memberaccounttypes');
+  }
+
   addAccountType(item) {
     this.housedata.child(this.user.houseid + "/memberaccounttypes/").push({ name: item.name, icon: item.icon });
     this.updateAccountTypesCounter('add');
@@ -331,29 +339,18 @@ export class UserData {
     this.housedata.child(this.user.houseid + '/memberaccounttypes/' + item.$key).update({ 'name' : item.name, 'icon' : item.icon });
   }
 
-  handleData(snap)
-  {
-    try {
-      // Firebase stores everything as an object, but we want an array.
-      var keys = Object.keys(snap.val);
-      console.log('keys: ', keys, snap.val);
-      // variable to store the todos added
-      var data = [];
-      // Loop through the keys and push the todos into an array
-      for( var i = 0; i < keys.length; ++i)
-      {
-        data.push(snap.val()[keys[i]]);
-      }
-      console.log(data);
-    }
-    catch (error) {
-      console.log('catching', error);
-    }
-  }
-
   //
   // ACCOUNTS
-  //
+  //-----------------------------------------------------------------------
+
+  getAccounts() {
+    return this.af.database.list('/houses/' + this.user.houseid + '/memberaccounts', {
+      query: {
+        orderByChild: 'accounttype'
+      }
+    });
+  }
+
   getAllAccounts() {
     return this.housedata.child(this.user.houseid + '/memberaccounts');
   }
@@ -383,15 +380,24 @@ export class UserData {
 
   //
   // CATEGORIES
-  //
+  //-----------------------------------------------------------------------
+  
   getAllCategories() {
     return this.af.database.list('/houses/' + this.user.houseid + '/membercategories', { preserveSnapshot: true});
   }
   getAllIncomeCategories() {
-    return this.af.database.list('/houses/' + this.user.houseid + '/membercategories/Income');
+    return this.af.database.list('/houses/' + this.user.houseid + '/membercategories/Income', {
+      query: {
+        orderByChild: 'categorysort'
+      }
+    });
   }
   getAllExpenseCategories() {
-    return this.af.database.list('/houses/' + this.user.houseid + '/membercategories/Expense');
+    return this.af.database.list('/houses/' + this.user.houseid + '/membercategories/Expense', {
+      query: {
+        orderByChild: 'categorysort'
+      }
+    });
   }
   getParentCategories(type) {
     return this.housedata.child(this.user.houseid + '/membercategories/' + type).orderByChild('categorysort');
@@ -399,26 +405,76 @@ export class UserData {
 
   addCategory(category) {
     var newCategory = {
-        'accountname': category.accname,
-        'accounttype': category.type,
-        'autoclear': 'false',
-        'balancecleared': '0',
-        'balancecurrent': '0',
-        'balancetoday': '0',
-        'dateopen': category.date,
-        'transactionid': '',
-        'balanceclass': 'textRed'
+        'categoryname': category.categoryname,
+        'categorytype': category.categorytype,
+        'categoryparent': category.categoryparent,
+        'categorysort': category.categorysort
     }
-    this.housedata.child(this.user.houseid + "/membercategories/").push(newCategory);
+    this.housedata.child(this.user.houseid + "/membercategories/" + category.categorytype).push(newCategory);
   }
 
   updateCategory(category) {
-    //this.housedata.child(this.user.houseid + '/membercategories/' + category.$key).update({ 'accountname' : category.accountname, 'accounttype' : category.accounttype, 'dateopen' : category.dateopen });
+    this.housedata.child(this.user.houseid + '/membercategories/' +  category.categorytype + '/' + category.$key).update({ 'categoryname' : category.categoryname, 'categorytype' : category.categorytype, 'categoryparent' : category.categoryparent, 'categorysort' : category.categorysort });
   }
 
   deleteCategory(category) {
-    //this.housedata.child(this.user.houseid + '/membercategories/' + category.$key).remove();
+    this.housedata.child(this.user.houseid + '/membercategories/' +  category.categorytype + '/' + category.$key).remove();
   }
+
+  //
+  // PAYEES
+  //-----------------------------------------------------------------------
+  
+  getAllPayees() {
+    return this.af.database.list('/houses/' + this.user.houseid + '/memberpayees', {
+      query: {
+        orderByChild: 'payeename'
+      }
+    });
+  }
+
+  addPayee(payee) {
+    var newPayee = {
+        'lastamount': '',
+        'lastcategory': '',
+        'lastcategoryid': '',
+        'payeename': payee.payeename
+    }
+    this.housedata.child(this.user.houseid + "/memberpayees").push(newPayee);
+  }
+
+  updatePayee(payee) {
+    this.housedata.child(this.user.houseid + '/memberpayees/' +  payee.$key).update({ 'lastamount' : payee.lastamount, 'lastcategory' : payee.lastcategory, 'lastcategoryid' : payee.lastcategory, 'payeename' : payee.payeename });
+  }
+
+  deletePayee(payee) {
+    this.housedata.child(this.user.houseid + '/memberpayees/' +  payee.$key).remove();
+  }
+
+  //
+  // MISCELANEOUS
+  //-----------------------------------------------------------------------
+
+  handleData(snap)
+  {
+    try {
+      // Firebase stores everything as an object, but we want an array.
+      var keys = Object.keys(snap.val);
+      console.log('keys: ', keys, snap.val);
+      // variable to store the todos added
+      var data = [];
+      // Loop through the keys and push the todos into an array
+      for( var i = 0; i < keys.length; ++i)
+      {
+        data.push(snap.val()[keys[i]]);
+      }
+      console.log(data);
+    }
+    catch (error) {
+      console.log('catching', error);
+    }
+  }
+
 
   /*
   // Find an item in the array

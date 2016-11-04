@@ -3,22 +3,22 @@ import { Component } from '@angular/core';
 import { NavController, ModalController, NavParams } from 'ionic-angular';
 
 // app pages
-import { PickCategoryTypePage } from '../../mypicklists/pickcategorytype/pickcategorytype';
-import { PickCategoryParentPage } from '../../mypicklists/pickcategoryparent/pickcategoryparent';
+//import { PickCategoryTypePage } from '../../mypicklists/pickcategorytype/pickcategorytype';
+//import { PickCategoryParentPage } from '../../mypicklists/pickcategoryparent/pickcategoryparent';
 
 // services
 import { UserData } from '../../../providers/user-data';
 
 @Component({
-  selector: 'page-category',
-  templateUrl: 'category.html'
+  selector: 'page-payee',
+  templateUrl: 'payee.html'
 })
 
-export class CategoryPage {
+export class PayeePage {
 
   title: string;
   listheader: string;
-  category: any;
+  payee: any;
 
   constructor(
       public nav: NavController,
@@ -26,19 +26,19 @@ export class CategoryPage {
       public navParams: NavParams,
       public userData: UserData) {
 
-    this.category = this.navParams.data.paramCategory;
-    if (this.category.mode === 'New') {
-      this.title = 'Create Category';
-      this.listheader = 'Enter Category Details';
+    this.payee = this.navParams.data.paramPayee;
+    if (this.payee.mode === 'New') {
+      this.title = 'Create Payee';
+      this.listheader = 'Enter Payee Details';
     } else {
-      this.title = 'Edit Category';
-      this.listheader = 'Edit Category Details';
+      this.title = 'Edit Payee';
+      this.listheader = 'Edit Payee Details';
     }
   }
 
   save() {
     
-    // Category sort
+    /*// Category sort
     if (this.category.categoryparent === '') {
       this.category.categorysort = this.category.categoryname.toUpperCase();
     } else {
@@ -51,35 +51,35 @@ export class CategoryPage {
     } else {
       this.userData.updateCategory(this.category);
     }
-    this.nav.pop();
+    this.nav.pop();*/
   }
 
   pickCategoryType() {
-    let modal = this.modalController.create(PickCategoryTypePage, {paramCategoryType: this.category.categorytype});
+    /*let modal = this.modalController.create(PickCategoryTypePage, {paramCategoryType: this.category.categorytype});
     modal.present(modal);
     modal.onDidDismiss((data: any[]) => {
       if (data) {
         this.onPickCategoryType(data);
       }
-    });
+    });*/
   }
 
   onPickCategoryType(item) {
-    this.category.categorytype = item.text;
+    //this.category.categorytype = item.text;
   }
 
   pickCategoryParent() {
-    let modal = this.modalController.create(PickCategoryParentPage, {paramCategory: this.category});
+    /*let modal = this.modalController.create(PickCategoryParentPage, {paramCategory: this.category});
     modal.present(modal);
     modal.onDidDismiss((data: any[]) => {
       if (data) {
         this.onPickCategoryParent(data);
       }
-    });
+    });*/
   }
 
   onPickCategoryParent(item) {
-    this.category.categoryparent = item.text;
+    //this.category.categoryparent = item.text;
   }
   
 }
