@@ -344,6 +344,9 @@ export class UserData {
   //-----------------------------------------------------------------------
 
   getAccounts() {
+    // DO NOT USE:
+    // this method produces a weird result where the list is returned sorted (as expected) the first time
+    // you visit the page, but is not sorted every subsequent time you visit the page and multiplies the list
     return this.af.database.list('/houses/' + this.user.houseid + '/memberaccounts', {
       query: {
         orderByChild: 'accounttype'
@@ -352,7 +355,7 @@ export class UserData {
   }
 
   getAllAccounts() {
-    return this.housedata.child(this.user.houseid + '/memberaccounts');
+    return this.housedata.child(this.user.houseid + '/memberaccounts').orderByChild('accounttype');
   }
 
   addAccount(account) {
@@ -425,12 +428,19 @@ export class UserData {
   // PAYEES
   //-----------------------------------------------------------------------
   
-  getAllPayees() {
+  getPayees() {
+    // DO NOT USE:
+    // this method produces a weird result where the list is returned sorted (as expected) the first time
+    // you visit the page, but is not sorted every subsequent time you visit the page and multiplies the list
     return this.af.database.list('/houses/' + this.user.houseid + '/memberpayees', {
       query: {
         orderByChild: 'payeename'
       }
     });
+  }
+
+  getAllPayees() {
+    return this.housedata.child(this.user.houseid + '/memberpayees').orderByChild('payeename');
   }
 
   addPayee(payee) {
@@ -455,18 +465,18 @@ export class UserData {
   // MISCELANEOUS
   //-----------------------------------------------------------------------
 
-  handleData(snap)
+  handleData(snapshot)
   {
     try {
       // Firebase stores everything as an object, but we want an array.
-      var keys = Object.keys(snap.val);
-      console.log('keys: ', keys, snap.val);
+      var keys = Object.keys(snapshot.val);
+      console.log('keys: ', keys, snapshot.val);
       // variable to store the todos added
       var data = [];
       // Loop through the keys and push the todos into an array
       for( var i = 0; i < keys.length; ++i)
       {
-        data.push(snap.val()[keys[i]]);
+        data.push(snapshot.val()[keys[i]]);
       }
       console.log(data);
     }

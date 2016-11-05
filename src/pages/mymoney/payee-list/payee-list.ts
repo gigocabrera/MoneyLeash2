@@ -26,8 +26,38 @@ export class PayeeListPage {
       public userData: UserData) {}
   
   ionViewDidLoad() {
+
+    this.userData.getAllPayees().on('value', (payees) => { 
+
+      var that = this;
+      this.groupedPayees = [];
+      let currentPayees = [];
+      let currentLetter = false;
+
+      payees.forEach( spanshot => {
+
+        let payee = spanshot.val();
+        let tempPayee = ({
+          $key: spanshot.key,
+          payeename: payee.payeename
+        });
+
+        if(tempPayee.payeename.charAt(0) != currentLetter){
+          currentLetter = tempPayee.payeename.charAt(0);
+          let newGroup = {
+            letter: currentLetter,
+            payees: []
+          };
+          currentPayees = newGroup.payees;
+          that.groupedPayees.push(newGroup);
+        }
+        currentPayees.push(tempPayee);
+
+      })
+
+    });
     
-    var that = this;
+    /*var that = this;
     this.userData.getAllPayees()
     .subscribe( allpayees => {
       let currentLetter = false;
@@ -48,7 +78,7 @@ export class PayeeListPage {
         }
         currentContacts.push(tempPayee);
       });
-    });
+    });*/
 
   }
   
@@ -86,7 +116,7 @@ export class PayeeListPage {
           cssClass: 'alertDanger',
           handler: () => {
             this.handleSlidingItems(slidingItem);
-            this.userData.deleteCategory(payee);
+            this.userData.deletePayee(payee);
           }
         }
       ]

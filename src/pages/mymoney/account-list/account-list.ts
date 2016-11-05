@@ -37,7 +37,9 @@ export class AccountListPage {
 
   ionViewDidLoad() {
 
-    var that = this;
+    /*var that = this;
+    this.groupedAccounts = [];
+
     this.userData.getAccounts()
     .subscribe( allaccounts => {
 
@@ -47,6 +49,8 @@ export class AccountListPage {
       let netWorth = 0;
 
       allaccounts.forEach(account => {
+
+        console.log(account);
 
         let tempAccount = ({
           $key: account.$key,
@@ -84,47 +88,60 @@ export class AccountListPage {
         }
         currentAccounts.push(tempAccount);
       });
-    });
+    });*/
 
-    /*this.userData.getAllAccounts().on('value', (accounts) => {
-      
-      let rawList= [];
-      var clearedBal = 0;
-      var netWorth = 0;
+    this.userData.getAllAccounts().on('value', (accounts) => {
+
+      var that = this;
+      this.groupedAccounts = [];
+      let currenttype = false;
+      let currentAccounts = [];
+      let clearedBal = 0;
+      let netWorth = 0;
 
       accounts.forEach( spanshot => {
 
         var account = spanshot.val();
 
-        // Calculate Net Worth
-        account.BalanceClass = '';
-        clearedBal = parseFloat(account.balancecleared);
-        netWorth = netWorth + clearedBal;
-        if (clearedBal > 0) {
-          account.BalanceClass = 'textGreen';
-        } else if (clearedBal < 0){
-          account.BalanceClass = 'textRed';
-        } else {
-          account.BalanceClass = 'textBlack';
-        }
-
-        // Build account array
-        rawList.push({
-          $key: spanshot.key,
+        let tempAccount = ({
+          $key: account.$key,
           accountname: account.accountname,
           accounttype: account.accounttype,
-          BalanceClass: account.BalanceClass,
+          autoclear: account.autoclear,
+          balanceclass: account.balanceclass,
           balancecleared: account.balancecleared,
+          balancecurrent: account.balancecurrent,
           balancetoday: account.balancetoday,
           dateopen: account.dateopen,
-          mode: 'Edit'
+          transactionid: account.transactionid
         });
+
+        // Calculate Net Worth
+        tempAccount.balanceclass = '';
+        clearedBal = parseFloat(tempAccount.balancecleared);
+        netWorth = netWorth + clearedBal;
+        if (clearedBal > 0) {
+          tempAccount.balanceclass = 'textGreen';
+        } else if (clearedBal < 0){
+          tempAccount.balanceclass = 'textRed';
+        } else {
+          tempAccount.balanceclass = 'textBlack';
+        }
+
+        if(tempAccount.accounttype != currenttype){
+          currenttype = tempAccount.accounttype;
+          let newGroup = {
+            acctype: currenttype,
+            accounts: []
+          };
+          currentAccounts = newGroup.accounts;
+          that.groupedAccounts.push(newGroup);
+        }
+        currentAccounts.push(tempAccount);
       })
+      
+    });
 
-      this.accounts = rawList;
-      this.networth = netWorth.toFixed(2);
-
-    });*/
   }
 
   viewtransactions (account) {
