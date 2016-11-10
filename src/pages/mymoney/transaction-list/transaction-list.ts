@@ -5,6 +5,8 @@ import { NavController, NavParams } from 'ionic-angular';
 // services
 import {UserData} from '../../../providers/user-data';
 
+import * as moment from 'moment';
+
 @Component({
   selector: 'page-transaction-list',
   templateUrl: 'transaction-list.html'
@@ -14,8 +16,7 @@ export class TransactionsPage {
 
   title: string;
   navbarcolor: string;
-  groupedAccounts = [];
-  transactions = [];
+  groupedTransactions = [];
   account: any;
 
   constructor(
@@ -33,12 +34,16 @@ export class TransactionsPage {
 
     this.userData.getTransactionsByDate(this.account).on('value', (transactions) => {
 
-      var that = this;
-      this.groupedAccounts = [];
-      let currenttype = false;
-      let currentAccounts = [];
-      let clearedBal = 0;
-      let netWorth = 0;
+      let that = this;
+      this.groupedTransactions = [];
+      let currentTransactions = [];
+      let currentDate;
+      let previousDay = '';
+      let previousYear = '';
+      let format = 'MMMM DD, YYYY';
+      let groupValue = '';
+      let todaysDate = new Date();
+      let todayFlag = false;
 
       transactions.forEach( spanshot => {
 
@@ -59,14 +64,75 @@ export class TransactionsPage {
           iscleared: transaction.iscleared,
           checked: ''
         });
+
         if (transaction.iscleared) {
           tempTransaction.checked = 'checked';
-        }        
-
-        that.transactions.push(tempTransaction);
+        }
+        //
+        // Add grouping functionality
+        //
+        currentDate = new Date(transaction.date);
+        if (!previousDay || currentDate.getDate() !== previousDay || currentDate.getFullYear() !== previousYear) {
+          var dividerId = moment(transaction.date).format(format);
+          if (dividerId !== groupValue) {
+            groupValue = dividerId;
+            var tday = moment(todaysDate).format(format);
+            //console.log("tday: " + tday + ", " + dividerId);
+            if (tday === dividerId) {
+                todayFlag = true;
+            } else {
+                todayFlag = false;
+            }
+            let newGroup = {
+                label: groupValue,
+                transactions: [],
+                isToday: todayFlag
+            };
+            currentTransactions.reverse();
+            currentTransactions = newGroup.transactions;
+            that.groupedTransactions.push(newGroup);
+            //console.log(newGroup);
+          }
+        }
+        currentTransactions.push(tempTransaction);
+        previousDay = currentDate.getDate();
+        previousYear = currentDate.getFullYear();
+        
+        /*//
+        // Handle Running Balance
+        //
+        total++;
+        transaction.ClearedClass = '';
+        if (transaction.iscleared === true) {
+            transaction.ClearedClass = 'transactionIsCleared';
+            cleared++;
+            if (transaction.type === "Income") {
+                if (!isNaN(transaction.amount)) {
+                    clearedBal = clearedBal + parseFloat(transaction.amount);
+                }
+            } else if (transaction.type === "Expense") {
+                if (!isNaN(transaction.amount)) {
+                    clearedBal = clearedBal - parseFloat(transaction.amount);
+                }
+            }
+            transaction.clearedBal = clearedBal.toFixed(2);
+        }
+        if (transaction.type === "Income") {
+            if (!isNaN(transaction.amount)) {
+                runningBal = runningBal + parseFloat(transaction.amount);
+                transaction.runningbal = runningBal.toFixed(2);
+            }
+        } else if (transaction.type === "Expense") {
+            if (!isNaN(transaction.amount)) {
+                runningBal = runningBal - parseFloat(transaction.amount);
+                transaction.runningbal = runningBal.toFixed(2);
+            }
+        }*/
+        
       })
 
-      this.transactions.reverse();
+      that.groupedTransactions.reverse();
+
     });
 
   }

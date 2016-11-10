@@ -35,8 +35,8 @@ export class AccountListPage {
 
       var that = this;
       this.groupedAccounts = [];
-      let currenttype = false;
       let currentAccounts = [];
+      let currenttype = false;
       let clearedBal = 0;
       let netWorth = 0;
 
@@ -68,7 +68,9 @@ export class AccountListPage {
         } else {
           tempAccount.balanceclass = 'textBlack';
         }
-
+        //
+        // Add grouping functionality
+        //
         if(tempAccount.accounttype != currenttype){
           currenttype = tempAccount.accounttype;
           let newGroup = {

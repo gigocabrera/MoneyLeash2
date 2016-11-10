@@ -15,11 +15,11 @@
 </ion-header>
 <ion-content class="outer-content">
   <ion-list>
-    <ion-item-group>
+    <ion-item-group *ngFor="let group of groupedTransactions">
       <ion-item-divider sticky>
-        Transactions
+        {{ group.label }}
       </ion-item-divider>
-      <ion-item-sliding *ngFor="let transaction of transactions">
+      <ion-item-sliding *ngFor="let transaction of group.transactions">
         <ion-item class="ml-item">
           <ion-row>
             <ion-col width-50>
