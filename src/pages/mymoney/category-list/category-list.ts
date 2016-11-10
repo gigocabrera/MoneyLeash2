@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 import { NavController, AlertController } from 'ionic-angular';
 
-import { FirebaseListObservable } from 'angularfire2';
+//import { FirebaseListObservable } from 'angularfire2';
 
 // app pages
 import { CategoryPage } from '../category/category';
@@ -19,8 +19,8 @@ export class CategoryListPage {
 
   //groups = [];
   //categories: [];
-  incomeCategories: FirebaseListObservable<any>;
-  expenseCategories: FirebaseListObservable<any>;
+  incomeCategories: {};
+  expenseCategories: {};
   previousgroup: string;
   previouscategory: string;
 
@@ -31,38 +31,35 @@ export class CategoryListPage {
   
   ionViewDidLoad() {
 
-    this.incomeCategories = this.userData.getAllIncomeCategories();
-    this.expenseCategories = this.userData.getAllExpenseCategories();
-
-    /*this.userData.getAllCategories().subscribe(categoryTypes => {
-      
-      categoryTypes.forEach(category => {
-
-        // Reset categories array
-        this.categories = [];
-
-        //Handle first time loop
-        if (this.previousgroup === undefined) {
-          this.previousgroup = category.key;
-        }
-
-        category.forEach(cat => {
-          var thiscategory = cat.val();
-          var thiscategorykey = cat.key;
-          var tempCat = ({
-            $key: thiscategorykey,
-            categoryname: thiscategory.categoryname,
-            categoryparent: thiscategory.categoryparent,
-            categorysort: thiscategory.categorysort,
-            categorytype: thiscategory.categorytype,
-            categorymode: 'Edit'
-          });
-          this.categories.push({ 'category': tempCat});
-        })
-        this.groups.push({ 'name': category.key, 'categories': this.categories});
+    this.userData.getAllIncomeCategories().on('value', (incomecategories) => {
+      let rawList= [];
+      incomecategories.forEach( spanshot => {
+        var cat = spanshot.val();
+        rawList.push({
+          $key: spanshot.key,
+          categoryname: cat.categoryname,
+          categorytype: cat.categorytype,
+          categoryparent: cat.categoryparent,
+          categorysort: cat.categorysort
+        });
       });
-      
-    });*/
+      this.incomeCategories = rawList;
+    });
+
+    this.userData.getAllExpenseCategories().on('value', (expensecategories) => {
+      let rawList= [];
+      expensecategories.forEach( spanshot => {
+        var cat = spanshot.val();
+        rawList.push({
+          $key: spanshot.key,
+          categoryname: cat.categoryname,
+          categorytype: cat.categorytype,
+          categoryparent: cat.categoryparent,
+          categorysort: cat.categorysort
+        });
+      });
+      this.expenseCategories = rawList;
+    });
 
   }
   

@@ -10,7 +10,6 @@ import { NavController, ModalController, NavParams } from 'ionic-angular';
 import { UserData } from '../../../providers/user-data';
 
 @Component({
-  selector: 'page-payee',
   templateUrl: 'payee.html'
 })
 

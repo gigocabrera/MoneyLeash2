@@ -10,7 +10,6 @@ import { PickCategoryParentPage } from '../../mypicklists/pickcategoryparent/pic
 import { UserData } from '../../../providers/user-data';
 
 @Component({
-  selector: 'page-category',
   templateUrl: 'category.html'
 })
 
@@ -27,6 +26,8 @@ export class CategoryPage {
       public userData: UserData) {
 
     this.category = this.navParams.data.paramCategory;
+    this.category.categoryparentdisplay = this.category.categoryparent;
+
     if (this.category.mode === 'New') {
       this.title = 'Create Category';
       this.listheader = 'Enter Category Details';
@@ -38,11 +39,16 @@ export class CategoryPage {
 
   save() {
     
-    // Category sort
+    // Handle category sort
     if (this.category.categoryparent === '') {
       this.category.categorysort = this.category.categoryname.toUpperCase();
     } else {
       this.category.categorysort = this.category.categoryparent.toUpperCase() + ':' + this.category.categoryname.toUpperCase(); 
+    }
+
+    // Handle special case when category parent is removed
+    if (this.category.categoryparentdisplay === '') {
+      this.category.categoryparent = '';
     }
 
     // Is this a new category? 
@@ -79,7 +85,12 @@ export class CategoryPage {
   }
 
   onPickCategoryParent(item) {
-    this.category.categoryparent = item.text;
+    if (item.categoryname === '< None >') {
+      this.category.categoryparentdisplay = '';
+    } else {
+      this.category.categoryparentdisplay = item.categoryname;
+      this.category.categoryparent = item.categoryname;
+    }
   }
   
 }

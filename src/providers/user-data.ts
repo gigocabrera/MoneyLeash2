@@ -382,6 +382,41 @@ export class UserData {
   }
 
   //
+  // TRANSACTIONS
+  //-----------------------------------------------------------------------
+
+  getTransactionsByDate(account) {
+    // This will retrieve ALL transactions
+    // return this.housedata.child(this.user.houseid + '/membertransactions/' + account.$key).orderByChild('date');
+    
+    // This will retrieve the most recent 100 transactions
+    return this.housedata.child(this.user.houseid + '/membertransactions/' + account.$key).orderByChild('date').limitToLast(101);
+  }
+
+  addTransaction(transaction) {
+    var newACcount = {
+        'accountname': transaction.accname,
+        'accounttype': transaction.type,
+        'autoclear': 'false',
+        'balancecleared': '0',
+        'balancecurrent': '0',
+        'balancetoday': '0',
+        'dateopen': transaction.date,
+        'transactionid': '',
+        'balanceclass': 'textRed'
+    }
+    //this.housedata.child(this.user.houseid + "/memberaccounts/").push(newACcount);
+  }
+
+  updateTransaction(transaction) {
+    //this.housedata.child(this.user.houseid + '/memberaccounts/' + account.$key).update({ 'accountname' : account.accountname, 'accounttype' : account.accounttype, 'dateopen' : account.dateopen });
+  }
+
+  deleteTransaction(transaction) {
+    //this.housedata.child(this.user.houseid + '/memberaccounts/' + account.$key).remove();
+  }
+
+  //
   // CATEGORIES
   //-----------------------------------------------------------------------
   
@@ -389,18 +424,20 @@ export class UserData {
     return this.af.database.list('/houses/' + this.user.houseid + '/membercategories', { preserveSnapshot: true});
   }
   getAllIncomeCategories() {
-    return this.af.database.list('/houses/' + this.user.houseid + '/membercategories/Income', {
+    return this.housedata.child(this.user.houseid + '/membercategories/Income').orderByChild('categorysort');
+    /*return this.af.database.list('/houses/' + this.user.houseid + '/membercategories/Income', {
       query: {
         orderByChild: 'categorysort'
       }
-    });
+    });*/
   }
   getAllExpenseCategories() {
-    return this.af.database.list('/houses/' + this.user.houseid + '/membercategories/Expense', {
+    return this.housedata.child(this.user.houseid + '/membercategories/Expense').orderByChild('categorysort');
+    /*return this.af.database.list('/houses/' + this.user.houseid + '/membercategories/Expense', {
       query: {
         orderByChild: 'categorysort'
       }
-    });
+    });*/
   }
   getParentCategories(type) {
     return this.housedata.child(this.user.houseid + '/membercategories/' + type).orderByChild('categorysort');

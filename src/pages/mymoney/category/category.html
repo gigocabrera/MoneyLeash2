@@ -13,8 +13,7 @@
 </ion-header>
 <ion-content>
   <ion-list>
-
-    <ion-item-divider color="mllightblue">
+    <ion-item-divider>
       <ion-label>
         {{ listheader }}
       </ion-label>
@@ -34,7 +33,7 @@
     <ion-item class="ml-input" (click)="pickCategoryParent()">
       <ion-icon name="md-cash" item-left></ion-icon>
       <ion-label floating>Parent Category</ion-label>
-      <ion-input [(ngModel)]="category.categoryparent" name="categoryparent" type="text" #categoryparent="ngModel"></ion-input>
+      <ion-input [(ngModel)]="category.categoryparentdisplay" name="categoryparentdisplay" type="text" #categoryparentdisplay="ngModel"></ion-input>
       <ion-icon name="arrow-forward" item-right color="mliconarrowblue"></ion-icon>
     </ion-item>
   </ion-list>

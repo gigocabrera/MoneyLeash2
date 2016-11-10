@@ -1,0 +1,104 @@
+
+page-transaction-list {
+
+  .customTransDesc {
+    text-align: left;
+    height: 37px;
+    font: 20px 'PT Sans Narrow', sans-serif;
+    font-weight: bold;
+    padding-left: 16px;
+    color: #444;
+    font-size: 20px;
+  }
+  .customTransDesc span small {
+      position: absolute;
+      font: 13px 'Helvetica Neue', sans-serif;
+      top: 35px;
+      left: -19px;
+      color: #A0A0A0;
+      font-weight: normal;
+  }
+  .customTransDesc span li {
+    list-style-type: none;
+  }
+  .customTransDesc .fa {
+      padding-right: 5px;
+  }
+  .customTransAmt {
+    text-align: left;
+    height: 37px;
+    font: 20px 'PT Sans Narrow', sans-serif;
+    font-weight: bold;
+    padding-right: 55px;
+    color: #444;
+    font-size: 20px;
+    float: right;
+  }
+  .customTransAmt span {
+    position: relative;
+    top: 1px;
+  }
+  .customTransAmt span small {
+    position: absolute;
+    font: 16px 'PT Sans Narrow', sans-serif;
+    top: 20px;
+    right: 0;
+    color: #A0A0A0;
+    font-weight: bold;
+  }
+  .transactionIsCleared .item-content {
+    background-color: #eee;
+    -webkit-transition: all linear 0.5s;
+    -o-transition: all linear 0.5s;
+    transition: all linear 0.5s;
+  }
+  .ml-item {
+    padding: 0;
+  }
+  .ml-item.item-block .item-inner {
+    padding: 0;
+  }
+  .ml-item.item-block ion-label {
+    padding: 0;
+    margin-right: 0;
+  }
+  .Expense {
+    color: #CE1B31;
+  }
+  .textBlack {
+      color: #000;
+  }
+  .Income {
+      color: #1AAC57;
+  }
+  .toggleTransactionCleared {
+    text-align: center;
+    width: 52px;
+    height: auto;
+    position: absolute;
+    margin: auto 0;
+      margin-left: auto;
+      margin-right: auto;
+    border: none;
+    -webkit-appearance: none;
+      -moz-appearance: none;
+    -ms-appearance: none;
+    -o-appearance: none;
+    appearance: none;
+      background-color: transparent;
+  }
+  .toggleTransactionCleared:after {
+    content: '\f00c';
+    line-height: 43px;
+    font-size: 17px;
+    color: #ebebeb;
+    text-shadow: 0 -1px 0 #bfbfbf;
+      font-family: FontAwesome;
+  }
+  .toggleTransactionCleared:checked:after {
+    color: #00A2E8;
+    bottom: 1px;
+    position: relative;
+  }
+
+}

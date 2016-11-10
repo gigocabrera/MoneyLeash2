@@ -9,11 +9,13 @@
   </ion-toolbar>
 </ion-header>
 <ion-content class="outer-content">
-  <ion-list-header>
-    Select category type
-  </ion-list-header>
+  <ion-item-divider>
+    <ion-label>
+      Select option
+    </ion-label>
+  </ion-item-divider>
   <ion-list radio-group [(ngModel)]="itemselected">
-    <ion-item *ngFor="let item of defaultItems">
+    <ion-item *ngFor="let item of items">
         <ion-label>{{item.text}}</ion-label>
         <ion-radio [value]="item.value" (click)="pickPreference(item)"></ion-radio>
     </ion-item>

@@ -1,9 +1,8 @@
 
 // MoneyLeash Custom Styles
 
-// Fonts
+// Fonts - http://www.localfont.com/
 // --------------------------------------------------
-// http://www.localfont.com/
 @font-face {
   font-family: 'PT Sans Narrow';
   font-weight: 400;
@@ -32,13 +31,6 @@
        url('../assets/fonts/PT-Sans-Narrow-700/PT-Sans-Narrow-700.svg#PTSansNarrow') format('svg');
 }
 
-// Font base family
-// --------------------------------------------------
-//$font-family-md-base: "PT Sans";
-//$font-family-ios-base: "PT Sans";
-//$font-family-wp-base: "PT Sans";
-
-
 // Toolbar custom styles
 // --------------------------------------------------
 $toolbar-background:          #172F39;
@@ -48,21 +40,6 @@ $toolbar-wp-button-color:     #31C0E6;
 $toolbar-ios-title-text-color: #fff;
 $toolbar-md-title-text-color:  #fff;
 $toolbar-wp-title-text-color:  #fff;
-/*
-$toolbar-ios-title-font-size:   2rem;
-$toolbar-md-title-font-size:    2rem;
-$toolbar-wp-title-font-size:    2rem;
-
-.toolbar-title-ios {
-  font-family: 'PT Sans Narrow'
-}
-.toolbar-title-md {
-  font-family: 'PT Sans Narrow'
-}
-.toolbar-title-wp {
-  font-family: 'PT Sans Narrow'
-}
-*/
 
 // ion-item-divider
 // --------------------------------------------------
@@ -85,4 +62,56 @@ $item-ios-divider-background: #D3EAF0;
 .mlmenuitem {
   font-family: 'PT Sans Narrow';
   font-size: 20px;
+}
+
+// Input Forms custom styles
+// --------------------------------------------------
+.ml-input.item {
+  padding-left: 0;
+  padding: 0;
+  border-bottom: 1px solid #c8c7cc;
+  height: 60px;
+}
+.ml-input.item.item-block .item-inner {
+  border-bottom: 0;
+}
+.ml-input.item-block:first-child {
+  border-top: 0;
+}
+.ml-input ion-icon[item-left] {
+  background-color: #f0f0f0;
+  width: 61px;
+  height: 60px;
+  margin: 0;
+}
+.ml-input ion-icon[item-left]:before {
+  color: #999999;
+  margin-top: 17px;
+  font-size: 28px;
+}
+.ml-input input {
+  padding-left: 10px;
+}
+.ml-input ion-input {
+  margin-top: -1px;
+}
+.ml-input ion-datetime {
+  padding: 0px 8px 8px 10px;
+}
+.ml-input ion-label {
+  margin: 5px 8px 13px 0;
+}
+.ml-input ion-label[floating] {
+  -webkit-transform: translate3d(10px, 13px, 0);
+  transform: translate3d(10px, 13px, 0);
+}
+.ml-input.input-has-focus ion-label[floating] {
+  -webkit-transform: translate3d(10px, 6px, 0);
+  transform: translate3d(10px, 6px, 0) scale(0.7);
+  color: #006699;
+}
+.ml-input.input-has-value ion-label[floating] {
+  -webkit-transform: translate3d(10px, 6px, 0);
+  transform: translate3d(10px, 6px, 0) scale(0.7);
+  color: #006699;
 }

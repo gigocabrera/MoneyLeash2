@@ -4,14 +4,16 @@
       <button ion-button (click)="dismiss()">Cancel</button>
     </ion-buttons>
     <ion-title>
-      Pick Category Parent
+      Pick Parent Category 
     </ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content class="outer-content">
-  <ion-list-header>
-    Select category parent
-  </ion-list-header>
+  <ion-item-divider>
+    <ion-label>
+      Select option
+    </ion-label>
+  </ion-item-divider>
   <ion-list radio-group [(ngModel)]="itemselected">
     <ion-item *ngFor="let item of items">
         <ion-label>{{item.categoryname}}</ion-label>

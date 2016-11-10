@@ -29,7 +29,7 @@ import { PayeeListPage } from '../pages/mymoney/payee-list/payee-list';
 import { PayeePage } from '../pages/mymoney/payee/payee';
 import { RecurringListPage } from '../pages/mymoney/recurring-list/recurring-list';
 import { ReportListPage } from '../pages/mymoney/report-list/report-list';
-import { TransactionsPage } from '../pages/mymoney/transactions/transactions';
+import { TransactionsPage } from '../pages/mymoney/transaction-list/transaction-list';
 import { TransactionPage } from '../pages/mymoney/transaction/transaction';
 
 // mypicklists

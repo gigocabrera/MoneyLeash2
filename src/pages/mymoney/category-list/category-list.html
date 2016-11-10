@@ -19,7 +19,7 @@
           Income Categories
         </ion-label>
       </ion-item-divider>      
-      <ion-item-sliding *ngFor="let incomecat of incomeCategories | async" #slidingItem track="income" [ngClass]="{mlindent: incomecat.categoryparent !== ''}">
+      <ion-item-sliding *ngFor="let incomecat of incomeCategories" #slidingItem track="income" [ngClass]="{mlindent: incomecat.categoryparent !== ''}">
         <button ion-item (click)="showTransactions(slidingItem, incomecat)">
           {{ incomecat.categoryname }}
         </button>
@@ -38,7 +38,7 @@
         Expense Categories
       </ion-label>
     </ion-item-divider>
-    <ion-item-sliding *ngFor="let expensecat of expenseCategories | async" #slidingItem track="expense" [ngClass]="{mlindent: expensecat.categoryparent !== ''}">
+    <ion-item-sliding *ngFor="let expensecat of expenseCategories" #slidingItem track="expense" [ngClass]="{mlindent: expensecat.categoryparent !== ''}">
       <button ion-item (click)="showTransactions(slidingItem, expensecat)">
         {{ expensecat.categoryname }}
       </button>

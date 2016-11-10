@@ -11,10 +11,7 @@ import { UserData } from '../../../providers/user-data';
 
 export class PickCategoryTypePage {
   
-  defaultItems: {
-    description?: string,
-    value?: string
-  } = {};
+  items = [];
   
   itemselected: string;
    
@@ -24,11 +21,12 @@ export class PickCategoryTypePage {
     public userData: UserData) {}
 
   ionViewDidLoad() {
-    this.defaultItems = [
-          { text: 'Income', value: 'Income' },
-          { text: 'Expense', value: 'Expense' },
-    ];
+    this.items.push(
+      { text: 'Income', value: 'Income' },
+      { text: 'Expense', value: 'Expense' },
+    );
     this.itemselected = this.navParams.data.paramCategoryType;
+    console.log(this.itemselected);
   }
   
  pickPreference(itemselected) {

@@ -8,13 +8,13 @@ import { LoginAutoPage } from '../pages/loginauto/loginauto';
 import { LogoutPage } from '../pages/logout/logout';
 
 // app pages
-import {AccountListPage } from '../pages/mymoney/account-list/account-list';
-import {CategoryListPage } from '../pages/mymoney/category-list/category-list';
-import {BudgetListPage } from '../pages/mymoney/budget-list/budget-list';
-import {RecurringListPage } from '../pages/mymoney/recurring-list/recurring-list';
-import {PayeeListPage } from '../pages/mymoney/payee-list/payee-list';
-import {ReportListPage } from '../pages/mymoney/report-list/report-list';
-import {SettingsPage } from '../pages/mysettings/settings/settings';
+import { AccountListPage } from '../pages/mymoney/account-list/account-list';
+import { CategoryListPage } from '../pages/mymoney/category-list/category-list';
+import { BudgetListPage } from '../pages/mymoney/budget-list/budget-list';
+import { RecurringListPage } from '../pages/mymoney/recurring-list/recurring-list';
+import { PayeeListPage } from '../pages/mymoney/payee-list/payee-list';
+import { ReportListPage } from '../pages/mymoney/report-list/report-list';
+import { SettingsPage } from '../pages/mysettings/settings/settings';
 
 // services
 import { UserData } from '../providers/user-data';

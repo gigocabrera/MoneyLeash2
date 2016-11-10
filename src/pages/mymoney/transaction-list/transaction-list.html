@@ -1,0 +1,67 @@
+<ion-header>
+  <ion-navbar [color]="navbarcolor">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      {{ title }}
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="newTransactions()">
+        <ion-icon name="md-add"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content class="outer-content">
+  <ion-list>
+    <ion-item-group>
+      <ion-item-divider sticky>
+        Transactions
+      </ion-item-divider>
+      <ion-item-sliding *ngFor="let transaction of transactions">
+        <ion-item class="ml-item">
+          <ion-row>
+            <ion-col width-50>
+              <div class="customTransDesc">
+                <span>
+                    {{ transaction.payee }}
+                    <small>
+                      <div>
+                        <ul>
+                          <li><i class="fa fa-thumb-tack"></i>{{ transaction.category }}</li>
+                          <li><i ng-class="{'fa fa-file-text-o': transaction.notes.length > 0}"></i></li>
+                          <li><i ng-class="{'fa fa-repeat': transaction.isrecurring == true }"></i></li>
+                          <li><i ng-class="{'fa fa-camera': transaction.isphoto == true}"></i></li>
+                          <li><i ng-class="{'fa fa-exchange': transaction.istransfer == true }"></i></li>
+                        </ul>
+                      </div>
+                  </small>
+                </span>
+              </div>
+            </ion-col>
+            <ion-col width-50>
+              <div class="customTransAmt  {{ transaction.type }}">
+                <span>
+                  {{ transaction.amount }}
+                  <small>
+                    {{ transaction.runningbal }}
+                  </small>
+                </span>
+                <input class="toggleTransactionCleared" type="checkbox" [(ngModel)]="transaction.iscleared" (click)="clearTransaction(transaction)">
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-item>
+        <ion-item-options>
+          <button ion-button color="energized" (click)="edit(account)">
+            Edit
+          </button>
+          <button ion-button color="danger" (click)="delete(account)">
+            Delete
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-item-group>
+  </ion-list>
+</ion-content>

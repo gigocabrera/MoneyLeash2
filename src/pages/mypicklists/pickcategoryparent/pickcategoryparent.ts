@@ -17,13 +17,28 @@ export class PickCategoryParentPage {
   constructor(
     public viewCtrl: ViewController,
     public navParams: NavParams,
-    public userData: UserData) {}
+    public userData: UserData) {
 
-  ionViewDidLoad() {    
-    this.itemselected = this.navParams.data.paramCategory;
-    console.log(this.navParams.data.paramCategory);
+      this.itemselected = this.navParams.data.paramCategory;
+
+    }
+
+  ionViewDidLoad() {
+    
     this.userData.getParentCategories(this.itemselected.categorytype).on('value', (categories) => {
+      
       let rawList= [];
+
+      //Add default option for <None>
+      rawList.push({
+        $key: '',
+        categoryname: '< None >',
+        categorytype: '',
+        categoryparent: '',
+        categorysort: ''
+      });
+
+      // Add parent category from firebase
       categories.forEach( spanshot => {
         var cat = spanshot.val();
         if (cat.categoryparent === "") {
