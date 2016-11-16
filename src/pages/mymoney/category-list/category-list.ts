@@ -17,8 +17,8 @@ import {UserData} from '../../../providers/user-data';
 
 export class CategoryListPage {
 
-  //groups = [];
-  //categories: [];
+  navbarcolor: string;
+  dividercolor: string;
   incomeCategories: {};
   expenseCategories: {};
   previousgroup: string;
@@ -27,7 +27,14 @@ export class CategoryListPage {
   constructor(
       public nav: NavController,
       public alertController: AlertController,
-      public userData: UserData) {}
+      public userData: UserData) {
+
+        this.navbarcolor = this.userData.user.navbarcolor;
+        this.dividercolor = this.userData.user.dividercolor;
+
+        console.log(this.navbarcolor);
+
+      }
   
   ionViewDidLoad() {
 

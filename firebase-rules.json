@@ -5,7 +5,7 @@
         // Grants read/write access to the members whose hourseid exactly match the key ($house_id)
         ".read": "root.child('members').child(auth.uid).child('houseid').val() === $house_id || root.child('users').child(auth.uid).child('houseid').val() === $house_id",
         ".write": "root.child('members').child(auth.uid).child('houseid').val() === $house_id || root.child('users').child(auth.uid).child('houseid').val() === $house_id",
-        "membertransactions": {
+        "transactions": {
           "$transaction_id": {
             ".indexOn": "date"
           	

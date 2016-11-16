@@ -16,15 +16,18 @@ export class TransactionsPage {
 
   title: string;
   navbarcolor: string;
+  dividercolor: string;
   groupedTransactions = [];
   account: any;
+  searchQuery: string = '';
 
   constructor(
       public nav: NavController,
       public navParams: NavParams,
       public userData: UserData) {
 
-        this.navbarcolor = this.userData.colors.navbar;
+        this.navbarcolor = this.userData.user.navbarcolor;
+        this.dividercolor = this.userData.user.dividercolor;
         this.account = this.navParams.data.paramAccount;
         this.title = this.account.accountname;
 
@@ -77,7 +80,6 @@ export class TransactionsPage {
           if (dividerId !== groupValue) {
             groupValue = dividerId;
             var tday = moment(todaysDate).format(format);
-            //console.log("tday: " + tday + ", " + dividerId);
             if (tday === dividerId) {
                 todayFlag = true;
             } else {
@@ -91,53 +93,35 @@ export class TransactionsPage {
             currentTransactions.reverse();
             currentTransactions = newGroup.transactions;
             that.groupedTransactions.push(newGroup);
-            //console.log(newGroup);
           }
         }
         currentTransactions.push(tempTransaction);
         previousDay = currentDate.getDate();
-        previousYear = currentDate.getFullYear();
-        
-        /*//
-        // Handle Running Balance
-        //
-        total++;
-        transaction.ClearedClass = '';
-        if (transaction.iscleared === true) {
-            transaction.ClearedClass = 'transactionIsCleared';
-            cleared++;
-            if (transaction.type === "Income") {
-                if (!isNaN(transaction.amount)) {
-                    clearedBal = clearedBal + parseFloat(transaction.amount);
-                }
-            } else if (transaction.type === "Expense") {
-                if (!isNaN(transaction.amount)) {
-                    clearedBal = clearedBal - parseFloat(transaction.amount);
-                }
-            }
-            transaction.clearedBal = clearedBal.toFixed(2);
-        }
-        if (transaction.type === "Income") {
-            if (!isNaN(transaction.amount)) {
-                runningBal = runningBal + parseFloat(transaction.amount);
-                transaction.runningbal = runningBal.toFixed(2);
-            }
-        } else if (transaction.type === "Expense") {
-            if (!isNaN(transaction.amount)) {
-                runningBal = runningBal - parseFloat(transaction.amount);
-                transaction.runningbal = runningBal.toFixed(2);
-            }
-        }*/
-        
+        previousYear = currentDate.getFullYear();        
       })
-
       that.groupedTransactions.reverse();
-
+      this.userData.dismissLoadingController();
     });
 
   }
 
-  newTransaction() {
+  getTransactions(ev: any) {
+    // Reset items back to all of the items
+    //this.initializeItems();
+
+    // set val to the value of the searchbar
+    let val = ev.target.value;
+
+    // if the value is an empty string don't filter the items
+    if (val && val.trim() != '') {
+      this.groupedTransactions = this.groupedTransactions.filter((item) => {
+        return (item.toLowerCase().indexOf(val.toLowerCase()) > -1);
+      })
+    }
+  }
+
+  createTransaction() {
+    console.log('create');
     //this.nav.push(TransactionPage, {paramTransaction: 'New'});
   }
 

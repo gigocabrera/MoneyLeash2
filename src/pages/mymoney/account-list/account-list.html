@@ -14,11 +14,11 @@
 <ion-content class="outer-content">
   <ion-list>
     <ion-item-group *ngFor="let group of groupedAccounts">
-      <ion-item-divider sticky>
+      <ion-item-divider sticky [color]="dividercolor">
         {{group.acctype}}
       </ion-item-divider>      
       <ion-item-sliding *ngFor="let account of group.accounts" #slidingItem>
-        <ion-item (click)="viewtransactions(account)" class="ml-item">
+        <button ion-item (click)="viewtransactions(account)" class="ml-item">
           <ion-row>
             <ion-col width-50>
               <div class="customAccDesc">
@@ -37,10 +37,12 @@
                 </span>
               </div>
             </ion-col>
-          </ion-row>          
-          <ion-icon name="arrow-forward" item-right color="mliconarrowblue"></ion-icon>
-        </ion-item>
+          </ion-row>
+        </button>
         <ion-item-options>
+          <button ion-button color="light" (click)="fixAccountData(account)">
+            Fix
+          </button>
           <button ion-button color="energized" (click)="edit(slidingItem, account)">
             Edit
           </button>

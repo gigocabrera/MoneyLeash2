@@ -14,7 +14,7 @@
 <ion-content class="outer-content">
   <ion-list>
     <ion-item-group *ngFor="let group of groupedPayees">
-      <ion-item-divider sticky>
+      <ion-item-divider sticky [color]="dividercolor">
         <ion-label>
           {{group.letter}}
         </ion-label>

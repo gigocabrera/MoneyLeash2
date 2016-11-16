@@ -43,7 +43,7 @@ $toolbar-wp-title-text-color:  #fff;
 
 // ion-item-divider
 // --------------------------------------------------
-$item-ios-divider-background: #D3EAF0;
+// $item-ios-divider-background: #D3EAF0;
 
 // Alert custom text color
 // --------------------------------------------------
@@ -97,6 +97,7 @@ $item-ios-divider-background: #D3EAF0;
 }
 .ml-input ion-datetime {
   padding: 0px 8px 8px 10px;
+  margin-left: 20px;
 }
 .ml-input ion-label {
   margin: 5px 8px 13px 0;

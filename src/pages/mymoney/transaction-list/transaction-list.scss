@@ -18,8 +18,13 @@ page-transaction-list {
       color: #A0A0A0;
       font-weight: normal;
   }
-  .customTransDesc span li {
+  .customTransDesc span small ul {
+    display: block;
     list-style-type: none;
+  }
+  .customTransDesc span small ul li {
+    float: left;
+    margin-right: 15px;
   }
   .customTransDesc .fa {
       padding-right: 5px;
@@ -99,6 +104,59 @@ page-transaction-list {
     color: #00A2E8;
     bottom: 1px;
     position: relative;
+  }
+
+  ion-item-divider ion-label {
+    text-transform: uppercase;
+    color: #6d6d72;
+    font-size: 12px;
+  }
+
+  .center {
+    text-align: center;
+  }
+
+  .balancesRow {
+    font-weight: bold;
+    font: 13px 'PT Sans Narrow', sans-serif;
+    text-align: center;
+  }
+
+  .balancesRow span {
+    display: block;
+    font-weight: normal;
+    font-size: 15px;
+  }
+
+  .colBorder {
+    border-right: 1px solid #AED9E3;
+  }
+  .button-float {
+    background: #00A2E8;
+    color: white !important;
+    z-index: 12 !important;
+    position: absolute !important;
+    bottom: 15px !important;
+    right: 41%;
+    width: 65px;
+    height: 65px;
+    border-radius: 50% !important;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26) !important;
+    -webkit-transform: translate3d(0, 0, 0) !important;
+    transform: translate3d(0, 0, 0) !important;
+    -webkit-transition: 0.2s linear !important;
+    transition: 0.2s linear !important;
+    -webkit-transition-property: -webkit-transform, all !important;
+    transition-property: transform, all !important;
+  }
+  .button-float:hover {
+    -webkit-transform: translate3d(0, -1px, 0) !important;
+    transform: translate3d(0, -1px, 0) !important;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4) !important;
+    background: #0076A8 !important;
+  }
+  .button-float ion-icon {
+    font-size: 34px;
   }
 
 }

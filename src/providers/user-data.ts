@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 
+import { LoadingController } from 'ionic-angular';
 import { NativeStorage } from 'ionic-native';
 
 import 'rxjs';
+import * as moment from 'moment';
 
 // firebase/angularfire
 import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
@@ -10,6 +12,7 @@ import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'a
 @Injectable()
 export class UserData {
   
+  loading: any;
   enabletouchid = '';
   appversion = '';
   user;
@@ -18,17 +21,27 @@ export class UserData {
   housedata;
   profilepicdata;
   userSettings;
-  colors;
 
-  constructor(public af: AngularFire) {
+  constructor(
+    public af: AngularFire,
+    public loadingCtrl: LoadingController) {
 
     this.userdata = firebase.database().ref('/users/');
     this.housedata = firebase.database().ref('/houses/');
     this.profilepicdata = firebase.storage().ref('/profilepics/');
 
-    //this.colors = {'navbar': "energized"};
-    this.colors = {'navbar': ""};
+  }
 
+  showLoadingController() {
+    this.loading = this.loadingCtrl.create({
+      spinner: 'ios',
+      content: 'Please wait...',
+    });
+    this.loading.present();
+  }
+
+  dismissLoadingController() {
+    this.loading.dismiss();
   }
 
   /**
@@ -84,7 +97,9 @@ export class UserData {
       fullname: this.user.fullname,
       housenumber: this.RandomHouseCode(),
       profilepic: 'http://www.gravatar.com/avatar?d=mm&s=140',
-      accounttypescount: '6'
+      accounttypescount: '6',
+      dividercolor: 'theme1divider',
+      navbarcolor: 'theme1navbar'
     };
     this.user.defaultbalance = profile.defaultbalance;
     this.user.defaultdate = profile.defaultdate;
@@ -120,7 +135,7 @@ export class UserData {
   createDefaultAccountTypes() {
 
     // default account types
-    var refTypes = this.housedata.child(this.user.houseid + "/memberaccounttypes/");
+    var refTypes = this.housedata.child(this.user.houseid + "/accounttypes/");
     refTypes.push({ name: 'Checking', icon: 'ios-cash-outline' });
     refTypes.push({ name: 'Savings', icon: 'ios-cash-outline' });
     refTypes.push({ name: 'Credit Card', icon: 'ios-cash-outline' });
@@ -133,7 +148,7 @@ export class UserData {
   createDefaultCategoriesIncome() {
 
     // default income categories
-    var refCatIncome = this.housedata.child(this.user.houseid + "/membercategories/Income");
+    var refCatIncome = this.housedata.child(this.user.houseid + "/categories/Income");
     refCatIncome.push({ categoryname: 'Income', categoryparent: '', categorysort: 'Income', categorytype: 'Income' });
     refCatIncome.push({ categoryname: 'Beginning Balance', categoryparent: 'Income', categorysort: 'Income:Beginning Balance', categorytype: 'Income' });
 
@@ -142,7 +157,7 @@ export class UserData {
   createDefaultCategoriesExpense() {
 
     // default expense categories
-    var refCatExpense = this.housedata.child(this.user.houseid + "/membercategories/Expense");
+    var refCatExpense = this.housedata.child(this.user.houseid + "/categories/Expense");
     refCatExpense.push({ categoryname: 'Auto', categoryparent: '', categorysort: 'Auto', categorytype: 'Expense' });
     refCatExpense.push({ categoryname: 'Gasoline', categoryparent: 'Auto', categorysort: 'Auto:Gas', categorytype: 'Expense' });
     refCatExpense.push({ categoryname: 'Car Payment', categoryparent: 'Auto', categorysort: 'Auto:Car Payment', categorytype: 'Expense' });
@@ -152,7 +167,7 @@ export class UserData {
   createDefaultPayees() {
 
     // default payees
-    var refPayee = this.housedata.child(this.user.houseid + "/memberpayees");
+    var refPayee = this.housedata.child(this.user.houseid + "/payees");
     refPayee.push({ lastamount: '', lastcategory: '', lastcategoryid: '', payeename: 'Beginning Balance' });
 
   }
@@ -322,21 +337,21 @@ export class UserData {
   //-----------------------------------------------------------------------
 
   getAccountTypes(): FirebaseListObservable<any[]> {
-    return this.af.database.list('/houses/' + this.user.houseid + '/memberaccounttypes');
+    return this.af.database.list('/houses/' + this.user.houseid + '/accounttypes');
   }
 
   addAccountType(item) {
-    this.housedata.child(this.user.houseid + "/memberaccounttypes/").push({ name: item.name, icon: item.icon });
+    this.housedata.child(this.user.houseid + "/accounttypes/").push({ name: item.name, icon: item.icon });
     this.updateAccountTypesCounter('add');
   }
 
   deleteAccountType(item) {
-    this.housedata.child(this.user.houseid + '/memberaccounttypes/' + item.$key).remove();
+    this.housedata.child(this.user.houseid + '/accounttypes/' + item.$key).remove();
     this.updateAccountTypesCounter('delete');
   }
 
   updateAccountType(item) {
-    this.housedata.child(this.user.houseid + '/memberaccounttypes/' + item.$key).update({ 'name' : item.name, 'icon' : item.icon });
+    this.housedata.child(this.user.houseid + '/accounttypes/' + item.$key).update({ 'name' : item.name, 'icon' : item.icon });
   }
 
   //
@@ -347,7 +362,7 @@ export class UserData {
     // DO NOT USE:
     // this method produces a weird result where the list is returned sorted (as expected) the first time
     // you visit the page, but is not sorted every subsequent time you visit the page and multiplies the list
-    return this.af.database.list('/houses/' + this.user.houseid + '/memberaccounts', {
+    return this.af.database.list('/houses/' + this.user.houseid + '/accounts', {
       query: {
         orderByChild: 'accounttype'
       }
@@ -355,7 +370,7 @@ export class UserData {
   }
 
   getAllAccounts() {
-    return this.housedata.child(this.user.houseid + '/memberaccounts').orderByChild('accounttype');
+    return this.housedata.child(this.user.houseid + '/accounts').orderByChild('accounttype');
   }
 
   addAccount(account) {
@@ -370,27 +385,24 @@ export class UserData {
         'transactionid': '',
         'balanceclass': 'textRed'
     }
-    this.housedata.child(this.user.houseid + "/memberaccounts/").push(newACcount);
+    this.housedata.child(this.user.houseid + "/accounts/").push(newACcount);
   }
 
   updateAccount(account) {
-    this.housedata.child(this.user.houseid + '/memberaccounts/' + account.$key).update({ 'accountname' : account.accountname, 'accounttype' : account.accounttype, 'dateopen' : account.dateopen });
+    this.housedata.child(this.user.houseid + '/accounts/' + account.$key).update({ 'accountname' : account.accountname, 'accounttype' : account.accounttype, 'dateopen' : account.dateopen });
   }
 
   deleteAccount(account) {
-    this.housedata.child(this.user.houseid + '/memberaccounts/' + account.$key).remove();
+    this.housedata.child(this.user.houseid + '/accounts/' + account.$key).remove();
   }
 
   //
   // TRANSACTIONS
   //-----------------------------------------------------------------------
 
-  getTransactionsByDate(account) {
-    // This will retrieve ALL transactions
-    // return this.housedata.child(this.user.houseid + '/membertransactions/' + account.$key).orderByChild('date');
-    
-    // This will retrieve the most recent 100 transactions
-    return this.housedata.child(this.user.houseid + '/membertransactions/' + account.$key).orderByChild('date').limitToLast(101);
+  getTransactionsByDate(account) {    
+    //return this.housedata.child(this.user.houseid + '/transactions/' + account.$key).orderByChild('date').limitToLast(101);
+    return this.housedata.child(this.user.houseid + '/transactions/' + account.$key).orderByChild('date');
   }
 
   addTransaction(transaction) {
@@ -405,15 +417,15 @@ export class UserData {
         'transactionid': '',
         'balanceclass': 'textRed'
     }
-    //this.housedata.child(this.user.houseid + "/memberaccounts/").push(newACcount);
+    //this.housedata.child(this.user.houseid + "/accounts/").push(newACcount);
   }
 
   updateTransaction(transaction) {
-    //this.housedata.child(this.user.houseid + '/memberaccounts/' + account.$key).update({ 'accountname' : account.accountname, 'accounttype' : account.accounttype, 'dateopen' : account.dateopen });
+    //this.housedata.child(this.user.houseid + '/accounts/' + account.$key).update({ 'accountname' : account.accountname, 'accounttype' : account.accounttype, 'dateopen' : account.dateopen });
   }
 
   deleteTransaction(transaction) {
-    //this.housedata.child(this.user.houseid + '/memberaccounts/' + account.$key).remove();
+    //this.housedata.child(this.user.houseid + '/accounts/' + account.$key).remove();
   }
 
   //
@@ -421,26 +433,26 @@ export class UserData {
   //-----------------------------------------------------------------------
   
   getAllCategories() {
-    return this.af.database.list('/houses/' + this.user.houseid + '/membercategories', { preserveSnapshot: true});
+    return this.af.database.list('/houses/' + this.user.houseid + '/categories', { preserveSnapshot: true});
   }
   getAllIncomeCategories() {
-    return this.housedata.child(this.user.houseid + '/membercategories/Income').orderByChild('categorysort');
-    /*return this.af.database.list('/houses/' + this.user.houseid + '/membercategories/Income', {
+    return this.housedata.child(this.user.houseid + '/categories/Income').orderByChild('categorysort');
+    /*return this.af.database.list('/houses/' + this.user.houseid + '/categories/Income', {
       query: {
         orderByChild: 'categorysort'
       }
     });*/
   }
   getAllExpenseCategories() {
-    return this.housedata.child(this.user.houseid + '/membercategories/Expense').orderByChild('categorysort');
-    /*return this.af.database.list('/houses/' + this.user.houseid + '/membercategories/Expense', {
+    return this.housedata.child(this.user.houseid + '/categories/Expense').orderByChild('categorysort');
+    /*return this.af.database.list('/houses/' + this.user.houseid + '/categories/Expense', {
       query: {
         orderByChild: 'categorysort'
       }
     });*/
   }
   getParentCategories(type) {
-    return this.housedata.child(this.user.houseid + '/membercategories/' + type).orderByChild('categorysort');
+    return this.housedata.child(this.user.houseid + '/categories/' + type).orderByChild('categorysort');
   }
 
   addCategory(category) {
@@ -450,15 +462,15 @@ export class UserData {
         'categoryparent': category.categoryparent,
         'categorysort': category.categorysort
     }
-    this.housedata.child(this.user.houseid + "/membercategories/" + category.categorytype).push(newCategory);
+    this.housedata.child(this.user.houseid + "/categories/" + category.categorytype).push(newCategory);
   }
 
   updateCategory(category) {
-    this.housedata.child(this.user.houseid + '/membercategories/' +  category.categorytype + '/' + category.$key).update({ 'categoryname' : category.categoryname, 'categorytype' : category.categorytype, 'categoryparent' : category.categoryparent, 'categorysort' : category.categorysort });
+    this.housedata.child(this.user.houseid + '/categories/' +  category.categorytype + '/' + category.$key).update({ 'categoryname' : category.categoryname, 'categorytype' : category.categorytype, 'categoryparent' : category.categoryparent, 'categorysort' : category.categorysort });
   }
 
   deleteCategory(category) {
-    this.housedata.child(this.user.houseid + '/membercategories/' +  category.categorytype + '/' + category.$key).remove();
+    this.housedata.child(this.user.houseid + '/categories/' +  category.categorytype + '/' + category.$key).remove();
   }
 
   //
@@ -469,7 +481,7 @@ export class UserData {
     // DO NOT USE:
     // this method produces a weird result where the list is returned sorted (as expected) the first time
     // you visit the page, but is not sorted every subsequent time you visit the page and multiplies the list
-    return this.af.database.list('/houses/' + this.user.houseid + '/memberpayees', {
+    return this.af.database.list('/houses/' + this.user.houseid + '/payees', {
       query: {
         orderByChild: 'payeename'
       }
@@ -477,7 +489,7 @@ export class UserData {
   }
 
   getAllPayees() {
-    return this.housedata.child(this.user.houseid + '/memberpayees').orderByChild('payeename');
+    return this.housedata.child(this.user.houseid + '/payees').orderByChild('payeename');
   }
 
   addPayee(payee) {
@@ -487,15 +499,15 @@ export class UserData {
         'lastcategoryid': '',
         'payeename': payee.payeename
     }
-    this.housedata.child(this.user.houseid + "/memberpayees").push(newPayee);
+    this.housedata.child(this.user.houseid + "/payees").push(newPayee);
   }
 
   updatePayee(payee) {
-    this.housedata.child(this.user.houseid + '/memberpayees/' +  payee.$key).update({ 'lastamount' : payee.lastamount, 'lastcategory' : payee.lastcategory, 'lastcategoryid' : payee.lastcategory, 'payeename' : payee.payeename });
+    this.housedata.child(this.user.houseid + '/payees/' +  payee.$key).update({ 'lastamount' : payee.lastamount, 'lastcategory' : payee.lastcategory, 'lastcategoryid' : payee.lastcategory, 'payeename' : payee.payeename });
   }
 
   deletePayee(payee) {
-    this.housedata.child(this.user.houseid + '/memberpayees/' +  payee.$key).remove();
+    this.housedata.child(this.user.houseid + '/payees/' +  payee.$key).remove();
   }
 
   //
@@ -534,5 +546,139 @@ export class UserData {
   }
   var id = find_in_array(measurements.page[0].line, 'lineid', 22);
   */
-   
+
+
+  //
+  // DATA MAINTENANCE
+  //-----------------------------------------------------------------------
+
+  houseMember() {
+    
+  }
+  upgradeData() {
+    this.copyAccounts();
+    this.copyAccountTypes();
+    this.copyCategories();
+    this.copyPayees();
+    this.copyTransactions();
+  }
+  copyAccounts() {
+    this.copyFbRecord(this.housedata.child(this.user.houseid + '/memberaccounts'), this.housedata.child(this.user.houseid + '/accounts'));
+  }
+  copyAccountTypes() {
+    this.copyFbRecord(this.housedata.child(this.user.houseid + '/memberaccounttypes'), this.housedata.child(this.user.houseid + '/accounttypes'));
+  }
+  copyCategories() {
+    this.copyFbRecord(this.housedata.child(this.user.houseid + '/membercategories'), this.housedata.child(this.user.houseid + '/categories'));
+  }
+  copyPayees() {
+    this.copyFbRecord(this.housedata.child(this.user.houseid + '/memberpayees'), this.housedata.child(this.user.houseid + '/payees'));
+  }
+  copyTransactions() {
+    this.copyFbRecord(this.housedata.child(this.user.houseid + '/membertransactions'), this.housedata.child(this.user.houseid + '/transactions'));
+  }
+
+  // Move or copy a Firebase path to a new location
+  // https://gist.github.com/katowulf/6099042
+  copyFbRecord(oldRef, newRef) {
+    oldRef.once('value', function(snap) {
+      newRef.set( snap.val(), function(error) {
+        if( error && typeof(console) !== 'undefined' && console.error ) {  console.error(error); }
+      });
+    });
+  }
+  moveFbRecord(oldRef, newRef) {
+    oldRef.once('value', function(snap) {
+      newRef.set( snap.val(), function(error) {
+        if( !error ) {  oldRef.remove(); }
+        else if( typeof(console) !== 'undefined' && console.error ) {  console.error(error); }
+      });
+    });
+  }
+
+  fixAccountData(account) {
+
+    var totalTransactions = 0;
+    var totalClearedTransactions = 0;
+    var runningBal = 0;
+    var clearedBal = 0;
+    var todayBal = 0;
+
+    var ref = this.housedata.child(this.user.houseid + '/transactions/' + account.$key);
+    var query = ref.orderByChild('date');
+
+    query.once('value', (transactions) => {
+      
+      transactions.forEach( snapshot => {
+
+        var transaction = snapshot.val();
+        //
+        // Handle Balances
+        //
+        totalTransactions++;
+        transaction.ClearedClass = '';
+        if (transaction.iscleared === true) {
+          transaction.ClearedClass = 'transactionIsCleared';
+          totalClearedTransactions++;
+          if (transaction.type === "Income") {
+            if (!isNaN(transaction.amount)) {
+              clearedBal = clearedBal + parseFloat(transaction.amount);
+            }
+          } else if (transaction.type === "Expense") {
+            if (!isNaN(transaction.amount)) {
+              clearedBal = clearedBal - parseFloat(transaction.amount);
+            }
+          }
+          transaction.clearedBal = clearedBal.toFixed(2);
+        }
+        if (transaction.type === "Income") {
+          if (!isNaN(transaction.amount)) {
+            runningBal = runningBal + parseFloat(transaction.amount);
+            transaction.runningbal = runningBal.toFixed(2);
+          }
+        } else if (transaction.type === "Expense") {
+          if (!isNaN(transaction.amount)) {
+            runningBal = runningBal - parseFloat(transaction.amount);
+            transaction.runningbal = runningBal.toFixed(2);
+          }
+        }
+
+        // Get today's balance 
+        var tranDate = moment(transaction.date)
+        var now = moment();
+        if (tranDate <= now) {
+          todayBal = runningBal;
+        }
+
+        // Update running balance for this transaction
+        ref.child(snapshot.key).update({runningbal : runningBal.toFixed(2)});
+
+        // Update cleared balance for this transaction
+        ref.child(snapshot.key).update({clearedBal : clearedBal.toFixed(2)});
+
+      });
+
+      var pendingTransactions = totalTransactions - totalClearedTransactions; 
+      console.log('total transactions: ' + totalTransactions.toFixed(0));
+      console.log('total cleared transactions: ' + totalClearedTransactions.toFixed(0));
+      console.log('total pending transactions: ' + pendingTransactions.toFixed(0));
+      console.log('Balance cleared: ' + clearedBal.toFixed(2));
+      console.log('Balance running: ' + runningBal.toFixed(2));
+      console.log('Balance today: ' + todayBal.toFixed(2));
+
+      // Update account with totals
+      var refAccount = this.housedata.child(this.user.houseid + '/accounts/' + account.$key);
+      refAccount.update({ 
+        'balancecleared' : clearedBal.toFixed(2), 
+        'balancecurrent' : runningBal.toFixed(2), 
+        'balancetoday' : todayBal.toFixed(2),
+        'totaltransactions' : totalTransactions.toFixed(0),
+        'totalclearedtransactions' : totalClearedTransactions.toFixed(0),
+        'totalpendingtransactions' : pendingTransactions.toFixed(0)
+      });
+
+    });
+
+  }
+
 }

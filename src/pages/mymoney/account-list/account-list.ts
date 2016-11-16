@@ -17,6 +17,7 @@ import {UserData} from '../../../providers/user-data';
 export class AccountListPage {
 
   navbarcolor: string;
+  dividercolor: string;
   groupedAccounts = [];
   networth: any;
 
@@ -25,7 +26,8 @@ export class AccountListPage {
       public alertController: AlertController,
       public userData: UserData) {
 
-        this.navbarcolor = this.userData.colors.navbar;
+        this.navbarcolor = this.userData.user.navbarcolor;
+        this.dividercolor = this.userData.user.dividercolor;
 
       }
 
@@ -81,13 +83,14 @@ export class AccountListPage {
           that.groupedAccounts.push(newGroup);
         }
         currentAccounts.push(tempAccount);
-      })
-      
+      });
+      this.userData.dismissLoadingController();
     });
 
   }
 
   viewtransactions (account) {
+    this.userData.showLoadingController();
     this.nav.push(TransactionsPage, {paramAccount: account});
   }
 
@@ -103,10 +106,6 @@ export class AccountListPage {
           'mode': 'New'
         }
     this.nav.push(AccountPage, {paramAccount: account});
-  }
-
-  getnavbarcolor() {
-    this.navbarcolor = this.userData.colors.navbar;
   }
 
   edit(slidingItem, account) {
@@ -141,6 +140,10 @@ export class AccountListPage {
   handleSlidingItems(slidingItem) {
     // Close any open sliding items when the page updates
     slidingItem.close();
+  }
+
+  fixAccountData(account) {
+    this.userData.fixAccountData(account);
   }
   
 }

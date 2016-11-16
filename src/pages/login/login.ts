@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { AlertController, MenuController , NavController, LoadingController } from 'ionic-angular';
+import { AlertController, MenuController , NavController } from 'ionic-angular';
 
 // app pages
 import { SignupPage } from '../signup/signup';
@@ -22,8 +22,7 @@ export class LoginPage {
   constructor(
     public alertController: AlertController,
     public menuCtrl: MenuController,
-    public navCtrl: NavController,
-    public loadingCtrl: LoadingController, 
+    public navCtrl: NavController, 
     public userData: UserData) {
 
     this.login.email = 'paulina@test.com';
@@ -32,14 +31,7 @@ export class LoginPage {
    }
 
   onLogin(form) {
-    
-    let loading = this.loadingCtrl.create({
-      spinner: 'ios',
-      dismissOnPageChange: true,
-      content: 'Please wait...',
-    });
-    loading.present();
-
+    this.userData.showLoadingController();
     this.submitted = true;
     if (form.valid) {
       this.userData.login(this.login)
@@ -49,7 +41,7 @@ export class LoginPage {
       )
       .catch(
         (error) => {
-          loading.dismiss();     
+          this.userData.dismissLoadingController();
           this.LoginError(error);
         }
       );
