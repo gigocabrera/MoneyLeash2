@@ -7,7 +7,10 @@ import { AccountPage } from '../account/account';
 import { TransactionsPage } from '../transaction-list/transaction-list';
 
 // services
-import {UserData} from '../../../providers/user-data';
+import { UserData } from '../../../providers/user-data';
+
+// models
+import { Account, IAccount } from '../../../models/account.model';
 
 @Component({
   selector: 'page-account-list',
@@ -38,7 +41,7 @@ export class AccountListPage {
       var that = this;
       this.groupedAccounts = [];
       let currentAccounts = [];
-      let currenttype = false;
+      let currenttype;
       let clearedBal = 0;
       let netWorth = 0;
 
@@ -46,29 +49,19 @@ export class AccountListPage {
 
         var account = spanshot.val();
 
-        let tempAccount = ({
-          $key: spanshot.key,
-          accountname: account.accountname,
-          accounttype: account.accounttype,
-          autoclear: account.autoclear,
-          balanceclass: account.balanceclass,
-          balancecleared: account.balancecleared,
-          balancecurrent: account.balancecurrent,
-          balancetoday: account.balancetoday,
-          dateopen: account.dateopen,
-          transactionid: account.transactionid
-        });
+        let tempAccount = new Account(account);
+        tempAccount.$key = spanshot.key;
 
         // Calculate Net Worth
-        tempAccount.balanceclass = '';
+        tempAccount.BalanceClass = '';
         clearedBal = parseFloat(tempAccount.balancecleared);
         netWorth = netWorth + clearedBal;
         if (clearedBal > 0) {
-          tempAccount.balanceclass = 'textGreen';
+          tempAccount.BalanceClass = 'textGreen';
         } else if (clearedBal < 0){
-          tempAccount.balanceclass = 'textRed';
+          tempAccount.BalanceClass = 'textRed';
         } else {
-          tempAccount.balanceclass = 'textBlack';
+          tempAccount.BalanceClass = 'textBlack';
         }
         //
         // Add grouping functionality
@@ -95,22 +88,15 @@ export class AccountListPage {
   }
 
   newAccount() {
-    var account = {
-          '$key': '',
-          'accountname': '',
-          'accounttype': '',
-          'BalanceClass': '',
-          'balancecleared': '',
-          'balancetoday': '',
-          'dateopen': '',
-          'mode': 'New'
-        }
-    this.nav.push(AccountPage, {paramAccount: account});
+    let newAccount = new Account();
+    newAccount.mode = "New";
+    this.nav.push(AccountPage, {paramAccount: newAccount});
   }
 
   edit(slidingItem, account) {
     this.handleSlidingItems(slidingItem);
-    this.nav.push(AccountPage, {paramAccount: account});
+    let tempAccount = new Account(account);
+    this.nav.push(AccountPage, {paramAccount: tempAccount});
   }
 
   delete(slidingItem, account) {

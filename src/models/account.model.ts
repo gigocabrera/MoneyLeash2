@@ -1,0 +1,49 @@
+export interface IAccount {
+  $key: string;
+  BalanceClass: string;
+  accountname: string;
+  accounttype: string;
+  autoclear: string;
+  balancecleared: string;
+  balancecurrent: string;
+  balancetoday: string;
+  dateopen: string;
+  totalclearedtransactions: string;
+  totalpendingtransactions: string;
+  totaltransactions: string;
+  mode?: string;
+}
+
+export class Account {
+  public $key: string;
+  public BalanceClass: string;
+  public accountname: string;
+  public accounttype: string;
+  public autoclear: string;
+  public balancecleared: string;
+  public balancecurrent: string;
+  public balancetoday: string;
+  public dateopen: string;
+  public totalclearedtransactions: string;
+  public totalpendingtransactions: string;
+  public totaltransactions: string;
+  public mode: string;
+
+  constructor();
+  constructor(accountInfo: IAccount);
+  constructor(accountInfo?: any) {
+    this.$key = accountInfo.key;
+    this.BalanceClass = accountInfo.BalanceClass;
+    this.accountname = accountInfo.accountname;
+    this.accounttype = accountInfo.accounttype;
+    this.autoclear = accountInfo.autoclear;
+    this.balancecleared = accountInfo.balancecleared;
+    this.balancecurrent = accountInfo.balancecurrent;
+    this.balancetoday = accountInfo.balancetoday;
+    this.dateopen = accountInfo.dateopen;
+    this.totalclearedtransactions = accountInfo.totalclearedtransactions;
+    this.totalpendingtransactions = accountInfo.totalpendingtransactions;
+    this.totaltransactions = accountInfo.totaltransactions;
+    this.mode = "Edit";
+  }
+}
