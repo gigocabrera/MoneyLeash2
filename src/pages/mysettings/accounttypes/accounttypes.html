@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar>  
+  <ion-navbar [color]="navbarcolor">
     <ion-title>Account Types</ion-title>
     <ion-buttons end>
       <button ion-button (click)="addNew()">
@@ -10,19 +10,19 @@
 </ion-header>
 <ion-content class="outer-content">
   <ion-list>
-    <ion-list-header>
+    <ion-item-divider sticky [color]="dividercolor">
       Account Types
-    </ion-list-header>
-      <ion-item-sliding *ngFor="let item of items | async">
-        <button ion-item (click)="edit(item)">
-          <ion-icon item-left [name]="item.icon"></ion-icon>
-          {{ item.name }}
+    </ion-item-divider>
+    <ion-item-sliding *ngFor="let item of items | async">
+      <button ion-item (click)="edit(item)">
+        <ion-icon item-left [name]="item.icon"></ion-icon>
+        {{ item.name }}
+      </button>
+      <ion-item-options>
+        <button ion-button (click)="delete(item)" color="danger">
+          Delete
         </button>
-        <ion-item-options>
-          <button ion-button (click)="delete(item)" color="danger">
-            Delete
-          </button>
-        </ion-item-options>
-      </ion-item-sliding>
-    </ion-list>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
 </ion-content>

@@ -62,6 +62,9 @@ export class PayeeListPage {
 
       })
 
+      // Disable loading controller when the promise is complete
+      this.userData.dismissLoadingController();
+
     });
     
     /*var that = this;

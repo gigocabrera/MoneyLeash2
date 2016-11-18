@@ -30,7 +30,7 @@ export class MoneyLeashApp {
 
   rootPage: any = TutorialPage;
 
-  pages: Array<{title: string, component: any, icon: string, color: string}>;
+  pages: Array<{title: string, component: any, icon: string, color: string, showloader: boolean}>;
   logoutpages: Array<{title: string, component: any, icon: string, color: string}>;
 
   constructor(
@@ -41,13 +41,13 @@ export class MoneyLeashApp {
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Accounts', component: AccountListPage, icon: 'ios-browsers-outline', color: '', },
-      { title: 'Budgets', component: BudgetListPage, icon: 'ios-color-wand-outline', color: '', },
-      { title: 'Categories', component: CategoryListPage, icon: 'ios-attach-outline', color: '', },
-      { title: 'Payees', component: PayeeListPage, icon: 'ios-contacts-outline', color: '', },
-      { title: 'Recurring', component: RecurringListPage, icon: 'ios-sync-outline', color: '', },
-      { title: 'Reports', component: ReportListPage, icon: 'ios-trending-up-outline', color: '', },
-      { title: 'Settings', component: SettingsPage, icon: 'ios-settings-outline', color: '', },
+      { title: 'Accounts', component: AccountListPage, icon: 'ios-browsers-outline', color: '', showloader: false },
+      { title: 'Budgets', component: BudgetListPage, icon: 'ios-color-wand-outline', color: '', showloader: false  },
+      { title: 'Categories', component: CategoryListPage, icon: 'ios-attach-outline', color: '', showloader: true  },
+      { title: 'Payees', component: PayeeListPage, icon: 'ios-contacts-outline', color: '', showloader: true  },
+      { title: 'Recurring', component: RecurringListPage, icon: 'ios-sync-outline', color: '', showloader: false  },
+      { title: 'Reports', component: ReportListPage, icon: 'ios-trending-up-outline', color: '', showloader: false  },
+      { title: 'Settings', component: SettingsPage, icon: 'ios-settings-outline', color: '', showloader: false  },
     ];
     this.logoutpages = [
       { title: 'Logout', component: LogoutPage, icon: 'md-log-out', color: '#f53d3d', }
@@ -88,6 +88,10 @@ export class MoneyLeashApp {
   }
 
   openPage(page) {
+    // Show Loading Controller if enabled
+    if (page.showloader) {
+      this.userData.showLoadingController();
+    }
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);

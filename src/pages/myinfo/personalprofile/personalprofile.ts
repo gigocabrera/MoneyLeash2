@@ -22,6 +22,7 @@ declare var firebase: any;
 
 export class PersonalProfilePage {
   
+  navbarcolor: string;
   public userPicture: any;
   public fireAuth: any;
 
@@ -34,6 +35,7 @@ export class PersonalProfilePage {
       public userData: UserData) {
 
         this.fireAuth = firebase.auth();
+        this.navbarcolor = this.userData.user.navbarcolor;
 
       }
 

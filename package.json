@@ -25,17 +25,17 @@
     "angularfire2": "2.0.0-beta.5",
     "firebase": "3.5.1",
     "font-awesome": "^4.6.3",
-    "ionic-angular": "^2.0.0-rc.2-201611110153",
+    "ionic-angular": "^2.0.0-rc.3",
     "ionic-native": "2.2.3",
     "ionicons": "^3.0.0",
     "moment": "^2.15.1",
-    "rxjs": "^5.0.0-beta.12",
-    "zone.js": "^0.6.21"
+    "rxjs": "^5.0.0-rc.1",
+    "zone.js": "^0.6.26"
   },
   "devDependencies": {
-    "@ionic/app-scripts": "0.0.43",
+    "@ionic/app-scripts": "0.0.44",
     "@types/request": "0.0.30",
-    "typescript": "^2.0.3"
+    "typescript": "^2.0.9"
   },
   "description": "Don't let your money run wild. Keep it on a leash!",
   "cordovaPlugins": [

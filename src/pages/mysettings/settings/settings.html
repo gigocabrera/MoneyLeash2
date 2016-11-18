@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar [color]="navbarcolor">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
@@ -52,7 +52,7 @@
     <ion-item>
       <ion-icon item-left name="finger-print" color="danger"></ion-icon>
       <ion-label>Enable TouchID</ion-label>
-      <ion-toggle (ionChange)="toggleTouchID($event)" checked="{{ userData.user?.enabletouchid }}"></ion-toggle>
+      <ion-toggle (ionChange)="toggleTouchID($event)" checked="{{ userData.user?.enabletouchid }}" color="mllightblue"></ion-toggle>
     </ion-item>
   </ion-list>
   <ion-list>

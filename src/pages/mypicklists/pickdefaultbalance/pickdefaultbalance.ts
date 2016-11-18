@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 
 import { NavController, ViewController, NavParams } from 'ionic-angular';
 
+// services
+import { UserData } from '../../../providers/user-data';
+
 @Component({
   selector: 'page-pickdefaultbalance',
   templateUrl: 'pickdefaultbalance.html'
@@ -9,17 +12,21 @@ import { NavController, ViewController, NavParams } from 'ionic-angular';
 
 export class PickDefaultBalancePage {  
   
-  defaultItems: {
-    description?: string,
-    value?: string
-  } = {};
-  
+  navbarcolor: string;
+  dividercolor: string;
+  defaultItems;
   itemselected: string;
    
   constructor(
     public nav: NavController, 
     public viewCtrl: ViewController, 
-    public navParams: NavParams) {}
+    public navParams: NavParams,
+    public userData: UserData) {
+      
+      this.navbarcolor = this.userData.user.navbarcolor;
+      this.dividercolor = this.userData.user.dividercolor;
+      
+    }
 
   ionViewDidLoad() {
     this.defaultItems = [

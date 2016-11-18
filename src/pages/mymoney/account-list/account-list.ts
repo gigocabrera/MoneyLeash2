@@ -10,7 +10,7 @@ import { TransactionsPage } from '../transaction-list/transaction-list';
 import { UserData } from '../../../providers/user-data';
 
 // models
-import { Account, IAccount } from '../../../models/account.model';
+import { Account } from '../../../models/account.model';
 
 @Component({
   selector: 'page-account-list',
@@ -49,8 +49,21 @@ export class AccountListPage {
 
         var account = spanshot.val();
 
-        let tempAccount = new Account(account);
-        tempAccount.$key = spanshot.key;
+        let tempAccount = new Account(
+          spanshot.key,
+          account.BalanceClass,
+          account.accountname,
+          account.accounttype,
+          account.autoclear,
+          account.balancecleared,
+          account.balancecurrent,
+          account.balancetoday,
+          account.dateopen,
+          account.totalclearedtransactions,
+          account.totalpendingtransactions,
+          account.totaltransactions,
+          "Edit"
+        );
 
         // Calculate Net Worth
         tempAccount.BalanceClass = '';
@@ -88,15 +101,13 @@ export class AccountListPage {
   }
 
   newAccount() {
-    let newAccount = new Account();
-    newAccount.mode = "New";
-    this.nav.push(AccountPage, {paramAccount: newAccount});
+    let tempAccount = new Account(null,null,null,null,null,null,null,null,null,null,null,null,"Edit");
+    this.nav.push(AccountPage, {paramAccount: tempAccount});
   }
 
   edit(slidingItem, account) {
     this.handleSlidingItems(slidingItem);
-    let tempAccount = new Account(account);
-    this.nav.push(AccountPage, {paramAccount: tempAccount});
+    this.nav.push(AccountPage, {paramAccount: account});
   }
 
   delete(slidingItem, account) {

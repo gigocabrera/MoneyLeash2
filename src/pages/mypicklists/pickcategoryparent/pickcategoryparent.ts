@@ -11,6 +11,8 @@ import { UserData } from '../../../providers/user-data';
 
 export class PickCategoryParentPage {
   
+  navbarcolor: string;
+  dividercolor: string;
   items: {};
   itemselected: any;
    
@@ -19,6 +21,8 @@ export class PickCategoryParentPage {
     public navParams: NavParams,
     public userData: UserData) {
 
+      this.navbarcolor = this.userData.user.navbarcolor;
+      this.dividercolor = this.userData.user.dividercolor;
       this.itemselected = this.navParams.data.paramCategory;
 
     }

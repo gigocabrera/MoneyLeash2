@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-navbar [color]="navbarcolor">
     <ion-buttons start>
       <button ion-button (click)="dismiss()">Cancel</button>
     </ion-buttons>
@@ -9,12 +9,12 @@
     <ion-buttons end>
       <button ion-button (click)="changeEmail(newemail)">Save</button>
     </ion-buttons>
-  </ion-toolbar>
+  </ion-navbar>
 </ion-header>
 <ion-content class="outer-content">
-  <ion-list-header>
+  <ion-item-divider [color]="dividercolor">
     Enter your new email
-  </ion-list-header>
+  </ion-item-divider>
   <ion-list>
     <ion-item class="ml-input">
       <i class="fa fa-at ml-fontawesome-left" item-left></i>

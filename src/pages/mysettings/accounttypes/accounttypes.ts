@@ -17,13 +17,20 @@ import { UserData } from '../../../providers/user-data';
 
 export class AccountTypesPage {
 
+  navbarcolor: string;
+  dividercolor: string;
   items: FirebaseListObservable<any[]>;
   item: {name?: string, icon?: string, $key?: string} = {};
 
   constructor( 
     public navParams: NavParams,
     public modalController: ModalController,
-    public userData: UserData) {}
+    public userData: UserData) {
+
+      this.navbarcolor = this.userData.user.navbarcolor;
+      this.dividercolor = this.userData.user.dividercolor;
+
+    }
 
   ionViewDidLoad() {
     this.items = this.userData.getAccountTypes();

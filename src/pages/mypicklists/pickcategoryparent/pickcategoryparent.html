@@ -1,18 +1,16 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-navbar [color]="navbarcolor">
     <ion-buttons start>
       <button ion-button (click)="dismiss()">Cancel</button>
     </ion-buttons>
     <ion-title>
       Pick Parent Category 
     </ion-title>
-  </ion-toolbar>
+  </ion-navbar>
 </ion-header>
 <ion-content class="outer-content">
-  <ion-item-divider>
-    <ion-label>
-      Select option
-    </ion-label>
+  <ion-item-divider [color]="dividercolor">
+    Select option
   </ion-item-divider>
   <ion-list radio-group [(ngModel)]="itemselected">
     <ion-item *ngFor="let item of items">

@@ -18,6 +18,7 @@ import { UserData } from '../../../providers/user-data';
 })
 export class SettingsPage {
 
+  navbarcolor: string;
   appversion = '';
   imgsrc: string;
   
@@ -27,6 +28,8 @@ export class SettingsPage {
     public platform: Platform,
     public userData: UserData) {
 
+    this.navbarcolor = this.userData.user.navbarcolor;
+    
     platform.ready().then(() => {
       AppVersion.getVersionNumber().then(ver => {
         this.appversion = ver;

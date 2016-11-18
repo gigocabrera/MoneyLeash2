@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-navbar [color]="navbarcolor">
     <ion-buttons start>
       <button ion-button (click)="dismiss()">Cancel</button>
     </ion-buttons>
@@ -9,21 +9,21 @@
     <ion-buttons end>
       <button ion-button (click)="pickPreference(itemselected)">Save</button>
     </ion-buttons>
-  </ion-toolbar>
+  </ion-navbar>
 </ion-header>
 <ion-content class="outer-content">
-  <ion-list-header>
+  <ion-item-divider [color]="dividercolor">
     Select default date
-  </ion-list-header>
+  </ion-item-divider>
   <ion-list radio-group [(ngModel)]="itemselected" class="reducedbottommargin">
-    <ion-item *ngFor="let item of defaultDateOptions">
+    <ion-item *ngFor="let item of defaultItems">
         <ion-label>{{item.text}}</ion-label>
         <ion-radio [value]="item.value"></ion-radio>
     </ion-item>
   </ion-list>
   <div padding class="divhelptext">
-    <p *ngIf="itemselected=='none'">When entering a new transaction the date field will be blank!</p>
-    <p *ngIf="itemselected=='today'">When entering a new transaction the date field will default to today's date!</p>
-    <p *ngIf="itemselected=='last'">When entering a new transaction the date field will default to the last date used!</p>
+    <p *ngIf="itemselected=='None'">When entering a new transaction the date field will be blank!</p>
+    <p *ngIf="itemselected=='Today'">When entering a new transaction the date field will default to today's date!</p>
+    <p *ngIf="itemselected=='Last'">When entering a new transaction the date field will default to the last date used!</p>
   </div>
 </ion-content>

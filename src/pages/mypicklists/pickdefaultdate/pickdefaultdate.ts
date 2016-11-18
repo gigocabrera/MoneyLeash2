@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 
 import { NavController, ViewController, NavParams } from 'ionic-angular';
 
+// services
+import { UserData } from '../../../providers/user-data';
+
 @Component({
   selector: 'page-pickdefaultdate',
   templateUrl: 'pickdefaultdate.html'
@@ -9,20 +12,24 @@ import { NavController, ViewController, NavParams } from 'ionic-angular';
 
 export class PickDefaultDatePage {  
   
-  defaultDateOptions: {
-    description?: string,
-    value?: string
-  } = {};
-  
+  navbarcolor: string;
+  dividercolor: string;
+  defaultItems;
   itemselected: string;
   
   constructor(
     public nav: NavController, 
     public viewCtrl: ViewController, 
-    public navParams: NavParams) {}
+    public navParams: NavParams,
+    public userData: UserData) {
+
+      this.navbarcolor = this.userData.user.navbarcolor;
+      this.dividercolor = this.userData.user.dividercolor;
+
+    }
 
   ionViewDidLoad() {
-    this.defaultDateOptions = [
+    this.defaultItems = [
           { text: 'No default date', value: 'None' },
           { text: 'Today\'s date', value: 'Today' },
           { text: 'Last date used', value: 'Last' }];

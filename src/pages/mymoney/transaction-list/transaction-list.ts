@@ -100,6 +100,8 @@ export class TransactionsPage {
         previousYear = currentDate.getFullYear();        
       })
       that.groupedTransactions.reverse();
+
+      // Disable loading controller when the promise is complete
       this.userData.dismissLoadingController();
     });
 

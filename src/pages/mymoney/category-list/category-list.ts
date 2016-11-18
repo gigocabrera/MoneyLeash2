@@ -32,8 +32,6 @@ export class CategoryListPage {
         this.navbarcolor = this.userData.user.navbarcolor;
         this.dividercolor = this.userData.user.dividercolor;
 
-        console.log(this.navbarcolor);
-
       }
   
   ionViewDidLoad() {
@@ -67,6 +65,9 @@ export class CategoryListPage {
       });
       this.expenseCategories = rawList;
     });
+
+    // Disable loading controller when the promise is complete
+    this.userData.dismissLoadingController();
 
   }
   

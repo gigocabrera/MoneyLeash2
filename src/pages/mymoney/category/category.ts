@@ -15,6 +15,8 @@ import { UserData } from '../../../providers/user-data';
 
 export class CategoryPage {
 
+  navbarcolor: string;
+  dividercolor: string;
   title: string;
   listheader: string;
   category: any;
@@ -25,6 +27,9 @@ export class CategoryPage {
       public navParams: NavParams,
       public userData: UserData) {
 
+    this.navbarcolor = this.userData.user.navbarcolor;
+    this.dividercolor = this.userData.user.dividercolor;
+    
     this.category = this.navParams.data.paramCategory;
     this.category.categoryparentdisplay = this.category.categoryparent;
 
@@ -35,6 +40,7 @@ export class CategoryPage {
       this.title = 'Edit Category';
       this.listheader = 'Edit Category Details';
     }
+    
   }
 
   save() {

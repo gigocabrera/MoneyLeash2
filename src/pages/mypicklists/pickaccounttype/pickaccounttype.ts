@@ -11,6 +11,8 @@ import { UserData } from '../../../providers/user-data';
 
 export class PickAccountTypePage {
   
+  navbarcolor: string;
+  dividercolor: string;
   pickType: string;
   item: {name?: string, icon?: string, $key?: string} = {};
   items: any;
@@ -19,7 +21,12 @@ export class PickAccountTypePage {
   constructor(
     public viewCtrl: ViewController, 
     public navParams: NavParams,
-    public userData: UserData) {}
+    public userData: UserData) {
+
+      this.navbarcolor = this.userData.user.navbarcolor;
+      this.dividercolor = this.userData.user.dividercolor;
+
+    }
 
   ionViewDidLoad() {
     this.loadAccountTypes();

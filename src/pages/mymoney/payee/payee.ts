@@ -15,6 +15,8 @@ import { UserData } from '../../../providers/user-data';
 
 export class PayeePage {
 
+  navbarcolor: string;
+  dividercolor: string;
   title: string;
   listheader: string;
   payee: any;
@@ -25,6 +27,9 @@ export class PayeePage {
       public navParams: NavParams,
       public userData: UserData) {
 
+    this.navbarcolor = this.userData.user.navbarcolor;
+    this.dividercolor = this.userData.user.dividercolor;
+
     this.payee = this.navParams.data.paramPayee;
     if (this.payee.mode === 'New') {
       this.title = 'Create Payee';
@@ -33,6 +38,7 @@ export class PayeePage {
       this.title = 'Edit Payee';
       this.listheader = 'Edit Payee Details';
     }
+    
   }
 
   save() {
