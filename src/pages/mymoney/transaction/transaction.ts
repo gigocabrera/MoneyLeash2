@@ -8,6 +8,9 @@ import { NavController, ModalController, NavParams } from 'ionic-angular';
 // services
 import { UserData } from '../../../providers/user-data';
 
+// models
+import { ITransaction } from '../../../models/transaction.model';
+
 @Component({
   selector: 'page-transaction',
   templateUrl: 'transaction.html'
@@ -15,10 +18,10 @@ import { UserData } from '../../../providers/user-data';
 
 export class TransactionPage {
 
+  navbarcolor: string;
+  dividercolor: string;
   title: string;
-  listheader: string;
-  account: {accname?: string, date?: string, type?: string} = {};
-  item: any;
+  transaction: ITransaction;
 
   constructor(
       public nav: NavController,
@@ -26,23 +29,38 @@ export class TransactionPage {
       public navParams: NavParams,
       public userData: UserData) {
 
-      this.item = this.navParams.data.paramAccount;
-        if (this.item === 'New') {
-          this.title = 'New Transaction';
-          this.listheader = 'Enter Transaction Details';
-        } else {
-          this.title = 'Edit Transaction';
-          this.listheader = 'Edit Transaction Details';
-        }
-      }
+    this.navbarcolor = this.userData.user.navbarcolor;
+    this.dividercolor = this.userData.user.dividercolor;
 
-  save(transaction) {
-    //this.userData.addAccount(transaction);
-    //this.nav.pop();
+    this.transaction = this.navParams.data.paramTransaction;
+    if (this.transaction.mode === 'New') {
+      this.title = 'Create Transaction';
+    } else {
+      this.title = 'Edit Transaction';
+    }
   }
 
-  pickTransactionType() {
+  save(account) {
+    if (this.transaction.mode === 'New') {
+      this.userData.addAccount(account);
+    } else {
+      this.userData.updateAccount(account);
+    }
+    this.nav.pop();
+  }
 
+  pickAccountType() {
+    /*let modal = this.modalController.create(PickAccountTypePage, {paramType: this.transaction.type});
+    modal.present(modal);
+    modal.onDidDismiss((data: any[]) => {
+      if (data) {
+        this.onPickAccountType(data);
+      }
+    });*/
+  }
+
+  onPickAccountType(item) {
+    //this.transaction.type = item.name;
   }
   
 }

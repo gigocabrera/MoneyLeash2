@@ -19,20 +19,20 @@
     <ion-item class="ml-input">
       <ion-icon name="md-clipboard" item-left></ion-icon>
       <ion-label floating>Account Name</ion-label>
-      <ion-input [(ngModel)]="account.accountname" name="accname" type="text" #accname="ngModel" spellcheck="false" autocapitalize="on"></ion-input>
-      <ion-icon name="arrow-forward" item-right></ion-icon>
+      <ion-input [(ngModel)]="account.accountname" type="text" spellcheck="false" autocapitalize="on"></ion-input>
+      <ion-icon name="arrow-forward" item-right color="mliconarrowblue"></ion-icon>
     </ion-item>
     <ion-item class="ml-input">
       <ion-icon name="md-calendar" item-left></ion-icon>
       <ion-label floating>Account Open Date</ion-label>
       <ion-datetime displayFormat="MMM DD YYYY" pickerFormat="MMM DD YYYY" [(ngModel)]="account.dateopen"></ion-datetime>
-      <ion-icon name="arrow-forward" item-right></ion-icon>
+      <ion-icon name="arrow-forward" item-right color="mliconarrowblue"></ion-icon>
     </ion-item>
     <ion-item class="ml-input" (click)="pickAccountType()">
       <ion-icon name="md-cash" item-left></ion-icon>
       <ion-label floating>Account Type</ion-label>
-      <ion-input type="text" [(ngModel)]="account.accounttype"></ion-input>
-      <ion-icon name="arrow-forward" item-right></ion-icon>
+      <ion-input type="text" [(ngModel)]="account.accounttype" readonly></ion-input>
+      <ion-icon name="arrow-forward" item-right color="mliconarrowblue"></ion-icon>
     </ion-item>
   </ion-list>
 </ion-content>

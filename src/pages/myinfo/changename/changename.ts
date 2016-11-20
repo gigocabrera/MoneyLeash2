@@ -14,6 +14,7 @@ export class ChangeNamePage {
   navbarcolor: string;
   dividercolor: string;
   newname: string = '';
+  account: any;
 
   constructor(
     public viewCtrl: ViewController, 

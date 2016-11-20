@@ -2,8 +2,14 @@ import { Component } from '@angular/core';
 
 import { NavController, NavParams } from 'ionic-angular';
 
+// app pages
+import { TransactionPage } from '../transaction/transaction';
+
 // services
-import {UserData} from '../../../providers/user-data';
+import { UserData } from '../../../providers/user-data';
+
+// models
+import { Transaction } from '../../../models/transaction.model';
 
 import * as moment from 'moment';
 
@@ -52,21 +58,33 @@ export class TransactionsPage {
 
         var transaction = spanshot.val();
 
-        let tempTransaction = ({
-          $key: spanshot.key,
-          payee: transaction.payee,
-          amount: transaction.amount,
-          category: transaction.category,
-          notes: transaction.notes,
-          recurring: transaction.isrecurring,
-          photo: transaction.isphoto,
-          transfer: transaction.istransfer,
-          clearedclass: transaction.ClearedClass,
-          runningbal: transaction.runningbal,
-          type: transaction.type,
-          iscleared: transaction.iscleared,
-          checked: ''
-        });
+        let tempTransaction = new Transaction(
+          spanshot.key,
+          transaction.ClearedClass,
+          transaction.accountFrom,
+          transaction.accountFromId,
+          transaction.accountTo,
+          transaction.accountToId,
+          transaction.addedby,
+          transaction.amount,
+          transaction.category,
+          transaction.categorid,
+          transaction.clearedBal,
+          transaction.date,
+          transaction.iscleared,
+          transaction.isphoto,
+          transaction.isrecurring,
+          transaction.istransfer,
+          transaction.notes,
+          transaction.payee,
+          transaction.payeeid,
+          transaction.photo,
+          transaction.runningbal,
+          transaction.type,
+          transaction.typedisplay,          
+          '',
+          ''
+        );
 
         if (transaction.iscleared) {
           tempTransaction.checked = 'checked';
@@ -97,7 +115,7 @@ export class TransactionsPage {
         }
         currentTransactions.push(tempTransaction);
         previousDay = currentDate.getDate();
-        previousYear = currentDate.getFullYear();        
+        previousYear = currentDate.getFullYear();
       })
       that.groupedTransactions.reverse();
 
@@ -122,9 +140,9 @@ export class TransactionsPage {
     }
   }
 
-  createTransaction() {
-    console.log('create');
-    //this.nav.push(TransactionPage, {paramTransaction: 'New'});
+  newTransaction() {
+    let tempTransaction = new Transaction(null,null,null,null,null,null,null,null,null,null,null,null,false,false,false,false,null,null,null,null,null,null,null,"Edit",null);
+    this.nav.push(TransactionPage, {paramTransaction: tempTransaction});
   }
 
   edit(transaction) {

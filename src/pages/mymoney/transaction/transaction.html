@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar [color]="navbarcolor">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
@@ -13,26 +13,50 @@
 </ion-header>
 <ion-content>
   <ion-list>
-    <ion-item-divider>
-      {{ listheader }}
+    <ion-item-divider [color]="dividercolor">
+      Transaction Details
     </ion-item-divider>
     <ion-item class="ml-input">
-      <ion-icon name="md-clipboard" item-left></ion-icon>
-      <ion-label floating color="primary">Account Name</ion-label>
-      <ion-input [(ngModel)]="transaction.accname" name="accname" type="text" #accname="ngModel" spellcheck="false" autocapitalize="on"></ion-input>
-      <ion-icon name="arrow-forward" item-right></ion-icon>
+      <ion-icon name="ios-bookmarks" item-left></ion-icon>
+      <ion-label floating>Transaction Type</ion-label>
+      <ion-input [(ngModel)]="transaction.transactiontype" type="text" readonly></ion-input>
+      <ion-icon name="arrow-forward" item-right color="mliconarrowblue"></ion-icon>
+    </ion-item>
+    <ion-item class="ml-input">
+      <ion-icon name="ios-contact" item-left></ion-icon>
+      <ion-label floating>Payee</ion-label>
+      <ion-input [(ngModel)]="transaction.payee" type="text" readonly></ion-input>
+      <ion-icon name="arrow-forward" item-right color="mliconarrowblue"></ion-icon>
+    </ion-item>
+    <ion-item class="ml-input">
+      <ion-icon name="md-attach" item-left></ion-icon>
+      <ion-label floating>Category</ion-label>
+      <ion-input [(ngModel)]="transaction.category" type="text" readonly></ion-input>
+      <ion-icon name="arrow-forward" item-right color="mliconarrowblue"></ion-icon>
+    </ion-item>
+    <ion-item class="ml-input">
+      <ion-icon name="md-cash" item-left></ion-icon>
+      <ion-label floating>Amount</ion-label>
+      <ion-input [(ngModel)]="transaction.amount" type="text" readonly></ion-input>
+      <ion-icon name="arrow-forward" item-right color="mliconarrowblue"></ion-icon>
     </ion-item>
     <ion-item class="ml-input">
       <ion-icon name="md-calendar" item-left></ion-icon>
-      <ion-label floating color="primary">Account Open Date</ion-label>
-      <ion-datetime displayFormat="MMM DD YYYY" pickerFormat="MMM DD YYYY" [(ngModel)]="transaction.date"></ion-datetime>
-      <ion-icon name="arrow-forward" item-right></ion-icon>
+      <ion-label floating>Transaction Date</ion-label>
+      <ion-input [(ngModel)]="transaction.date" type="text"></ion-input>
+      <ion-icon name="arrow-forward" item-right color="mliconarrowblue"></ion-icon>
     </ion-item>
-    <ion-item class="ml-input" (click)="pickTransactionType()">
-      <ion-icon name="md-cash" item-left></ion-icon>
-      <ion-label floating color="primary">Account Type</ion-label>
-      <ion-input type="text" [(ngModel)]="transaction.type"></ion-input>
-      <ion-icon name="arrow-forward" item-right></ion-icon>
+    <ion-item class="ml-input">
+      <ion-icon name="md-paper" item-left></ion-icon>
+      <ion-label floating>Notes</ion-label>
+      <ion-input [(ngModel)]="transaction.notes" type="text" readonly></ion-input>
+      <ion-icon name="arrow-forward" item-right color="mliconarrowblue"></ion-icon>
+    </ion-item>
+    <ion-item class="ml-input">
+      <ion-icon name="md-camera" item-left></ion-icon>
+      <ion-label floating>Photo</ion-label>
+      <ion-input [(ngModel)]="transaction.photo" type="text" readonly></ion-input>
+      <ion-icon name="arrow-forward" item-right color="mliconarrowblue"></ion-icon>
     </ion-item>
   </ion-list>
 </ion-content>

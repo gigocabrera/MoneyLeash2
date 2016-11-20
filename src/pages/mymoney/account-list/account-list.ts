@@ -125,6 +125,7 @@ export class AccountListPage {
         },
         {
           text: 'Delete',
+          cssClass: 'alertDanger',
           handler: () => {
             this.userData.deleteAccount(account);
           }

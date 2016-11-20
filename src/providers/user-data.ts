@@ -642,18 +642,25 @@ export class UserData {
             transaction.runningbal = runningBal.toFixed(2);
           }
         }
-
-        // Get today's balance 
+        //
+        // Handle Notes
+        //
+        transaction.notes = transaction.note;
+        //
+        // Get today's balance
+        // 
         var tranDate = moment(transaction.date)
         var now = moment();
         if (tranDate <= now) {
           todayBal = runningBal;
         }
-
+        //
         // Update running balance for this transaction
+        //
         ref.child(snapshot.key).update({runningbal : runningBal.toFixed(2)});
-
+        //
         // Update cleared balance for this transaction
+        //
         ref.child(snapshot.key).update({clearedBal : clearedBal.toFixed(2)});
 
       });

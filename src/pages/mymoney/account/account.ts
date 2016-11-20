@@ -59,7 +59,7 @@ export class AccountPage {
   }
 
   onPickAccountType(item) {
-    this.account.type = item.name;
+    this.account.accounttype = item.name;
   }
   
 }
