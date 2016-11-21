@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar [color]="navbarcolor">
+  <ion-navbar>
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
@@ -14,7 +14,7 @@
 <ion-content class="outer-content">
   <ion-list>
     <ion-item-group *ngFor="let group of groupedAccounts">
-      <ion-item-divider sticky [color]="dividercolor">
+      <ion-item-divider sticky>
         {{group.acctype}}
       </ion-item-divider>      
       <ion-item-sliding *ngFor="let account of group.accounts" #slidingItem>

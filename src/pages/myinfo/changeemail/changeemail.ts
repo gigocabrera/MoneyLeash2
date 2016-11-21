@@ -11,18 +11,11 @@ import { UserData } from '../../../providers/user-data';
 
 export class ChangeEmailPage { 
 
-  navbarcolor: string;
-  dividercolor: string;
   newemail: string = '';
 
   constructor(
     public viewCtrl: ViewController,
-    public userData: UserData) {
-
-    this.navbarcolor = this.userData.user.navbarcolor;
-    this.dividercolor = this.userData.user.dividercolor;
-
-  }
+    public userData: UserData) {}
   
   changeEmail(newemail) {
     this.viewCtrl.dismiss(newemail);

@@ -11,8 +11,6 @@ import { UserData } from '../../../providers/user-data';
 
 export class AccountTypesEditPage {
 
-  navbarcolor: string;
-  dividercolor: string;
   item: {name?: string, icon?: string, $key?: string} = {};
   title: string;
 
@@ -21,9 +19,6 @@ export class AccountTypesEditPage {
     public navParams: NavParams,
     public viewCtrl: ViewController,
     public userData: UserData) {
-      
-    this.navbarcolor = this.userData.user.navbarcolor;
-    this.dividercolor = this.userData.user.dividercolor;
 
     this.item = this.navParams.data.paramItem;
     if (this.item.name === undefined) {

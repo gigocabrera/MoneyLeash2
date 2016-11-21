@@ -19,20 +19,13 @@ import { Account } from '../../../models/account.model';
 
 export class AccountListPage {
 
-  navbarcolor: string;
-  dividercolor: string;
   groupedAccounts = [];
   networth: any;
 
   constructor(
       public nav: NavController,
       public alertController: AlertController,
-      public userData: UserData) {
-
-        this.navbarcolor = this.userData.user.navbarcolor;
-        this.dividercolor = this.userData.user.dividercolor;
-
-      }
+      public userData: UserData) {}
 
   ionViewDidLoad() {
 

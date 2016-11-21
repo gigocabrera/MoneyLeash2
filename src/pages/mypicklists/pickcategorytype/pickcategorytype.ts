@@ -11,20 +11,13 @@ import { UserData } from '../../../providers/user-data';
 
 export class PickCategoryTypePage {
   
-  navbarcolor: string;
-  dividercolor: string;
   items = [];  
   itemselected: string;
    
   constructor(
     public viewCtrl: ViewController, 
     public navParams: NavParams,
-    public userData: UserData) {
-
-      this.navbarcolor = this.userData.user.navbarcolor;
-      this.dividercolor = this.userData.user.dividercolor;
-      
-    }
+    public userData: UserData) {}
 
   ionViewDidLoad() {
     this.items.push(

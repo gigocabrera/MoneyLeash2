@@ -12,17 +12,12 @@ import { UserData } from '../../../providers/user-data';
 
 export class PersonalProfilePhotoPage {
 
-  navbarcolor: string;  
   public userSettings: any;
   public userPicture: any;
 
   constructor(
       public nav: NavController,
-      public userData: UserData) {
-
-        this.navbarcolor = this.userData.user.navbarcolor;
-
-      }
+      public userData: UserData) {}
 
   ionViewDidLoad() {
     this.takePicture();

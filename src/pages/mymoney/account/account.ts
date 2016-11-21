@@ -14,8 +14,6 @@ import { UserData } from '../../../providers/user-data';
 
 export class AccountPage {
 
-  navbarcolor: string;
-  dividercolor: string;
   title: string;
   listheader: string;
   account: any;
@@ -25,9 +23,6 @@ export class AccountPage {
       public modalController: ModalController,
       public navParams: NavParams,
       public userData: UserData) {
-
-    this.navbarcolor = this.userData.user.navbarcolor;
-    this.dividercolor = this.userData.user.dividercolor;
 
     this.account = this.navParams.data.paramAccount;
     if (this.account.mode === 'New') {

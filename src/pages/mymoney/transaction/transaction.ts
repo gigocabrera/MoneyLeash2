@@ -18,8 +18,6 @@ import { ITransaction } from '../../../models/transaction.model';
 
 export class TransactionPage {
 
-  navbarcolor: string;
-  dividercolor: string;
   title: string;
   transaction: ITransaction;
 
@@ -28,9 +26,6 @@ export class TransactionPage {
       public modalController: ModalController,
       public navParams: NavParams,
       public userData: UserData) {
-
-    this.navbarcolor = this.userData.user.navbarcolor;
-    this.dividercolor = this.userData.user.dividercolor;
 
     this.transaction = this.navParams.data.paramTransaction;
     if (this.transaction.mode === 'New') {

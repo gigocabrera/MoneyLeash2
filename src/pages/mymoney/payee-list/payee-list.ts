@@ -17,20 +17,13 @@ import {UserData} from '../../../providers/user-data';
 
 export class PayeeListPage {
   
-  navbarcolor: string;
-  dividercolor: string;
   payees: FirebaseListObservable<any>;
   groupedPayees = [];
 
   constructor(
       public nav: NavController,
       public alertController: AlertController,
-      public userData: UserData) {
-
-        this.navbarcolor = this.userData.user.navbarcolor;
-        this.dividercolor = this.userData.user.dividercolor;
-        
-      }
+      public userData: UserData) {}
   
   ionViewDidLoad() {
 

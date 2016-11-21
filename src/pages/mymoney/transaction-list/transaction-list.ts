@@ -21,8 +21,6 @@ import * as moment from 'moment';
 export class TransactionsPage {
 
   title: string;
-  navbarcolor: string;
-  dividercolor: string;
   groupedTransactions = [];
   account: any;
   searchQuery: string = '';
@@ -32,8 +30,6 @@ export class TransactionsPage {
       public navParams: NavParams,
       public userData: UserData) {
 
-        this.navbarcolor = this.userData.user.navbarcolor;
-        this.dividercolor = this.userData.user.dividercolor;
         this.account = this.navParams.data.paramAccount;
         this.title = this.account.accountname;
 

@@ -97,9 +97,7 @@ export class UserData {
       fullname: this.user.fullname,
       housenumber: this.RandomHouseCode(),
       profilepic: 'http://www.gravatar.com/avatar?d=mm&s=140',
-      accounttypescount: '6',
-      dividercolor: 'theme1divider',
-      navbarcolor: 'theme1navbar'
+      accounttypescount: '6'
     };
     this.user.defaultbalance = profile.defaultbalance;
     this.user.defaultdate = profile.defaultdate;

@@ -1,0 +1,42 @@
+@import "./ionic.globals";
+
+
+// Default Theme
+// ----------------------------------
+
+$colors: (
+
+  primary:    #327eff,
+  secondary:  #32db64,
+  danger:     #f53d3d,
+  light:      #f4f4f4,
+  dark:       #222,
+
+) !default;
+
+
+$text-color:                 #000 !default;
+$link-color:                 color($colors, primary) !default;
+$background-color:           #fff !default;
+$subdued-text-color:         #666 !default;
+
+$font-family-base:           -apple-system, "Helvetica Neue", "Roboto", sans-serif !default;
+$font-size-base:             1.4rem !default; // 1.4rem == 14px
+
+$content-padding:            16px !default;
+$content-margin:             16px !default;
+
+$toolbar-background:         #172F39 !default;
+$toolbar-border-color:       #316479 !default;
+$toolbar-active-color:       $link-color !default;
+$toolbar-inactive-color:     #8c8c8c !default;
+
+$toolbar-ios-title-text-color: #fff;
+$toolbar-md-title-text-color:  #fff;
+$toolbar-wp-title-text-color:  #fff;
+
+$item-ios-divider-background: #D3EAF0;
+
+$list-text-color:            $text-color !default;
+$list-background-color:      $background-color !default;
+$list-border-color:          #c8c7cc !default;

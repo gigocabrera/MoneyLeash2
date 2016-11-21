@@ -40,12 +40,9 @@ $colors: (
   mlwhite:           #ffffff,
   mlgreen:           #28a54c,
   mlred:             #CE1B31,
-  mlnavbar:    (
-    base: #172F39,
-    contrast: #31C0E6
-  ),
+  mlnavbar:       (base: #172F39,contrast: #31C0E6),
   mlnavbarbutton: #31C0E6,
-  theme1navbar:   #172F39,
+  theme1navbar:   (base: #172F39,contrast: #31C0E6),
   theme1divider:  #D3EAF0,
   theme2navbar:   #31C0E6,
   theme2divider:  #31C0E6
@@ -59,7 +56,9 @@ $colors: (
 // so that the above variables are used and Ionic's
 // default are overridden.
 
-@import "ionic.theme.default";
+/*@import "ionic.theme.default";*/
+/*@import "ionic.theme.dark";*/
+@import "moneyleash.theme.default";
 
 
 // Ionicons

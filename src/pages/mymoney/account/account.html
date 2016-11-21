@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar [color]="navbarcolor">
+  <ion-navbar>
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
@@ -13,7 +13,7 @@
 </ion-header>
 <ion-content>
   <ion-list>
-    <ion-item-divider [color]="dividercolor">
+    <ion-item-divider>
       {{ listheader }}
     </ion-item-divider>
     <ion-item class="ml-input">
@@ -31,8 +31,7 @@
     <ion-item class="ml-input" (click)="pickAccountType()">
       <ion-icon name="md-cash" item-left></ion-icon>
       <ion-label floating>Account Type</ion-label>
-      <ion-input type="text" [(ngModel)]="account.accounttype" readonly></ion-input>
-      <ion-icon name="arrow-forward" item-right color="mliconarrowblue"></ion-icon>
+      <ion-input type="text" [(ngModel)]="account.accounttype" disabled="true"></ion-input>
     </ion-item>
   </ion-list>
 </ion-content>

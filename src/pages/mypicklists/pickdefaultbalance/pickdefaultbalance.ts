@@ -12,8 +12,6 @@ import { UserData } from '../../../providers/user-data';
 
 export class PickDefaultBalancePage {  
   
-  navbarcolor: string;
-  dividercolor: string;
   defaultItems;
   itemselected: string;
    
@@ -21,12 +19,7 @@ export class PickDefaultBalancePage {
     public nav: NavController, 
     public viewCtrl: ViewController, 
     public navParams: NavParams,
-    public userData: UserData) {
-      
-      this.navbarcolor = this.userData.user.navbarcolor;
-      this.dividercolor = this.userData.user.dividercolor;
-      
-    }
+    public userData: UserData) {}
 
   ionViewDidLoad() {
     this.defaultItems = [

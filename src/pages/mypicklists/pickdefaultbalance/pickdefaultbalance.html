@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar [color]="navbarcolor">
+  <ion-navbar>
     <ion-buttons start>
       <button ion-button (click)="dismiss()">Cancel</button>
     </ion-buttons>
@@ -12,7 +12,7 @@
   </ion-navbar>
 </ion-header>
 <ion-content class="outer-content">
-  <ion-item-divider [color]="dividercolor">
+  <ion-item-divider>
     Select default balance
   </ion-item-divider>
   <ion-list radio-group [(ngModel)]="itemselected" class="reducedbottommargin">

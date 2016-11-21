@@ -10,9 +10,7 @@ import { UserData } from '../../../providers/user-data';
 })
 
 export class ChangeNamePage { 
-
-  navbarcolor: string;
-  dividercolor: string;
+  
   newname: string = '';
   account: any;
 
@@ -21,8 +19,6 @@ export class ChangeNamePage {
     public navParams: NavParams,
     public userData: UserData) {
     
-    this.navbarcolor = this.userData.user.navbarcolor;
-    this.dividercolor = this.userData.user.dividercolor;
     this.newname = this.navParams.data.paramFullName;
 
   }

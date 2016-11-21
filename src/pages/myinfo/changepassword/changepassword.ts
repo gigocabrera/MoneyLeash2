@@ -11,18 +11,11 @@ import { UserData } from '../../../providers/user-data';
 
 export class ChangePasswordPage { 
   
-  navbarcolor: string;
-  dividercolor: string;
   newpassword: string = '';
         
   constructor(
       public viewCtrl: ViewController,
-      public userData: UserData) {
-
-      this.navbarcolor = this.userData.user.navbarcolor;
-      this.dividercolor = this.userData.user.dividercolor;
-
-    }  
+      public userData: UserData) {}  
  
   changePassword(newpassword) {
     this.viewCtrl.dismiss(newpassword);

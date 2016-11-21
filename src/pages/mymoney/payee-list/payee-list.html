@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar [color]="navbarcolor">
+  <ion-navbar>
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
@@ -14,7 +14,7 @@
 <ion-content class="outer-content">
   <ion-list>
     <ion-item-group *ngFor="let group of groupedPayees">
-      <ion-item-divider sticky [color]="dividercolor">
+      <ion-item-divider sticky>
         <ion-label>
           {{group.letter}}
         </ion-label>

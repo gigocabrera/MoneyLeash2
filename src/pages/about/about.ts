@@ -30,16 +30,11 @@ export class PopoverPage {
 })
 export class AboutPage {
 
-  navbarcolor: string;
   conferenceDate = '2047-05-17';
 
   constructor(
     public popoverCtrl: PopoverController,
-    public userData: UserData) { 
-
-    this.navbarcolor = this.userData.user.navbarcolor;
-
-  }
+    public userData: UserData) {}
 
   presentPopover(event) {
     let popover = this.popoverCtrl.create(PopoverPage);
