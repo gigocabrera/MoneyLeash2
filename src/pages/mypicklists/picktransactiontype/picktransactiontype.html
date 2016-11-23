@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-navbar>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">Cancel</button>
+    </ion-buttons>
+    <ion-title>
+      Transaction Type
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content class="outer-content">
+  <ion-item-divider>
+    Select option
+  </ion-item-divider>
+  <ion-list radio-group [(ngModel)]="itemselected">
+    <ion-item *ngFor="let item of items">
+        <ion-icon item-left name="{{item.icon}}" color="{{item.color}}"></ion-icon>
+        <ion-label>{{item.text}}</ion-label>
+        <ion-radio [value]="item.value" (click)="pickPreference(item)"></ion-radio>
+    </ion-item>
+  </ion-list>
+</ion-content>

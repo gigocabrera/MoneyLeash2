@@ -27,6 +27,9 @@ page-login {
     margin: 0;
     width: 330px;
   }
+  #loginFormId ion-input {
+    width: 260px;
+  }
   #loginFormId .text-input {
     padding-left: 16px;
     border: 0;
@@ -81,4 +84,4 @@ page-login {
     font-size: 14px;
   }
 
-} 
+}

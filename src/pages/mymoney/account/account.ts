@@ -14,6 +14,7 @@ import { UserData } from '../../../providers/user-data';
 
 export class AccountPage {
 
+  hasData: boolean = true;
   title: string;
   listheader: string;
   account: any;
@@ -28,9 +29,11 @@ export class AccountPage {
     if (this.account.mode === 'New') {
       this.title = 'Create Account';
       this.listheader = 'Enter Account Details';
+      this.hasData = false;
     } else {
       this.title = 'Edit Account';
       this.listheader = 'Edit Account Details';
+      this.hasData = true;
     }
   }
 
@@ -55,6 +58,7 @@ export class AccountPage {
 
   onPickAccountType(item) {
     this.account.accounttype = item.name;
+    this.hasData = true;
   }
   
 }

@@ -373,13 +373,13 @@ export class UserData {
 
   addAccount(account) {
     var newACcount = {
-        'accountname': account.accname,
-        'accounttype': account.type,
+        'accountname': account.accountname,
+        'accounttype': account.accounttype,
         'autoclear': 'false',
         'balancecleared': '0',
         'balancecurrent': '0',
         'balancetoday': '0',
-        'dateopen': account.date,
+        'dateopen': account.dateopen,
         'transactionid': '',
         'balanceclass': 'textRed'
     }

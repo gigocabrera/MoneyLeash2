@@ -43,10 +43,12 @@
           <button ion-button color="light" (click)="fixAccountData(account)">
             Fix
           </button>
-          <button ion-button color="energized" (click)="edit(slidingItem, account)">
+          <button ion-button color="energized" (click)="edit(slidingItem, account)" class="iconpadding">
+            <ion-icon name="create"></ion-icon>
             Edit
           </button>
           <button ion-button color="danger" (click)="delete(slidingItem, account)">
+            <ion-icon name="trash"></ion-icon>
             Delete
           </button>
         </ion-item-options>

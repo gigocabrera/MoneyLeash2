@@ -7,7 +7,7 @@
       {{ title }}
     </ion-title>
     <ion-buttons end>
-      <button ion-button (click)="newTransaction()">
+      <button ion-button>
         <ion-icon name="md-add"></ion-icon>
       </button>
     </ion-buttons>
@@ -75,4 +75,7 @@
       </ion-item-sliding>
     </ion-item-group>
   </ion-list>
+  <ion-fab center bottom (click)="newTransaction()">
+    <button ion-fab color="mllightblue"><ion-icon name="md-add"></ion-icon></button>
+  </ion-fab>
 </ion-content>

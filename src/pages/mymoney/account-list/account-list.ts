@@ -94,7 +94,7 @@ export class AccountListPage {
   }
 
   newAccount() {
-    let tempAccount = new Account(null,null,null,null,null,null,null,null,null,null,null,null,"Edit");
+    let tempAccount = new Account(null,null,null,null,null,null,null,null,null,null,null,null,"New");
     this.nav.push(AccountPage, {paramAccount: tempAccount});
   }
 

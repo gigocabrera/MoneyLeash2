@@ -40,3 +40,9 @@ $item-ios-divider-background: #D3EAF0;
 $list-text-color:            $text-color !default;
 $list-background-color:      $background-color !default;
 $list-border-color:          #c8c7cc !default;
+
+$item-ios-detail-push-svg:  "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 20'><path d='M2,20l-2-2l8-8L0,2l2-2l10,10L2,20z' fill='#31C0E6'/></svg>";
+
+$radio-ios-color-on:        #31C0E6;
+$radio-md-color-on:         #31C0E6;
+$radio-wp-color-on:         #31C0E6;

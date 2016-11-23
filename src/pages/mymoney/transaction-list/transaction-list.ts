@@ -137,7 +137,7 @@ export class TransactionsPage {
   }
 
   newTransaction() {
-    let tempTransaction = new Transaction(null,null,null,null,null,null,null,null,null,null,null,null,false,false,false,false,null,null,null,null,null,null,null,"Edit",null);
+    let tempTransaction = new Transaction(null,null,null,null,null,null,null,null,null,null,null,null,false,false,false,false,null,null,null,null,null,null,null,"New",null);
     this.nav.push(TransactionPage, {paramTransaction: tempTransaction});
   }
 

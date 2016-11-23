@@ -23,29 +23,23 @@ $background-color:  #fff;
 // The "primary" color is the only required color in the map.
 
 $colors: (
-  primary:    #387ef5,
-  secondary:  #32db64,
-  danger:     #ef473a,
-  light:      #f4f4f4,
-  dark:       #222,
-  favorite:   #69BB7B,
-  energized:  #f57d00,
-  twitter:           #53ACEB,
-  github:            #000000,
-  instagram:         #235D8D,
-  mlitemdivider:     #D3EAF0,
-  mliconarrowblue:   #31C0E6,
-  mlitemdividerBlack:#000000,
-  mllightblue:       #31C0E6,
-  mlwhite:           #ffffff,
-  mlgreen:           #28a54c,
-  mlred:             #CE1B31,
-  mlnavbar:       (base: #172F39,contrast: #31C0E6),
-  mlnavbarbutton: #31C0E6,
-  theme1navbar:   (base: #172F39,contrast: #31C0E6),
-  theme1divider:  #D3EAF0,
-  theme2navbar:   #31C0E6,
-  theme2divider:  #31C0E6
+  primary:      #387ef5,
+  secondary:    #32db64,
+  danger:       #ef473a,
+  light:        #f4f4f4,
+  dark:         #222,
+  favorite:     #69BB7B,
+  energized:    #f57d00,
+  twitter:      #53ACEB,
+  github:       #000000,
+  instagram:    #235D8D,
+  mllightblue:  #31C0E6,
+  mlgreen:      #28a54c,
+  mlred:        #CE1B31,
+  mlpurple:     #4B0082,
+  mlnavbar:     (base: #172F39,contrast: #31C0E6),
+  mlitemdivider:#D3EAF0,
+  mliconarrowblue:#31C0E6
 );
 
 

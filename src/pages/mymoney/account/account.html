@@ -30,8 +30,20 @@
     </ion-item>
     <ion-item class="ml-input" (click)="pickAccountType()">
       <ion-icon name="md-cash" item-left></ion-icon>
-      <ion-label floating>Account Type</ion-label>
-      <ion-input type="text" [(ngModel)]="account.accounttype" disabled="true"></ion-input>
+      <div *ngIf="hasData" [ngClass]="{'fade-in': account.mode === 'New'}">
+        <p class="ml-label-has-input">
+            Account Type
+        </p>
+        <h2 class="ml-has-input">
+            {{ account.accounttype }}
+        </h2>
+      </div>
+      <div *ngIf="!hasData">
+        <h2 class="ml-has-no-input">
+            Account Type
+        </h2>
+      </div>
+      <ion-icon name="arrow-forward" item-right color="mliconarrowblue"></ion-icon>
     </ion-item>
   </ion-list>
 </ion-content>

@@ -12,6 +12,7 @@ import { PayeePage } from '../payee/payee';
 import {UserData} from '../../../providers/user-data';
 
 @Component({
+  selector: 'page-payee-list',
   templateUrl: 'payee-list.html'
 })
 
