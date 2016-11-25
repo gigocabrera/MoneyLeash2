@@ -24,7 +24,10 @@ export class TransactionPage {
   showValidationMessage: boolean = false;
   hasDataTransactionType: boolean = false;
   hasDataPayee: boolean = false;
-  hasDataCategory: boolean
+  hasDataCategory: boolean = false;
+  hasDataAmount: boolean = false;
+  hasDataNotes: boolean = false;
+  hasDataPhoto: boolean = false;
   title: string;
   transaction: ITransaction;
 
@@ -39,10 +42,18 @@ export class TransactionPage {
       this.title = 'Create Transaction';
       this.hasDataTransactionType = false;
       this.hasDataPayee = false;
+      this.hasDataCategory = false;
+      this.hasDataAmount = false;
+      this.hasDataNotes = false;
+      this.hasDataPhoto = false;      
     } else {
       this.title = 'Edit Transaction';
       this.hasDataTransactionType = true;
       this.hasDataPayee = true;
+      this.hasDataCategory = true;
+      this.hasDataAmount = true;
+      this.hasDataNotes = true;
+      this.hasDataPhoto = true;
     }
   }
 

@@ -26,9 +26,7 @@
         <h2 class="ml-has-input">{{ transaction.type }}</h2>
       </div>
       <div *ngIf="!hasDataTransactionType">
-        <h2 class="ml-has-no-input">
-          <span class="mlmenuitem">Transaction Type</span>
-        </h2>
+        <h2 class="ml-has-no-input">Transaction Type</h2>
       </div>
       <ion-icon name="arrow-forward" item-right color="mliconarrowblue"></ion-icon>
     </ion-item>
@@ -39,9 +37,7 @@
         <h2 class="ml-has-input">{{ transaction.payee }}</h2>
       </div>
       <div *ngIf="!hasDataPayee">
-        <h2 class="ml-has-no-input">
-          <span class="mlmenuitem">Payee</span>
-        </h2>
+        <h2 class="ml-has-no-input">Payee</h2>
       </div>
       <ion-icon name="arrow-forward" item-right color="mliconarrowblue"></ion-icon>
     </ion-item>
@@ -52,9 +48,7 @@
         <h2 class="ml-has-input">{{ transaction.category }}</h2>
       </div>
       <div *ngIf="!hasDataCategory">
-        <h2 class="ml-has-no-input">
-          <span class="mlmenuitem">Category</span>
-        </h2>
+        <h2 class="ml-has-no-input">Category</h2>
       </div>
       <ion-icon name="arrow-forward" item-right color="mliconarrowblue"></ion-icon>
     </ion-item>
@@ -65,9 +59,7 @@
         <h2 class="ml-has-input">{{ transaction.amount }}</h2>
       </div>
       <div *ngIf="!hasDataAmount">
-        <h2 class="ml-has-no-input">
-          <span class="mlmenuitem">Amount</span>
-        </h2>
+        <h2 class="ml-has-no-input">Amount</h2>
       </div>
       <ion-icon name="arrow-forward" item-right color="mliconarrowblue"></ion-icon>
     </ion-item>
@@ -84,16 +76,19 @@
         <h2 class="ml-has-input">{{ transaction.notes }}</h2>
       </div>
       <div *ngIf="!hasDataAmount">
-        <h2 class="ml-has-no-input">
-          <span class="mlmenuitem">Notes</span>
-        </h2>
+        <h2 class="ml-has-no-input">Notes</h2>
       </div>
       <ion-icon name="arrow-forward" item-right color="mliconarrowblue"></ion-icon>
     </ion-item>
-    <ion-item class="ml-input">
+    <ion-item class="ml-input" (click)="pickPhoto()">
       <ion-icon name="md-camera" item-left></ion-icon>
-      <ion-label floating>Photo</ion-label>
-      <ion-input [(ngModel)]="transaction.photo" type="text" readonly></ion-input>
+      <div *ngIf="hasDataPhoto" [ngClass]="{'fade-in': transaction.photo !== ''}">
+        <p class="ml-label-has-input">Photo</p>
+        <h2 class="ml-has-input">{{ transaction.photo }}</h2>
+      </div>
+      <div *ngIf="!hasDataPhoto">
+        <h2 class="ml-has-no-input">Photo</h2>
+      </div>
       <ion-icon name="arrow-forward" item-right color="mliconarrowblue"></ion-icon>
     </ion-item>
   </ion-list>
