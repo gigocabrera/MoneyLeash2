@@ -21,7 +21,7 @@
     </div>
     <ion-item class="ml-input" (click)="pickTransactionType()">
       <ion-icon name="md-filing" item-left></ion-icon>
-      <div *ngIf="hasDataTransactionType" [ngClass]="{'fade-in': transaction.type !== ''}">
+      <div *ngIf="hasDataTransactionType">
         <p class="ml-label-has-input">Transaction Type</p>
         <h2 class="ml-has-input">{{ transaction.type }}</h2>
       </div>
@@ -32,7 +32,7 @@
     </ion-item>
     <ion-item class="ml-input" (click)="pickPayee()">
       <ion-icon name="md-contact" item-left></ion-icon>
-      <div *ngIf="hasDataPayee" [ngClass]="{'fade-in': transaction.payee !== ''}">
+      <div *ngIf="hasDataPayee">
         <p class="ml-label-has-input">Payee</p>
         <h2 class="ml-has-input">{{ transaction.payee }}</h2>
       </div>
@@ -43,7 +43,7 @@
     </ion-item>
     <ion-item class="ml-input" (click)="pickCategory()">
       <ion-icon name="md-attach" item-left></ion-icon>
-      <div *ngIf="hasDataCategory" [ngClass]="{'fade-in': transaction.category !== ''}">
+      <div *ngIf="hasDataCategory">
         <p class="ml-label-has-input">Category</p>
         <h2 class="ml-has-input">{{ transaction.category }}</h2>
       </div>
@@ -54,7 +54,7 @@
     </ion-item>
     <ion-item class="ml-input" (click)="pickAmount()">
       <ion-icon name="md-cash" item-left></ion-icon>
-      <div *ngIf="hasDataAmount" [ngClass]="{'fade-in': transaction.amount !== ''}">
+      <div *ngIf="hasDataAmount">
         <p class="ml-label-has-input">Amount</p>
         <h2 class="ml-has-input">{{ transaction.amount }}</h2>
       </div>
@@ -71,7 +71,7 @@
     </ion-item>
     <ion-item class="ml-input" (click)="pickNotes()">
       <ion-icon name="md-paper" item-left></ion-icon>
-      <div *ngIf="hasDataAmount" [ngClass]="{'fade-in': transaction.notes !== ''}">
+      <div *ngIf="hasDataAmount">
         <p class="ml-label-has-input">Notes</p>
         <h2 class="ml-has-input">{{ transaction.notes }}</h2>
       </div>
@@ -82,7 +82,7 @@
     </ion-item>
     <ion-item class="ml-input" (click)="pickPhoto()">
       <ion-icon name="md-camera" item-left></ion-icon>
-      <div *ngIf="hasDataPhoto" [ngClass]="{'fade-in': transaction.photo !== ''}">
+      <div *ngIf="hasDataPhoto">
         <p class="ml-label-has-input">Photo</p>
         <h2 class="ml-has-input">{{ transaction.photo }}</h2>
       </div>

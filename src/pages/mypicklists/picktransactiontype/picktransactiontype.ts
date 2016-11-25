@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 
-import { ViewController, NavParams } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 
 // services
 import { UserData } from '../../../providers/user-data';
+import { TransactionData } from '../../../providers/transaction-data';
 
 @Component({
   templateUrl: 'picktransactiontype.html'
@@ -15,24 +16,27 @@ export class PickTransactionTypePage {
   itemselected: string;
    
   constructor(
-    public viewCtrl: ViewController, 
-    public navParams: NavParams,
-    public userData: UserData) {}
+      public nav: NavController,
+      public navParams: NavParams,
+      public userData: UserData,
+      public transactionData: TransactionData) {}
 
   ionViewDidLoad() {
     this.items.push(
-      { text: 'Income', value: 'Income', icon: 'md-add', color: 'mlgreen' },
-      { text: 'Expense', value: 'Expense', icon: 'md-remove', color: 'mlred' },
-      { text: 'Transfer', value: 'Transfer', icon: 'ios-redo', color: 'mlpurple' }
+      { text: 'Income', value: 'Income'},
+      { text: 'Expense', value: 'Expense'},
+      { text: 'Transfer', value: 'Transfer'}
     );
-    this.itemselected = this.navParams.data.paramTransactionType;
+    this.itemselected = this.transactionData.getTransactionType();
   }
   
   pickPreference(itemselected) {
-    this.viewCtrl.dismiss(itemselected);
+    this.transactionData.setReferrer('PickTransactionTypePage');
+    this.transactionData.setTransactionType(itemselected.value);
+    this.goBack();
   }
 
-  dismiss() {
-    this.viewCtrl.dismiss();
+  goBack() {
+    this.nav.pop();
   }
 }

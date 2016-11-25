@@ -17,15 +17,15 @@
           <ion-icon name="ios-arrow-forward"></ion-icon>
         </button>      
         <ion-input [(ngModel)]="signup.fullname" type="text" name="fullname" placeholder="full name" #fullname="ngModel" required></ion-input>
-        <p [hidden]="fullname.valid || submitted == false" color="danger" padding-left>
+        <p ion-text [hidden]="fullname.valid || submitted == false" color="danger" padding-left>
           Full Name is required
         </p>
         <ion-input [(ngModel)]="signup.email" type="email" name="email" placeholder="email" #email="ngModel" required></ion-input>
-        <p [hidden]="email.valid || submitted == false" color="danger" padding-left>
+        <p ion-text [hidden]="email.valid || submitted == false" color="danger" padding-left>
           Email is required
         </p>
         <ion-input [(ngModel)]="signup.password" type="password" name="password" placeholder="password" #password="ngModel" required></ion-input>
-        <p [hidden]="password.valid || submitted == false" color="danger" padding-left>
+        <p ion-text [hidden]="password.valid || submitted == false" color="danger" padding-left>
           Password is required
         </p>
       </form>

@@ -9,6 +9,7 @@ import { PickCategoryPage } from '../../mypicklists/pickcategory/pickcategory';
 
 // services
 import { UserData } from '../../../providers/user-data';
+import { TransactionData } from '../../../providers/transaction-data';
 
 // models
 import { ITransaction } from '../../../models/transaction.model';
@@ -35,7 +36,8 @@ export class TransactionPage {
       public nav: NavController,
       public modalController: ModalController,
       public navParams: NavParams,
-      public userData: UserData) {
+      public userData: UserData,
+      public transactionData: TransactionData) {
 
     this.transaction = this.navParams.data.paramTransaction;
     if (this.transaction.mode === 'New') {
@@ -57,6 +59,31 @@ export class TransactionPage {
     }
   }
 
+  ionViewWillEnter() {
+
+    let referrer = this.transactionData.getReferrer();
+    switch (referrer) {
+      case 'TransactionsPage':
+        this.transactionData.reset();
+        break;
+      case 'PickTransactionTypePage':
+        // Transaction Type
+        this.transaction.type = this.transactionData.getTransactionType();
+        if (this.transaction.type != '') {
+          this.hasDataTransactionType = true;
+        }
+        break;
+      case 'PickPayeePage':
+        // Payee
+        this.transaction.payee = this.transactionData.getPayeeName();
+        this.transaction.payeeid = this.transactionData.getPayeeID();
+        if (this.transaction.payee != '') {
+          this.hasDataPayee = true;
+        }
+    }
+
+  }
+
   save(account) {
     if (this.transaction.mode === 'New') {
       this.userData.addAccount(account);
@@ -66,72 +93,28 @@ export class TransactionPage {
     this.nav.pop();
   }
 
-  // Transaction type
-  //------------------------------------------
   pickTransactionType() {
-    let modal = this.modalController.create(PickTransactionTypePage, {paramTransactionType: this.transaction.type});
-    modal.present(modal);
-    modal.onDidDismiss((data: any[]) => {
-      if (data) {
-        this.onPickAccountType(data);
-      }
-    });
+    this.nav.push(PickTransactionTypePage);
   }
 
-  onPickAccountType(item) {
-    this.transaction.type = item.value;
-    this.hasDataTransactionType = true;
-    this.showValidationMessage = false;
-  }
-
-  // Payee
-  //------------------------------------------
   pickPayee() {
-    
-    // Make sure a transaction type has been selected
     if (!this.hasDataTransactionType) {
+      // Make sure a transaction type has been selected
       this.showValidationMessage = true;
       this.validationMessage = "Please select Transaction Type";
       return;
     }
-
-    let modal = this.modalController.create(PickPayeePage);
-    modal.present(modal);
-    modal.onDidDismiss((data: any[]) => {
-      if (data) {
-        this.onPickPayee(data);
-      }
-    });
+    this.nav.push(PickPayeePage);
   }
 
-  onPickPayee(item) {
-    this.transaction.payee = item.value;
-    this.hasDataPayee = true;
-  }
-
-  // Category
-  //------------------------------------------
   pickCategory() {
-    
-    // Make sure a transaction type has been selected
     if (!this.hasDataTransactionType) {
+      // Make sure a transaction type has been selected
       this.showValidationMessage = true;
       this.validationMessage = "Please select Transaction Type";
       return;
     }
-
-    let modal = this.modalController.create(PickCategoryPage);
-    modal.present(modal);
-    modal.onDidDismiss((data: any[]) => {
-      if (data) {
-        this.onPickCategory(data);
-      }
-    });
-  }
-
-  onPickCategory(item) {
-    this.transaction.category = item.value;
-    this.hasDataCategory = true;
+    this.nav.push(PickCategoryPage);
   }
   
 }

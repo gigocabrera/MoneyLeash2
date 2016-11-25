@@ -1,0 +1,32 @@
+
+$categories: (
+  income: color($colors, mlgreen),
+  expense: color($colors, mlred),
+);
+
+@function auxiliary-categories() {
+  @return map-remove($categories);
+}
+
+page-pickcategory {
+
+  @each $track, $value in auxiliary-categories() {
+    ion-item-sliding[track=#{$track}] ion-label {
+      border-left: 2px solid $value;
+      padding-left: 10px;
+    }
+
+    ion-item-sliding[track=#{$track}].mlindent {
+      padding-left: 20px;
+    }
+  }
+
+  .item-block {
+    min-height: 5.5rem;
+  }
+  .iconpadding {
+    padding-left: 17px;
+    padding-right: 17px;
+  }
+
+}

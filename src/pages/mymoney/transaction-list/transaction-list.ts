@@ -7,6 +7,7 @@ import { TransactionPage } from '../transaction/transaction';
 
 // services
 import { UserData } from '../../../providers/user-data';
+import { TransactionData } from '../../../providers/transaction-data';
 
 // models
 import { Transaction } from '../../../models/transaction.model';
@@ -28,7 +29,8 @@ export class TransactionsPage {
   constructor(
       public nav: NavController,
       public navParams: NavParams,
-      public userData: UserData) {
+      public userData: UserData,
+      public transactionData: TransactionData) {
 
         this.account = this.navParams.data.paramAccount;
         this.title = this.account.accountname;
@@ -138,6 +140,7 @@ export class TransactionsPage {
 
   newTransaction() {
     let tempTransaction = new Transaction(null,null,null,null,null,null,null,null,null,null,null,null,false,false,false,false,null,null,null,null,null,null,null,"New",null);
+    this.transactionData.setReferrer('TransactionsPage');
     this.nav.push(TransactionPage, {paramTransaction: tempTransaction});
   }
 

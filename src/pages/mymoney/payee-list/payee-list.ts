@@ -60,30 +60,7 @@ export class PayeeListPage {
       this.userData.dismissLoadingController();
 
     });
-    
-    /*var that = this;
-    this.userData.getAllPayees()
-    .subscribe( allpayees => {
-      let currentLetter = false;
-      let currentContacts = [];
-      allpayees.forEach(payee => {
-        var tempPayee = ({
-          $key: payee.$key,
-          payeename: payee.payeename
-        });        
-        if(tempPayee.payeename.charAt(0) != currentLetter){
-          currentLetter = tempPayee.payeename.charAt(0);
-          let newGroup = {
-            letter: currentLetter,
-            payees: []
-          };
-          currentContacts = newGroup.payees;
-          that.groupedPayees.push(newGroup);
-        }
-        currentContacts.push(tempPayee);
-      });
-    });*/
-
+  
   }
   
   newPayee() {
