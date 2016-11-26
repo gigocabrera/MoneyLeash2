@@ -94,6 +94,14 @@ export class TransactionPage {
         }
         break;
       }
+      case 'PickAmountPage': {
+        // Payee
+        this.transaction.amount = this.transactionData.getAmount();
+        if (this.transaction.amount != '') {
+          this.hasDataAmount = true;
+        }
+        break;
+      }
     }
   }
 

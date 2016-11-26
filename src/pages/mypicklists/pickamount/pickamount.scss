@@ -4,15 +4,17 @@ page-pickamount {
   /* Numeric Pad
   ===============================================*/
   #resultInput {
-      display: block;
-      width: 100%;
-      height: 50px;
-      margin-right: 0 auto;
-      padding-right: 10px;
-      font-weight: bold;
-      font-size: 20px;
-      background-color: #D3EAF0;
-      text-align: right;
+    border: 0;
+    display: block;
+    width: 100%;
+    height: 50px;
+    margin-right: 0 auto;
+    padding-right: 10px;
+    font-weight: bold;
+    font-size: 20px;
+    background-color: #000;
+    color: #FFF;
+    text-align: right;
   }
   #basic {
       margin: 0 auto;

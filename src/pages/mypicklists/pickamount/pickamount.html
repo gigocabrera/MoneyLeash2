@@ -4,7 +4,7 @@
       <button ion-button (click)="goBack()">Cancel</button>
     </ion-buttons>
     <ion-title>
-      Select Payee
+      Transaction Amount
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -13,27 +13,27 @@
     <input id="resultInput" type="text" value="{{ displayValue }}" readonly />
     <table id="basic" cellpadding="0" cellspacing="0">
       <tr>
-        <td><button ng-click="digitClicked('7')">7</button></td>
-        <td><button ng-click="digitClicked('8')">8</button></td>
-        <td><button ng-click="digitClicked('9')">9</button></td>
-        <td><button ng-click="digitClicked('C')" class="functionKey">C</button></td>
+        <td><button (click)="digitClicked('7')">7</button></td>
+        <td><button (click)="digitClicked('8')">8</button></td>
+        <td><button (click)="digitClicked('9')">9</button></td>
+        <td><button (click)="digitClicked('C')" class="functionKey">C</button></td>
       </tr>
       <tr>
-        <td><button ng-click="digitClicked('4')">4</button></td>
-        <td><button ng-click="digitClicked('5')">5</button></td>
-        <td><button ng-click="digitClicked('6')">6</button></td>
-        <td><button ng-click="digitClicked('B')" class="functionKey"><strong>&laquo;</strong></button></td>
+        <td><button (click)="digitClicked('4')">4</button></td>
+        <td><button (click)="digitClicked('5')">5</button></td>
+        <td><button (click)="digitClicked('6')">6</button></td>
+        <td><button (click)="digitClicked('B')" class="functionKey"><strong>&laquo;</strong></button></td>
       </tr>
       <tr>
-        <td><button ng-click="digitClicked('1')">1</button></td>
-        <td><button ng-click="digitClicked('2')">2</button></td>
-        <td><button ng-click="digitClicked('3')">3</button></td>
+        <td><button (click)="digitClicked('1')">1</button></td>
+        <td><button (click)="digitClicked('2')">2</button></td>
+        <td><button (click)="digitClicked('3')">3</button></td>
         <td class="disabledKey"></td>
       </tr>
       <tr>
-        <td><button ng-click="digitClicked('.')"><strong>.</strong></button></td>
-        <td colspan="2"><button ng-click="digitClicked('0')">0</button></td>
-        <td><button ng-click="digitClicked('D')" class="functionKey">Done</button></td>
+        <td><button (click)="digitClicked('.')"><strong>.</strong></button></td>
+        <td colspan="2"><button (click)="digitClicked('0')">0</button></td>
+        <td><button (click)="digitClicked('D')" class="functionKey">Done</button></td>
       </tr>
     </table>
   </div>
