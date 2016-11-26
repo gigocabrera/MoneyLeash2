@@ -6,6 +6,7 @@ import { NavController, ModalController, NavParams } from 'ionic-angular';
 import { PickTransactionTypePage } from '../../mypicklists/picktransactiontype/picktransactiontype';
 import { PickPayeePage } from '../../mypicklists/pickpayee/pickpayee';
 import { PickCategoryPage } from '../../mypicklists/pickcategory/pickcategory';
+import { PickAmountPage } from '../../mypicklists/pickamount/pickamount';
 
 // services
 import { UserData } from '../../../providers/user-data';
@@ -63,25 +64,37 @@ export class TransactionPage {
 
     let referrer = this.transactionData.getReferrer();
     switch (referrer) {
-      case 'TransactionsPage':
+      case 'TransactionsPage': {
         this.transactionData.reset();
         break;
-      case 'PickTransactionTypePage':
+      }
+      case 'PickTransactionTypePage': {
         // Transaction Type
         this.transaction.type = this.transactionData.getTransactionType();
         if (this.transaction.type != '') {
           this.hasDataTransactionType = true;
         }
         break;
-      case 'PickPayeePage':
+      }
+      case 'PickPayeePage': {
         // Payee
         this.transaction.payee = this.transactionData.getPayeeName();
         this.transaction.payeeid = this.transactionData.getPayeeID();
         if (this.transaction.payee != '') {
           this.hasDataPayee = true;
         }
+        break;
+      }
+      case 'PickCategoryPage': {
+        // Payee
+        this.transaction.category = this.transactionData.getCategoryName();
+        this.transaction.categoryid = this.transactionData.getCategoryID();
+        if (this.transaction.category != '') {
+          this.hasDataCategory = true;
+        }
+        break;
+      }
     }
-
   }
 
   save(account) {
@@ -117,4 +130,13 @@ export class TransactionPage {
     this.nav.push(PickCategoryPage);
   }
   
+  pickAmount() {
+    if (!this.hasDataTransactionType) {
+      // Make sure a transaction type has been selected
+      this.showValidationMessage = true;
+      this.validationMessage = "Please select Transaction Type";
+      return;
+    }
+    this.nav.push(PickAmountPage);
+  }
 }

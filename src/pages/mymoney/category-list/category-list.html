@@ -31,21 +31,23 @@
         </ion-item-options>
       </ion-item-sliding>
     </ion-item-group>
-    <ion-item-divider sticky>
-      Expense Categories
-    </ion-item-divider>
-    <ion-item-sliding *ngFor="let expensecat of expenseCategories" #slidingItem track="expense" [ngClass]="{mlindent: expensecat.categoryparent !== ''}">
-      <button ion-item (click)="showTransactions(slidingItem, expensecat)">
-        {{ expensecat.categoryname }}
-      </button>
-      <ion-item-options>
-        <button ion-button color="energized" (click)="edit(slidingItem, expensecat)">
-          Edit
+    <ion-item-group>
+      <ion-item-divider sticky>
+        Expense Categories
+      </ion-item-divider>
+      <ion-item-sliding *ngFor="let expensecat of expenseCategories" #slidingItem track="expense" [ngClass]="{mlindent: expensecat.categoryparent !== ''}">
+        <button ion-item (click)="showTransactions(slidingItem, expensecat)">
+          {{ expensecat.categoryname }}
         </button>
-        <button ion-button color="danger" (click)="delete(slidingItem, expensecat)">
-          Delete
-        </button>
-      </ion-item-options>
-    </ion-item-sliding>
+        <ion-item-options>
+          <button ion-button color="energized" (click)="edit(slidingItem, expensecat)">
+            Edit
+          </button>
+          <button ion-button color="danger" (click)="delete(slidingItem, expensecat)">
+            Delete
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-item-group>
   </ion-list>
 </ion-content>

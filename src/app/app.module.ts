@@ -1,7 +1,6 @@
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 
-import { IonicApp, IonicModule } from 'ionic-angular';
-//import { Storage } from '@ionic/storage';
+import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 
 import { MoneyLeashApp } from './app.component';
 
@@ -41,6 +40,7 @@ import { PickCategoryParentPage } from '../pages/mypicklists/pickcategoryparent/
 import { PickTransactionTypePage } from '../pages/mypicklists/picktransactiontype/picktransactiontype';
 import { PickPayeePage } from '../pages/mypicklists/pickpayee/pickpayee';
 import { PickCategoryPage } from '../pages/mypicklists/pickcategory/pickcategory';
+import { PickAmountPage } from '../pages/mypicklists/pickamount/pickamount';
 
 // mysettings
 import { AccountTypesPage } from '../pages/mysettings/accounttypes/accounttypes';
@@ -103,6 +103,7 @@ const firebaseAuthConfig = {
     PickTransactionTypePage,
     PickPayeePage,
     PickCategoryPage,
+    PickAmountPage,
     AccountTypesPage,
     AccountTypesEditPage,
     SettingsPage,
@@ -149,12 +150,13 @@ const firebaseAuthConfig = {
     PickTransactionTypePage,
     PickPayeePage,
     PickCategoryPage,
+    PickAmountPage,
     AccountTypesPage,
     AccountTypesEditPage,
     SettingsPage,
     SignupPage,
     TutorialPage
   ],
-  providers: [UserData, TransactionData]
+  providers: [UserData, TransactionData, {provide: ErrorHandler, useClass: IonicErrorHandler}]
 })
 export class AppModule {}

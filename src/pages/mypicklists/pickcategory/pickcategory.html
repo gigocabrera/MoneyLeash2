@@ -9,43 +9,22 @@
   </ion-navbar>
 </ion-header>
 <ion-content class="outer-content">
-  <ion-searchbar #input (ionInput)="getItems($event)"></ion-searchbar>
   <ion-list>
     <ion-item-group *ngIf="type === 'Income'">
       <ion-item-divider sticky>
         Income Categories
       </ion-item-divider>      
-      <ion-item-sliding *ngFor="let incomecat of incomeCategories" #slidingItem track="income" [ngClass]="{mlindent: incomecat.categoryparent !== ''}">
-        <button ion-item (click)="selectCategory(incomecat)">
-          {{ incomecat.categoryname }}
-        </button>
-        <ion-item-options>
-          <button ion-button color="energized" (click)="edit(slidingItem, incomecat)">
-            Edit
-          </button>
-          <button ion-button color="danger" (click)="delete(slidingItem, incomecat)">
-            Delete
-          </button>
-        </ion-item-options>
-      </ion-item-sliding>
+      <button ion-item (click)="selectCategory(incomecat)" *ngFor="let incomecat of incomeCategories" track="income" [ngClass]="{mlindent: incomecat.categoryparent !== ''}">
+        {{ incomecat.categoryname }}
+      </button>
     </ion-item-group>
     <ion-item-group *ngIf="type === 'Expense'">
       <ion-item-divider sticky>
         Expense Categories
       </ion-item-divider>
-      <ion-item-sliding *ngFor="let expensecat of expenseCategories" #slidingItem track="expense" [ngClass]="{mlindent: expensecat.categoryparent !== ''}">
-        <button ion-item (click)="selectCategory(expensecat)">
-          {{ expensecat.categoryname }}
-        </button>
-        <ion-item-options>
-          <button ion-button color="energized" (click)="edit(slidingItem, expensecat)">
-            Edit
-          </button>
-          <button ion-button color="danger" (click)="delete(slidingItem, expensecat)">
-            Delete
-          </button>
-        </ion-item-options>
-      </ion-item-sliding>  
+      <button ion-item (click)="selectCategory(expensecat)" *ngFor="let expensecat of expenseCategories" track="expense" [ngClass]="{mlindent: expensecat.categoryparent !== ''}">
+        {{ expensecat.categoryname }}
+      </button>
     </ion-item-group>        
   </ion-list>
 </ion-content>

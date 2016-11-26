@@ -30,67 +30,36 @@ export class PickCategoryPage {
 
     this.type = this.transactionData.getTransactionType();
 
-    if (this.type === 'Income') {
-
-      this.userData.getAllIncomeCategories().on('value', (incomecategories) => {
-        let rawList= [];
-        incomecategories.forEach( spanshot => {
-          var cat = spanshot.val();
-          rawList.push({
-            $key: spanshot.key,
-            categoryname: cat.categoryname,
-            categorytype: cat.categorytype,
-            categoryparent: cat.categoryparent,
-            categorysort: cat.categorysort
-          });
+    this.userData.getAllIncomeCategories().on('value', (incomecategories) => {
+      let rawList= [];
+      incomecategories.forEach( spanshot => {
+        var cat = spanshot.val();
+        rawList.push({
+          $key: spanshot.key,
+          categoryname: cat.categoryname,
+          categorytype: cat.categorytype,
+          categoryparent: cat.categoryparent,
+          categorysort: cat.categorysort
         });
-        this.incomeCategories = rawList;
       });
-
-    } else {
-
-      this.userData.getAllExpenseCategories().on('value', (expensecategories) => {
-        let rawList= [];
-        expensecategories.forEach( spanshot => {
-          var cat = spanshot.val();
-          rawList.push({
-            $key: spanshot.key,
-            categoryname: cat.categoryname,
-            categorytype: cat.categorytype,
-            categoryparent: cat.categoryparent,
-            categorysort: cat.categorysort
-          });
-        });
-        this.expenseCategories = rawList;
-      });
-    }
-
-  }
-
-  initializeItems(){
-    this.categoryList = this.loadedCategoryList;
-  }
-
-  getItems(searchbar) {
-    // Reset items back to all of the items
-    this.initializeItems();
-
-    // set q to the value of the searchbar
-    var q = searchbar.srcElement.value;
-
-    // if the value is an empty string don't filter the items
-    if (!q) {
-      return;
-    }
-
-    this.categoryList = this.categoryList.filter((v) => {
-      if(v.payeename && q) {
-        if (v.payeename.toLowerCase().indexOf(q.toLowerCase()) > -1) {
-          return true;
-        }
-        return false;
-      }
+      this.incomeCategories = rawList;
     });
+
+    this.userData.getAllExpenseCategories().on('value', (expensecategories) => {
+      let rawList= [];
+      expensecategories.forEach( spanshot => {
+        var cat = spanshot.val();
+        rawList.push({
+          $key: spanshot.key,
+          categoryname: cat.categoryname,
+          categorytype: cat.categorytype,
+          categoryparent: cat.categoryparent,
+          categorysort: cat.categorysort
+        });
+      });
+      this.expenseCategories = rawList;
+    });
+
   }
 
   selectCategory(category) {
