@@ -250,6 +250,7 @@ export class UserData {
   }
 
   updateTouchID(ischecked: boolean) {
+    this.setEnableTouchID(ischecked);
     this.userdata.child(this.userauth.uid).update({'enabletouchid' : ischecked});
   }
 

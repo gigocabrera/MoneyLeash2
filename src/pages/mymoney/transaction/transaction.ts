@@ -7,6 +7,7 @@ import { PickTransactionTypePage } from '../../mypicklists/picktransactiontype/p
 import { PickPayeePage } from '../../mypicklists/pickpayee/pickpayee';
 import { PickCategoryPage } from '../../mypicklists/pickcategory/pickcategory';
 import { PickAmountPage } from '../../mypicklists/pickamount/pickamount';
+import { PickNotesPage } from '../../mypicklists/picknotes/picknotes';
 
 // services
 import { UserData } from '../../../providers/user-data';
@@ -105,6 +106,14 @@ export class TransactionPage {
         }
         break;
       }
+      case 'PickNotesPage': {
+        // Payee
+        this.transaction.notes = this.transactionData.getNotes();
+        if (this.transaction.notes != '') {
+          this.hasDataNotes = true;
+        }
+        break;
+      }
     }
   }
 
@@ -152,5 +161,15 @@ export class TransactionPage {
       return;
     }
     this.nav.push(PickAmountPage);
+  }
+
+  pickNotes() {
+    if (!this.hasDataTransactionType) {
+      // Make sure a transaction type has been selected
+      this.showValidationMessage = true;
+      this.validationMessage = "Please select Transaction Type";
+      return;
+    }
+    this.nav.push(PickNotesPage);
   }
 }

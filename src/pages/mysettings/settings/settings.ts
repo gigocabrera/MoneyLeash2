@@ -50,9 +50,6 @@ export class SettingsPage {
 
   toggleTouchID(e) {
     this.userData.updateTouchID(e.checked);
-    console.log(this.userData.getUsernameStorage());
-    console.log(this.userData.getPasswordStorage());
-    console.log(this.userData.getEnableTouchIDStorage());
   }
 
   changeDefaltBalance() {

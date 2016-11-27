@@ -26,9 +26,11 @@ export class PickAmountPage {
 
   ionViewDidLoad() {
     let amtDisplay = parseFloat(this.transactionData.getAmount());
-    if (amtDisplay.toString() === 'NaN') {
+    if (amtDisplay.toString() === 'NaN' || amtDisplay.toString() === '0') {
       this.reset();
     } else {
+      this.periodEntered = true;
+      this.decimals = 2;
       this.displayValue = amtDisplay; 
     }
   }
@@ -54,7 +56,7 @@ export class PickAmountPage {
         if (amtDisplay.toString() === 'NaN') {
           this.reset();
         } else {
-          this.displayValue = amtDisplay; 
+          this.displayValue = amtDisplay;
         }
         this.clearValue = false;
         if (this.periodEntered) {
@@ -63,8 +65,10 @@ export class PickAmountPage {
         break;
       }
       case 'D': {
+        // User selected Done.
+        let amt = Number(this.displayValue).toFixed(2);
         this.transactionData.setReferrer('PickAmountPage');
-        this.transactionData.setAmount(this.displayValue.toString());
+        this.transactionData.setAmount(amt.toString());
         this.goBack();
         break;
       }
