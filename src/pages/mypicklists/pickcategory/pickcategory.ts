@@ -60,6 +60,8 @@ export class PickCategoryPage {
       this.expenseCategories = rawList;
     });
 
+    this.userData.dismissLoadingController();
+
   }
 
   selectCategory(category) {

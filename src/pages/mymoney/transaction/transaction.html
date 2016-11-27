@@ -71,11 +71,11 @@
     </ion-item>
     <ion-item class="ml-input" (click)="pickNotes()">
       <ion-icon name="md-paper" item-left></ion-icon>
-      <div *ngIf="hasDataAmount">
+      <div *ngIf="hasDataNotes">
         <p class="ml-label-has-input">Notes</p>
         <h2 class="ml-has-input">{{ transaction.notes }}</h2>
       </div>
-      <div *ngIf="!hasDataAmount">
+      <div *ngIf="!hasDataNotes">
         <h2 class="ml-has-no-input">Notes</h2>
       </div>
       <ion-icon name="arrow-forward" item-right color="mliconarrowblue"></ion-icon>

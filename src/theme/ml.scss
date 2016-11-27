@@ -94,12 +94,12 @@
 }
 .ml-input.input-has-focus ion-label[floating] {
   -webkit-transform: translate3d(10px, 6px, 0);
-  transform: translate3d(10px, 6px, 0) scale(0.7);
+  transform: translate3d(10px, -2px, 0) scale(0.65);
   color: #006699;
 }
 .ml-input.input-has-value ion-label[floating] {
   -webkit-transform: translate3d(10px, 6px, 0);
-  transform: translate3d(10px, 6px, 0) scale(0.7);
+  transform: translate3d(10px, -2px, 0) scale(0.65);
   color: #006699;
 }
 .ml-input .ml-label-has-input {

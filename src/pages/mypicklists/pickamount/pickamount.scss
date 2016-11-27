@@ -3,59 +3,56 @@ page-pickamount {
 
   /* Numeric Pad
   ===============================================*/
-  #resultInput {
+  .resultAmount {
     border: 0;
     display: block;
     width: 100%;
     height: 50px;
-    margin-right: 0 auto;
     padding-right: 10px;
     font-weight: bold;
     font-size: 20px;
     background-color: #000;
     color: #FFF;
+  }
+  .resultAmount input {
     text-align: right;
+    padding-right: 10px;
   }
-  #basic {
-      margin: 0 auto;
-      padding: 0;
-      border-collapse: collapse;
-      border: 2px solid #000;
-      width: 100%;
-      max-width: 400px;
+  ion-grid {
+    margin: 0;
+    padding: 0;
+    border-collapse: collapse;
+    /*border: 2px solid #000;*/
+    width: 100%;
+    max-width: 400px;
   }
-      #basic td {
-          background-color: #000;
-          padding: 0;
-          width: 18%;
-          height: 18%;
-          border: 1px solid #000;
-      }
-      #basic button {
-          display: block;
-          font-size: 20px;
-          width: 100%;
-          min-height: 60px;
-          padding: 0;
-          border: none;
-          text-align: center;
-          color: #000;
-          background-color: #d0d1d4;
-      }
-          #basic button.functionKey {
-              background-color: #F98E12;
-              color: #fff;
-          }
-          #basic button.functionKey:hover {
-              background-color: #ea7d05;
-          }
-          #basic button.disabledKey {
-              background-color: #000;
-          }
-          #basic button:hover {
-              color: #000;
-              cursor: pointer;
-              background-color: #babbbe;
-          }
+  ion-col {
+    border-collapse: collapse;
+    border: 1px solid #f5f5f5;
+    padding: 0;
+  }
+  ion-col button {
+    height: 60px;
+    text-align: center;
+    font-size: 20px;
+    width: 100%;
+    min-height: 60px;
+    padding: 0;
+    border: none;
+    color: #000;
+    background-color: #d0d1d4;
+  }
+  .functionKey {
+    background-color: #F98E12;
+    color: #fff;
+  }
+  .functionKey.activated {
+    background-color: #ea7d05;
+    color: #000;
+  }
+  .activated {
+    color: #000;
+    background-color: #babbbe;
+  }
           
 }

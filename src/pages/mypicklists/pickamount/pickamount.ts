@@ -25,14 +25,12 @@ export class PickAmountPage {
       public transactionData: TransactionData) {}
 
   ionViewDidLoad() {
-
-  }
-
-  selectPayee(payee) {
-    this.transactionData.setReferrer('PickPayeePage');
-    this.transactionData.setPayeeName(payee.payeename);
-    this.transactionData.setPayeeID(payee.$key);
-    this.goBack();
+    let amtDisplay = parseFloat(this.transactionData.getAmount());
+    if (amtDisplay.toString() === 'NaN') {
+      this.reset();
+    } else {
+      this.displayValue = amtDisplay; 
+    }
   }
 
   goBack() {
@@ -40,13 +38,9 @@ export class PickAmountPage {
   }
 
   digitClicked(digit) {
-
     switch (digit) {
       case 'C': {
-        this.displayValue = 0;
-        this.clearValue = true;
-        this.periodEntered = false;
-        this.decimals = 0;
+        this.reset();
         break;
       }
       case '.': {
@@ -56,7 +50,12 @@ export class PickAmountPage {
       }
       case 'B': {
         let amt = this.displayValue.toString();
-        this.displayValue = parseFloat(amt.substring(0, amt.length - 1));
+        let amtDisplay = parseFloat(amt.substring(0, amt.length - 1));
+        if (amtDisplay.toString() === 'NaN') {
+          this.reset();
+        } else {
+          this.displayValue = amtDisplay; 
+        }
         this.clearValue = false;
         if (this.periodEntered) {
           this.decimals--;
@@ -64,14 +63,17 @@ export class PickAmountPage {
         break;
       }
       case 'D': {
+        this.transactionData.setReferrer('PickAmountPage');
         this.transactionData.setAmount(this.displayValue.toString());
         this.goBack();
         break;
       }
       default: {
-        if (this.periodEntered && this.decimals < 2) {
-          this.displayValue = this.displayValue + digit;
-          this.decimals++;
+        if (this.periodEntered) {
+          if (this.decimals < 2) {
+            this.displayValue = this.displayValue + digit;
+            this.decimals++;
+          }
         } else {
           if (this.displayValue === 0) {
             this.displayValue = digit;
@@ -81,6 +83,13 @@ export class PickAmountPage {
         }
       }
     }
+  }
+
+  reset() {
+    this.displayValue = 0;
+    this.clearValue = true;
+    this.periodEntered = false;
+    this.decimals = 0;
   }
 
 }

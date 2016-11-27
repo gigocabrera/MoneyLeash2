@@ -28,6 +28,7 @@ export class TransactionPage {
   hasDataPayee: boolean = false;
   hasDataCategory: boolean = false;
   hasDataAmount: boolean = false;
+  hasDataDate: boolean = false;
   hasDataNotes: boolean = false;
   hasDataPhoto: boolean = false;
   title: string;
@@ -47,6 +48,7 @@ export class TransactionPage {
       this.hasDataPayee = false;
       this.hasDataCategory = false;
       this.hasDataAmount = false;
+      this.hasDataDate = false;
       this.hasDataNotes = false;
       this.hasDataPhoto = false;      
     } else {
@@ -55,6 +57,7 @@ export class TransactionPage {
       this.hasDataPayee = true;
       this.hasDataCategory = true;
       this.hasDataAmount = true;
+      this.hasDataDate = true;
       this.hasDataNotes = true;
       this.hasDataPhoto = true;
     }
@@ -115,6 +118,7 @@ export class TransactionPage {
   }
 
   pickTransactionType() {
+    this.showValidationMessage = false;
     this.nav.push(PickTransactionTypePage);
   }
 
@@ -125,6 +129,7 @@ export class TransactionPage {
       this.validationMessage = "Please select Transaction Type";
       return;
     }
+    this.userData.showLoadingController();
     this.nav.push(PickPayeePage);
   }
 
@@ -135,6 +140,7 @@ export class TransactionPage {
       this.validationMessage = "Please select Transaction Type";
       return;
     }
+    this.userData.showLoadingController();
     this.nav.push(PickCategoryPage);
   }
   

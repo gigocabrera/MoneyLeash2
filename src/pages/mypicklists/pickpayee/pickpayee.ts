@@ -44,6 +44,8 @@ export class PickPayeePage {
       this.doFilterList(this.searchTerm);
     }
 
+    this.userData.dismissLoadingController();
+
   }
 
   initializeItems(){

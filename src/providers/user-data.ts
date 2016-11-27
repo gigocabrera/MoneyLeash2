@@ -67,6 +67,7 @@ export class UserData {
       .then((authData) => {
         this.userauth = authData;
         this.getUserData();
+        this.saveLocalStorage(credentials);
         resolve();
       }).catch((error) => {
         reject(error);

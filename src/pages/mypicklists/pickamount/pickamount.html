@@ -9,32 +9,30 @@
   </ion-navbar>
 </ion-header>
 <ion-content class="outer-content" no-bounce>
-  <div>
-    <input id="resultInput" type="text" value="{{ displayValue }}" readonly />
-    <table id="basic" cellpadding="0" cellspacing="0">
-      <tr>
-        <td><button (click)="digitClicked('7')">7</button></td>
-        <td><button (click)="digitClicked('8')">8</button></td>
-        <td><button (click)="digitClicked('9')">9</button></td>
-        <td><button (click)="digitClicked('C')" class="functionKey">C</button></td>
-      </tr>
-      <tr>
-        <td><button (click)="digitClicked('4')">4</button></td>
-        <td><button (click)="digitClicked('5')">5</button></td>
-        <td><button (click)="digitClicked('6')">6</button></td>
-        <td><button (click)="digitClicked('B')" class="functionKey"><strong>&laquo;</strong></button></td>
-      </tr>
-      <tr>
-        <td><button (click)="digitClicked('1')">1</button></td>
-        <td><button (click)="digitClicked('2')">2</button></td>
-        <td><button (click)="digitClicked('3')">3</button></td>
-        <td class="disabledKey"></td>
-      </tr>
-      <tr>
-        <td><button (click)="digitClicked('.')"><strong>.</strong></button></td>
-        <td colspan="2"><button (click)="digitClicked('0')">0</button></td>
-        <td><button (click)="digitClicked('D')" class="functionKey">Done</button></td>
-      </tr>
-    </table>
-  </div>
+  <ion-input [(ngModel)]="displayValue" type="text" readonly class="resultAmount"></ion-input>
+  <ion-grid>
+    <ion-row>
+      <ion-col width-25><button (click)="digitClicked('7')">7</button></ion-col>
+      <ion-col width-25><button (click)="digitClicked('8')">8</button></ion-col>
+      <ion-col width-25><button (click)="digitClicked('9')">9</button></ion-col>
+      <ion-col width-25><button (click)="digitClicked('C')" class="functionKey">C</button></ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col width-25><button (click)="digitClicked('4')">4</button></ion-col>
+      <ion-col width-25><button (click)="digitClicked('5')">5</button></ion-col>
+      <ion-col width-25><button (click)="digitClicked('6')">6</button></ion-col>
+      <ion-col width-25><button (click)="digitClicked('B')" class="functionKey"><strong>&laquo;</strong></button></ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col width-25><button (click)="digitClicked('1')">1</button></ion-col>
+      <ion-col width-25><button (click)="digitClicked('2')">2</button></ion-col>
+      <ion-col width-25><button (click)="digitClicked('3')">3</button></ion-col>
+      <ion-col width-25 class="disabledKey"></ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col width-25><button (click)="digitClicked('.')"><strong>.</strong></button></ion-col>
+      <ion-col width-50><button (click)="digitClicked('0')">0</button></ion-col>
+      <ion-col width-25><button (click)="digitClicked('D')" class="functionKey">Done</button></ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

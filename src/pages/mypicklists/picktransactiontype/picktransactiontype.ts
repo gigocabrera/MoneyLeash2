@@ -7,6 +7,7 @@ import { UserData } from '../../../providers/user-data';
 import { TransactionData } from '../../../providers/transaction-data';
 
 @Component({
+  selector: 'page-picktransactiontype',
   templateUrl: 'picktransactiontype.html'
 })
 
