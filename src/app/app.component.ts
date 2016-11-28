@@ -63,6 +63,7 @@ export class MoneyLeashApp {
       Splashscreen.hide();
       //
       // Check if TouchID has been selected
+      console.log(this.userData.enabletouchid);
       if (this.userData.enabletouchid === 'true') {
         //
         // Check if TouchID is supported
