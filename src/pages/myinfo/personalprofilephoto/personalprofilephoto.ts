@@ -12,8 +12,8 @@ import { UserData } from '../../../providers/user-data';
 
 export class PersonalProfilePhotoPage {
 
-  public userSettings: any;
-  public userPicture: any;
+  public userPhoto: any;
+  public userPhotoDisplay: any;
 
   constructor(
       public nav: NavController,
@@ -28,7 +28,7 @@ export class PersonalProfilePhotoPage {
   }
 
   savePicture() {
-    this.userData.savePicture(this.userPicture);
+    this.userData.savePicture(this.userPhoto);
     this.dismiss();
   }
 
@@ -43,7 +43,8 @@ export class PersonalProfilePhotoPage {
       targetHeight: 800,
       saveToPhotoAlbum: false
     }).then(imageData => {
-      this.userPicture = imageData;
+      this.userPhoto = imageData;
+      this.userPhotoDisplay = "data:image/jpeg;base64," + imageData;
     }, error => {
       console.log("ERROR -> " + JSON.stringify(error));
     });

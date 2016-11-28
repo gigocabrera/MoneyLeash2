@@ -8,7 +8,8 @@ export class TransactionData {
     categoryid: string
     amount: string;
     notes: string;
-    photo: string;
+    photo: any;
+    photodisplay: any;
  
     constructor() {}
 
@@ -74,11 +75,17 @@ export class TransactionData {
     }
     // Photo
     // ---------------------------------
-    setPhoto(photo: string) {
+    setPhoto(photo: any) {
         this.photo = photo;
     }
     getPhoto() {
         return this.photo;
+    }
+    setPhotoDisplay(photodisplay: any) {
+        this.photodisplay = photodisplay;
+    }
+    getPhotoDisplay() {
+        return this.photodisplay;
     }
 
     reset() {
@@ -91,5 +98,6 @@ export class TransactionData {
       this.amount = '';
       this.notes = '';
       this.photo = '';
+      this.photodisplay = '';
     }
 }

@@ -9,8 +9,7 @@ page-pickamount {
     width: 100%;
     height: 50px;
     padding-right: 10px;
-    font-weight: bold;
-    font-size: 20px;
+    font-size: 24px;
     background-color: #000;
     color: #FFF;
   }
@@ -44,14 +43,14 @@ page-pickamount {
   }
   .functionKey {
     background-color: #F98E12;
-    color: #fff;
+    color: #000;
   }
   .functionKey.activated {
     background-color: #ea7d05;
-    color: #000;
+    color: #fff;
   }
   .activated {
-    color: #000;
+    color: #fff;
     background-color: #babbbe;
   }
           

@@ -22,18 +22,17 @@ export class PickNotesPage {
       public transactionData: TransactionData) {}
 
   ionViewDidLoad() {
-    //let amtDisplay = this.transactionData.getNotes();
+    this.msg = this.transactionData.getNotes();
   }
 
   goBack() {
     this.nav.pop();
   }
 
-  digitClicked(digit) {
-    console.log(this.msg);
-    /*this.transactionData.setReferrer('PickNotesPage');
-    this.transactionData.setNotes('notes here');
-    this.goBack();*/
+  save() {
+    this.transactionData.setReferrer('PickNotesPage');
+    this.transactionData.setNotes(this.msg);
+    this.goBack();
   }
 
 }
