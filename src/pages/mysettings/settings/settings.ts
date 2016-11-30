@@ -75,8 +75,17 @@ export class SettingsPage {
   upgradeData() {
     this.userData.upgradeData();
   }
+
   houseMember() {
     this.userData.copyAccounts();
+  }
+
+  reportBug() {
+    
+  }
+
+  suggestFeature() {
+    
   }
 
 }

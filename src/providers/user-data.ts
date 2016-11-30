@@ -13,7 +13,9 @@ import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'a
 export class UserData {
   
   loading: any;
-  enabletouchid = '';
+  storagetouchid = '';
+  storageemail = '';
+  storagepwd = '';
   appversion = '';
   user;
   userauth;
@@ -73,6 +75,10 @@ export class UserData {
         reject(error);
       });
     });
+  }
+
+  logout() {
+    return firebase.auth().signOut();
   }
   
   createInitialSetup() {
@@ -175,67 +181,70 @@ export class UserData {
       return Math.floor((Math.random() * 100000000) + 100);
   }
 
+  //
+  // NATIVE STORAGE
+  //-----------------------------------------------------------------------
   saveLocalStorage(credentials) {
-    this.setUsername(credentials.email);
+    this.setUserEmail(credentials.email);
     this.setUserPwd(credentials.password);
   }
 
-  setUsername(username) {
-    NativeStorage.setItem('username', username)
+  setUserEmail(email) {
+    NativeStorage.setItem('storageemail', {property: email})
     .then(
       () => console.log('Stored item!'),
       error => console.error('Error storing item', error)
-    )
+    );
   }
-
+  getStorageEmail() {
+    return new Promise((resolve: () => void, reject: (reason: Error) => void) => {
+      NativeStorage.getItem('storageemail')
+      .then((data) => {
+        this.storageemail = data.property;
+        resolve();
+      }).catch((error) => {
+        reject(error);
+      });
+    });
+  }
   setUserPwd(pwd) {
-    NativeStorage.setItem('userpwd', pwd)
+    NativeStorage.setItem('storagepwd', {property: pwd})
     .then(
       () => console.log('Stored item!'),
       error => console.error('Error storing item', error)
-    )
+    );
   }
-
-  setEnableTouchID(enabletouchid) {
-    NativeStorage.setItem('enabletouchid', enabletouchid)
+  getStoragePwd() {
+    return new Promise((resolve: () => void, reject: (reason: Error) => void) => {
+      NativeStorage.getItem('storagepwd')
+      .then((data) => {
+        this.storagepwd = data.property;
+        resolve();
+      }).catch((error) => {
+        reject(error);
+      });
+    });
+  }
+  setUserTouchID(touchid) {
+    NativeStorage.setItem('storagetouchid', {property: touchid})
     .then(
       () => console.log('Stored item!'),
       error => console.error('Error storing item', error)
-    )
+    );
   }
-
-  getUsernameStorage() {
-    NativeStorage.getItem('username')
-    .then(
-      data => {
-        console.log(data);
-        return data;
-      },
-      error => console.error(error)
-    )
+  getStorageTouchID() {
+    return new Promise((resolve: () => void, reject: (reason: Error) => void) => {
+      NativeStorage.getItem('storagetouchid')
+      .then((data) => {
+        this.storagetouchid = data.property;
+        resolve();
+      }).catch((error) => {
+        reject(error);
+      });
+    });
   }
-
-  getPasswordStorage() {
-    NativeStorage.getItem('userpwd')
-    .then(
-      data => {
-        console.log(data);
-        return data;
-      },
-      error => console.error(error)
-    )
-  }
-
-  getEnableTouchIDStorage() {
-    NativeStorage.getItem('enabletouchid')
-    .then(
-      data => console.log(data),
-      error => console.error(error)
-    )
-  }
-
-  logout() {
-    return firebase.auth().signOut();
+  clearNativeStorage() {
+    NativeStorage.clear();
   }
 
   //
@@ -250,7 +259,7 @@ export class UserData {
   }
 
   updateTouchID(ischecked: boolean) {
-    this.setEnableTouchID(ischecked);
+    this.setUserTouchID(ischecked);
     this.userdata.child(this.userauth.uid).update({'enabletouchid' : ischecked});
   }
 

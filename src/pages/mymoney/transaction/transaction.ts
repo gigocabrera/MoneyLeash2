@@ -181,6 +181,6 @@ export class TransactionPage {
       this.validationMessage = "Please select Transaction Type";
       return;
     }
-    this.nav.push(PickNotesPage);
+    this.nav.push(PickPhotoPage);
   }
 }

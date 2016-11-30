@@ -63,28 +63,15 @@ export class MoneyLeashApp {
       Splashscreen.hide();
       //
       // Check if TouchID has been selected
-      console.log(this.userData.enabletouchid);
-      if (this.userData.enabletouchid === 'true') {
-        //
-        // Check if TouchID is supported
-        TouchID.isAvailable()
-        .then(
-          res => {
-            TouchID.verifyFingerprint('Scan your fingerprint please')
-            .then(
-              res => {
-                this.nav.setRoot(LoginAutoPage);
-              },
-              err => {console.error('Error', err)}
-            );
-          },
-          err => {
-            console.error('TouchID is not available', err)
-          }
-        );
-      } else {
-        console.log('TouchID setting is NOT enabled!');
-      }
+      this.userData.getStorageTouchID()
+      .then((data) => {
+        this.signInWithTouchID(this.userData.storagetouchid);
+      })
+      .catch(
+        (error) => {
+          console.log(error);
+        }
+      );
     });
   }
 
@@ -101,6 +88,30 @@ export class MoneyLeashApp {
   logout() {
     this.userData.logout();
     this.nav.setRoot(LogoutPage);
+  }
+
+  signInWithTouchID(isenabled) {
+    if (isenabled) {
+      //
+      // Check if TouchID is supported
+      TouchID.isAvailable()
+      .then(
+        res => {
+          TouchID.verifyFingerprint('Scan your fingerprint please')
+          .then(
+            res => {
+              this.nav.setRoot(LoginAutoPage);
+            },
+            err => {console.error('Error', err)}
+          );
+        },
+        err => {
+          console.error('TouchID is not available', err)
+        }
+      );
+    } else {
+      console.log('TouchID setting is NOT enabled!');
+    }
   }
 
 }

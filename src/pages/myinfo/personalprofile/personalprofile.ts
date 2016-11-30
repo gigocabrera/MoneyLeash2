@@ -115,7 +115,7 @@ export class PersonalProfilePage {
         //
         // Update localStorage with new email. This is to guaratee
         // that TouchID, if enabled, is still fully functional
-        this.userData.setUsername(newemail);
+        this.userData.setUserEmail(newemail);
         //
         // Update email node under user profile 
         this.userData.updateEmailNode(newemail);

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { NavController, LoadingController } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 
 // app pages
 import { LoginPage } from '../login/login';
@@ -22,27 +22,58 @@ export class LoginAutoPage {
 
   constructor(
     public nav: NavController,
-    public loadingController: LoadingController,
     public userData: UserData) {
 
-      let loading = this.loadingController.create({
-        content: 'Please wait...'
-      });
-      loading.present();
+      this.userData.showLoadingController();
 
-      this.credentials = {email: this.userData.getUsernameStorage(),password: this.userData.getPasswordStorage()};
-      this.userData.login(this.credentials)
+      // Get email from storage
+      this.userData.getStorageEmail()
+      .then((data) => {
+        //console.log(this.userData.storageemail);
+        
+        // Get pwd from storage
+        this.userData.getStoragePwd()
+        .then((data) => {
+          //console.log(this.userData.storagepwd);
+
+          // Auto Login
+          this.credentials = {email: this.userData.storageemail,password: this.userData.storagepwd};
+          this.autoLogin(this.credentials);
+
+        })
+        .catch(
+          (error) => {
+            console.log(error);
+            this.userData.dismissLoadingController();
+          }
+        );
+      })
+      .catch(
+        (error) => {
+          console.log(error);
+          this.userData.dismissLoadingController();
+        }
+      );
+    }
+
+    autoLogin(credentials) {
+      this.userData.login(credentials)
       .then(() => {
-          this.nav.setRoot(AccountListPage);
+          this.LoginSuccess();
         }        
       )
       .catch(
-        (error) => {
-          loading.dismiss();     
+        (error) => {     
           this.nav.setRoot(LoginPage);
-          loading.dismiss();
+          this.userData.dismissLoadingController();
         }
       );
+    }
+
+    LoginSuccess() {
+      setTimeout(() => {
+          this.nav.setRoot(AccountListPage, {}, {animate: true, direction: 'forward'});
+        }, 1000);    
     }
 
 }
