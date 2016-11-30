@@ -145,8 +145,8 @@ export class TransactionsPage {
   }
 
   edit(transaction) {
-    console.log('edit');
-    console.log(transaction);
+    this.transactionData.setReferrer('TransactionsPage');
+    this.nav.push(TransactionPage, {paramTransaction: transaction});
   }
 
   delete(transaction) {

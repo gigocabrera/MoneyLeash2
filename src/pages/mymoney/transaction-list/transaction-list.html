@@ -32,7 +32,7 @@
       <ion-item-divider sticky color="light">
         {{ group.label }}
       </ion-item-divider>
-      <ion-item-sliding *ngFor="let transaction of group.transactions">
+      <ion-item-sliding *ngFor="let transaction of group.transactions" (click)="edit(transaction)">
         <ion-item class="ml-item">
           <ion-row>
             <ion-col width-50>

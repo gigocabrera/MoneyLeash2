@@ -115,14 +115,24 @@ export class TransactionPage {
         }
         break;
       }
+      case 'PickPhotoPage': {
+        // Payee
+        this.transaction.notes = this.transactionData.getPhoto();
+        if (this.transaction.photo != '') {
+          this.hasDataPhoto = true;
+        }
+        break;
+      }
     }
   }
 
-  save(account) {
+  save() {
     if (this.transaction.mode === 'New') {
-      this.userData.addAccount(account);
+      //this.userData.addAccount(account);
+      console.log('new');
     } else {
-      this.userData.updateAccount(account);
+      //this.userData.updateAccount(account);
+      console.log('old');
     }
     this.nav.pop();
   }
