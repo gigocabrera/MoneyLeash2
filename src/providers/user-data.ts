@@ -409,9 +409,14 @@ export class UserData {
   // TRANSACTIONS
   //-----------------------------------------------------------------------
 
-  getTransactionsByDate(account) {    
-    //return this.housedata.child(this.user.houseid + '/transactions/' + account.$key).orderByChild('date').limitToLast(101);
+  getAllTransactionsByDate(account) {
     return this.housedata.child(this.user.houseid + '/transactions/' + account.$key).orderByChild('date');
+  }
+  getTransactionsByDate(account) {
+    return this.housedata.child(this.user.houseid + '/transactions/' + account.$key).orderByChild('date').limitToLast(50);
+  }
+  getTransactionsByDateCustom(account, limit) {
+    return this.housedata.child(this.user.houseid + '/transactions/' + account.$key).orderByChild('date').limitToLast(limit);
   }
 
   addTransaction(transaction) {

@@ -1,0 +1,175 @@
+
+page-transaction-list-virtual {
+
+  .customTransDesc {
+    text-align: left;
+    height: 37px;
+    font: 20px 'PT Sans Narrow', sans-serif;
+    font-weight: bold;
+    padding-left: 16px;
+    color: #444;
+    font-size: 20px;
+  }
+  .customTransDesc span small {
+      position: absolute;
+      font: 13px 'Helvetica Neue', sans-serif;
+      top: 35px;
+      left: -19px;
+      color: #A0A0A0;
+      font-weight: normal;
+  }
+  .customTransDesc span small ul {
+    display: block;
+    list-style-type: none;
+  }
+  .customTransDesc span small ul li {
+    float: left;
+    margin-right: 15px;
+  }
+  .customTransDesc .fa {
+      padding-right: 5px;
+  }
+  .customTransAmt {
+    text-align: left;
+    height: 37px;
+    font: 20px 'PT Sans Narrow', sans-serif;
+    font-weight: bold;
+    padding-right: 55px;
+    color: #444;
+    font-size: 20px;
+    float: right;
+  }
+  .customTransAmt span {
+    position: relative;
+    top: 1px;
+  }
+  .customTransAmt span small {
+    position: absolute;
+    font: 16px 'PT Sans Narrow', sans-serif;
+    top: 20px;
+    right: 0;
+    color: #A0A0A0;
+    font-weight: bold;
+  }
+  .transactionIsCleared .item-content {
+    background-color: #eee;
+    -webkit-transition: all linear 0.5s;
+    -o-transition: all linear 0.5s;
+    transition: all linear 0.5s;
+  }
+  .ml-item {
+    padding: 0;
+  }
+  .ml-item.item-block .item-inner {
+    padding: 0;
+  }
+  .ml-item.item-block ion-label {
+    padding: 0;
+    margin-right: 0;
+  }
+  .Expense {
+    color: #CE1B31;
+  }
+  .textBlack {
+      color: #000;
+  }
+  .Income {
+      color: #1AAC57;
+  }
+  .toggleTransactionCleared {
+    text-align: center;
+    width: 52px;
+    height: auto;
+    position: absolute;
+    margin: auto 0;
+      margin-left: auto;
+      margin-right: auto;
+    border: none;
+    -webkit-appearance: none;
+      -moz-appearance: none;
+    -ms-appearance: none;
+    -o-appearance: none;
+    appearance: none;
+      background-color: transparent;
+  }
+  .toggleTransactionCleared:after {
+    content: '\f00c';
+    line-height: 43px;
+    font-size: 17px;
+    color: #ebebeb;
+    text-shadow: 0 -1px 0 #bfbfbf;
+      font-family: FontAwesome;
+  }
+  .toggleTransactionCleared:checked:after {
+    color: #00A2E8;
+    bottom: 1px;
+    position: relative;
+  }
+
+  ion-item-divider ion-label {
+    text-transform: uppercase;
+    color: #6d6d72;
+    font-size: 12px;
+  }
+
+  .center {
+    text-align: center;
+  }
+
+  .balancesRow {
+    font-weight: bold;
+    font: 13px 'PT Sans Narrow', sans-serif;
+    text-align: center;
+  }
+
+  .balancesRow span {
+    display: block;
+    font-weight: normal;
+    font-size: 15px;
+  }
+
+  .colBorder {
+    border-right: 1px solid #AED9E3;
+  }
+  .button-float {
+    background: #00A2E8;
+    color: white !important;
+    z-index: 12 !important;
+    position: absolute !important;
+    bottom: 15px !important;
+    right: 41%;
+    width: 65px;
+    height: 65px;
+    border-radius: 50% !important;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26) !important;
+    -webkit-transform: translate3d(0, 0, 0) !important;
+    transform: translate3d(0, 0, 0) !important;
+    -webkit-transition: 0.2s linear !important;
+    transition: 0.2s linear !important;
+    -webkit-transition-property: -webkit-transform, all !important;
+    transition-property: transform, all !important;
+  }
+  .button-float:hover {
+    -webkit-transform: translate3d(0, -1px, 0) !important;
+    transform: translate3d(0, -1px, 0) !important;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4) !important;
+    background: #0076A8 !important;
+  }
+  .button-float ion-icon {
+    font-size: 34px;
+  }
+  .fab ion-icon {
+    font-size: 3.4rem;
+    font-weight: bolder;
+  }
+  .fab {
+    width: 65px;
+    height: 65px;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26)
+  }
+
+  /*.list-ios .item-block .item-inner:last-child {
+    border-bottom: none;
+  }*/
+
+}

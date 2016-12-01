@@ -10,7 +10,7 @@ export interface ITransaction {
   category: string;
   categoryid: string;
   clearedBal: string;
-  date: Date;
+  date: string;
   iscleared: boolean;
   isphoto: boolean;
   isrecurring: boolean;
@@ -40,7 +40,7 @@ export class Transaction implements ITransaction {
     public category: string,
     public categoryid: string,
     public clearedBal: string,
-    public date: Date,
+    public date: string,
     public iscleared: boolean,
     public isphoto: boolean,
     public isrecurring: boolean,
