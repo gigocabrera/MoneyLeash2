@@ -10,7 +10,7 @@ import { UserData } from '../../../providers/user-data';
 import { TransactionData } from '../../../providers/transaction-data';
 
 // models
-import { Transaction } from '../../../models/transaction.model';
+import { Transaction, ITransaction } from '../../../models/transaction.model';
 
 import * as moment from 'moment';
 
@@ -72,7 +72,8 @@ export class TransactionsVirtualPage {
           '',
           ''
         );
-        tempTransaction.date = moment(transaction.date).format('MMMM D, YYYY hh:mm a');
+        //tempTransaction.date = moment(transaction.date).format('MMMM D, YYYY hh:mm a');
+        tempTransaction.date = moment(transaction.date).format('MMMM D, YYYY');
 
         rawList.push(tempTransaction);
 
@@ -107,42 +108,27 @@ export class TransactionsVirtualPage {
     console.log(transaction);
   }
 
-  myHeaderFn(transaction, recordIndex, records) {
-    //
-    // Add grouping functionality
-    //
-    let currentDate;
-    let previousDay = '';
-    let previousYear = '';
-    let format = 'MMMM DD, YYYY';
-    let groupValue = '';
-    let todaysDate = new Date();
-    let todayFlag = false;
+  myHeaderFn(transaction: ITransaction, recordIndex, transactions) {
 
-    currentDate = moment(transaction.date).format(format);
-    
-    if (!previousDay || currentDate.getDate() !== previousDay || currentDate.getFullYear() !== previousYear) {
-      var dividerId = moment(transaction.date).format(format);
-      if (dividerId !== groupValue) {
-        groupValue = dividerId;
-        var tday = moment(todaysDate).format(format);
-        if (tday === dividerId) {
-            todayFlag = true;
-        } else {
-            todayFlag = false;
-        }
-        let newGroup = {
-            label: groupValue,
-            transactions: [],
-            isToday: todayFlag
-        };
-        return dividerId;
-      }
+    let prevTransaction: ITransaction;
+    let prevTransDate;
+    let thisTransDate;
+
+    prevTransaction = transactions[recordIndex - 1];
+    thisTransDate = transaction.date;
+
+    if (prevTransaction === undefined) {
+      return thisTransDate;
     }
-    /*if (recordIndex % 20 === 0) {
-      return 'Header ' + recordIndex;
-    }*/
-    return null;
+
+    prevTransDate = prevTransaction.date;
+
+    if (prevTransDate === thisTransDate) {
+      return null;
+    } else {
+      return thisTransDate;
+    }
+
   }
   
 }

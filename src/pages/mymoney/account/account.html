@@ -16,10 +16,18 @@
     <ion-item-divider>
       {{ listheader }}
     </ion-item-divider>
-    <ion-item class="ml-input">
+    <div [ngClass]="{'cssSlideUp': showValidationMessage, 'ng-hide': !showValidationMessage}">
+      <span style="line-height:40px;">{{ validationMessage }}</span>
+    </div>
+    <ion-item class="ml-input" (click)="pickAccountName()">
       <ion-icon name="md-clipboard" item-left></ion-icon>
-      <ion-label floating>Account Name</ion-label>
-      <ion-input [(ngModel)]="account.accountname" type="text" spellcheck="false" autocapitalize="on"></ion-input>
+      <div *ngIf="hasDataAccountName">
+        <p class="ml-label-has-input">Account Name</p>
+        <h2 class="ml-has-input">{{ account.accountname }}</h2>
+      </div>
+      <div *ngIf="!hasDataAccountName">
+        <h2 class="ml-has-no-input">Account Name</h2>
+      </div>
       <ion-icon name="arrow-forward" item-right color="mliconarrowblue"></ion-icon>
     </ion-item>
     <ion-item class="ml-input">
@@ -27,10 +35,10 @@
       <ion-label floating>Account Open Date</ion-label>
       <ion-datetime displayFormat="MMM DD YYYY" pickerFormat="MMM DD YYYY" [(ngModel)]="account.dateopen"></ion-datetime>
       <ion-icon name="arrow-forward" item-right color="mliconarrowblue"></ion-icon>
-    </ion-item>
+    </ion-item>    
     <ion-item class="ml-input" (click)="pickAccountType()">
       <ion-icon name="md-cash" item-left></ion-icon>
-      <div *ngIf="hasData" [ngClass]="{'fade-in': account.mode === 'New'}">
+      <div *ngIf="hasDataAccountType" [ngClass]="{'fade-in': account.mode === 'New'}">
         <p class="ml-label-has-input">
             Account Type
         </p>
@@ -38,7 +46,7 @@
             {{ account.accounttype }}
         </h2>
       </div>
-      <div *ngIf="!hasData">
+      <div *ngIf="!hasDataAccountType">
         <h2 class="ml-has-no-input">
             Account Type
         </h2>

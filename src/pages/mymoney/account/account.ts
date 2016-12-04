@@ -4,9 +4,14 @@ import { NavController, ModalController, NavParams } from 'ionic-angular';
 
 // app pages
 import { PickAccountTypePage } from '../../mypicklists/pickaccounttype/pickaccounttype';
+import { PickAccountNamePage } from '../../mypicklists/pickaccountname/pickaccountname';
 
 // services
 import { UserData } from '../../../providers/user-data';
+import { AccountData } from '../../../providers/account-data';
+
+// models
+import { IAccount } from '../../../models/account.model';
 
 @Component({
   templateUrl: 'account.html'
@@ -14,26 +19,59 @@ import { UserData } from '../../../providers/user-data';
 
 export class AccountPage {
 
-  hasData: boolean = true;
+  validationMessage: string;
+  showValidationMessage: boolean = false;
+  hasDataAccountName: boolean = false;
+  hasDataAccountType: boolean = false;
   title: string;
   listheader: string;
-  account: any;
+  account: IAccount;
 
   constructor(
       public nav: NavController,
       public modalController: ModalController,
       public navParams: NavParams,
-      public userData: UserData) {
+      public userData: UserData,
+      public accountData: AccountData) {
 
     this.account = this.navParams.data.paramAccount;
     if (this.account.mode === 'New') {
       this.title = 'Create Account';
       this.listheader = 'Enter Account Details';
-      this.hasData = false;
+      this.hasDataAccountName = false;
+      this.hasDataAccountType = false;
     } else {
       this.title = 'Edit Account';
       this.listheader = 'Edit Account Details';
-      this.hasData = true;
+      this.hasDataAccountName = true;
+      this.hasDataAccountType = true;
+    }
+  }
+
+  ionViewWillEnter() {
+    let referrer = this.accountData.getReferrer();
+    switch (referrer) {
+      case 'AccountsPage': {
+        this.accountData.reset();
+        break;
+      }
+      case 'PickAccountNamePage': {
+        // Account name
+        this.account.accountname = this.accountData.getAccountName();
+        if (this.account.accountname != '') {
+          this.hasDataAccountName = true;
+        }
+        break;
+      }
+      case 'PickAccountTypePage': {
+        // Account Type
+        let item: any = this.accountData.getAccountType();
+        if (item != '') {
+          this.account.accounttype = item.name;
+          this.hasDataAccountType = true;
+        }
+        break;
+      }
     }
   }
 
@@ -46,19 +84,18 @@ export class AccountPage {
     this.nav.pop();
   }
 
-  pickAccountType() {
-    let modal = this.modalController.create(PickAccountTypePage, {paramType: this.account.type});
-    modal.present(modal);
-    modal.onDidDismiss((data: any[]) => {
-      if (data) {
-        this.onPickAccountType(data);
-      }
-    });
+  pickAccountName() {
+    this.nav.push(PickAccountNamePage);
   }
 
-  onPickAccountType(item) {
-    this.account.accounttype = item.name;
-    this.hasData = true;
+  pickAccountType() {
+    if (!this.hasDataAccountName) {
+      // Make sure the account name has been entered
+      this.showValidationMessage = true;
+      this.validationMessage = "Please enter account name";
+      return;
+    }
+    this.nav.push(PickAccountTypePage);
   }
   
 }

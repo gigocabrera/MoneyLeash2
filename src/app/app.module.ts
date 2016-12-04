@@ -37,6 +37,7 @@ import { TransactionPage } from '../pages/mymoney/transaction/transaction';
 import { PickDefaultBalancePage } from '../pages/mypicklists/pickdefaultbalance/pickdefaultbalance';
 import { PickDefaultDatePage } from '../pages/mypicklists/pickdefaultdate/pickdefaultdate';
 import { PickAccountTypePage } from '../pages/mypicklists/pickaccounttype/pickaccounttype';
+import { PickAccountNamePage } from '../pages/mypicklists/pickaccountname/pickaccountname';
 import { PickCategoryTypePage } from '../pages/mypicklists/pickcategorytype/pickcategorytype';
 import { PickCategoryParentPage } from '../pages/mypicklists/pickcategoryparent/pickcategoryparent';
 import { PickTransactionTypePage } from '../pages/mypicklists/picktransactiontype/picktransactiontype';
@@ -56,6 +57,7 @@ import { TutorialPage } from '../pages/tutorial/tutorial';
 // services
 import { UserData } from '../providers/user-data';
 import { TransactionData } from '../providers/transaction-data';
+import { AccountData } from '../providers/account-data';
 
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 
@@ -103,6 +105,7 @@ const firebaseAuthConfig = {
     PickDefaultBalancePage,
     PickDefaultDatePage,
     PickAccountTypePage,
+    PickAccountNamePage,
     PickCategoryTypePage,
     PickCategoryParentPage,
     PickTransactionTypePage,
@@ -153,6 +156,7 @@ const firebaseAuthConfig = {
     PickDefaultBalancePage,
     PickDefaultDatePage,
     PickAccountTypePage,
+    PickAccountNamePage,
     PickCategoryTypePage,
     PickCategoryParentPage,
     PickTransactionTypePage,
@@ -166,6 +170,6 @@ const firebaseAuthConfig = {
     SignupPage,
     TutorialPage
   ],
-  providers: [UserData, TransactionData, {provide: ErrorHandler, useClass: IonicErrorHandler}]
+  providers: [UserData, TransactionData, AccountData, {provide: ErrorHandler, useClass: IonicErrorHandler}]
 })
 export class AppModule {}

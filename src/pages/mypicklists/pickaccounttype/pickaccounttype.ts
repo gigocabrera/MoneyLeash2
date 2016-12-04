@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 
-import { ViewController, NavParams } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 
 // services
 import { UserData } from '../../../providers/user-data';
+import { AccountData } from '../../../providers/account-data';
 
 @Component({
   templateUrl: 'pickaccounttype.html'
@@ -16,24 +17,26 @@ export class PickAccountTypePage {
   items: any;
   itemselected;
    
-  constructor(
-    public viewCtrl: ViewController, 
-    public navParams: NavParams,
-    public userData: UserData) {}
+  constructor( 
+    public nav: NavController,
+    public userData: UserData,
+    public accountData: AccountData) {}
 
   ionViewDidLoad() {
     this.loadAccountTypes();
     this.itemselected = {
-      text: this.navParams.data.paramType
+      text: this.accountData.getAccountType()
     }
   }
   
   save(item) {
-    this.viewCtrl.dismiss(item);
+    this.accountData.setReferrer('PickAccountTypePage');
+    this.accountData.setAccountType(item);
+    this.goBack();
   }
   
-  dismiss() {
-    this.viewCtrl.dismiss();
+  goBack() {
+    this.nav.pop();
   }
   
   loadAccountTypes() {

@@ -168,6 +168,16 @@ page-transaction-list-virtual {
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26)
   }
 
+  .header-ios {
+    border-width: 0;
+  }
+  .header-md {
+    border-width: 0;
+  }
+  .header-wp {
+    border-width: 0;
+  }
+
   /*.list-ios .item-block .item-inner:last-child {
     border-bottom: none;
   }*/

@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
 // services
-import { UserData } from '../../../providers/user-data';
 import { TransactionData } from '../../../providers/transaction-data';
 
 @Component({
@@ -21,7 +20,6 @@ export class PickAmountPage {
    
   constructor(
       public nav: NavController,
-      public userData: UserData,
       public transactionData: TransactionData) {}
 
   ionViewDidLoad() {
