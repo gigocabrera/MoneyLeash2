@@ -56,6 +56,7 @@ export class UserData {
         this.userauth = authData;
         this.user = credentials;
         this.createInitialSetup();
+        this.saveLocalStorage(credentials);
         resolve();
       }).catch((error) => {
         reject(error);

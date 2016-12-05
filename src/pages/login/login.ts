@@ -26,7 +26,6 @@ export class LoginPage {
     public userData: UserData) {
 
     this.login.email = 'paulina@test.com';
-    this.login.password = '111111';
 
    }
 

@@ -13,6 +13,8 @@ import { AccountData } from '../../../providers/account-data';
 // models
 import { IAccount } from '../../../models/account.model';
 
+import * as moment from 'moment';
+
 @Component({
   templateUrl: 'account.html'
 })
@@ -42,6 +44,7 @@ export class AccountPage {
       this.hasDataAccountType = false;
     } else {
       this.title = 'Edit Account';
+      this.account.displaydateopen = moment(this.account.dateopen).format('MMMM D, YYYY');
       this.listheader = 'Edit Account Details';
       this.hasDataAccountName = true;
       this.hasDataAccountType = true;
@@ -76,12 +79,20 @@ export class AccountPage {
   }
 
   save(account) {
-    if (this.account.mode === 'New') {
+
+    // Format date
+    console.log(account.dateopen);
+    let dt = moment(account.dateopen, 'MMMM D, YYYY').valueOf();
+    account.dateopen = dt;
+    
+    console.log(dt);
+    
+    /*if (this.account.mode === 'New') {
       this.userData.addAccount(account);
     } else {
       this.userData.updateAccount(account);
     }
-    this.nav.pop();
+    this.nav.pop();*/
   }
 
   pickAccountName() {

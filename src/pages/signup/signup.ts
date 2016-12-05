@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, AlertController, LoadingController } from 'ionic-angular';
+import { NavController, AlertController } from 'ionic-angular';
 
 // app pages
 import { AccountListPage } from '../mymoney/account-list/account-list';
@@ -20,29 +20,27 @@ export class SignupPage {
   constructor(
     public nav: NavController,
     public alertController: AlertController,
-    public loadingController: LoadingController,
-    public userData: UserData) { }
+    public userData: UserData) {}
   
   onSignup(form) {
     this.submitted = true;
     if (form.valid) {      
-      let loading = this.loadingController.create({
-        content: 'Please wait...'
-      });
-      loading.present();
-
+      this.userData.showLoadingController();
       this.userData.createUser(this.signup).then(() => {
-          //this.userData.saveLocalStorage(this.signup);
-          //this.userData.createInitialSetup(this.signup);
-          this.nav.setRoot(AccountListPage, {}, {animate: true, direction: 'forward'});
-          loading.dismiss();
+          this.SignupSuccess();
         }).catch(
         (error) => {
+          this.userData.dismissLoadingController();
           this.SignUpError(error);
-          loading.dismiss();
         }
       );
     }
+  }
+
+  SignupSuccess() {
+    setTimeout(() => {
+        this.nav.setRoot(AccountListPage, {}, {animate: true, direction: 'forward'});
+      }, 1000);    
   }
   
   SignUpError(error): void {

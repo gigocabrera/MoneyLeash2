@@ -8,6 +8,7 @@ export interface IAccount {
   balancecurrent: string;
   balancetoday: string;
   dateopen: string;
+  displaydateopen: string;
   totalclearedtransactions: string;
   totalpendingtransactions: string;
   totaltransactions: string;
@@ -26,6 +27,7 @@ export class Account implements IAccount {
     public balancecurrent: string,
     public balancetoday: string,
     public dateopen: string,
+    public displaydateopen: string,
     public totalclearedtransactions: string,
     public totalpendingtransactions: string,
     public totaltransactions: string,
