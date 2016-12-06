@@ -58,6 +58,8 @@ export class TransactionsVirtualPage {
           transaction.categorid,
           transaction.clearedBal,
           transaction.date,
+          transaction.displaydate,
+          transaction.displaytime,
           transaction.iscleared,
           transaction.isphoto,
           transaction.isrecurring,
@@ -73,7 +75,7 @@ export class TransactionsVirtualPage {
           ''
         );
         //tempTransaction.date = moment(transaction.date).format('MMMM D, YYYY hh:mm a');
-        tempTransaction.date = moment(transaction.date).format('MMMM D, YYYY');
+        tempTransaction.displaydate = moment(transaction.date).format('MMMM D, YYYY');
 
         rawList.push(tempTransaction);
 
@@ -88,14 +90,18 @@ export class TransactionsVirtualPage {
   }
 
   newTransaction() {
-    let tempTransaction = new Transaction(null,null,null,null,null,null,null,null,null,null,null,null,false,false,false,false,null,null,null,null,null,null,null,"New",null);
+    let tempTransaction = new Transaction(null,null,null,null,null,null,null,null,null,null,null,null,null,null,false,false,false,false,null,null,null,null,null,null,null,"New",null);
     this.transactionData.setReferrer('TransactionsPage');
-    this.nav.push(TransactionPage, {paramTransaction: tempTransaction});
+    this.nav.push(TransactionPage, {paramTransaction: tempTransaction, paramAccount: this.account});
   }
 
-  edit(transaction) {
-    this.transactionData.setReferrer('TransactionsPage');
-    this.nav.push(TransactionPage, {paramTransaction: transaction});
+  handleSwipeAndTap($event, transaction) {
+    $event.stopPropagation();
+    //let options = $event.currentTarget.querySelector('.item-options');
+    console.log($event);
+
+    //this.transactionData.setReferrer('TransactionsPage');
+    //this.nav.push(TransactionPage, {paramTransaction: transaction, paramAccount: this.account});
   }
 
   delete(transaction) {
@@ -115,13 +121,13 @@ export class TransactionsVirtualPage {
     let thisTransDate;
 
     prevTransaction = transactions[recordIndex - 1];
-    thisTransDate = transaction.date;
+    thisTransDate = transaction.displaydate;
 
     if (prevTransaction === undefined) {
       return thisTransDate;
     }
 
-    prevTransDate = prevTransaction.date;
+    prevTransDate = prevTransaction.displaydate;
 
     if (prevTransDate === thisTransDate) {
       return null;

@@ -11,6 +11,8 @@ export interface ITransaction {
   categoryid: string;
   clearedBal: string;
   date: string;
+  displaydate: string;
+  displaytime: string;
   iscleared: boolean;
   isphoto: boolean;
   isrecurring: boolean;
@@ -41,6 +43,8 @@ export class Transaction implements ITransaction {
     public categoryid: string,
     public clearedBal: string,
     public date: string,
+    public displaydate: string,
+    public displaytime: string,
     public iscleared: boolean,
     public isphoto: boolean,
     public isrecurring: boolean,

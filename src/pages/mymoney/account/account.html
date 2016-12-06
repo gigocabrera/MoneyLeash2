@@ -7,7 +7,7 @@
       {{ title }}
     </ion-title>
     <ion-buttons end>
-      <button ion-button (click)="save(account)">Save</button>
+      <button ion-button (click)="save()">Save</button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
@@ -32,13 +32,13 @@
     </ion-item>
     <ion-item class="ml-input">
       <ion-icon name="md-calendar" item-left></ion-icon>
-      <ion-label floating>Account Open Date</ion-label>
-      <ion-datetime displayFormat="MMM DD YYYY" pickerFormat="MMM DD YYYY" [(ngModel)]="account.dateopen"></ion-datetime>
+      <ion-label floating class="dt-has-no-input">Account Open Date</ion-label>
+      <ion-datetime displayFormat="MMMM D, YYYY" pickerFormat="MMMM D, YYYY" [(ngModel)]="displaydate"></ion-datetime>
       <ion-icon name="arrow-forward" item-right color="mliconarrowblue"></ion-icon>
     </ion-item>    
     <ion-item class="ml-input" (click)="pickAccountType()">
       <ion-icon name="md-cash" item-left></ion-icon>
-      <div *ngIf="hasDataAccountType" [ngClass]="{'fade-in': account.mode === 'New'}">
+      <div *ngIf="hasDataAccountType">
         <p class="ml-label-has-input">
             Account Type
         </p>

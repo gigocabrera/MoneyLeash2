@@ -23,11 +23,9 @@ export class PickPayeePage {
       public transactionData: TransactionData) {}
 
   ionViewDidLoad() {
-
     this.userData.getAllPayees().on('value', (payees) => {
       let arrpayees = [];
       payees.forEach( spanshot => {
-
         let payee = spanshot.val();
         let tempPayee = ({
           $key: spanshot.key,
@@ -37,15 +35,12 @@ export class PickPayeePage {
       });
       this.payeeList = arrpayees;
       this.loadedPayeeList = arrpayees;
+      if (this.transactionData.getPayeeName() != '') {
+        this.searchTerm = this.transactionData.getPayeeName();
+        this.doFilterList(this.searchTerm);
+      }
+      this.userData.dismissLoadingController();
     });
-
-    if (this.transactionData.getPayeeName() != '') {
-      this.searchTerm = this.transactionData.getPayeeName();
-      this.doFilterList(this.searchTerm);
-    }
-
-    this.userData.dismissLoadingController();
-
   }
 
   initializeItems(){

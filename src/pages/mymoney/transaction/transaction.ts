@@ -15,7 +15,10 @@ import { UserData } from '../../../providers/user-data';
 import { TransactionData } from '../../../providers/transaction-data';
 
 // models
+import { IAccount } from '../../../models/account.model';
 import { ITransaction } from '../../../models/transaction.model';
+
+import * as moment from 'moment';
 
 @Component({
   selector: 'page-transaction',
@@ -35,6 +38,7 @@ export class TransactionPage {
   hasDataPhoto: boolean = false;
   title: string;
   transaction: ITransaction;
+  account: IAccount;
 
   constructor(
       public nav: NavController,
@@ -44,6 +48,8 @@ export class TransactionPage {
       public transactionData: TransactionData) {
 
     this.transaction = this.navParams.data.paramTransaction;
+    this.account = this.navParams.data.paramAccount;
+
     if (this.transaction.mode === 'New') {
       this.title = 'Create Transaction';
       this.hasDataTransactionType = false;
@@ -52,7 +58,8 @@ export class TransactionPage {
       this.hasDataAmount = false;
       this.hasDataDate = false;
       this.hasDataNotes = false;
-      this.hasDataPhoto = false;      
+      this.hasDataPhoto = false;
+      this.transactionData.reset();
     } else {
       this.title = 'Edit Transaction';
       this.hasDataTransactionType = true;
@@ -62,6 +69,20 @@ export class TransactionPage {
       this.hasDataDate = true;
       this.hasDataNotes = true;
       this.hasDataPhoto = true;
+
+      // Format date
+      this.transaction.displaydate = moment(parseInt(this.transaction.date)).format();
+      this.transaction.displaytime = moment(parseInt(this.transaction.date)).format();
+
+      // Prepare services
+      console.log(this.transaction);
+      this.transactionData.setTransactionType(this.transaction.type);
+      this.transactionData.setPayeeName(this.transaction.payee);
+      this.transactionData.setPayeeID(this.transaction.payeeid);
+      this.transactionData.setCategoryName(this.transaction.category);
+      this.transactionData.setCategoryID(this.transaction.categoryid);
+      this.transactionData.setAmount(this.transaction.amount);
+      this.transactionData.setNotes(this.transaction.notes);
     }
   }
 
@@ -70,7 +91,6 @@ export class TransactionPage {
     let referrer = this.transactionData.getReferrer();
     switch (referrer) {
       case 'TransactionsPage': {
-        this.transactionData.reset();
         break;
       }
       case 'PickTransactionTypePage': {
@@ -127,14 +147,17 @@ export class TransactionPage {
   }
 
   save() {
+
+    // Format date
+    let dt = moment(this.transaction.displaydate, moment.ISO_8601).valueOf();
+    this.transaction.date = dt.toString();   
+
     if (this.transaction.mode === 'New') {
-      //this.userData.addAccount(account);
-      console.log('new');
+      this.userData.addTransaction(this.transaction, this.account);
     } else {
-      //this.userData.updateAccount(account);
-      console.log('old');
+      this.userData.updateTransaction(this.transaction, this.account);
     }
-    this.nav.pop();
+    //this.nav.pop();
   }
 
   pickTransactionType() {

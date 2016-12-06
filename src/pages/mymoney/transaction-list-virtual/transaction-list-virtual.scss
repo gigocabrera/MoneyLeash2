@@ -8,12 +8,12 @@ page-transaction-list-virtual {
     font-weight: bold;
     padding-left: 16px;
     color: #444;
-    font-size: 20px;
+    margin-top: -3px;
   }
   .customTransDesc span small {
       position: absolute;
-      font: 13px 'Helvetica Neue', sans-serif;
-      top: 35px;
+      font: 12px -apple-system, "Helvetica Neue", "Roboto", sans-serif;
+      top: 28px;
       left: -19px;
       color: #A0A0A0;
       font-weight: normal;
@@ -27,7 +27,7 @@ page-transaction-list-virtual {
     margin-right: 15px;
   }
   .customTransDesc .fa {
-      padding-right: 5px;
+    padding-right: 4px;
   }
   .customTransAmt {
     text-align: left;
@@ -38,6 +38,7 @@ page-transaction-list-virtual {
     color: #444;
     font-size: 20px;
     float: right;
+    margin-top: -3px;
   }
   .customTransAmt span {
     position: relative;

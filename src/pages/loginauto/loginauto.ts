@@ -13,6 +13,7 @@ import { UserData } from '../../providers/user-data';
 declare var firebase: any;
 
 @Component({
+  selector: 'page-loginauto',
   templateUrl: 'loginauto.html'
 })
 

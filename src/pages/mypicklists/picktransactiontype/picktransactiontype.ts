@@ -28,6 +28,7 @@ export class PickTransactionTypePage {
       { text: 'Expense', value: 'Expense'},
       { text: 'Transfer', value: 'Transfer'}
     );
+    console.log(this.transactionData.getTransactionType());
     this.itemselected = this.transactionData.getTransactionType();
   }
   

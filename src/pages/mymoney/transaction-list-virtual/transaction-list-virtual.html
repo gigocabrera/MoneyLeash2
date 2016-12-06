@@ -28,27 +28,27 @@
 </ion-header>
 <ion-content class="outer-content">
   
-  <ion-list [virtualScroll]="transactions" [approxItemHeight]="'70px'" [bufferRatio]="3" [headerFn]="myHeaderFn">
+  <ion-list [virtualScroll]="transactions" [approxItemHeight]="'75px'" [bufferRatio]="3" [headerFn]="myHeaderFn">
     
     <ion-item-divider sticky color="light" *virtualHeader="let header">
       {{ header }}
     </ion-item-divider>
     
-    <ion-item-sliding *virtualItem="let transaction" (click)="edit(transaction)">
+    <ion-item-sliding *virtualItem="let transaction" (click)="handleSwipeAndTap($event, transaction)">
       <ion-item class="ml-item">
         <ion-row>
           <ion-col width-50>
             <div class="customTransDesc">
               <span>
-                  {{ transaction.payee }}
-                  <small>
-                    <ul>
-                      <li><i class="fa fa-calendar"></i>{{ transaction.date }}</li>
-                      <li><i [ngClass]="{'fa fa-file-text-o': transaction.notes.length > 0}"></i></li>
-                      <li><i [ngClass]="{'fa fa-repeat': transaction.isrecurring == true }"></i></li>
-                      <li><i [ngClass]="{'fa fa-camera': transaction.isphoto == true}"></i></li>
-                      <li><i [ngClass]="{'fa fa-exchange': transaction.istransfer == true }"></i></li>
-                    </ul>
+                {{ transaction.payee }}
+                <small>
+                  <ul>
+                    <li><i class="fa fa-user"></i>{{ transaction.addedby }}</li>
+                    <li><i [ngClass]="{'fa fa-file-text-o': transaction.notes.length > 0}"></i></li>
+                    <li><i [ngClass]="{'fa fa-repeat': transaction.isrecurring == true }"></i></li>
+                    <li><i [ngClass]="{'fa fa-camera': transaction.isphoto == true}"></i></li>
+                    <li><i [ngClass]="{'fa fa-exchange': transaction.istransfer == true }"></i></li>
+                  </ul>
                 </small>
               </span>
             </div>

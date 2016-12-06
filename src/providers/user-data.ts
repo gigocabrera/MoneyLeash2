@@ -420,23 +420,68 @@ export class UserData {
     return this.housedata.child(this.user.houseid + '/transactions/' + account.$key).orderByChild('date').limitToLast(limit);
   }
 
-  addTransaction(transaction) {
-    var newACcount = {
-        'accountname': transaction.accname,
-        'accounttype': transaction.type,
-        'autoclear': 'false',
-        'balancecleared': '0',
-        'balancecurrent': '0',
-        'balancetoday': '0',
-        'dateopen': transaction.date,
-        'transactionid': '',
-        'balanceclass': 'textRed'
+  addTransaction(transaction, account) {
+    var newTransaction = {
+      'ClearedClass': transaction.ClearedClass,
+      'accountFrom': transaction.accountFrom,
+      'accountFromId': transaction.accountFromId,
+      'accountTo': transaction.accountTo,
+      'accountToId': transaction.accountToId,
+      'addedby': transaction.addedby,
+      'amount': transaction.amount,
+      'category': transaction.category,
+      'categoryid': transaction.categoryid,
+      'clearedBal': transaction.clearedBal,
+      'date': transaction.date,
+      'iscleared': transaction.iscleared,
+      'isphoto': transaction.isphoto,
+      'isrecurring': transaction.isrecurring,
+      'istransfer': transaction.istransfer,
+      'notes': transaction.notes,
+      'payee': transaction.payee,
+      'payeeid': transaction.payeeid,
+      'photo': transaction.photo,
+      'runningbal': transaction.runningbal,
+      'type': transaction.type,
+      'typedisplay': transaction.typedisplay,
+      'mode': transaction.mode,
+      'checked': transaction.checked 
     }
-    //this.housedata.child(this.user.houseid + "/accounts/").push(newACcount);
+    this.housedata.child(this.user.houseid + '/transactions/' + account.$key + "/").push(newTransaction);
   }
 
-  updateTransaction(transaction) {
-    //this.housedata.child(this.user.houseid + '/accounts/' + account.$key).update({ 'accountname' : account.accountname, 'accounttype' : account.accounttype, 'dateopen' : account.dateopen });
+  updateTransaction(transaction, account) {
+
+    console.log(transaction);
+    
+    //this.housedata.child(this.user.houseid + '/transactions/' + account.$key + "/" + transaction.$key).update({ 'notes' : transaction.notes });
+
+    /*this.housedata.child(this.user.houseid + '/transactions/' + account.$key + "/" + transaction.$key).update({ 
+      'ClearedClass': transaction.ClearedClass,
+      'accountFrom': transaction.accountFrom,
+      'accountFromId': transaction.accountFromId,
+      'accountTo': transaction.accountTo,
+      'accountToId': transaction.accountToId,
+      'addedby': transaction.addedby,
+      'amount': transaction.amount,
+      'category': transaction.category,
+      'categoryid': transaction.categoryid,
+      'clearedBal': transaction.clearedBal,
+      'date': transaction.date,
+      'iscleared': transaction.iscleared,
+      'isphoto': transaction.isphoto,
+      'isrecurring': transaction.isrecurring,
+      'istransfer': transaction.istransfer,
+      'notes': transaction.notes,
+      'payee': transaction.payee,
+      'payeeid': transaction.payeeid,
+      'photo': transaction.photo,
+      'runningbal': transaction.runningbal,
+      'type': transaction.type,
+      'typedisplay': transaction.typedisplay,
+      'mode': transaction.mode,
+      'checked': transaction.checked 
+    });*/
   }
 
   deleteTransaction(transaction) {

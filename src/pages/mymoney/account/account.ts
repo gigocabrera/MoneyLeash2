@@ -28,6 +28,7 @@ export class AccountPage {
   title: string;
   listheader: string;
   account: IAccount;
+  displaydate: string;
 
   constructor(
       public nav: NavController,
@@ -44,10 +45,12 @@ export class AccountPage {
       this.hasDataAccountType = false;
     } else {
       this.title = 'Edit Account';
-      this.account.displaydateopen = moment(this.account.dateopen).format('MMMM D, YYYY');
       this.listheader = 'Edit Account Details';
       this.hasDataAccountName = true;
       this.hasDataAccountType = true;
+
+      // Format date
+      this.displaydate = moment(parseInt(this.account.dateopen)).format();
     }
   }
 
@@ -78,24 +81,22 @@ export class AccountPage {
     }
   }
 
-  save(account) {
+  save() {
 
     // Format date
-    console.log(account.dateopen);
-    let dt = moment(account.dateopen, 'MMMM D, YYYY').valueOf();
-    account.dateopen = dt;
+    let dt = moment(this.displaydate, moment.ISO_8601).valueOf();
+    this.account.dateopen = dt.toString();
     
-    console.log(dt);
-    
-    /*if (this.account.mode === 'New') {
-      this.userData.addAccount(account);
+    if (this.account.mode === 'New') {
+      this.userData.addAccount(this.account);
     } else {
-      this.userData.updateAccount(account);
+      this.userData.updateAccount(this.account);
     }
-    this.nav.pop();*/
+    this.nav.pop();
   }
 
   pickAccountName() {
+    this.showValidationMessage = false;
     this.nav.push(PickAccountNamePage);
   }
 

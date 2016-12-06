@@ -66,7 +66,13 @@
     <ion-item class="ml-input">
       <ion-icon name="md-calendar" item-left></ion-icon>
       <ion-label floating>Transaction Date</ion-label>
-      <ion-datetime displayFormat="MMM DD YYYY" pickerFormat="MMM DD YYYY" [(ngModel)]="transaction.date"></ion-datetime>
+      <ion-datetime displayFormat="MMMM D, YYYY" pickerFormat="MMMM D, YYYY" [(ngModel)]="transaction.displaydate"></ion-datetime>
+      <ion-icon name="arrow-forward" item-right color="mliconarrowblue"></ion-icon>
+    </ion-item>
+    <ion-item class="ml-input">
+      <ion-icon name="md-clock" item-left></ion-icon>
+      <ion-label floating>Transaction Time</ion-label>
+      <ion-datetime displayFormat="hh:mm A" [(ngModel)]="transaction.displaytime"></ion-datetime>
       <ion-icon name="arrow-forward" item-right color="mliconarrowblue"></ion-icon>
     </ion-item>
     <ion-item class="ml-input" (click)="pickNotes()">

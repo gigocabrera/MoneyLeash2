@@ -1,9 +1,11 @@
 
 page-tutorial{
   
+  .header-ios {
+    border-style: none;
+  }
   .toolbar-background {
     background: #172F39;
-    border-color: transparent;
   }
   .swiper-pagination-bullet {
     background: #fff;

@@ -59,6 +59,8 @@ export class TransactionsReorderPage {
           transaction.categorid,
           transaction.clearedBal,
           transaction.date,
+          transaction.displaydate,
+          transaction.displaytime,
           transaction.iscleared,
           transaction.isphoto,
           transaction.isrecurring,
@@ -88,7 +90,7 @@ export class TransactionsReorderPage {
   }
 
   newTransaction() {
-    let tempTransaction = new Transaction(null,null,null,null,null,null,null,null,null,null,null,null,false,false,false,false,null,null,null,null,null,null,null,"New",null);
+    let tempTransaction = new Transaction(null,null,null,null,null,null,null,null,null,null,null,null,null,null,false,false,false,false,null,null,null,null,null,null,null,"New",null);
     this.transactionData.setReferrer('TransactionsPage');
     this.nav.push(TransactionPage, {paramTransaction: tempTransaction});
   }
