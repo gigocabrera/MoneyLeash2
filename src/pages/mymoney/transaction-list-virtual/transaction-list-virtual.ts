@@ -42,6 +42,8 @@ export class TransactionsVirtualPage {
     this.userData.getAllTransactionsByDate(this.account).on('value', (transactions) => {
 
       let rawList= [];
+      let count: number = 0;
+
       transactions.forEach( spanshot => {
         
         var transaction = spanshot.val();
@@ -55,7 +57,7 @@ export class TransactionsVirtualPage {
           transaction.addedby,
           transaction.amount,
           transaction.category,
-          transaction.categorid,
+          transaction.categoryid,
           transaction.clearedBal,
           transaction.date,
           transaction.displaydate,
@@ -72,12 +74,15 @@ export class TransactionsVirtualPage {
           transaction.type,
           transaction.typedisplay,
           '',
-          ''
+          '',
+          count
         );
-        //tempTransaction.date = moment(transaction.date).format('MMMM D, YYYY hh:mm a');
-        tempTransaction.displaydate = moment(transaction.date).format('MMMM D, YYYY');
+        let dt = moment(parseInt(transaction.date)).format();
+        tempTransaction.displaydate = moment(dt).format('MMMM D, YYYY');
 
         rawList.push(tempTransaction);
+        
+        count++;
 
       });
       this.transactions = rawList;
@@ -90,16 +95,20 @@ export class TransactionsVirtualPage {
   }
 
   newTransaction() {
-    let tempTransaction = new Transaction(null,null,null,null,null,null,null,null,null,null,null,null,null,null,false,false,false,false,null,null,null,null,null,null,null,"New",null);
+    let tempTransaction = new Transaction(null,null,null,null,null,null,null,null,null,null,null,null,null,null,false,false,false,false,null,null,null,null,null,null,null,"New",null,0);
     this.transactionData.setReferrer('TransactionsPage');
     this.nav.push(TransactionPage, {paramTransaction: tempTransaction, paramAccount: this.account});
   }
 
-  handleSwipeAndTap($event, transaction) {
-    $event.stopPropagation();
-    //let options = $event.currentTarget.querySelector('.item-options');
-    console.log($event);
+  edit(transaction) {
+    
+    let pos = this.transactions.map(function(e) { return e.recordindex; }).indexOf(transaction.recordindex);
+    console.log(pos);
 
+    let prevTransaction = this.transactions[pos + 1];
+    console.log(transaction);
+    console.log(prevTransaction);
+    
     //this.transactionData.setReferrer('TransactionsPage');
     //this.nav.push(TransactionPage, {paramTransaction: transaction, paramAccount: this.account});
   }
@@ -128,7 +137,6 @@ export class TransactionsVirtualPage {
     }
 
     prevTransDate = prevTransaction.displaydate;
-
     if (prevTransDate === thisTransDate) {
       return null;
     } else {

@@ -3,20 +3,19 @@ page-transaction-list-virtual {
 
   .customTransDesc {
     text-align: left;
-    height: 37px;
-    font: 20px 'PT Sans Narrow', sans-serif;
+    height: 40px;
+    font: 22px 'PT Sans Narrow', sans-serif;
     font-weight: bold;
     padding-left: 16px;
     color: #444;
-    margin-top: -3px;
   }
   .customTransDesc span small {
-      position: absolute;
-      font: 12px -apple-system, "Helvetica Neue", "Roboto", sans-serif;
-      top: 28px;
-      left: -19px;
-      color: #A0A0A0;
-      font-weight: normal;
+    position: absolute;
+    font: 12px -apple-system, "Helvetica Neue", "Roboto", sans-serif;
+    top: 38px;
+    left: -14px;
+    color: #A0A0A0;
+    font-weight: normal;
   }
   .customTransDesc span small ul {
     display: block;
@@ -30,19 +29,15 @@ page-transaction-list-virtual {
     padding-right: 4px;
   }
   .customTransAmt {
-    text-align: left;
-    height: 37px;
+    height: 40px;
     font: 20px 'PT Sans Narrow', sans-serif;
     font-weight: bold;
-    padding-right: 55px;
     color: #444;
     font-size: 20px;
-    float: right;
-    margin-top: -3px;
   }
   .customTransAmt span {
     position: relative;
-    top: 1px;
+    right: -35px;
   }
   .customTransAmt span small {
     position: absolute;
@@ -78,20 +73,18 @@ page-transaction-list-virtual {
       color: #1AAC57;
   }
   .toggleTransactionCleared {
-    text-align: center;
     width: 52px;
     height: auto;
-    position: absolute;
     margin: auto 0;
-      margin-left: auto;
-      margin-right: auto;
+    margin-left: auto;
+    margin-right: auto;
     border: none;
     -webkit-appearance: none;
-      -moz-appearance: none;
+    -moz-appearance: none;
     -ms-appearance: none;
     -o-appearance: none;
     appearance: none;
-      background-color: transparent;
+    background-color: transparent;
   }
   .toggleTransactionCleared:after {
     content: '\f00c';
@@ -177,6 +170,10 @@ page-transaction-list-virtual {
   }
   .header-wp {
     border-width: 0;
+  }
+
+  .noborder .item-block .item-inner{
+    border-bottom: none;
   }
 
 }

@@ -83,7 +83,8 @@ export class TransactionsPage {
           transaction.type,
           transaction.typedisplay,          
           '',
-          ''
+          '',
+          transaction.recordindex
         );
 
         if (transaction.iscleared) {
@@ -141,7 +142,7 @@ export class TransactionsPage {
   }
 
   newTransaction() {
-    let tempTransaction = new Transaction(null,null,null,null,null,null,null,null,null,null,null,null,null,null,false,false,false,false,null,null,null,null,null,null,null,"New",null);
+    let tempTransaction = new Transaction(null,null,null,null,null,null,null,null,null,null,null,null,null,null,false,false,false,false,null,null,null,null,null,null,null,"New",null, 0);
     this.transactionData.setReferrer('TransactionsPage');
     this.nav.push(TransactionPage, {paramTransaction: tempTransaction});
   }

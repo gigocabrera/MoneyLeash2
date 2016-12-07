@@ -73,7 +73,8 @@ export class TransactionsReorderPage {
           transaction.type,
           transaction.typedisplay,
           '',
-          ''
+          '',
+          transaction.recordindex
         );
         tempTransaction.date = moment(transaction.date).format('MMMM D, YYYY hh:mm a');
 
@@ -90,7 +91,7 @@ export class TransactionsReorderPage {
   }
 
   newTransaction() {
-    let tempTransaction = new Transaction(null,null,null,null,null,null,null,null,null,null,null,null,null,null,false,false,false,false,null,null,null,null,null,null,null,"New",null);
+    let tempTransaction = new Transaction(null,null,null,null,null,null,null,null,null,null,null,null,null,null,false,false,false,false,null,null,null,null,null,null,null,"New",null,0);
     this.transactionData.setReferrer('TransactionsPage');
     this.nav.push(TransactionPage, {paramTransaction: tempTransaction});
   }

@@ -452,11 +452,7 @@ export class UserData {
 
   updateTransaction(transaction, account) {
 
-    console.log(transaction);
-    
-    //this.housedata.child(this.user.houseid + '/transactions/' + account.$key + "/" + transaction.$key).update({ 'notes' : transaction.notes });
-
-    /*this.housedata.child(this.user.houseid + '/transactions/' + account.$key + "/" + transaction.$key).update({ 
+    this.housedata.child(this.user.houseid + '/transactions/' + account.$key + "/" + transaction.$key).update({ 
       'ClearedClass': transaction.ClearedClass,
       'accountFrom': transaction.accountFrom,
       'accountFromId': transaction.accountFromId,
@@ -481,7 +477,7 @@ export class UserData {
       'typedisplay': transaction.typedisplay,
       'mode': transaction.mode,
       'checked': transaction.checked 
-    });*/
+    });
   }
 
   deleteTransaction(transaction) {
@@ -742,6 +738,29 @@ export class UserData {
         'totaltransactions' : totalTransactions.toFixed(0),
         'totalclearedtransactions' : totalClearedTransactions.toFixed(0),
         'totalpendingtransactions' : pendingTransactions.toFixed(0)
+      });
+
+    });
+
+  }
+
+  fixCategories(account) {
+
+    var ref = this.housedata.child(this.user.houseid + '/transactions/' + account.$key);
+    var query = ref.orderByChild('date');
+
+    query.once('value', (transactions) => {
+      
+      transactions.forEach( snapshot => {
+
+        var transaction = snapshot.val();
+        //
+        // Handle categories
+        //
+        if (transaction.categoryid === undefined) {
+
+        }
+
       });
 
     });

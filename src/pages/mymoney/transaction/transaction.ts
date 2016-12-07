@@ -75,7 +75,6 @@ export class TransactionPage {
       this.transaction.displaytime = moment(parseInt(this.transaction.date)).format();
 
       // Prepare services
-      console.log(this.transaction);
       this.transactionData.setTransactionType(this.transaction.type);
       this.transactionData.setPayeeName(this.transaction.payee);
       this.transactionData.setPayeeID(this.transaction.payeeid);
@@ -157,7 +156,7 @@ export class TransactionPage {
     } else {
       this.userData.updateTransaction(this.transaction, this.account);
     }
-    //this.nav.pop();
+    this.nav.pop();
   }
 
   pickTransactionType() {
