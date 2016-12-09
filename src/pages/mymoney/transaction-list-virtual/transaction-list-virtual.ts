@@ -102,7 +102,7 @@ export class TransactionsVirtualPage {
 
   edit(transaction) {
     
-    let pos = this.transactions.map(function(e) { return e.recordindex; }).indexOf(transaction.recordindex);
+    let pos = this.transactions.findIndex(x => x.recordindex === transaction.recordindex);
     console.log(pos);
 
     let prevTransaction = this.transactions[pos + 1];
@@ -119,8 +119,16 @@ export class TransactionsVirtualPage {
   }
 
   clearTransaction(transaction) {
-    console.log('clear');
-    console.log(transaction);
+    
+    let pos = this.transactions.findIndex(x => x.recordindex === transaction.recordindex);
+    
+    console.log(pos);
+
+    for (var i = this.transactions.length; i-- > 0; ) {
+      if (i <= pos) {
+        console.log(this.transactions[i]);
+      }
+    }
   }
 
   myHeaderFn(transaction: ITransaction, recordIndex, transactions) {

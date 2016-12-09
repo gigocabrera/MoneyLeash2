@@ -744,7 +744,7 @@ export class UserData {
 
   }
 
-  fixCategories(account) {
+  fixCategoriesTransactions(account) {
 
     var ref = this.housedata.child(this.user.houseid + '/transactions/' + account.$key);
     var query = ref.orderByChild('date');
