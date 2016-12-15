@@ -24,13 +24,13 @@
     "@ionic/storage": "1.1.6",
     "angularfire2": "^2.0.0-beta.6",
     "firebase": "3.3.0",
-    "font-awesome": "^4.6.3",
-    "ionic-angular": "^2.0.0-rc.3-201612021933",
-    "ionic-native": "^2.2.7",
+    "font-awesome": "4.7.0",
+    "ionic-angular": "2.0.0-rc.4",
+    "ionic-native": "2.2.11",
     "ionicons": "3.0.0",
     "moment": "2.17.1",
     "rxjs": "5.0.0-beta.12",
-    "zone.js": "^0.6.26"
+    "zone.js": "0.6.26"
   },
   "devDependencies": {
     "@ionic/app-scripts": "0.0.46",

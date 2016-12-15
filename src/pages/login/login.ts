@@ -36,7 +36,7 @@ export class LoginPage {
       this.userData.login(this.login)
       .then(() => {
           this.LoginSuccess();
-        }        
+        }
       )
       .catch(
         (error) => {

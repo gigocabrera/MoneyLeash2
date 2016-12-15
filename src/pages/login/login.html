@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header no-border>
   <ion-navbar>
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
@@ -15,11 +15,11 @@
       <form #loginForm="ngForm" novalidate id="loginFormId">
         <button block (click)="onLogin(loginForm)"><ion-icon name="ios-power"></ion-icon></button>
         <ion-input [(ngModel)]="login.email" type="email" name="email" placeholder="email" #email="ngModel" spellcheck="false" autocapitalize="off" required></ion-input>
-        <p ion-text [hidden]="email.valid || submitted == false" color="danger" padding-left>
+        <p [hidden]="email.valid || submitted == false" color="danger" padding-left>
           Email is required
         </p>
         <ion-input [(ngModel)]="login.password" type="password" name="password" placeholder="password" #password="ngModel" required></ion-input>
-        <p ion-text [hidden]="password.valid || submitted == false" color="danger" padding-left>
+        <p [hidden]="password.valid || submitted == false" color="danger" padding-left>
           Password is required
         </p>
       </form>
