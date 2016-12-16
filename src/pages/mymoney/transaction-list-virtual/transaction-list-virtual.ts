@@ -81,8 +81,29 @@ export class TransactionsVirtualPage {
         let dt = moment(parseInt(transaction.date)).format();
         tempTransaction.displaydate = moment(dt).format('MMMM D, YYYY');
 
-        //testing
-        tempTransaction.ionitemclass = "1";
+        // Determine if there is a date change to apply CSS
+        // Removes the bottom border for the last ion-item in the group
+        // This is necessary due to the shortcomings on the virtualScroll not supporting ion-item-group
+        if (count > 0) {
+          let prevTransaction: ITransaction;
+          let prevTransDate;
+          let thisTransDate;
+
+          // Get the date for the previous transaction
+          prevTransaction = rawList[count - 1];
+          prevTransDate = prevTransaction.displaydate;
+
+          // Get the date for the current transaction
+          thisTransDate = tempTransaction.displaydate;
+
+          // Compare the dates. If there is a difference, flag the transaction property to apply CSS class
+          if (prevTransDate === thisTransDate) {
+            tempTransaction.ionitemclass = "";
+          } else {
+            tempTransaction.ionitemclass = "1";
+          }
+
+        }        
 
         rawList.push(tempTransaction);
         
