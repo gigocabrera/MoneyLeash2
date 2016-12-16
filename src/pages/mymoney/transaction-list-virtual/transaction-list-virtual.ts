@@ -75,10 +75,14 @@ export class TransactionsVirtualPage {
           transaction.typedisplay,
           '',
           '',
-          count
+          count,
+          transaction.ionitemclass
         );
         let dt = moment(parseInt(transaction.date)).format();
         tempTransaction.displaydate = moment(dt).format('MMMM D, YYYY');
+
+        //testing
+        tempTransaction.ionitemclass = "1";
 
         rawList.push(tempTransaction);
         
@@ -95,7 +99,7 @@ export class TransactionsVirtualPage {
   }
 
   newTransaction() {
-    let tempTransaction = new Transaction(null,null,null,null,null,null,null,null,null,null,null,null,null,null,false,false,false,false,null,null,null,null,null,null,null,"New",null,0);
+    let tempTransaction = new Transaction(null,null,null,null,null,null,null,null,null,null,null,null,null,null,false,false,false,false,null,null,null,null,null,null,null,"New",null,0,null);
     this.transactionData.setReferrer('TransactionsPage');
     this.nav.push(TransactionPage, {paramTransaction: tempTransaction, paramAccount: this.account});
   }

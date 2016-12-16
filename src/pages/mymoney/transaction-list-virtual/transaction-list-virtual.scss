@@ -78,7 +78,6 @@ page-transaction-list-virtual {
       color: #1AAC57;
   }
   .toggleTransactionCleared {
-    width: 52px;
     height: auto;
     margin: auto 0;
     margin-left: auto;
@@ -175,5 +174,10 @@ page-transaction-list-virtual {
   /*.ml-item.ml-no-border.item-block .item-inner {
     border-bottom-width: 0;
   }*/
+
+  .ml-clear-column {
+    width: 50px;
+    text-align: center;
+  }
 
 }

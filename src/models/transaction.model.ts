@@ -27,6 +27,7 @@ export interface ITransaction {
   mode: string;
   checked: string;
   recordindex: number;
+  ionitemclass: string;
 }
 
 export class Transaction implements ITransaction {
@@ -59,5 +60,6 @@ export class Transaction implements ITransaction {
     public typedisplay: string,
     public mode: string,
     public checked: string,
-    public recordindex: number) {}
+    public recordindex: number,
+    public ionitemclass: string) {}
 }
