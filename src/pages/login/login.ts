@@ -30,9 +30,10 @@ export class LoginPage {
    }
 
   onLogin(form) {
-    this.userData.showLoadingController();
+    
     this.submitted = true;
     if (form.valid) {
+      this.userData.showLoadingController();
       this.userData.login(this.login)
       .then(() => {
           this.LoginSuccess();

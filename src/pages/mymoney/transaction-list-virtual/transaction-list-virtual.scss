@@ -6,14 +6,14 @@ page-transaction-list-virtual {
     height: 40px;
     font: 22px 'PT Sans Narrow', sans-serif;
     font-weight: bold;
-    padding-left: 16px;
+    padding-left: 10px;
     color: #444;
   }
   .customTransDesc span small {
     position: absolute;
     font: 12px -apple-system, "Helvetica Neue", "Roboto", sans-serif;
     top: 38px;
-    left: -14px;
+    left: -20px;
     color: #A0A0A0;
     font-weight: normal;
   }
@@ -23,7 +23,12 @@ page-transaction-list-virtual {
   }
   .customTransDesc span small ul li {
     float: left;
-    margin-right: 15px;
+    margin-right: 8px;
+    font-size: 13px;
+  }
+  ion-icon {
+    font-size: 15px;
+    padding-right: 3px;
   }
   .customTransDesc .fa {
     padding-right: 4px;
@@ -167,8 +172,8 @@ page-transaction-list-virtual {
   .header-wp {
     border-width: 0;
   }
-  .noborder .item-block .item-inner{
-    border-bottom: none;
-  }
+  /*.ml-item.ml-no-border.item-block .item-inner {
+    border-bottom-width: 0;
+  }*/
 
 }

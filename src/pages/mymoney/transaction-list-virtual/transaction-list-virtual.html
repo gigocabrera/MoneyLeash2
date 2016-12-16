@@ -32,7 +32,7 @@
         {{ header }}
       </ion-item-divider>
       <ion-item-sliding *virtualItem="let transaction">
-        <ion-item class="ml-item">
+        <ion-item class="ml-item" [ngClass]="{'ml-no-border': transaction.ionitemclass == '1'}">
           <ion-row>
             <ion-col width-90 (click)="edit(transaction)">
               <ion-row>
@@ -42,11 +42,12 @@
                       {{ transaction.payee }}
                       <small>
                         <ul>
-                          <li><i class="fa fa-user"></i>{{ transaction.addedby }}</li>
-                          <li><i [ngClass]="{'fa fa-file-text-o': transaction.notes.length > 0}"></i></li>
-                          <li><i [ngClass]="{'fa fa-repeat': transaction.isrecurring == true }"></i></li>
-                          <li><i [ngClass]="{'fa fa-camera': transaction.isphoto == true}"></i></li>
-                          <li><i [ngClass]="{'fa fa-exchange': transaction.istransfer == true }"></i></li>
+                          <li><ion-icon name="ios-contact"></ion-icon>{{ transaction.addedby }}</li>
+                          <li><ion-icon name="md-attach"></ion-icon>{{ transaction.category }}</li>
+                          <li><ion-icon *ngIf="transaction.notes.length > 0" name="md-paper"></ion-icon></li>
+                          <li><ion-icon *ngIf="transaction.isrecurring == true" name="md-sync"></ion-icon></li>
+                          <li><ion-icon *ngIf="transaction.isphoto == true" name="ios-camera"></ion-icon></li>
+                          <li><ion-icon *ngIf="transaction.istransfer == true" name="md-repeat"></ion-icon></li>
                         </ul>
                       </small>
                     </span>
@@ -64,7 +65,7 @@
                 </ion-col>
               </ion-row>
             </ion-col>
-            <ion-col width-10>
+            <ion-col width-20>
               <input class="toggleTransactionCleared" type="checkbox" [(ngModel)]="transaction.iscleared" (click)="clearTransaction(transaction)">
             </ion-col>
           </ion-row>
