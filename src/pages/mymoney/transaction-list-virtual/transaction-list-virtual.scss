@@ -3,7 +3,7 @@ page-transaction-list-virtual {
 
   .customTransDesc {
     text-align: left;
-    height: 40px;
+    height: 45px;
     font: 22px 'PT Sans Narrow', sans-serif;
     font-weight: bold;
     padding-left: 10px;
@@ -12,7 +12,7 @@ page-transaction-list-virtual {
   .customTransDesc span small {
     position: absolute;
     font: 12px -apple-system, "Helvetica Neue", "Roboto", sans-serif;
-    top: 30px;
+    top: 37px;
     left: -23px;
     color: #A0A0A0;
     font-weight: normal;
@@ -27,14 +27,14 @@ page-transaction-list-virtual {
     font-size: 15px;
   }
   .customTransDesc span small ul li ion-icon {
-    font-size: 16px;
+    font-size: 15px;
     padding-right: 3px;
   }
   .customTransDesc .fa {
     padding-right: 4px;
   }
   .customTransAmt {
-    height: 40px;
+    height: 45px;
     font: 20px 'PT Sans Narrow', sans-serif;
     font-weight: bold;
     color: #444;
@@ -47,7 +47,7 @@ page-transaction-list-virtual {
   .customTransAmt span small {
     position: absolute;
     font: 16px 'PT Sans Narrow', sans-serif;
-    top: 20px;
+    top: 25px;
     right: 0;
     color: #A0A0A0;
     font-weight: bold;
@@ -129,52 +129,34 @@ page-transaction-list-virtual {
   .colBorder {
     border-right: 1px solid #AED9E3;
   }
-  .button-float {
-    background: #00A2E8;
-    color: white !important;
-    z-index: 12 !important;
-    position: absolute !important;
-    bottom: 15px !important;
-    right: 41%;
-    width: 65px;
-    height: 65px;
-    border-radius: 50% !important;
-    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26) !important;
-    -webkit-transform: translate3d(0, 0, 0) !important;
-    transform: translate3d(0, 0, 0) !important;
-    -webkit-transition: 0.2s linear !important;
-    transition: 0.2s linear !important;
-    -webkit-transition-property: -webkit-transform, all !important;
-    transition-property: transform, all !important;
-  }
-  .button-float:hover {
-    -webkit-transform: translate3d(0, -1px, 0) !important;
-    transform: translate3d(0, -1px, 0) !important;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4) !important;
-    background: #0076A8 !important;
-  }
-  .button-float ion-icon {
-    font-size: 34px;
-  }
+
   .fab ion-icon {
     font-size: 3.4rem;
     font-weight: bolder;
   }
+
   .fab {
     width: 65px;
     height: 65px;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26)
   }
+
   .header-md {
     border-width: 0;
   }
+
   .header-wp {
     border-width: 0;
   }
-  .ml-clear-column {
-    width: 50px;
-    text-align: center;
+
+  .ml-outer-col {
+    background: #fff;
   }
+  
+  .ml-clear-col {
+    max-width: 45px;
+  }
+
   .ml-item.ml-no-border.item-block .item-inner {
     border-bottom-width: 0;
   }
