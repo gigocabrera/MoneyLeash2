@@ -33,41 +33,43 @@
       </ion-item-divider>
       <ion-item-sliding *virtualItem="let transaction">
         <ion-item class="ml-item" [ngClass]="{'ml-no-border': transaction.ionitemclass == '1'}">
-          <ion-row>
-            <ion-col class="ml-outer-col" (click)="edit(transaction)">
-              <ion-row>
-                <ion-col width-75>
-                  <div class="customTransDesc">
-                    <span>
-                      {{ transaction.payee }}
-                      <small>
-                        <ul>
-                          <li><ion-icon name="ios-contact"></ion-icon>{{ transaction.addedby }}</li>
-                          <li><ion-icon name="md-attach"></ion-icon>{{ transaction.category }}</li>
-                          <li><ion-icon *ngIf="transaction.notes.length > 0" name="md-paper"></ion-icon></li>
-                          <li><ion-icon *ngIf="transaction.isrecurring == true" name="md-sync"></ion-icon></li>
-                          <li><ion-icon *ngIf="transaction.isphoto == true" name="ios-camera"></ion-icon></li>
-                          <li><ion-icon *ngIf="transaction.istransfer == true" name="md-repeat"></ion-icon></li>
-                        </ul>
-                      </small>
-                    </span>
-                  </div>
-                </ion-col>
-                <ion-col width-25>
-                  <div class="customTransAmt  {{ transaction.type }}">
-                    <span>
-                      {{ transaction.amount }}
-                      <small>
-                        {{ transaction.runningbal }}
-                      </small>
-                    </span>
-                  </div>
-                </ion-col>
-              </ion-row>
+          <ion-row class="ml-row">
+            <ion-col class="ml-col-1" (click)="edit(transaction)">
+              
+              <div class="customTransDesc">
+                <span>
+                  {{ transaction.payee }}
+                  <small>
+                    <ul>
+                      <li><ion-icon name="ios-contact"></ion-icon>{{ transaction.addedby }}</li>
+                      <li><ion-icon name="md-attach"></ion-icon>{{ transaction.category }}</li>
+                      <li><ion-icon *ngIf="transaction.notes.length > 0" name="md-paper"></ion-icon></li>
+                      <li><ion-icon *ngIf="transaction.isrecurring == true" name="md-sync"></ion-icon></li>
+                      <li><ion-icon *ngIf="transaction.isphoto == true" name="ios-camera"></ion-icon></li>
+                      <li><ion-icon *ngIf="transaction.istransfer == true" name="md-repeat"></ion-icon></li>
+                    </ul>
+                  </small>
+                </span>
+              </div>
+            
             </ion-col>
-            <ion-col class="ml-clear-col">
-              <input class="toggleTransactionCleared" type="checkbox" [(ngModel)]="transaction.iscleared" (click)="clearTransaction(transaction)">
+            <ion-col class="ml-col-2" (click)="edit(transaction)">
+              
+              <div class="customTransAmt  {{ transaction.type }}">
+                {{ transaction.amount }}
+              </div>
+              <br>
+              <div class="customRunBal">
+                {{ transaction.runningbal }}
+              </div>
+
             </ion-col>
+            <ion-col class="ml-col-3" (click)="clearTransaction(transaction)">
+
+              <input class="toggleTransactionCleared" type="checkbox" [(ngModel)]="transaction.iscleared">
+              
+            </ion-col>
+              
           </ion-row>
           
         </ion-item>

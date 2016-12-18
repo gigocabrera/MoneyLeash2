@@ -3,7 +3,6 @@ page-transaction-list-virtual {
 
   .customTransDesc {
     text-align: left;
-    height: 45px;
     font: 22px 'PT Sans Narrow', sans-serif;
     font-weight: bold;
     padding-left: 10px;
@@ -34,24 +33,18 @@ page-transaction-list-virtual {
     padding-right: 4px;
   }
   .customTransAmt {
-    height: 45px;
     font: 20px 'PT Sans Narrow', sans-serif;
     font-weight: bold;
     color: #444;
     font-size: 20px;
   }
-  .customTransAmt span {
-    position: relative;
-    right: -35px;
-  }
-  .customTransAmt span small {
-    position: absolute;
+  .customRunBal {
     font: 16px 'PT Sans Narrow', sans-serif;
-    top: 25px;
-    right: 0;
     color: #A0A0A0;
     font-weight: bold;
+    margin-top: -18px;
   }
+
   .transactionIsCleared .item-content {
     background-color: #eee;
     -webkit-transition: all linear 0.5s;
@@ -61,22 +54,28 @@ page-transaction-list-virtual {
   .ml-item {
     padding: 0;
   }
+
   .ml-item.item-block .item-inner {
     padding: 0;
   }
+
   .ml-item.item-block ion-label {
     padding: 0;
     margin-right: 0;
   }
+
   .Expense {
     color: #CE1B31;
   }
+
   .textBlack {
       color: #000;
   }
+
   .Income {
       color: #1AAC57;
   }
+
   .toggleTransactionCleared {
     height: auto;
     margin: auto 0;
@@ -90,6 +89,7 @@ page-transaction-list-virtual {
     appearance: none;
     background-color: transparent;
   }
+
   .toggleTransactionCleared:after {
     content: '\f00c';
     line-height: 43px;
@@ -98,6 +98,7 @@ page-transaction-list-virtual {
     text-shadow: 0 -1px 0 #bfbfbf;
       font-family: FontAwesome;
   }
+
   .toggleTransactionCleared:checked:after {
     color: #00A2E8;
     bottom: 1px;
@@ -149,15 +150,35 @@ page-transaction-list-virtual {
     border-width: 0;
   }
 
-  .ml-outer-col {
-    background: #fff;
+  .ml-row {
+    height: 55px;
+  }
+
+  .ml-col-1 {
+    background-color: #fff;
+  }
+
+  .ml-col-2 {
+    background-color: #fff;
+    max-width: 150px;
+    text-align: right;
   }
   
+  .ml-col-3 {
+    background-color: #fff;
+    max-width: 55px;
+    text-align: center;
+  }
+
   .ml-clear-col {
     max-width: 45px;
   }
 
   .ml-item.ml-no-border.item-block .item-inner {
+    border-bottom-width: 0;
+  }
+
+  .item-divider-md {
     border-bottom-width: 0;
   }
 
