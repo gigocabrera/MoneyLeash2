@@ -11,8 +11,8 @@ page-transaction-list-virtual {
   .customTransDesc span small {
     position: absolute;
     font: 12px -apple-system, "Helvetica Neue", "Roboto", sans-serif;
-    top: 37px;
-    left: -23px;
+    top: 34px;
+    left: -25px;
     color: #A0A0A0;
     font-weight: normal;
   }
@@ -23,10 +23,10 @@ page-transaction-list-virtual {
   .customTransDesc span small ul li {
     float: left;
     margin-right: 8px;
-    font-size: 15px;
+    font-size: 14px;
   }
   .customTransDesc span small ul li ion-icon {
-    font-size: 15px;
+    font-size: 13px;
     padding-right: 3px;
   }
   .customTransDesc .fa {
@@ -42,7 +42,7 @@ page-transaction-list-virtual {
     font: 16px 'PT Sans Narrow', sans-serif;
     color: #A0A0A0;
     font-weight: bold;
-    margin-top: -18px;
+    margin-top: -22px;
   }
 
   .transactionIsCleared .item-content {
@@ -167,7 +167,7 @@ page-transaction-list-virtual {
   .ml-col-3 {
     background-color: #fff;
     max-width: 55px;
-    text-align: center;
+    padding-left: 20px;
   }
 
   .ml-clear-col {
