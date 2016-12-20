@@ -171,7 +171,7 @@ export class TransactionPage {
       this.validationMessage = "Please select Transaction Type";
       return;
     }
-    this.userData.showLoadingController();
+    this.userData.LoadingControllerShow();
     this.nav.push(PickPayeePage);
   }
 
@@ -182,7 +182,7 @@ export class TransactionPage {
       this.validationMessage = "Please select Transaction Type";
       return;
     }
-    this.userData.showLoadingController();
+    this.userData.LoadingControllerShow();
     this.nav.push(PickCategoryPage);
   }
   

@@ -57,7 +57,7 @@ export class PayeeListPage {
       })
 
       // Disable loading controller when the promise is complete
-      this.userData.dismissLoadingController();
+      this.userData.LoadingControllerDismiss();
 
     });
   

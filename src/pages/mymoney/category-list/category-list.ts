@@ -60,7 +60,7 @@ export class CategoryListPage {
     });
 
     // Disable loading controller when the promise is complete
-    this.userData.dismissLoadingController();
+    this.userData.LoadingControllerDismiss();
 
   }
   

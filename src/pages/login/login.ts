@@ -33,7 +33,7 @@ export class LoginPage {
     
     this.submitted = true;
     if (form.valid) {
-      this.userData.showLoadingController();
+      this.userData.LoadingControllerShow();
       this.userData.login(this.login)
       .then(() => {
           this.LoginSuccess();
@@ -41,7 +41,7 @@ export class LoginPage {
       )
       .catch(
         (error) => {
-          this.userData.dismissLoadingController();
+          this.userData.LoadingControllerDismiss();
           this.LoginError(error);
         }
       );

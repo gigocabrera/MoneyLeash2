@@ -83,13 +83,13 @@ export class AccountListPage {
         }
         currentAccounts.push(tempAccount);
       });
-      this.userData.dismissLoadingController();
+      this.userData.LoadingControllerDismiss();
     });
 
   }
 
   viewtransactions (account) {
-    this.userData.showLoadingController();
+    this.userData.LoadingControllerShow();
     this.nav.push(TransactionsVirtualPage, {paramAccount: account});
   }
 
@@ -134,6 +134,7 @@ export class AccountListPage {
   }
 
   fixAccountData(account) {
+    this.userData.LoadingControllerShow();
     this.userData.fixAccountData(account);
   }
   

@@ -25,7 +25,7 @@ export class LoginAutoPage {
     public nav: NavController,
     public userData: UserData) {
 
-      this.userData.showLoadingController();
+      this.userData.LoadingControllerShow();
 
       // Get email from storage
       this.userData.getStorageEmail()
@@ -45,14 +45,14 @@ export class LoginAutoPage {
         .catch(
           (error) => {
             console.log(error);
-            this.userData.dismissLoadingController();
+            this.userData.LoadingControllerDismiss();
           }
         );
       })
       .catch(
         (error) => {
           console.log(error);
-          this.userData.dismissLoadingController();
+          this.userData.LoadingControllerDismiss();
         }
       );
     }
@@ -66,7 +66,7 @@ export class LoginAutoPage {
       .catch(
         (error) => {     
           this.nav.setRoot(LoginPage);
-          this.userData.dismissLoadingController();
+          this.userData.LoadingControllerDismiss();
         }
       );
     }

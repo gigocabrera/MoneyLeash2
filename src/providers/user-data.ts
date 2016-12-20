@@ -34,7 +34,7 @@ export class UserData {
 
   }
 
-  showLoadingController() {
+  LoadingControllerShow() {
     this.loading = this.loadingCtrl.create({
       spinner: 'ios',
       content: 'Please wait...',
@@ -42,7 +42,7 @@ export class UserData {
     this.loading.present();
   }
 
-  dismissLoadingController() {
+  LoadingControllerDismiss() {
     this.loading.dismiss();
   }
 
@@ -617,6 +617,7 @@ export class UserData {
     this.copyCategories();
     this.copyPayees();
     this.copyTransactions();
+    this.LoadingControllerDismiss();
   }
   copyAccounts() {
     this.copyFbRecord(this.housedata.child(this.user.houseid + '/memberaccounts'), this.housedata.child(this.user.houseid + '/accounts'));
@@ -654,6 +655,8 @@ export class UserData {
 
   fixAccountData(account) {
 
+    console.log('here2');
+    
     var totalTransactions = 0;
     var totalClearedTransactions = 0;
     var runningBal = 0;
@@ -741,7 +744,7 @@ export class UserData {
       });
 
     });
-
+    this.LoadingControllerDismiss();
   }
 
   fixCategoriesTransactions(account) {

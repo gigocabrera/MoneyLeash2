@@ -32,9 +32,9 @@
     "font-awesome": "4.7.0"
   },
   "devDependencies": {
-    "@ionic/app-scripts": "0.0.47",
-    "typescript": "^2.0.9",
-    "@types/request": "0.0.30"
+    "@ionic/app-scripts": "0.0.48",
+    "@types/request": "0.0.30",
+    "typescript": "^2.0.9"
   },
   "cordovaPlugins": [
     "cordova-plugin-device",

@@ -25,12 +25,12 @@ export class SignupPage {
   onSignup(form) {
     this.submitted = true;
     if (form.valid) {      
-      this.userData.showLoadingController();
+      this.userData.LoadingControllerShow();
       this.userData.createUser(this.signup).then(() => {
           this.SignupSuccess();
         }).catch(
         (error) => {
-          this.userData.dismissLoadingController();
+          this.userData.LoadingControllerDismiss();
           this.SignUpError(error);
         }
       );

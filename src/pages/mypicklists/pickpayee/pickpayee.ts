@@ -39,7 +39,7 @@ export class PickPayeePage {
         this.searchTerm = this.transactionData.getPayeeName();
         this.doFilterList(this.searchTerm);
       }
-      this.userData.dismissLoadingController();
+      this.userData.LoadingControllerDismiss();
     });
   }
 

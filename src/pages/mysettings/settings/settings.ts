@@ -73,11 +73,12 @@ export class SettingsPage {
   }
 
   upgradeData() {
+    this.userData.LoadingControllerShow();
     this.userData.upgradeData();
   }
 
   houseMember() {
-    this.userData.copyAccounts();
+    //this.userData.copyAccounts();
   }
 
   reportBug() {

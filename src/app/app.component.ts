@@ -78,7 +78,7 @@ export class MoneyLeashApp {
   openPage(page) {
     // Show Loading Controller if enabled
     if (page.showloader) {
-      this.userData.showLoadingController();
+      this.userData.LoadingControllerShow();
     }
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario

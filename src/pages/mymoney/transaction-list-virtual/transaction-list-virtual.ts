@@ -114,7 +114,7 @@ export class TransactionsVirtualPage {
       this.transactions.reverse();
 
       // Disable loading controller when the promise is complete
-      this.userData.dismissLoadingController();
+      this.userData.LoadingControllerDismiss();
     });
 
   }

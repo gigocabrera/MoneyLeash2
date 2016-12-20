@@ -43,7 +43,7 @@
                     <ul>
                       <li><ion-icon name="ios-contact"></ion-icon>{{ transaction.addedby }}</li>
                       <li><ion-icon name="md-attach"></ion-icon>{{ transaction.category }}</li>
-                      <li><ion-icon *ngIf="transaction.notes.length > 0" name="md-paper"></ion-icon></li>
+                      <li><ion-icon *ngIf="transaction.notes != ''" name="md-paper"></ion-icon></li>
                       <li><ion-icon *ngIf="transaction.isrecurring == true" name="md-sync"></ion-icon></li>
                       <li><ion-icon *ngIf="transaction.isphoto == true" name="ios-camera"></ion-icon></li>
                       <li><ion-icon *ngIf="transaction.istransfer == true" name="md-repeat"></ion-icon></li>
