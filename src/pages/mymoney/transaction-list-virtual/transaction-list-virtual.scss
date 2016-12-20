@@ -10,8 +10,8 @@ page-transaction-list-virtual {
   }
   .customTransDesc span small {
     position: absolute;
-    font: 12px -apple-system, "Helvetica Neue", "Roboto", sans-serif;
-    top: 34px;
+    font: 13px -apple-system, "Helvetica Neue", "Roboto", sans-serif;
+    top: 32px;
     left: -25px;
     color: #A0A0A0;
     font-weight: normal;
@@ -23,10 +23,10 @@ page-transaction-list-virtual {
   .customTransDesc span small ul li {
     float: left;
     margin-right: 8px;
-    font-size: 14px;
+    font: 16px 'PT Sans Narrow', sans-serif;
   }
   .customTransDesc span small ul li ion-icon {
-    font-size: 13px;
+    font-size: 14px;
     padding-right: 3px;
   }
   .customTransDesc .fa {
@@ -39,12 +39,11 @@ page-transaction-list-virtual {
     font-size: 20px;
   }
   .customRunBal {
-    font: 16px 'PT Sans Narrow', sans-serif;
+    font: 18px 'PT Sans Narrow', sans-serif;
     color: #A0A0A0;
     font-weight: bold;
-    margin-top: -22px;
+    margin-top: -25px;
   }
-
   .transactionIsCleared .item-content {
     background-color: #eee;
     -webkit-transition: all linear 0.5s;
@@ -54,28 +53,22 @@ page-transaction-list-virtual {
   .ml-item {
     padding: 0;
   }
-
   .ml-item.item-block .item-inner {
     padding: 0;
   }
-
   .ml-item.item-block ion-label {
     padding: 0;
     margin-right: 0;
   }
-
   .Expense {
     color: #CE1B31;
   }
-
   .textBlack {
       color: #000;
   }
-
   .Income {
       color: #1AAC57;
   }
-
   .toggleTransactionCleared {
     height: auto;
     margin: auto 0;
@@ -89,7 +82,6 @@ page-transaction-list-virtual {
     appearance: none;
     background-color: transparent;
   }
-
   .toggleTransactionCleared:after {
     content: '\f00c';
     line-height: 43px;
@@ -98,88 +90,81 @@ page-transaction-list-virtual {
     text-shadow: 0 -1px 0 #bfbfbf;
       font-family: FontAwesome;
   }
-
   .toggleTransactionCleared:checked:after {
     color: #00A2E8;
     bottom: 1px;
     position: relative;
   }
-
   ion-item-divider ion-label {
     text-transform: uppercase;
     color: #6d6d72;
     font-size: 12px;
   }
-
   .center {
     text-align: center;
   }
-
   .balancesRow {
     font-weight: bold;
     font: 13px 'PT Sans Narrow', sans-serif;
     text-align: center;
   }
-
   .balancesRow span {
     display: block;
     font-weight: normal;
     font-size: 15px;
   }
-
   .colBorder {
     border-right: 1px solid #AED9E3;
   }
-
   .fab ion-icon {
     font-size: 3.4rem;
     font-weight: bolder;
   }
-
   .fab {
     width: 65px;
     height: 65px;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26)
   }
-
   .header-md {
     border-width: 0;
   }
-
   .header-wp {
     border-width: 0;
   }
-
   .ml-row {
     height: 55px;
   }
-
   .ml-col-1 {
     background-color: #fff;
   }
-
   .ml-col-2 {
-    background-color: #fff;
     max-width: 150px;
     text-align: right;
   }
-  
   .ml-col-3 {
-    background-color: #fff;
     max-width: 55px;
-    padding-left: 20px;
   }
-
   .ml-clear-col {
     max-width: 45px;
   }
-
   .ml-item.ml-no-border.item-block .item-inner {
     border-bottom-width: 0;
   }
-
   .item-divider-md {
     border-bottom-width: 0;
   }
+  .iconpadding {
+    padding-left: 19px;
+    padding-right: 19px;
+  }
+  .list-ios ion-item-options {
+    border-bottom-width: 0;
+  }
+  .item.item-ios .checkbox-ios {
+    margin: 8px 16px 8px -5px;
+  }
+  .item.item-md .checkbox-md {
+    margin: 9px 36px 9px -4px;
+}
 
 }

@@ -12,18 +12,27 @@ import { AccountData } from '../../../providers/account-data';
 export class PickAccountNamePage {
   
   accountname;
+  validationMessage: string;
+  showValidationMessage: boolean = false;
    
   constructor(
       public nav: NavController,
       public accountData: AccountData) {}
 
   ionViewDidLoad() {
-
+    this.accountname = this.accountData.accountname;
   }
 
-  pickPreference(name) {
+  pickPreference() {
+    console.log(this.accountname);
+    if (this.accountname === '' || this.accountname === undefined) {
+      // Make sure an account name has been entered
+      this.showValidationMessage = true;
+      this.validationMessage = "Please enter an account name";
+      return;
+    }
     this.accountData.setReferrer('PickAccountNamePage');
-    this.accountData.setAccountName(name);
+    this.accountData.setAccountName(this.accountname);
     this.goBack();
   }
 

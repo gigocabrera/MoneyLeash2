@@ -24,7 +24,7 @@ page-account-list {
   }
   .customAccAmt span small {
     position: absolute;
-    font: 14px 'PT Sans Narrow', sans-serif;
+    font: 16px 'PT Sans Narrow', sans-serif;
     top: 23px;
     right: 0;
     color: #A0A0A0;
@@ -43,8 +43,11 @@ page-account-list {
       color: #1AAC57;
   }
   .iconpadding {
-    padding-left: 17px;
-    padding-right: 17px;
+    padding-left: 19px;
+    padding-right: 19px;
+  }
+  .list-ios ion-item-options {
+    border-bottom-width: 0;
   }
 
 }

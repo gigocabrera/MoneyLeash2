@@ -15,13 +15,13 @@
    <ion-toolbar color="mlitemdivider">
     <ion-row class="balancesRow">
       <ion-col class="colBorder">
-        <span>Cleared Balance</span><span><strong>{{ account.balancecleared }}</strong></span>
-      </ion-col>
-      <ion-col class="colBorder">
         <span>Current Balance</span><span><strong>{{ account.balancecurrent }}</strong></span>
       </ion-col>
-      <ion-col>
+      <ion-col class="colBorder">
         <span>Today's Balance</span><span><strong>{{ account.balancetoday }}</strong></span>
+      </ion-col>
+      <ion-col>
+        <span>Cleared Balance</span><span><strong>{{ account.balancecleared }}</strong></span>
       </ion-col>
     </ion-row>
   </ion-toolbar>
@@ -64,9 +64,11 @@
               </div>
 
             </ion-col>
-            <ion-col class="ml-col-3" (click)="clearTransaction(transaction)">
-
-              <input class="toggleTransactionCleared" type="checkbox" [(ngModel)]="transaction.iscleared">
+            <ion-col class="ml-col-3">
+              
+              <ion-item>
+                <ion-checkbox [(ngModel)]="transaction.iscleared" (click)="clearTransaction($event, transaction)" color="mldarkblue"></ion-checkbox>
+              </ion-item>
               
             </ion-col>
               
@@ -74,10 +76,12 @@
           
         </ion-item>
         <ion-item-options>
-          <button ion-button color="energized" (click)="edit(account)">
+          <button ion-button color="energized" (click)="edit(account)" class="iconpadding">
+            <ion-icon name="create"></ion-icon>
             Edit
           </button>
           <button ion-button color="danger" (click)="delete(account)">
+            <ion-icon name="trash"></ion-icon>
             Delete
           </button>
         </ion-item-options>

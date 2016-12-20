@@ -7,7 +7,7 @@
       Account Name
     </ion-title>
     <ion-buttons end>
-      <button ion-button (click)="pickPreference(accountname)">Save</button>
+      <button ion-button (click)="pickPreference()">Save</button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
@@ -16,6 +16,9 @@
     Enter account name
   </ion-item-divider>
   <ion-list>
+    <div [ngClass]="{'cssSlideUp': showValidationMessage, 'ng-hide': !showValidationMessage}">
+      <span style="line-height:40px;">{{ validationMessage }}</span>
+    </div>
     <ion-item>
       <ion-input [(ngModel)]="accountname" placeholder="Name" clearInput spellcheck="false" autocapitalize="on"></ion-input>
     </ion-item>

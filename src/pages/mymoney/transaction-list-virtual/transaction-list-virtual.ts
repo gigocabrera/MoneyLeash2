@@ -143,17 +143,30 @@ export class TransactionsVirtualPage {
     console.log(transaction);
   }
 
-  clearTransaction(transaction) {
+  clearTransaction(e, transaction) {
+
+    console.log(e);
     
+    //Get the index position for this transaction
     let pos = this.transactions.findIndex(x => x.recordindex === transaction.recordindex);
     
     console.log(pos);
 
-    for (var i = this.transactions.length; i-- > 0; ) {
+    // Is this transaction already clear 
+    if (transaction.iscleared) {
+      console.log('add to cleared balance');
+    } else {
+      console.log('subtract to cleared balance');
+    }
+    
+
+    /*for (var i = this.transactions.length; i-- > 0; ) {
       if (i <= pos) {
         console.log(this.transactions[i]);
       }
-    }
+    }*/
+
+
   }
 
   myHeaderFn(transaction: ITransaction, recordIndex, transactions) {
