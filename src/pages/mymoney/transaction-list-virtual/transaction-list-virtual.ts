@@ -145,110 +145,67 @@ export class TransactionsVirtualPage {
 
   clearTransaction(transaction) {
     
+    var clearedBal = 0;
+    var runningBal = 0;
+
     //Get the index position for this transaction
     let pos = this.transactions.findIndex(x => x.recordindex === transaction.recordindex);
-    let index = transaction.recordindex;
 
-    var clearedBal = parseFloat(transaction.clearedBal);
-    var runningBal = parseFloat(transaction.runningbal);
+    // Get previous transaction
+    let prevTransaction: ITransaction;
+    prevTransaction = this.transactions[pos + 1];
+
+    // Get the cleared and running balance from previous transaction
+    if (prevTransaction != undefined) {
+      clearedBal = parseFloat(prevTransaction.clearedBal);
+      runningBal = parseFloat(prevTransaction.runningbal);
+    }
+
+    /*console.log(prevTransaction);
+    console.log("uno", clearedBal);
+    console.log("uno", runningBal);
+    console.log(transaction.iscleared);*/
     
-    for (var i = this.transactions.length; i-- > 0; ) {
+    for (var i = this.transactions.length; i-- > 0; ) {  
       if (i <= pos) {
-
-        //this.handleClearedBalances(this.transactions[i], index, pos);
         //
         // Handle Balances
         //
-
         let thisTransaction = this.transactions[i];
-        
-        transaction.ClearedClass = '';
-        if (transaction.iscleared === true) {
-          transaction.ClearedClass = 'transactionIsCleared';
-          if (transaction.type === "Income") {
-            if (!isNaN(transaction.amount)) {
-              clearedBal = clearedBal + parseFloat(transaction.amount);
+        thisTransaction.ClearedClass = '';
+        if (thisTransaction.iscleared === true) {
+          thisTransaction.ClearedClass = 'transactionIsCleared';
+          if (thisTransaction.type === "Income") {
+            if (!isNaN(thisTransaction.amount)) {
+              clearedBal = clearedBal + parseFloat(thisTransaction.amount);
             }
-          } else if (transaction.type === "Expense") {
-            if (!isNaN(transaction.amount)) {
-              clearedBal = clearedBal - parseFloat(transaction.amount);
+          } else if (thisTransaction.type === "Expense") {
+            if (!isNaN(thisTransaction.amount)) {
+              clearedBal = clearedBal - parseFloat(thisTransaction.amount);
             }
           }
-          transaction.clearedBal = clearedBal.toFixed(2);
+          thisTransaction.clearedBal = clearedBal.toFixed(2);
+        } else {
+          thisTransaction.ClearedClass = '';
+          thisTransaction.clearedBal = clearedBal.toFixed(2);
         }
-        if (transaction.type === "Income") {
-          if (!isNaN(transaction.amount)) {
-            runningBal = runningBal + parseFloat(transaction.amount);
-            transaction.runningbal = runningBal.toFixed(2);
+        if (thisTransaction.type === "Income") {
+          if (!isNaN(thisTransaction.amount)) {
+            runningBal = runningBal + parseFloat(thisTransaction.amount);
+            thisTransaction.runningbal = runningBal.toFixed(2);
           }
-        } else if (transaction.type === "Expense") {
-          if (!isNaN(transaction.amount)) {
-            runningBal = runningBal - parseFloat(transaction.amount);
-            transaction.runningbal = runningBal.toFixed(2);
+        } else if (thisTransaction.type === "Expense") {
+          if (!isNaN(thisTransaction.amount)) {
+            runningBal = runningBal - parseFloat(thisTransaction.amount);
+            thisTransaction.runningbal = runningBal.toFixed(2);
           }
         }
-
+        /*console.log(i, clearedBal);
+        console.log(i, runningBal);*/
       }
-
-      console.log('Balance cleared: ' + clearedBal.toFixed(2));
-      this.account.balancecleared = clearedBal.toFixed(2);
-
     }
-
-  }
-
-  handleClearedBalances(transaction, index, pos) {
-    //
-    // Handle Balances
-    //
-    var clearedBal = parseFloat(transaction.clearedBal);
-
-    //console.log(pos, index, transaction.recordindex);
-    //console.log(clearedBal);
-    //console.log(transaction.iscleared);
-
-    if (index === transaction.recordindex) {
-
-      if (transaction.iscleared === true) {
-
-        if (transaction.type === "Income") {
-          if (!isNaN(transaction.amount)) {
-            clearedBal = clearedBal + parseFloat(transaction.amount);
-          }
-        } else if (transaction.type === "Expense") {
-          if (!isNaN(transaction.amount)) {
-            clearedBal = clearedBal - parseFloat(transaction.amount);
-          }
-        }
-        transaction.clearedBal = clearedBal.toFixed(2);
-
-      } else {
-
-        console.log('here');
-
-        if (transaction.type === "Income") {
-          if (!isNaN(transaction.amount)) {
-            clearedBal = clearedBal - parseFloat(transaction.amount);
-          }
-        } else if (transaction.type === "Expense") {
-          if (!isNaN(transaction.amount)) {
-            clearedBal = clearedBal + parseFloat(transaction.amount);
-          }
-        }
-        transaction.clearedBal = clearedBal.toFixed(2);
-      }
-
-    } else {
-
-      //console.log('just update cleared bal');
-      //console.log(transaction);
-      transaction.clearedBal = clearedBal;
-
-    }
-
-    console.log('Balance cleared: ' + clearedBal.toFixed(2));
+    /*console.log('Balance cleared: ' + clearedBal.toFixed(2));*/
     this.account.balancecleared = clearedBal.toFixed(2);
-
   }
 
   myHeaderFn(transaction: ITransaction, recordIndex, transactions) {
