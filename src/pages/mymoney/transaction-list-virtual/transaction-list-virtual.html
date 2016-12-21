@@ -65,10 +65,8 @@
 
             </ion-col>
             <ion-col class="ml-col-3">
-              
-              <ion-item>
-                <ion-checkbox [(ngModel)]="transaction.iscleared" (click)="clearTransaction($event, transaction)" color="mldarkblue"></ion-checkbox>
-              </ion-item>
+
+              <input class="toggleTransactionCleared" type="checkbox" [(ngModel)]="transaction.iscleared" (change)="clearTransaction(transaction)">
               
             </ion-col>
               

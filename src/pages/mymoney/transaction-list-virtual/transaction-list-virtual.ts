@@ -143,29 +143,111 @@ export class TransactionsVirtualPage {
     console.log(transaction);
   }
 
-  clearTransaction(e, transaction) {
-
-    console.log(e);
+  clearTransaction(transaction) {
     
     //Get the index position for this transaction
     let pos = this.transactions.findIndex(x => x.recordindex === transaction.recordindex);
-    
-    console.log(pos);
+    let index = transaction.recordindex;
 
-    // Is this transaction already clear 
-    if (transaction.iscleared) {
-      console.log('add to cleared balance');
-    } else {
-      console.log('subtract to cleared balance');
-    }
+    var clearedBal = parseFloat(transaction.clearedBal);
+    var runningBal = parseFloat(transaction.runningbal);
     
-
-    /*for (var i = this.transactions.length; i-- > 0; ) {
+    for (var i = this.transactions.length; i-- > 0; ) {
       if (i <= pos) {
-        console.log(this.transactions[i]);
-      }
-    }*/
 
+        //this.handleClearedBalances(this.transactions[i], index, pos);
+        //
+        // Handle Balances
+        //
+
+        let thisTransaction = this.transactions[i];
+        
+        transaction.ClearedClass = '';
+        if (transaction.iscleared === true) {
+          transaction.ClearedClass = 'transactionIsCleared';
+          if (transaction.type === "Income") {
+            if (!isNaN(transaction.amount)) {
+              clearedBal = clearedBal + parseFloat(transaction.amount);
+            }
+          } else if (transaction.type === "Expense") {
+            if (!isNaN(transaction.amount)) {
+              clearedBal = clearedBal - parseFloat(transaction.amount);
+            }
+          }
+          transaction.clearedBal = clearedBal.toFixed(2);
+        }
+        if (transaction.type === "Income") {
+          if (!isNaN(transaction.amount)) {
+            runningBal = runningBal + parseFloat(transaction.amount);
+            transaction.runningbal = runningBal.toFixed(2);
+          }
+        } else if (transaction.type === "Expense") {
+          if (!isNaN(transaction.amount)) {
+            runningBal = runningBal - parseFloat(transaction.amount);
+            transaction.runningbal = runningBal.toFixed(2);
+          }
+        }
+
+      }
+
+      console.log('Balance cleared: ' + clearedBal.toFixed(2));
+      this.account.balancecleared = clearedBal.toFixed(2);
+
+    }
+
+  }
+
+  handleClearedBalances(transaction, index, pos) {
+    //
+    // Handle Balances
+    //
+    var clearedBal = parseFloat(transaction.clearedBal);
+
+    //console.log(pos, index, transaction.recordindex);
+    //console.log(clearedBal);
+    //console.log(transaction.iscleared);
+
+    if (index === transaction.recordindex) {
+
+      if (transaction.iscleared === true) {
+
+        if (transaction.type === "Income") {
+          if (!isNaN(transaction.amount)) {
+            clearedBal = clearedBal + parseFloat(transaction.amount);
+          }
+        } else if (transaction.type === "Expense") {
+          if (!isNaN(transaction.amount)) {
+            clearedBal = clearedBal - parseFloat(transaction.amount);
+          }
+        }
+        transaction.clearedBal = clearedBal.toFixed(2);
+
+      } else {
+
+        console.log('here');
+
+        if (transaction.type === "Income") {
+          if (!isNaN(transaction.amount)) {
+            clearedBal = clearedBal - parseFloat(transaction.amount);
+          }
+        } else if (transaction.type === "Expense") {
+          if (!isNaN(transaction.amount)) {
+            clearedBal = clearedBal + parseFloat(transaction.amount);
+          }
+        }
+        transaction.clearedBal = clearedBal.toFixed(2);
+      }
+
+    } else {
+
+      //console.log('just update cleared bal');
+      //console.log(transaction);
+      transaction.clearedBal = clearedBal;
+
+    }
+
+    console.log('Balance cleared: ' + clearedBal.toFixed(2));
+    this.account.balancecleared = clearedBal.toFixed(2);
 
   }
 
@@ -175,17 +257,22 @@ export class TransactionsVirtualPage {
     let prevTransDate;
     let thisTransDate;
 
-    prevTransaction = transactions[recordIndex - 1];
+    // Get this transaction's date
     thisTransDate = transaction.displaydate;
+
+    // Get previous transaction
+    prevTransaction = transactions[recordIndex - 1];
 
     if (prevTransaction === undefined) {
       return thisTransDate;
     }
 
+    // Compate dates between this transaction and the previous transaction
     prevTransDate = prevTransaction.displaydate;
     if (prevTransDate === thisTransDate) {
       return null;
     } else {
+      // If dates are different, add header
       return thisTransDate;
     }
 
