@@ -10,6 +10,7 @@ import { UserData } from '../../../providers/user-data';
 import { TransactionData } from '../../../providers/transaction-data';
 
 // models
+import { Account, IAccount } from '../../../models/account.model';
 import { Transaction, ITransaction } from '../../../models/transaction.model';
 
 import * as moment from 'moment';
@@ -23,7 +24,7 @@ export class TransactionsVirtualPage {
 
   title: string;
   transactions = [];
-  account: any;
+  account: IAccount;
   searchQuery: string = '';
 
   constructor(
@@ -139,14 +140,13 @@ export class TransactionsVirtualPage {
   }
 
   delete(transaction) {
-    console.log('delete');
-    console.log(transaction);
+    
   }
 
   clearTransaction(transaction) {
     
-    var clearedBal = 0;
-    var runningBal = 0;
+    var clearedbal = 0;
+    var runningbal = 0;
 
     //Get the index position for this transaction
     let pos = this.transactions.findIndex(x => x.recordindex === transaction.recordindex);
@@ -157,14 +157,9 @@ export class TransactionsVirtualPage {
 
     // Get the cleared and running balance from previous transaction
     if (prevTransaction != undefined) {
-      clearedBal = parseFloat(prevTransaction.clearedBal);
-      runningBal = parseFloat(prevTransaction.runningbal);
+      clearedbal = parseFloat(prevTransaction.clearedBal);
+      runningbal = parseFloat(prevTransaction.runningbal);
     }
-
-    /*console.log(prevTransaction);
-    console.log("uno", clearedBal);
-    console.log("uno", runningBal);
-    console.log(transaction.iscleared);*/
     
     for (var i = this.transactions.length; i-- > 0; ) {  
       if (i <= pos) {
@@ -177,35 +172,40 @@ export class TransactionsVirtualPage {
           thisTransaction.ClearedClass = 'transactionIsCleared';
           if (thisTransaction.type === "Income") {
             if (!isNaN(thisTransaction.amount)) {
-              clearedBal = clearedBal + parseFloat(thisTransaction.amount);
+              clearedbal = clearedbal + parseFloat(thisTransaction.amount);
             }
           } else if (thisTransaction.type === "Expense") {
             if (!isNaN(thisTransaction.amount)) {
-              clearedBal = clearedBal - parseFloat(thisTransaction.amount);
+              clearedbal = clearedbal - parseFloat(thisTransaction.amount);
             }
           }
-          thisTransaction.clearedBal = clearedBal.toFixed(2);
+          thisTransaction.clearedBal = clearedbal.toFixed(2);
         } else {
           thisTransaction.ClearedClass = '';
-          thisTransaction.clearedBal = clearedBal.toFixed(2);
+          thisTransaction.clearedBal = clearedbal.toFixed(2);
         }
         if (thisTransaction.type === "Income") {
           if (!isNaN(thisTransaction.amount)) {
-            runningBal = runningBal + parseFloat(thisTransaction.amount);
-            thisTransaction.runningbal = runningBal.toFixed(2);
+            runningbal = runningbal + parseFloat(thisTransaction.amount);
+            thisTransaction.runningbal = runningbal.toFixed(2);
           }
         } else if (thisTransaction.type === "Expense") {
           if (!isNaN(thisTransaction.amount)) {
-            runningBal = runningBal - parseFloat(thisTransaction.amount);
-            thisTransaction.runningbal = runningBal.toFixed(2);
+            runningbal = runningbal - parseFloat(thisTransaction.amount);
+            thisTransaction.runningbal = runningbal.toFixed(2);
           }
         }
-        /*console.log(i, clearedBal);
-        console.log(i, runningBal);*/
+        //
+        // Update running and cleared balances for this transaction
+        //
+        this.userData.updateTransactionAndBalances(this.account, thisTransaction);
       }
     }
-    /*console.log('Balance cleared: ' + clearedBal.toFixed(2));*/
-    this.account.balancecleared = clearedBal.toFixed(2);
+    //
+    // Update running and cleared balances for this transaction
+    //
+    this.account.balancecleared = clearedbal.toFixed(2);
+    this.userData.updateAccountWithTotals(this.account);
   }
 
   myHeaderFn(transaction: ITransaction, recordIndex, transactions) {
