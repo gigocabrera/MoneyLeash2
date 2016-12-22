@@ -182,7 +182,7 @@ export class UserData {
   }
 
   RandomHouseCode() {
-      return Math.floor((Math.random() * 100000000) + 100);
+    return Math.floor((Math.random() * 100000000) + 100);
   }
 
   //
@@ -513,21 +513,11 @@ export class UserData {
   getAllCategories() {
     return this.af.database.list('/houses/' + this.user.houseid + '/categories', { preserveSnapshot: true});
   }
-  getAllIncomeCategories() {
+  getIncomeCategories() {
     return this.housedata.child(this.user.houseid + '/categories/Income').orderByChild('categorysort');
-    /*return this.af.database.list('/houses/' + this.user.houseid + '/categories/Income', {
-      query: {
-        orderByChild: 'categorysort'
-      }
-    });*/
   }
-  getAllExpenseCategories() {
+  getExpenseCategories() {
     return this.housedata.child(this.user.houseid + '/categories/Expense').orderByChild('categorysort');
-    /*return this.af.database.list('/houses/' + this.user.houseid + '/categories/Expense', {
-      query: {
-        orderByChild: 'categorysort'
-      }
-    });*/
   }
   getParentCategories(type) {
     return this.housedata.child(this.user.houseid + '/categories/' + type).orderByChild('categorysort');
@@ -675,7 +665,7 @@ export class UserData {
     });
   }
 
-  fixAccountData(account) {
+  syncAccountData(account) {
 
     console.log('here2');
     
@@ -769,27 +759,76 @@ export class UserData {
     this.LoadingControllerDismiss();
   }
 
-  fixCategoriesTransactions(account) {
-
+  syncCategories(account) {
+    //
+    // Get all the transactions from this account 
+    // and verify that a category exists in the categories node
+    // If not, create it
+    //
     var ref = this.housedata.child(this.user.houseid + '/transactions/' + account.$key);
     var query = ref.orderByChild('date');
 
-    query.once('value', (transactions) => {
-      
-      transactions.forEach( snapshot => {
+    var refIncome = this.housedata.child(this.user.houseid + '/categories/Income');
+    var refExpense = this.housedata.child(this.user.houseid + '/categories/Expense');
 
+    var catsort: any;
+
+    query.once('value', (transactions) => {
+      transactions.forEach( snapshot => {
         var transaction = snapshot.val();
         //
         // Handle categories
         //
-        if (transaction.categoryid === undefined) {
-
+        if (transaction.type === 'Income') {          
+          refIncome.child(transaction.categoryid).once('value', (snapshot) => {
+            var cat = snapshot.val();
+            if (cat === null) {
+              catsort = transaction.category.toUpperCase();
+              this.housedata.child(this.user.houseid + '/categories/Income/' + transaction.categoryid).update({ 'categoryname' : transaction.category, 'categorytype' : 'Income', 'categoryparent' : '', 'categorysort' : catsort });
+            }
+          });
+        } else if (transaction.type === 'Expense') {
+          refExpense.child(transaction.categoryid).once('value', (snapshot) => {
+            var cat = snapshot.val();
+            if (cat === null) {
+              catsort = transaction.category.toUpperCase();
+              this.housedata.child(this.user.houseid + '/categories/Expense/' + transaction.categoryid).update({ 'categoryname' : transaction.category, 'categorytype' : 'Income', 'categoryparent' : '', 'categorysort' : catsort });
+            }
+          });
+        } else {
+          console.log('missing category');
         }
-
       });
-
     });
+    this.LoadingControllerDismiss();
+  }
 
+  syncPayees(account) {
+    //
+    // Get all the transactions from this account 
+    // and verify that a category exists in the categories node
+    // If not, create it
+    //
+    var ref = this.housedata.child(this.user.houseid + '/transactions/' + account.$key);
+    var query = ref.orderByChild('date');
+
+    var refPayee = this.housedata.child(this.user.houseid + '/payees');
+
+    query.once('value', (transactions) => {
+      transactions.forEach( snapshot => {
+        var transaction = snapshot.val();
+        //
+        // Handle categories
+        //
+        refPayee.child(transaction.payeeid).once('value', (snapshot) => {
+          var payee = snapshot.val();
+          if (payee === null) {
+            this.housedata.child(this.user.houseid + '/payees/' + transaction.payeeid).update({ 'payeename' : transaction.payee });
+          }
+        });
+      });
+    });
+    this.LoadingControllerDismiss();
   }
 
 }

@@ -85,4 +85,8 @@ export class PickPayeePage {
     this.nav.pop();
   }
 
+  savePayee() {
+    console.log('saving new payee');
+  }
+
 }

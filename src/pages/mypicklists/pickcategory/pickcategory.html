@@ -1,8 +1,5 @@
 <ion-header>
-  <ion-navbar hideBackButton="true">
-    <ion-buttons start>
-      <button ion-button (click)="goBack()">Cancel</button>
-    </ion-buttons>
+  <ion-navbar>
     <ion-title>
       Select Category
     </ion-title>
@@ -25,6 +22,6 @@
       <button ion-item (click)="selectCategory(expensecat)" *ngFor="let expensecat of expenseCategories" track="expense" [ngClass]="{mlindent: expensecat.categoryparent !== ''}">
         {{ expensecat.categoryname }}
       </button>
-    </ion-item-group>        
+    </ion-item-group>
   </ion-list>
 </ion-content>

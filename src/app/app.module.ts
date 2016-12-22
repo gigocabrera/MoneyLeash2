@@ -44,6 +44,7 @@ import { PickPayeePage } from '../pages/mypicklists/pickpayee/pickpayee';
 import { PickCategoryPage } from '../pages/mypicklists/pickcategory/pickcategory';
 import { PickAmountPage } from '../pages/mypicklists/pickamount/pickamount';
 import { PickNotesPage } from '../pages/mypicklists/picknotes/picknotes';
+import { PickPhotoPage } from '../pages/mypicklists/pickphoto/pickphoto';
 
 // mysettings
 import { AccountTypesPage } from '../pages/mysettings/accounttypes/accounttypes';
@@ -111,6 +112,7 @@ const firebaseAuthConfig = {
     PickCategoryPage,
     PickAmountPage,
     PickNotesPage,
+    PickPhotoPage,
     AccountTypesPage,
     AccountTypesEditPage,
     SettingsPage,
@@ -161,6 +163,7 @@ const firebaseAuthConfig = {
     PickCategoryPage,
     PickAmountPage,
     PickNotesPage,
+    PickPhotoPage,
     AccountTypesPage,
     AccountTypesEditPage,
     SettingsPage,

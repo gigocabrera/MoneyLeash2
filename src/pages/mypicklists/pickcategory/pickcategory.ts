@@ -30,7 +30,7 @@ export class PickCategoryPage {
 
     this.type = this.transactionData.getTransactionType();
 
-    this.userData.getAllIncomeCategories().on('value', (incomecategories) => {
+    this.userData.getIncomeCategories().on('value', (incomecategories) => {
       let rawList= [];
       incomecategories.forEach( spanshot => {
         var cat = spanshot.val();
@@ -45,7 +45,7 @@ export class PickCategoryPage {
       this.incomeCategories = rawList;
     });
 
-    this.userData.getAllExpenseCategories().on('value', (expensecategories) => {
+    this.userData.getExpenseCategories().on('value', (expensecategories) => {
       let rawList= [];
       expensecategories.forEach( spanshot => {
         var cat = spanshot.val();

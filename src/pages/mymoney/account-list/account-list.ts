@@ -133,9 +133,19 @@ export class AccountListPage {
     slidingItem.close();
   }
 
-  fixAccountData(account) {
+  syncAccountData(account) {
     this.userData.LoadingControllerShow();
-    this.userData.fixAccountData(account);
+    this.userData.syncAccountData(account);
+  }
+
+  syncCategoryData(account) {
+    this.userData.LoadingControllerShow();
+    this.userData.syncCategories(account);
+  }
+
+  syncPayeeData(account) {
+    this.userData.LoadingControllerShow();
+    this.userData.syncPayees(account);
   }
   
 }

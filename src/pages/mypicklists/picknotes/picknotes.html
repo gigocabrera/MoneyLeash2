@@ -1,8 +1,5 @@
 <ion-header>
-  <ion-navbar hideBackButton="true">
-    <ion-buttons start>
-      <button ion-button (click)="goBack()">Cancel</button>
-    </ion-buttons>
+  <ion-navbar>
     <ion-title>
       Notes
     </ion-title>
@@ -11,11 +8,11 @@
     </ion-buttons>
   </ion-navbar>
 </ion-header>
-<ion-content class="outer-content" no-lines>
+<ion-content class="outer-content">
   <ion-item-divider>
     Enter a note or comment for this transaction
   </ion-item-divider>
   <ion-item>
-    <ion-textarea [(ngModel)]="msg" rows="6" placeholder="enter description here..."></ion-textarea>
+    <ion-textarea [(ngModel)]="msg" rows="6" placeholder="here..."></ion-textarea>
   </ion-item>
 </ion-content>
