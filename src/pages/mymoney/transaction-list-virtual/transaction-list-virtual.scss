@@ -23,7 +23,7 @@ page-transaction-list-virtual {
   .customTransDesc span small ul li {
     float: left;
     margin-right: 8px;
-    font: 16px 'PT Sans Narrow', sans-serif;
+    font: 14px -apple-system, "Helvetica Neue", "Roboto", sans-serif;
   }
   .customTransDesc span small ul li ion-icon {
     font-size: 14px;
@@ -160,6 +160,12 @@ page-transaction-list-virtual {
   }
   .item.item-md .checkbox-md {
     margin: 9px 36px 9px -4px;
-}
+  }
+  .list-ios .item-block .item-inner {
+    border-bottom: 0.75px solid #c8c7cc;
+  }
+  .ml-item.ml-no-border.item-block .item-inner {
+    border-bottom-width: 0;
+  }
 
 }

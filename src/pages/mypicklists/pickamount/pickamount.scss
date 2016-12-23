@@ -21,13 +21,18 @@ page-pickamount {
   ion-grid {
     margin: 0;
     padding: 0;
-    border-collapse: collapse;
+    border: 0;
     width: 100%;
     max-width: 500px;
   }
+  ion-row {
+    padding: 0;
+    border-top: 0;
+    border-bottom: 0;
+    background-color: yellow;
+  }
   ion-col {
-    border-collapse: collapse;
-    border: 1px solid #f5f5f5;
+    border: 0.55px solid #f5f5f5;
     padding: 0;
   }
   ion-col button {
@@ -36,17 +41,12 @@ page-pickamount {
     width: 100%;
     min-height: 75px;
     padding: 0;
-    border: none;
+    border: 0;
     color: #000;
     background-color: #d0d1d4;
     font-family: "PT Sans Narrow";
   }
-  .functionKey {
-    background-color: #F98E12;
-    color: #fff;
-    font-family: "PT Sans Narrow";
-    font-size: 20px;
-  }
+  
   .functionKey.activated {
     background-color: #ea7d05;
     color: #fff;
@@ -55,5 +55,38 @@ page-pickamount {
     color: #fff;
     background-color: #babbbe;
   }
-          
+
+
+  .outer {
+    width: 100%;
+    max-width: 500px;
+    margin: 10px auto;
+  }
+
+  .outer:after {
+    content: "";
+    clear: both;
+  }
+
+  .outer>div {
+    width: 25%;
+    min-height: 75px;
+    padding-top: 20px;
+    text-align: center;
+    border: 0.55px solid dimgray;
+    float: left;
+    margin: -1px 0 0 -1px;
+    font: 28px 'PT Sans Narrow', sans-serif;
+    color: #000;
+    background-color: #d0d1d4;
+    vertical-align: middle;
+  }
+  div.functionKey {
+    background-color: #F98E12;
+    color: #fff;
+  }
+  div.disabledKey {
+    background-color: dimgray;
+  }
+
 }

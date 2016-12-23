@@ -7,29 +7,22 @@
 </ion-header>
 <ion-content class="outer-content">
   <ion-input [(ngModel)]="displayValue" type="text" readonly class="resultAmount"></ion-input>
-  <ion-grid>
-    <ion-row>
-      <ion-col width-25><button (click)="digitClicked('7')">7</button></ion-col>
-      <ion-col width-25><button (click)="digitClicked('8')">8</button></ion-col>
-      <ion-col width-25><button (click)="digitClicked('9')">9</button></ion-col>
-      <ion-col width-25><button (click)="digitClicked('C')" class="functionKey">C</button></ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col width-25><button (click)="digitClicked('4')">4</button></ion-col>
-      <ion-col width-25><button (click)="digitClicked('5')">5</button></ion-col>
-      <ion-col width-25><button (click)="digitClicked('6')">6</button></ion-col>
-      <ion-col width-25><button (click)="digitClicked('B')" class="functionKey"><strong>&laquo;</strong></button></ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col width-25><button (click)="digitClicked('1')">1</button></ion-col>
-      <ion-col width-25><button (click)="digitClicked('2')">2</button></ion-col>
-      <ion-col width-25><button (click)="digitClicked('3')">3</button></ion-col>
-      <ion-col width-25 class="disabledKey"></ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col width-25><button (click)="digitClicked('.')"><strong>.</strong></button></ion-col>
-      <ion-col width-50><button (click)="digitClicked('0')">0</button></ion-col>
-      <ion-col width-25><button (click)="digitClicked('D')" class="functionKey">Done</button></ion-col>
-    </ion-row>
-  </ion-grid>
+  <div class="outer">
+    <div (click)="digitClicked('7')">7</div>
+    <div (click)="digitClicked('8')">8</div>
+    <div (click)="digitClicked('9')">9</div>
+    <div (click)="digitClicked('C')" class="functionKey">C</div>
+    <div (click)="digitClicked('4')">4</div>
+    <div (click)="digitClicked('5')">5</div>
+    <div (click)="digitClicked('6')">6</div>
+    <div (click)="digitClicked('B')" class="functionKey"><strong>&laquo;</strong></div>
+    <div (click)="digitClicked('1')">1</div>
+    <div (click)="digitClicked('2')">2</div>
+    <div (click)="digitClicked('3')">3</div>
+    <div class="disabledKey"></div>
+    <div (click)="digitClicked('.')"><strong>.</strong></div>
+    <div (click)="digitClicked('0')" class="div50">0</div>
+    <div class="disabledKey"></div>
+    <div (click)="digitClicked('D')" class="functionKey">Done</div>
+  </div>
 </ion-content>

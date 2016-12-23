@@ -26,7 +26,7 @@
     </ion-row>
   </ion-toolbar>
 </ion-header>
-<ion-content class="outer-content">
+<ion-content>
   <ion-list [virtualScroll]="transactions" [approxItemHeight]="'75px'" [bufferRatio]="3" [headerFn]="myHeaderFn">
       <ion-item-divider sticky color="light" *virtualHeader="let header">
         {{ header }}
