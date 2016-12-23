@@ -53,9 +53,6 @@ page-transaction-list-virtual {
   .ml-item {
     padding: 0;
   }
-  .ml-item.item-block .item-inner {
-    padding: 0;
-  }
   .ml-item.item-block ion-label {
     padding: 0;
     margin-right: 0;
@@ -143,13 +140,10 @@ page-transaction-list-virtual {
   }
   .ml-col-3 {
     max-width: 55px;
-    padding-left: 17px;
+    padding-left: 15px;
   }
   .ml-clear-col {
     max-width: 45px;
-  }
-  .ml-item.ml-no-border.item-block .item-inner {
-    border-bottom-width: 0;
   }
   .item-divider-md {
     border-bottom-width: 0;
