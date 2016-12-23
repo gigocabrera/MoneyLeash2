@@ -60,7 +60,7 @@ page-pickamount {
   .outer {
     width: 100%;
     max-width: 500px;
-    margin: 10px auto;
+    margin: 0 auto;
   }
 
   .outer:after {
@@ -73,9 +73,9 @@ page-pickamount {
     min-height: 75px;
     padding-top: 20px;
     text-align: center;
-    border: 0.55px solid dimgray;
+    border: 0.75px solid #fff;
     float: left;
-    margin: -1px 0 0 -1px;
+    /*margin: -1px 0 0 -1px;*/
     font: 28px 'PT Sans Narrow', sans-serif;
     color: #000;
     background-color: #d0d1d4;
