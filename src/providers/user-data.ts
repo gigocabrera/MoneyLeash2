@@ -666,8 +666,6 @@ export class UserData {
   }
 
   syncAccountData(account) {
-
-    console.log('here2');
     
     var totalTransactions = 0;
     var totalClearedTransactions = 0;
@@ -736,7 +734,7 @@ export class UserData {
 
       });
 
-      var pendingTransactions = totalTransactions - totalClearedTransactions; 
+      var pendingTransactions = totalTransactions - totalClearedTransactions;
       console.log('total transactions: ' + totalTransactions.toFixed(0));
       console.log('total cleared transactions: ' + totalClearedTransactions.toFixed(0));
       console.log('total pending transactions: ' + pendingTransactions.toFixed(0));

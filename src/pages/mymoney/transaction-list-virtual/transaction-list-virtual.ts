@@ -44,10 +44,12 @@ export class TransactionsVirtualPage {
 
       let rawList= [];
       let count: number = 0;
+      let totalTransactions = 0;
+      let totalClearedTransactions = 0;
 
       transactions.forEach( spanshot => {
         
-        var transaction = spanshot.val();
+        let transaction = spanshot.val();
         let tempTransaction = new Transaction(
           spanshot.key,
           transaction.ClearedClass,
@@ -104,7 +106,14 @@ export class TransactionsVirtualPage {
             tempTransaction.ionitemclass = "1";
           }
 
-        }        
+        }
+        //
+        // Track totals
+        //
+        totalTransactions++;
+        if (transaction.iscleared === true) {
+          totalClearedTransactions++;
+        }
 
         rawList.push(tempTransaction);
         
@@ -113,6 +122,15 @@ export class TransactionsVirtualPage {
       });
       this.transactions = rawList;
       this.transactions.reverse();
+
+      //
+      // Update balances and totals
+      //
+      let pendingTransactions = totalTransactions - totalClearedTransactions;
+      this.account.totaltransactions = totalTransactions.toString();
+      this.account.totalclearedtransactions = totalClearedTransactions.toString();
+      this.account.totalpendingtransactions = pendingTransactions.toString();
+      this.userData.updateAccountWithTotals(this.account);
 
       // Disable loading controller when the promise is complete
       this.userData.LoadingControllerDismiss();
@@ -159,23 +177,27 @@ export class TransactionsVirtualPage {
     if (prevTransaction != undefined) {
       clearedbal = parseFloat(prevTransaction.clearedBal);
       runningbal = parseFloat(prevTransaction.runningbal);
+      //console.log(clearedbal,runningbal);
     }
     
-    for (var i = this.transactions.length; i-- > 0; ) {  
+    for (var i = this.transactions.length; i-- > 0; ) {
+
+      console.log(i, pos);
+
       if (i <= pos) {
         //
         // Handle Balances
         //
-        let thisTransaction = this.transactions[i];
+        let thisTransaction: ITransaction = this.transactions[i];
         thisTransaction.ClearedClass = '';
         if (thisTransaction.iscleared === true) {
           thisTransaction.ClearedClass = 'transactionIsCleared';
           if (thisTransaction.type === "Income") {
-            if (!isNaN(thisTransaction.amount)) {
+            if (!isNaN(parseFloat(thisTransaction.amount))) {
               clearedbal = clearedbal + parseFloat(thisTransaction.amount);
             }
           } else if (thisTransaction.type === "Expense") {
-            if (!isNaN(thisTransaction.amount)) {
+            if (!isNaN(parseFloat(thisTransaction.amount))) {
               clearedbal = clearedbal - parseFloat(thisTransaction.amount);
             }
           }
@@ -185,12 +207,12 @@ export class TransactionsVirtualPage {
           thisTransaction.clearedBal = clearedbal.toFixed(2);
         }
         if (thisTransaction.type === "Income") {
-          if (!isNaN(thisTransaction.amount)) {
+          if (!isNaN(parseFloat(thisTransaction.amount))) {
             runningbal = runningbal + parseFloat(thisTransaction.amount);
             thisTransaction.runningbal = runningbal.toFixed(2);
           }
         } else if (thisTransaction.type === "Expense") {
-          if (!isNaN(thisTransaction.amount)) {
+          if (!isNaN(parseFloat(thisTransaction.amount))) {
             runningbal = runningbal - parseFloat(thisTransaction.amount);
             thisTransaction.runningbal = runningbal.toFixed(2);
           }
@@ -199,12 +221,14 @@ export class TransactionsVirtualPage {
         // Update running and cleared balances for this transaction
         //
         this.userData.updateTransactionAndBalances(this.account, thisTransaction);
+        //console.log(thisTransaction);
       }
     }
     //
-    // Update running and cleared balances for this transaction
+    // Update balances and totals
     //
     this.account.balancecleared = clearedbal.toFixed(2);
+    //console.log(this.account);
     this.userData.updateAccountWithTotals(this.account);
   }
 
