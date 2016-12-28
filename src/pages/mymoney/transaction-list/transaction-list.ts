@@ -120,6 +120,17 @@ export class TransactionsPage {
 
   doFilterList (q) {
     //this.trans = this.userData.getFilteredTransactions(this.account, '');
+    
+    this.trans = this.trans.filter((v) => {
+      console.log(q, v);
+      if(v.payee && q) {
+        if (v.payee.toLowerCase().indexOf(q.toLowerCase()) > -1) {
+          return true;
+        }
+        return false;
+      }
+    }) as FirebaseListObservable<any[]>;
+    
   }
   
 }
