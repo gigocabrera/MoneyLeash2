@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 
 import { NavController, NavParams } from 'ionic-angular';
 
+import { FirebaseListObservable } from 'angularfire2';
+
 // app pages
 import { TransactionPage } from '../transaction/transaction';
 
@@ -10,9 +12,11 @@ import { UserData } from '../../../providers/user-data';
 import { TransactionData } from '../../../providers/transaction-data';
 
 // models
-import { Transaction } from '../../../models/transaction.model';
+import { IAccount } from '../../../models/account.model';
+import { Transaction, ITransaction } from '../../../models/transaction.model';
 
 import * as moment from 'moment';
+import "rxjs/add/operator/map";
 
 @Component({
   selector: 'page-transaction-list',
@@ -22,9 +26,9 @@ import * as moment from 'moment';
 export class TransactionsPage {
 
   title: string;
-  groupedTransactions = [];
-  account: any;
-  searchQuery: string = '';
+  trans: FirebaseListObservable<any>;
+  account: IAccount;
+  searchTerm: string = '';
 
   constructor(
       public nav: NavController,
@@ -38,129 +42,84 @@ export class TransactionsPage {
       }
 
   ionViewDidLoad() {
-
-    this.userData.getTransactionsByDate(this.account).on('value', (transactions) => {
-
-      let that = this;
-      this.groupedTransactions = [];
-      let currentTransactions = [];
-      let currentDate;
-      let previousDay = '';
-      let previousYear = '';
-      let format = 'MMMM DD, YYYY';
-      let groupValue = '';
-      let todaysDate = new Date();
-      let todayFlag = false;
-
-      transactions.forEach( spanshot => {
-
-        var transaction = spanshot.val();
-
-        let tempTransaction = new Transaction(
-          spanshot.key,
-          transaction.ClearedClass,
-          transaction.accountFrom,
-          transaction.accountFromId,
-          transaction.accountTo,
-          transaction.accountToId,
-          transaction.addedby,
-          transaction.amount,
-          transaction.category,
-          transaction.categorid,
-          transaction.clearedBal,
-          transaction.date,
-          transaction.displaydate,
-          transaction.displaytime,
-          transaction.iscleared,
-          transaction.isphoto,
-          transaction.isrecurring,
-          transaction.istransfer,
-          transaction.notes,
-          transaction.payee,
-          transaction.payeeid,
-          transaction.photo,
-          transaction.runningbal,
-          transaction.type,
-          transaction.typedisplay,          
-          '',
-          '',
-          transaction.recordindex,
-          transaction.ionitemclass
-        );
-
-        if (transaction.iscleared) {
-          tempTransaction.checked = 'checked';
-        }
-        //
-        // Add grouping functionality
-        //
-        currentDate = new Date(transaction.date);
-        if (!previousDay || currentDate.getDate() !== previousDay || currentDate.getFullYear() !== previousYear) {
-          var dividerId = moment(transaction.date).format(format);
-          if (dividerId !== groupValue) {
-            groupValue = dividerId;
-            var tday = moment(todaysDate).format(format);
-            if (tday === dividerId) {
-                todayFlag = true;
-            } else {
-                todayFlag = false;
-            }
-            let newGroup = {
-                label: groupValue,
-                transactions: [],
-                isToday: todayFlag
-            };
-            currentTransactions.reverse();
-            currentTransactions = newGroup.transactions;
-            that.groupedTransactions.push(newGroup);
-          }
-        }
-        currentTransactions.push(tempTransaction);
-        previousDay = currentDate.getDate();
-        previousYear = currentDate.getFullYear();
-      })
-      that.groupedTransactions.reverse();
-
-      // Disable loading controller when the promise is complete
-      this.userData.LoadingControllerDismiss();
-    });
-
-  }
-
-  getTransactions(ev: any) {
-    // Reset items back to all of the items
-    //this.initializeItems();
-
-    // set val to the value of the searchbar
-    let val = ev.target.value;
-
-    // if the value is an empty string don't filter the items
-    if (val && val.trim() != '') {
-      this.groupedTransactions = this.groupedTransactions.filter((item) => {
-        return (item.toLowerCase().indexOf(val.toLowerCase()) > -1);
-      })
-    }
+    this.trans = this.userData.getTransactionsByDate(this.account);
   }
 
   newTransaction() {
     let tempTransaction = new Transaction(null,null,null,null,null,null,null,null,null,null,null,null,null,null,false,false,false,false,null,null,null,null,null,null,null,"New",null,0,null);
     this.transactionData.setReferrer('TransactionsPage');
-    this.nav.push(TransactionPage, {paramTransaction: tempTransaction});
+    this.nav.push(TransactionPage, {paramTransaction: tempTransaction, paramAccount: this.account});
   }
 
-  edit(transaction) {
+  edit(transaction) { 
+    transaction.mode = 'Edit';
     this.transactionData.setReferrer('TransactionsPage');
-    this.nav.push(TransactionPage, {paramTransaction: transaction});
+    this.nav.push(TransactionPage, { paramTransaction: transaction, paramAccount: this.account });
   }
 
   delete(transaction) {
-    console.log('delete');
-    console.log(transaction);
+    
   }
 
   clearTransaction(transaction) {
-    console.log('clear');
-    console.log(transaction);
+    
+    if (transaction.iscleared) {
+      transaction.ClearedClass = 'transactionIsCleared';
+    } else {
+      transaction.ClearedClass = '';
+    }
+    this.trans.update(transaction.$key, { 'iscleared': transaction.iscleared });
+    this.userData.syncAccountData(this.account);
+
+  }
+
+  myHeaderFn(transaction: ITransaction, recordIndex, transactions) {
+
+    let format = 'MMMM DD, YYYY';
+    let thisTransDate = moment(transaction.date).format(format);
+
+    // Get previous transaction
+    let prevTransaction: ITransaction = transactions[recordIndex - 1];
+    if (prevTransaction === undefined) {
+      return thisTransDate;
+    }
+
+    // Get date for previous transaction
+    let prevTransDate = moment(prevTransaction.date).format(format);
+
+    // Compare dates between this transaction and the previous transaction
+    if (prevTransDate === thisTransDate) {
+      return null;
+    } else {
+      // If dates are different, add header and supress bottom border
+      prevTransaction.ionitemclass = "1";
+      return thisTransDate;
+    }
+
+  }
+
+  initializeItems(){
+    //this.trans = this.transactions;
+  }
+
+  getItems(searchbar) {
+    
+    // Reset items back to all of the items
+    this.initializeItems();
+
+    // set q to the value of the searchbar
+    var q = searchbar.srcElement.value;
+
+    // if the value is an empty string don't filter the items
+    if (!q) {
+      return;
+    }
+
+    this.doFilterList(q);
+  }
+
+  doFilterList (q) {
+    //this.trans = this.userData.getFilteredTransactions(this.account, '');
   }
   
 }

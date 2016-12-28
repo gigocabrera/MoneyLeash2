@@ -45,7 +45,7 @@ export class TransactionsAF2Page {
 
   ionViewDidLoad() {
 
-    this.trans = this.userData.getTransactionsByDateAF2(this.account);
+    this.trans = this.userData.getTransactionsByDate(this.account);
 
   }
 

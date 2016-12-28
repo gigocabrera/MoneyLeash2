@@ -418,18 +418,24 @@ export class UserData {
   getAllTransactionsByDate(account) {
     return this.housedata.child(this.user.houseid + '/transactions/' + account.$key).orderByChild('date');
   }
-  getTransactionsByDate(account) {
-    return this.housedata.child(this.user.houseid + '/transactions/' + account.$key).orderByChild('date').limitToLast(50);
-  }
   getTransactionsByDateCustom(account, limit) {
+    //return this.housedata.child(this.user.houseid + '/transactions/' + account.$key).orderByChild('date').limitToLast(50);
     return this.housedata.child(this.user.houseid + '/transactions/' + account.$key).orderByChild('date').limitToLast(limit);
   }
 
   // Use Angularfire2
-  getTransactionsByDateAF2(account): FirebaseListObservable<any> {
+  getTransactionsByDate(account): FirebaseListObservable<any> {
     return this.af.database.list('/houses/' + this.user.houseid + '/transactions/' + account.$key, {
       query: {
         orderByChild: 'date'
+      }
+    }).map((array) => array.reverse()) as FirebaseListObservable<any[]>;
+  }
+  getFilteredTransactions(account, filter): FirebaseListObservable<any> {
+    return this.af.database.list('/houses/' + this.user.houseid + '/transactions/' + account.$key, {
+      query: {
+        orderByChild: 'payee',
+        equalTo: filter
       }
     }).map((array) => array.reverse()) as FirebaseListObservable<any[]>;
   }

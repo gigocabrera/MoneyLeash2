@@ -3,20 +3,18 @@ page-transaction-list {
 
   .customTransDesc {
     text-align: left;
-    height: 37px;
-    font: 20px 'PT Sans Narrow', sans-serif;
+    font: 22px 'PT Sans Narrow', sans-serif;
     font-weight: bold;
-    padding-left: 16px;
+    padding-left: 10px;
     color: #444;
-    font-size: 20px;
   }
   .customTransDesc span small {
-      position: absolute;
-      font: 13px 'Helvetica Neue', sans-serif;
-      top: 35px;
-      left: -19px;
-      color: #A0A0A0;
-      font-weight: normal;
+    position: absolute;
+    font: 13px -apple-system, "Helvetica Neue", "Roboto", sans-serif;
+    top: 32px;
+    left: -25px;
+    color: #A0A0A0;
+    font-weight: normal;
   }
   .customTransDesc span small ul {
     display: block;
@@ -24,32 +22,27 @@ page-transaction-list {
   }
   .customTransDesc span small ul li {
     float: left;
-    margin-right: 15px;
+    margin-right: 8px;
+    font: 14px -apple-system, "Helvetica Neue", "Roboto", sans-serif;
+  }
+  .customTransDesc span small ul li ion-icon {
+    font-size: 14px;
+    padding-right: 3px;
   }
   .customTransDesc .fa {
-      padding-right: 5px;
+    padding-right: 4px;
   }
   .customTransAmt {
-    text-align: left;
-    height: 37px;
     font: 20px 'PT Sans Narrow', sans-serif;
     font-weight: bold;
-    padding-right: 55px;
     color: #444;
     font-size: 20px;
-    float: right;
   }
-  .customTransAmt span {
-    position: relative;
-    top: 1px;
-  }
-  .customTransAmt span small {
-    position: absolute;
-    font: 16px 'PT Sans Narrow', sans-serif;
-    top: 20px;
-    right: 0;
+  .customRunBal {
+    font: 18px 'PT Sans Narrow', sans-serif;
     color: #A0A0A0;
     font-weight: bold;
+    margin-top: -25px;
   }
   .transactionIsCleared .item-content {
     background-color: #eee;
@@ -58,9 +51,6 @@ page-transaction-list {
     transition: all linear 0.5s;
   }
   .ml-item {
-    padding: 0;
-  }
-  .ml-item.item-block .item-inner {
     padding: 0;
   }
   .ml-item.item-block ion-label {
@@ -77,20 +67,17 @@ page-transaction-list {
       color: #1AAC57;
   }
   .toggleTransactionCleared {
-    text-align: center;
-    width: 52px;
     height: auto;
-    position: absolute;
     margin: auto 0;
-      margin-left: auto;
-      margin-right: auto;
+    margin-left: auto;
+    margin-right: auto;
     border: none;
     -webkit-appearance: none;
-      -moz-appearance: none;
+    -moz-appearance: none;
     -ms-appearance: none;
     -o-appearance: none;
     appearance: none;
-      background-color: transparent;
+    background-color: transparent;
   }
   .toggleTransactionCleared:after {
     content: '\f00c';
@@ -105,58 +92,26 @@ page-transaction-list {
     bottom: 1px;
     position: relative;
   }
-
   ion-item-divider ion-label {
     text-transform: uppercase;
     color: #6d6d72;
     font-size: 12px;
   }
-
   .center {
     text-align: center;
   }
-
   .balancesRow {
     font-weight: bold;
     font: 13px 'PT Sans Narrow', sans-serif;
     text-align: center;
   }
-
   .balancesRow span {
     display: block;
     font-weight: normal;
     font-size: 15px;
   }
-
   .colBorder {
     border-right: 1px solid #AED9E3;
-  }
-  .button-float {
-    background: #00A2E8;
-    color: white !important;
-    z-index: 12 !important;
-    position: absolute !important;
-    bottom: 15px !important;
-    right: 41%;
-    width: 65px;
-    height: 65px;
-    border-radius: 50% !important;
-    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26) !important;
-    -webkit-transform: translate3d(0, 0, 0) !important;
-    transform: translate3d(0, 0, 0) !important;
-    -webkit-transition: 0.2s linear !important;
-    transition: 0.2s linear !important;
-    -webkit-transition-property: -webkit-transform, all !important;
-    transition-property: transform, all !important;
-  }
-  .button-float:hover {
-    -webkit-transform: translate3d(0, -1px, 0) !important;
-    transform: translate3d(0, -1px, 0) !important;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4) !important;
-    background: #0076A8 !important;
-  }
-  .button-float ion-icon {
-    font-size: 34px;
   }
   .fab ion-icon {
     font-size: 3.4rem;
@@ -166,6 +121,51 @@ page-transaction-list {
     width: 65px;
     height: 65px;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26)
+  }
+  .header-md {
+    border-width: 0;
+  }
+  .header-wp {
+    border-width: 0;
+  }
+  .ml-row {
+    height: 55px;
+  }
+  .ml-col-1 {
+    background-color: #fff;
+  }
+  .ml-col-2 {
+    max-width: 150px;
+    text-align: right;
+  }
+  .ml-col-3 {
+    max-width: 55px;
+    padding-left: 15px;
+  }
+  .ml-clear-col {
+    max-width: 45px;
+  }
+  .item-divider-md {
+    border-bottom-width: 0;
+  }
+  .iconpadding {
+    padding-left: 19px;
+    padding-right: 19px;
+  }
+  .list-ios ion-item-options {
+    border-bottom-width: 0;
+  }
+  .item.item-ios .checkbox-ios {
+    margin: 8px 16px 8px -5px;
+  }
+  .item.item-md .checkbox-md {
+    margin: 9px 36px 9px -4px;
+  }
+  .list-ios .item-block .item-inner {
+    border-bottom: 0.75px solid #c8c7cc;
+  }
+  .ml-item.ml-no-border.item-block .item-inner {
+    border-bottom-width: 0;
   }
 
 }
