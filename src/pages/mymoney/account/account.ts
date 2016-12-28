@@ -50,7 +50,7 @@ export class AccountPage {
       this.hasDataAccountType = true;
 
       // Format date
-      this.displaydate = moment(parseInt(this.account.dateopen)).format();
+      this.displaydate = moment(this.account.dateopen).format();
     }
   }
 
@@ -85,7 +85,7 @@ export class AccountPage {
 
     // Format date
     let dt = moment(this.displaydate, moment.ISO_8601).valueOf();
-    this.account.dateopen = dt.toString();
+    this.account.dateopen = dt
     
     if (this.account.mode === 'New') {
       this.userData.addAccount(this.account);

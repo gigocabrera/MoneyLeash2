@@ -10,7 +10,7 @@ export interface ITransaction {
   category: string;
   categoryid: string;
   clearedBal: string;
-  date: string;
+  date: number;
   displaydate: string;
   displaytime: string;
   iscleared: boolean;
@@ -44,7 +44,7 @@ export class Transaction implements ITransaction {
     public category: string,
     public categoryid: string,
     public clearedBal: string,
-    public date: string,
+    public date: number,
     public displaydate: string,
     public displaytime: string,
     public iscleared: boolean,

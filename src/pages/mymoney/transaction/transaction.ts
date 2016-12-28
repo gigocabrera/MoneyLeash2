@@ -71,8 +71,8 @@ export class TransactionPage {
       this.hasDataPhoto = true;
 
       // Format date
-      this.transaction.displaydate = moment(parseInt(this.transaction.date)).format();
-      this.transaction.displaytime = moment(parseInt(this.transaction.date)).format();
+      this.transaction.displaydate = moment(this.transaction.date).format();
+      this.transaction.displaytime = moment(this.transaction.date).format();
 
       // Prepare services
       this.transactionData.setTransactionType(this.transaction.type);
@@ -149,7 +149,10 @@ export class TransactionPage {
 
     // Format date
     let dt = moment(this.transaction.displaydate, moment.ISO_8601).valueOf();
-    this.transaction.date = dt.toString();   
+    this.transaction.date = dt
+
+    // Handle Who
+    this.transaction.addedby = this.userData.user.fullname;
 
     if (this.transaction.mode === 'New') {
       this.userData.addTransaction(this.transaction, this.account);

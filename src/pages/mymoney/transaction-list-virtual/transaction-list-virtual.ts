@@ -177,12 +177,9 @@ export class TransactionsVirtualPage {
     if (prevTransaction != undefined) {
       clearedbal = parseFloat(prevTransaction.clearedBal);
       runningbal = parseFloat(prevTransaction.runningbal);
-      //console.log(clearedbal,runningbal);
     }
     
     for (var i = this.transactions.length; i-- > 0; ) {
-
-      console.log(i, pos);
 
       if (i <= pos) {
         //
@@ -221,7 +218,6 @@ export class TransactionsVirtualPage {
         // Update running and cleared balances for this transaction
         //
         this.userData.updateTransactionAndBalances(this.account, thisTransaction);
-        //console.log(thisTransaction);
       }
     }
     //

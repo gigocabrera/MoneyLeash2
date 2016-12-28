@@ -5,6 +5,7 @@ import { NavController, AlertController } from 'ionic-angular';
 // app pages
 import { AccountPage } from '../account/account';
 import { TransactionsVirtualPage } from '../transaction-list-virtual/transaction-list-virtual';
+import { TransactionsAF2Page } from '../transaction-list-af2/transaction-list-af2';
 
 // services
 import { UserData } from '../../../providers/user-data';
@@ -89,8 +90,8 @@ export class AccountListPage {
   }
 
   viewtransactions (account) {
-    this.userData.LoadingControllerShow();
-    this.nav.push(TransactionsVirtualPage, {paramAccount: account});
+    //this.userData.LoadingControllerShow();
+    this.nav.push(TransactionsAF2Page, {paramAccount: account});
   }
 
   newAccount() {

@@ -371,10 +371,12 @@ export class UserData {
   // ACCOUNTS
   //-----------------------------------------------------------------------
 
-  getAccounts() {
-    // DO NOT USE:
-    // this method produces a weird result where the list is returned sorted (as expected) the first time
-    // you visit the page, but is not sorted every subsequent time you visit the page and multiplies the list
+  // Use Angularfire2
+  getAccountAF2(account): FirebaseObjectObservable<any[]> {
+    return this.af.database.object('/houses/' + this.user.houseid + '/accounts/' + account.$key);
+  }
+
+  getAccountsAF2(): FirebaseListObservable<any> {
     return this.af.database.list('/houses/' + this.user.houseid + '/accounts', {
       query: {
         orderByChild: 'accounttype'
@@ -421,6 +423,18 @@ export class UserData {
   }
   getTransactionsByDateCustom(account, limit) {
     return this.housedata.child(this.user.houseid + '/transactions/' + account.$key).orderByChild('date').limitToLast(limit);
+  }
+
+  // Use Angularfire2
+  getTransactionsByDateAF2(account): FirebaseListObservable<any> {
+    return this.af.database.list('/houses/' + this.user.houseid + '/transactions/' + account.$key, {
+      query: {
+        orderByChild: 'date'
+      }
+    }).map((array) => array.reverse()) as FirebaseListObservable<any[]>;
+  }
+  getAllTransactionsByDateAF2(account): FirebaseListObservable<any> {
+    return this.af.database.list('/houses/' + this.user.houseid + '/transactions/' + account.$key, { preserveSnapshot: true });
   }
 
   addTransaction(transaction, account) {
@@ -735,12 +749,12 @@ export class UserData {
       });
 
       var pendingTransactions = totalTransactions - totalClearedTransactions;
-      console.log('total transactions: ' + totalTransactions.toFixed(0));
+      /*console.log('total transactions: ' + totalTransactions.toFixed(0));
       console.log('total cleared transactions: ' + totalClearedTransactions.toFixed(0));
       console.log('total pending transactions: ' + pendingTransactions.toFixed(0));
       console.log('Balance cleared: ' + clearedBal.toFixed(2));
       console.log('Balance running: ' + runningBal.toFixed(2));
-      console.log('Balance today: ' + todayBal.toFixed(2));
+      console.log('Balance today: ' + todayBal.toFixed(2));*/
 
       // Update account with totals
       var refAccount = this.housedata.child(this.user.houseid + '/accounts/' + account.$key);
@@ -754,7 +768,7 @@ export class UserData {
       });
 
     });
-    this.LoadingControllerDismiss();
+    //this.LoadingControllerDismiss();
   }
 
   syncCategories(account) {
