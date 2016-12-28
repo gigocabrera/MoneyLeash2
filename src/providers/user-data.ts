@@ -9,8 +9,8 @@ import * as moment from 'moment';
 // firebase/angularfire
 import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
 
-import { Account, IAccount } from '../models/account.model';
-import { Transaction, ITransaction } from '../models/transaction.model';
+import { IAccount } from '../models/account.model';
+import { ITransaction } from '../models/transaction.model';
 
 @Injectable()
 export class UserData {

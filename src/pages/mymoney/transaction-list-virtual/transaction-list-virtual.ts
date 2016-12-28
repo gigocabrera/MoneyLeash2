@@ -10,7 +10,7 @@ import { UserData } from '../../../providers/user-data';
 import { TransactionData } from '../../../providers/transaction-data';
 
 // models
-import { Account, IAccount } from '../../../models/account.model';
+import { IAccount } from '../../../models/account.model';
 import { Transaction, ITransaction } from '../../../models/transaction.model';
 
 import * as moment from 'moment';

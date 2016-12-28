@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 import { NavController, NavParams } from 'ionic-angular';
 
-import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
+import { FirebaseListObservable } from 'angularfire2';
 
 // app pages
 import { TransactionPage } from '../transaction/transaction';
@@ -12,7 +12,7 @@ import { UserData } from '../../../providers/user-data';
 import { TransactionData } from '../../../providers/transaction-data';
 
 // models
-import { Account, IAccount } from '../../../models/account.model';
+import { IAccount } from '../../../models/account.model';
 import { Transaction, ITransaction } from '../../../models/transaction.model';
 
 import * as moment from 'moment';
@@ -28,7 +28,6 @@ export class TransactionsAF2Page {
   title: string;
   transactions = [];
   trans: FirebaseListObservable<any>;
-  //account: FirebaseObjectObservable<any>;
   account: IAccount;
   searchQuery: string = '';
 
@@ -47,8 +46,6 @@ export class TransactionsAF2Page {
   ionViewDidLoad() {
 
     this.trans = this.userData.getTransactionsByDateAF2(this.account);
-    //this.userData.syncAccountData(this.account);
-    //this.userData.LoadingControllerDismiss();
 
   }
 
@@ -58,15 +55,8 @@ export class TransactionsAF2Page {
     this.nav.push(TransactionPage, {paramTransaction: tempTransaction, paramAccount: this.account});
   }
 
-  edit(transaction) {
-    
-    let pos = this.transactions.findIndex(x => x.recordindex === transaction.recordindex);
-    console.log(pos);
-
-    let prevTransaction = this.transactions[pos + 1];
-    console.log(transaction);
-    console.log(prevTransaction);
-    
+  edit(transaction) { 
+    transaction.mode = 'Edit';
     this.transactionData.setReferrer('TransactionsPage');
     this.nav.push(TransactionPage, { paramTransaction: transaction, paramAccount: this.account });
   }
@@ -103,13 +93,14 @@ export class TransactionsAF2Page {
       return thisTransDate;
     }
 
-    // Compate dates between this transaction and the previous transaction
+    // Compare dates between this transaction and the previous transaction
     prevTransDate = moment(prevTransaction.date).format(format);
 
     if (prevTransDate === thisTransDate) {
       return null;
     } else {
-      // If dates are different, add header
+      // If dates are different, add header and supress bottom border
+      prevTransaction.ionitemclass = "1";
       return thisTransDate;
     }
 

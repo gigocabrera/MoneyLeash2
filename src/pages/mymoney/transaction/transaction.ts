@@ -50,6 +50,8 @@ export class TransactionPage {
     this.transaction = this.navParams.data.paramTransaction;
     this.account = this.navParams.data.paramAccount;
 
+    console.log(this.transaction);
+
     if (this.transaction.mode === 'New') {
       this.title = 'Create Transaction';
       this.hasDataTransactionType = false;
@@ -61,7 +63,8 @@ export class TransactionPage {
       this.hasDataPhoto = false;
       this.transactionData.reset();
     } else {
-      this.title = 'Edit Transaction';
+      //this.title = 'Edit Transaction';
+      this.title = this.transaction.payee;
       this.hasDataTransactionType = true;
       this.hasDataPayee = true;
       this.hasDataCategory = true;
@@ -149,7 +152,8 @@ export class TransactionPage {
 
     // Format date
     let dt = moment(this.transaction.displaydate, moment.ISO_8601).valueOf();
-    this.transaction.date = dt
+    this.transaction.date = dt;
+    this.transaction.mode = null;
 
     // Handle Who
     this.transaction.addedby = this.userData.user.fullname;
