@@ -3,6 +3,9 @@ import { Injectable } from '@angular/core';
 import { LoadingController } from 'ionic-angular';
 import { NativeStorage } from 'ionic-native';
 
+import { Subject } from 'rxjs/Subject';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+
 import 'rxjs';
 import * as moment from 'moment';
 
@@ -431,11 +434,11 @@ export class UserData {
       }
     }).map((array) => array.reverse()) as FirebaseListObservable<any[]>;
   }
-  getFilteredTransactions(account, filter): FirebaseListObservable<any> {
+  getFilteredTransactions(account, myChild, mySubject): FirebaseListObservable<any> {
     return this.af.database.list('/houses/' + this.user.houseid + '/transactions/' + account.$key, {
       query: {
-        orderByChild: 'payee',
-        equalTo: filter
+        orderByChild: myChild,
+        equalTo: mySubject
       }
     }).map((array) => array.reverse()) as FirebaseListObservable<any[]>;
   }
@@ -744,13 +747,10 @@ export class UserData {
           todayBal = runningBal;
         }
         //
-        // Update running balance for this transaction
+        // Update this transaction
         //
-        ref.child(snapshot.key).update({runningbal : runningBal.toFixed(2)});
-        //
-        // Update cleared balance for this transaction
-        //
-        ref.child(snapshot.key).update({clearedBal : clearedBal.toFixed(2)});
+        ref.child(snapshot.key).update({ runningbal : runningBal.toFixed(2), clearedBal : clearedBal.toFixed(2), payeelower : transaction.payee.toLowerCase() });
+        
 
       });
 
@@ -774,7 +774,7 @@ export class UserData {
       });
 
     });
-    //this.LoadingControllerDismiss();
+    this.LoadingControllerDismiss();
   }
 
   syncCategories(account) {

@@ -161,3 +161,12 @@
   -moz-animation-duration:1s;
   animation-duration:1s;
 }
+
+// Style for cleared transactions
+// --------------------------------------------------
+.transactionIsCleared .item-inner {
+  background-color: #eee;
+  -webkit-transition: all linear 0.5s;
+  -o-transition: all linear 0.5s;
+  transition: all linear 0.5s;
+}

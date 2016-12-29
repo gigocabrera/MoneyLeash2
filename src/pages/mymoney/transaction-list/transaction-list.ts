@@ -4,6 +4,9 @@ import { NavController, NavParams } from 'ionic-angular';
 
 import { FirebaseListObservable } from 'angularfire2';
 
+import { Subject } from 'rxjs/Subject';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+
 // app pages
 import { TransactionPage } from '../transaction/transaction';
 
@@ -16,7 +19,6 @@ import { IAccount } from '../../../models/account.model';
 import { Transaction, ITransaction } from '../../../models/transaction.model';
 
 import * as moment from 'moment';
-import "rxjs/add/operator/map";
 
 @Component({
   selector: 'page-transaction-list',
@@ -29,6 +31,8 @@ export class TransactionsPage {
   trans: FirebaseListObservable<any>;
   account: IAccount;
   searchTerm: string = '';
+  equalToSubject: Subject<any>;
+  orderByChild: Subject<any>;
 
   constructor(
       public nav: NavController,
@@ -42,12 +46,39 @@ export class TransactionsPage {
       }
 
   ionViewDidLoad() {
-    this.trans = this.userData.getTransactionsByDate(this.account);
+    //this.trans = this.userData.getTransactionsByDate(this.account);
+
+    this.equalToSubject = new BehaviorSubject(null);
+    this.orderByChild = new BehaviorSubject('date');
+    this.trans = this.userData.getFilteredTransactions(this.account, this.orderByChild, this.equalToSubject);
+  }
+
+  ionViewWillEnter() {
+
+    let referrer = this.transactionData.getReferrer();
+    switch (referrer) {
+      case 'TransactionPage': {
+        if (this.transactionData.ismodified) {
+          this.userData.syncAccountData(this.account);
+        }
+        break;
+      }
+    }
+  }
+
+  search() {
+    console.log('search here');
+  }
+
+  filterBy(size: string) {
+    //this.orderByChild.next('payeelower');
+    //this.equalToSubject.next('starbucks');
   }
 
   newTransaction() {
     let tempTransaction = new Transaction(null,null,null,null,null,null,null,null,null,null,null,null,null,null,false,false,false,false,null,null,null,null,null,null,null,"New",null,0,null);
     this.transactionData.setReferrer('TransactionsPage');
+    this.transactionData.ismodified = false;
     this.nav.push(TransactionPage, {paramTransaction: tempTransaction, paramAccount: this.account});
   }
 
@@ -68,7 +99,7 @@ export class TransactionsPage {
     } else {
       transaction.ClearedClass = '';
     }
-    this.trans.update(transaction.$key, { 'iscleared': transaction.iscleared });
+    this.trans.update(transaction.$key, { 'iscleared': transaction.iscleared, 'ClearedClass' : transaction.ClearedClass });
     this.userData.syncAccountData(this.account);
 
   }
@@ -98,39 +129,19 @@ export class TransactionsPage {
 
   }
 
-  initializeItems(){
-    //this.trans = this.transactions;
-  }
-
   getItems(searchbar) {
-    
-    // Reset items back to all of the items
-    this.initializeItems();
-
-    // set q to the value of the searchbar
     var q = searchbar.srcElement.value;
-
-    // if the value is an empty string don't filter the items
     if (!q) {
-      return;
+      this.doFilterList(null);
+    } else {
+      this.doFilterList(q);
     }
-
-    this.doFilterList(q);
   }
 
   doFilterList (q) {
-    //this.trans = this.userData.getFilteredTransactions(this.account, '');
-    
-    this.trans = this.trans.filter((v) => {
-      console.log(q, v);
-      if(v.payee && q) {
-        if (v.payee.toLowerCase().indexOf(q.toLowerCase()) > -1) {
-          return true;
-        }
-        return false;
-      }
-    }) as FirebaseListObservable<any[]>;
-    
+    console.log(q);
+    this.orderByChild.next('payeelower');
+    this.equalToSubject.next(q);
   }
   
 }

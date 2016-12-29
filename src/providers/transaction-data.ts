@@ -10,6 +10,7 @@ export class TransactionData {
     notes: string;
     photo: any;
     photodisplay: any;
+    ismodified: boolean = false;
  
     constructor() {}
 

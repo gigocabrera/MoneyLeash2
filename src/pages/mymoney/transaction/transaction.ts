@@ -163,6 +163,8 @@ export class TransactionPage {
     } else {
       this.userData.updateTransaction(this.transaction, this.account);
     }
+    this.transactionData.setReferrer('TransactionPage');
+    this.transactionData.ismodified = true;
     this.nav.pop();
   }
 
