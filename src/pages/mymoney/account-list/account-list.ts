@@ -152,5 +152,10 @@ export class AccountListPage {
     this.userData.LoadingControllerShow();
     this.userData.syncPayees(account);
   }
+
+  syncPhotos(account) {
+    this.userData.LoadingControllerShow();
+    this.userData.syncPhotos(account);
+  }
   
 }

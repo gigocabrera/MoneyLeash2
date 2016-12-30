@@ -905,7 +905,7 @@ export class UserData {
   syncPayees(account) {
     //
     // Get all the transactions from this account 
-    // and verify that a category exists in the categories node
+    // and verify that a payee exists in the payees node
     // If not, create it
     //
     var ref = this.housedata.child(this.user.houseid + '/transactions/' + account.$key);
@@ -925,6 +925,31 @@ export class UserData {
             this.housedata.child(this.user.houseid + '/payees/' + transaction.payeeid).update({ 'payeename' : transaction.payee });
           }
         });
+      });
+    });
+    this.LoadingControllerDismiss();
+  }
+
+  syncPhotos(account) {
+    //
+    // Get all the transactions from this account 
+    // and if a photo exists move it to fb storage
+    //
+    var ref = this.housedata.child(this.user.houseid + '/transactions/' + account.$key);
+    var query = ref.orderByChild('date');
+
+    //this.transactionphoto = firebase.storage().ref('/profilepics/');
+    query.once('value', (transactions) => {
+
+      transactions.forEach( snapshot => {
+
+        var transaction = snapshot.val();
+        //
+        // Handle photos
+        //
+        if (transaction.photo != '') {
+          console.log(snapshot.key, transaction);
+        }
       });
     });
     this.LoadingControllerDismiss();
