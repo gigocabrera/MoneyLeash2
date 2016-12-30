@@ -3,9 +3,6 @@ import { Injectable } from '@angular/core';
 import { LoadingController } from 'ionic-angular';
 import { NativeStorage } from 'ionic-native';
 
-import { Subject } from 'rxjs/Subject';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-
 import 'rxjs';
 import * as moment from 'moment';
 
@@ -13,7 +10,7 @@ import * as moment from 'moment';
 import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
 
 import { IAccount } from '../models/account.model';
-import { Transaction, ITransaction } from '../models/transaction.model';
+import { ITransaction } from '../models/transaction.model';
 
 @Injectable()
 export class UserData {

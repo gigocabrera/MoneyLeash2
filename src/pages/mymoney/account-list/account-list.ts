@@ -89,6 +89,7 @@ export class AccountListPage {
   }
 
   viewtransactions (account) {
+    this.userData.LoadingControllerShow();
     this.nav.push(TransactionsPage, {paramAccount: account});
   }
 
