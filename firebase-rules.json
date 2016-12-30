@@ -7,8 +7,7 @@
         ".write": "root.child('members').child(auth.uid).child('houseid').val() === $house_id || root.child('users').child(auth.uid).child('houseid').val() === $house_id",
         "transactions": {
           "$transaction_id": {
-            ".indexOn": "date"
-          	
+            ".indexOn": ["date","type"]
           }
         }
       }
