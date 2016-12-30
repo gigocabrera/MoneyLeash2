@@ -132,9 +132,14 @@ export class AccountListPage {
     slidingItem.close();
   }
 
+  syncAccountBalances(account) {
+    this.userData.LoadingControllerShow();
+    this.userData.syncAccountBalances(account);
+  }
+
   syncAccountData(account) {
     this.userData.LoadingControllerShow();
-    this.userData.syncAccountData(account);
+    this.userData.upgradeAccountData(account);
   }
 
   syncCategoryData(account) {

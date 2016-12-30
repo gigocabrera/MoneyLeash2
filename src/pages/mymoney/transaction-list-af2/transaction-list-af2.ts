@@ -73,7 +73,7 @@ export class TransactionsAF2Page {
       transaction.ClearedClass = '';
     }
     this.trans.update(transaction.$key, { 'iscleared': transaction.iscleared });
-    this.userData.syncAccountData(this.account);
+    this.userData.syncAccountBalances(this.account);
 
   }
 

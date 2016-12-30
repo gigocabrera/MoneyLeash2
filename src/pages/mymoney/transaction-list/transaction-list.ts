@@ -59,7 +59,7 @@ export class TransactionsPage {
     switch (referrer) {
       case 'TransactionPage': {
         if (this.transactionData.ismodified) {
-          this.userData.syncAccountData(this.account);
+          this.userData.syncAccountBalances(this.account);
         }
         break;
       }
@@ -100,7 +100,7 @@ export class TransactionsPage {
       transaction.ClearedClass = '';
     }
     this.trans.update(transaction.$key, { 'iscleared': transaction.iscleared, 'ClearedClass' : transaction.ClearedClass });
-    this.userData.syncAccountData(this.account);
+    this.userData.syncAccountBalances(this.account);
 
   }
 

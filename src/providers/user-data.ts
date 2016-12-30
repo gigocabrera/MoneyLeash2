@@ -13,7 +13,7 @@ import * as moment from 'moment';
 import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
 
 import { IAccount } from '../models/account.model';
-import { ITransaction } from '../models/transaction.model';
+import { Transaction, ITransaction } from '../models/transaction.model';
 
 @Injectable()
 export class UserData {
@@ -435,7 +435,7 @@ export class UserData {
     }).map((array) => array.reverse()) as FirebaseListObservable<any[]>;
   }
   getFilteredTransactions(account, myChild, mySubject): FirebaseListObservable<any> {
-    return this.af.database.list('/houses/' + this.user.houseid + '/transactions/' + account.$key, {
+    return this.af.database.list('/houses/' + this.user.houseid + '/transactionsmeta/' + account.$key, {
       query: {
         orderByChild: myChild,
         equalTo: mySubject
@@ -688,7 +688,7 @@ export class UserData {
     });
   }
 
-  syncAccountData(account) {
+  syncAccountBalances(account) {
     
     var totalTransactions = 0;
     var totalClearedTransactions = 0;
@@ -735,10 +735,6 @@ export class UserData {
           }
         }
         //
-        // Handle Notes
-        //
-        transaction.notes = transaction.note;
-        //
         // Get today's balance
         // 
         var tranDate = moment(transaction.date)
@@ -749,18 +745,14 @@ export class UserData {
         //
         // Update this transaction
         //
-        ref.child(snapshot.key).update({ runningbal : runningBal.toFixed(2), clearedBal : clearedBal.toFixed(2), payeelower : transaction.payee.toLowerCase() });
-        
+        ref.child(snapshot.key).update({ 
+          runningbal : runningBal.toFixed(2), 
+          clearedBal : clearedBal.toFixed(2), 
+        });
 
       });
 
       var pendingTransactions = totalTransactions - totalClearedTransactions;
-      /*console.log('total transactions: ' + totalTransactions.toFixed(0));
-      console.log('total cleared transactions: ' + totalClearedTransactions.toFixed(0));
-      console.log('total pending transactions: ' + pendingTransactions.toFixed(0));
-      console.log('Balance cleared: ' + clearedBal.toFixed(2));
-      console.log('Balance running: ' + runningBal.toFixed(2));
-      console.log('Balance today: ' + todayBal.toFixed(2));*/
 
       // Update account with totals
       var refAccount = this.housedata.child(this.user.houseid + '/accounts/' + account.$key);
@@ -774,6 +766,98 @@ export class UserData {
       });
 
     });
+    this.LoadingControllerDismiss();
+  }
+
+  upgradeAccountData(account) {
+
+    var refmeta = this.housedata.child(this.user.houseid + '/transactionsmeta/' + account.$key);
+    var ref = this.housedata.child(this.user.houseid + '/transactions/' + account.$key);
+    var query = ref.orderByChild('date');
+
+    query.once('value', (transactions) => {
+      
+      transactions.forEach( snapshot => {
+
+        let transaction = snapshot.val();
+        let tempTransaction = {
+          ClearedClass : '',
+          accountFrom : transaction.accountFrom,
+          accountFromId : transaction.accountFromId,
+          accountTo : transaction.accountTo,
+          accountToId : transaction.accountToId,
+          addedby : transaction.addedby,
+          amount : transaction.amount,
+          category : transaction.category,
+          categoryid : transaction.categoryid,
+          clearedBal : transaction.clearedBal,
+          date : transaction.date,
+          iscleared : transaction.iscleared,
+          isphoto : '',
+          isrecurring : '',
+          istransfer : transaction.istransfer,
+          note : '',
+          notes : '',
+          payee : transaction.payee,
+          payeeid : transaction.payeeid,
+          photo: transaction.photo,
+          runningbal: transaction.runningbal,
+          runningbalance : null,
+          type : transaction.type,
+          typedisplay : transaction.typedisplay
+        };
+
+        // Some transactions are missing nodes
+        // so make sure you add them
+        if (transaction.isrecurring != undefined) {
+          tempTransaction.isrecurring = transaction.isrecurring;
+        }
+        if (transaction.isphoto != undefined) {
+          tempTransaction.isphoto = transaction.isphoto;
+        }
+        if (transaction.note === undefined) {
+          // ignore
+        } else {
+          if (transaction.note != '') {
+            tempTransaction.notes = transaction.note;
+          }
+        }
+
+        // Removed unnecessary nodes
+        tempTransaction.ClearedClass = null;
+        tempTransaction.note = null;
+        //
+        // UPDATE DATA
+        //
+        ref.child(snapshot.key).update(tempTransaction);
+        //
+        //
+        //
+        // Prepare transaction metadata 
+        let tempMeta = {
+          addedby : transaction.addedby,
+          amount : transaction.amount,
+          category : transaction.category,
+          clearedBal : transaction.clearedBal,
+          date : transaction.date,
+          iscleared : transaction.iscleared,
+          isphoto : '',
+          isrecurring : '',
+          istransfer : transaction.istransfer,
+          notes : '',
+          payee : transaction.payee,
+          runningbal: transaction.runningbal,
+          type : transaction.type
+        };
+        //
+        // UPDATE META DATA
+        //
+        refmeta.child(snapshot.key).update(tempMeta);
+        //
+      });
+
+    });
+    
     this.LoadingControllerDismiss();
   }
 
