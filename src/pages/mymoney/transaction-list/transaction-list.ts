@@ -50,7 +50,7 @@ export class TransactionsPage {
     this.equalToSubject = new BehaviorSubject(null);
     this.orderByChild = new BehaviorSubject('date');
     this.trans = this.userData.getFilteredTransactions(this.account, this.orderByChild, this.equalToSubject);
-    this.trans.subscribe(data => {
+    this.trans.first().subscribe(snapshots => {
       this.userData.LoadingControllerDismiss();
     });
   }
