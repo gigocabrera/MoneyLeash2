@@ -39,7 +39,7 @@ A user is granted access (read/write) by house_id and the security rules have be
 However, the rules need to be enhanced to: (1) prevent users from modifying a house_id, 
 (2) for a newly created account, the user needs to logout and log back in for the rules to work
 
-- [Security Rules Gist](https://gist.github.com/gigocabrera/fcfbe03b5636aad91302)
+- [Security Rules](https://github.com/gigocabrera/MoneyLeash2/blob/master/firebase-rules.json)
 
 ## Live Demo
 
