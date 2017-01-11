@@ -432,7 +432,7 @@ export class UserData {
     }).map((array) => array.reverse()) as FirebaseListObservable<any[]>;
   }
   getFilteredTransactions(account, myChild, mySubject): FirebaseListObservable<any> {
-    return this.af.database.list('/houses/' + this.user.houseid + '/transactionsmeta/' + account.$key, {
+    return this.af.database.list('/houses/' + this.user.houseid + '/transactions/' + account.$key, {
       query: {
         orderByChild: myChild,
         equalTo: mySubject
@@ -769,6 +769,10 @@ export class UserData {
   upgradeAccountData(account) {
 
     var refmeta = this.housedata.child(this.user.houseid + '/transactionsmeta/' + account.$key);
+
+    // First, clean the meta data node
+    refmeta.remove();
+
     var ref = this.housedata.child(this.user.houseid + '/transactions/' + account.$key);
     var query = ref.orderByChild('date');
 
