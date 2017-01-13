@@ -761,9 +761,9 @@ export class UserData {
         'totalclearedtransactions' : totalClearedTransactions.toFixed(0),
         'totalpendingtransactions' : pendingTransactions.toFixed(0)
       });
-
     });
     this.LoadingControllerDismiss();
+    return false;
   }
 
   upgradeAccountData(account) {
