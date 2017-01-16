@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { ItemSliding, NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, AlertController, ItemSliding } from 'ionic-angular';
 
 import { FirebaseListObservable } from 'angularfire2';
 
@@ -43,6 +43,7 @@ export class TransactionsPage {
   constructor(
       public nav: NavController,
       public navParams: NavParams,
+      public alertController: AlertController,
       public userData: UserData,
       public transactionData: TransactionData) {
 
@@ -72,6 +73,9 @@ export class TransactionsPage {
     let balcleared = 0;
     let totalTransactions = 0;
     let totalClearedTransactions = 0;
+    this.balancerunning = '';
+    this.balancecleared = '';
+    this.balancetoday = '';
 
     this.trans.forEach(transactions => {
       
@@ -96,14 +100,13 @@ export class TransactionsPage {
         if (transaction.type === "Income") {
           if (!isNaN(transaction.amount)) {
             balrunning += parseFloat(transaction.amount);
-            transaction.runningbal = balrunning.toFixed(2);
           }
         } else if (transaction.type === "Expense") {
           if (!isNaN(transaction.amount)) {
             balrunning -= parseFloat(transaction.amount);
-            transaction.runningbal = balrunning.toFixed(2);
           }
         }
+        transaction.runningbal = balrunning.toFixed(2);
         //
         // Get today's balance
         // 
@@ -169,9 +172,28 @@ export class TransactionsPage {
   }
 
   delete(transaction, slidingItem: ItemSliding) {
-    slidingItem.close();
-    this.trans.remove(transaction.$key);
-    this.refresh();
+    let alert = this.alertController.create({
+      title: 'Please Confirm',
+      message: 'Are you sure you want to delete this transaction?',
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: () => {
+            //console.log('Cancel RemoveUser clicked');
+            slidingItem.close();
+          }
+        },
+        {
+          text: 'Delete',
+          cssClass: 'alertDanger',
+          handler: () => {
+            this.trans.remove(transaction.$key);
+            this.refresh();
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 
   clearTransaction(transaction) {

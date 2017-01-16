@@ -445,7 +445,6 @@ export class UserData {
 
   addTransaction(transaction, account) {
     var newTransaction = {
-      'ClearedClass': transaction.ClearedClass,
       'accountFrom': transaction.accountFrom,
       'accountFromId': transaction.accountFromId,
       'accountTo': transaction.accountTo,
@@ -466,17 +465,13 @@ export class UserData {
       'photo': transaction.photo,
       'runningbal': transaction.runningbal,
       'type': transaction.type,
-      'typedisplay': transaction.typedisplay,
-      'mode': transaction.mode,
-      'checked': transaction.checked 
+      'typedisplay': transaction.typedisplay
     }
     this.housedata.child(this.user.houseid + '/transactions/' + account.$key + "/").push(newTransaction);
   }
 
   updateTransaction(transaction, account) {
-
     this.housedata.child(this.user.houseid + '/transactions/' + account.$key + "/" + transaction.$key).update({ 
-      'ClearedClass': transaction.ClearedClass,
       'accountFrom': transaction.accountFrom,
       'accountFromId': transaction.accountFromId,
       'accountTo': transaction.accountTo,
@@ -497,9 +492,7 @@ export class UserData {
       'photo': transaction.photo,
       'runningbal': transaction.runningbal,
       'type': transaction.type,
-      'typedisplay': transaction.typedisplay,
-      'mode': transaction.mode,
-      'checked': transaction.checked 
+      'typedisplay': transaction.typedisplay
     });
   }
 
