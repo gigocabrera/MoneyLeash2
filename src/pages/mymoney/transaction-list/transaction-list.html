@@ -12,13 +12,26 @@
       </button>
     </ion-buttons>
   </ion-navbar>
+  <ion-toolbar color="mlitemdivider">
+    <ion-row class="balancesRow">
+      <ion-col class="colBorder">
+        <span>Current Balance</span><span><strong>{{ balancerunning }}</strong></span>
+      </ion-col>
+      <ion-col class="colBorder">
+        <span>Today's Balance</span><span><strong>{{ balancetoday }}</strong></span>
+      </ion-col>
+      <ion-col>
+        <span>Cleared Balance</span><span><strong>{{ balancecleared }}</strong></span>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-list [virtualScroll]="trans | async" [approxItemHeight]="'75px'" [bufferRatio]="3" [headerFn]="myHeaderFn">
+  <ion-list [virtualScroll]="trans | async" [approxItemHeight]="'80px'" [bufferRatio]="3" [headerFn]="myHeaderFn">
       <ion-item-divider sticky color="light" *virtualHeader="let header">
         {{ header }}
       </ion-item-divider>
-      <ion-item-sliding *virtualItem="let transaction">
+      <ion-item-sliding #slidingItem *virtualItem="let transaction">
         <ion-item class="ml-item {{ transaction.ClearedClass }}" [ngClass]="{'ml-no-border': transaction.ionitemclass == '1'}">
           <ion-row class="ml-row">
             <ion-col (click)="edit(transaction)">              
@@ -53,11 +66,7 @@
           </ion-row>
         </ion-item>
         <ion-item-options>
-          <button ion-button color="energized" (click)="edit(account)" class="iconpadding">
-            <ion-icon name="create"></ion-icon>
-            Edit
-          </button>
-          <button ion-button color="danger" (click)="delete(account)">
+          <button ion-button color="danger" (click)="delete(transaction, slidingItem)">
             <ion-icon name="trash"></ion-icon>
             Delete
           </button>

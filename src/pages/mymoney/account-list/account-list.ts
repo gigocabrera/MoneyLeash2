@@ -5,6 +5,7 @@ import { NavController, AlertController } from 'ionic-angular';
 // app pages
 import { AccountPage } from '../account/account';
 import { TransactionsPage } from '../transaction-list/transaction-list';
+/*import { TransactionsVirtualPage } from '../transaction-list-virtual/transaction-list-virtual';*/
 
 // services
 import { UserData } from '../../../providers/user-data';

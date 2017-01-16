@@ -23,9 +23,19 @@ import * as moment from 'moment';
 export class TransactionsVirtualPage {
 
   title: string;
-  transactions = [];
   account: IAccount;
   searchQuery: string = '';
+
+  transactions = [];
+  transObjects: any;
+  totalTransactions = 0;
+  totalClearedTransactions = 0;
+  runningBal: string = '';
+  clearedBal: string = '';
+  todayBal: string = '';
+
+  startTime;
+  elapsedTime;
 
   constructor(
       public nav: NavController,
@@ -35,107 +45,89 @@ export class TransactionsVirtualPage {
 
         this.account = this.navParams.data.paramAccount;
         this.title = this.account.accountname;
+        this.loadTransaction();
 
       }
+  
+  loadTransaction() {
 
-  ionViewDidLoad() {
+    this.startTime = Date.now();
 
-    this.userData.getAllTransactionsByDate(this.account).on('value', (transactions) => {
+    var ref = this.userData.housedata.child(this.userData.user.houseid + '/transactions/' + this.account.$key);
+    var query = ref.orderByChild('date');
 
-      let rawList= [];
-      let count: number = 0;
-      let totalTransactions = 0;
-      let totalClearedTransactions = 0;
+    query.on('value', (trans) => {
 
-      transactions.forEach( spanshot => {
-        
-        let transaction = spanshot.val();
-        let tempTransaction = new Transaction(
-          spanshot.key,
-          transaction.ClearedClass,
-          transaction.accountFrom,
-          transaction.accountFromId,
-          transaction.accountTo,
-          transaction.accountToId,
-          transaction.addedby,
-          transaction.amount,
-          transaction.category,
-          transaction.categoryid,
-          transaction.clearedBal,
-          transaction.date,
-          transaction.displaydate,
-          transaction.displaytime,
-          transaction.iscleared,
-          transaction.isphoto,
-          transaction.isrecurring,
-          transaction.istransfer,
-          transaction.notes,
-          transaction.payee,
-          transaction.payeeid,
-          transaction.photo,
-          transaction.runningbal,
-          transaction.type,
-          transaction.typedisplay,
-          '',
-          '',
-          count,
-          transaction.ionitemclass
-        );
-        let dt = moment(parseInt(transaction.date)).format();
-        tempTransaction.displaydate = moment(dt).format('MMMM D, YYYY');
+      this.transObjects = trans;
+      
+      trans.forEach(snapshot => {
 
-        // Determine if there is a date change to apply CSS
-        // Removes the bottom border for the last ion-item in the group
-        // This is necessary due to the shortcomings on the virtualScroll not supporting ion-item-group
-        if (count > 0) {
-          let prevTransaction: ITransaction;
-          let prevTransDate;
-          let thisTransDate;
+        this.transactions.push(snapshot.val());
 
-          // Get the date for the previous transaction
-          prevTransaction = rawList[count - 1];
-          prevTransDate = prevTransaction.displaydate;
-
-          // Get the date for the current transaction
-          thisTransDate = tempTransaction.displaydate;
-
-          // Compare the dates. If there is a difference, flag the transaction property to apply CSS class
-          if (prevTransDate === thisTransDate) {
-            tempTransaction.ionitemclass = "";
-          } else {
-            tempTransaction.ionitemclass = "1";
-          }
-
-        }
-        //
-        // Track totals
-        //
-        totalTransactions++;
-        if (transaction.iscleared === true) {
-          totalClearedTransactions++;
-        }
-
-        rawList.push(tempTransaction);
-        
-        count++;
-
-      });
-      this.transactions = rawList;
+      })
       this.transactions.reverse();
 
-      //
-      // Update balances and totals
-      //
-      let pendingTransactions = totalTransactions - totalClearedTransactions;
-      this.account.totaltransactions = totalTransactions.toString();
-      this.account.totalclearedtransactions = totalClearedTransactions.toString();
-      this.account.totalpendingtransactions = pendingTransactions.toString();
-      this.userData.updateAccountWithTotals(this.account);
+      this.refresh();
 
-      // Disable loading controller when the promise is complete
       this.userData.LoadingControllerDismiss();
+      
+      this.elapsedTime = Date.now() - this.startTime;
+      console.log(this.elapsedTime);
+
     });
 
+    return false;
+  }
+
+  refresh() {
+
+    let clearedBalance = 0;
+    let runningBalance = 0;
+    let todayBalance = 0;
+
+    this.transObjects.forEach( snapshot => {
+      var transaction = snapshot.val();
+      //
+      // Handle Balances
+      //
+      this.totalTransactions++;
+      if (transaction.iscleared === true) {
+        this.totalClearedTransactions++;
+        if (transaction.type === "Income") {
+          if (!isNaN(transaction.amount)) {
+            clearedBalance += parseFloat(transaction.amount);
+          }
+        } else if (transaction.type === "Expense") {
+          if (!isNaN(transaction.amount)) {
+            clearedBalance -= parseFloat(transaction.amount);
+          }
+        }
+        transaction.clearedBal = clearedBalance.toFixed(2);
+      }
+      if (transaction.type === "Income") {
+        if (!isNaN(transaction.amount)) {
+          runningBalance += parseFloat(transaction.amount);
+          transaction.runningbal = runningBalance.toFixed(2);
+        }
+      } else if (transaction.type === "Expense") {
+        if (!isNaN(transaction.amount)) {
+          runningBalance -= parseFloat(transaction.amount);
+          transaction.runningbal = runningBalance.toFixed(2);
+        }
+      }
+      //
+      // Get today's balance
+      // 
+      var tranDate = moment(transaction.date)
+      var now = moment();
+      if (tranDate <= now) {
+        todayBalance = runningBalance;
+      }
+
+    });
+    this.clearedBal = clearedBalance.toFixed(2);
+    this.runningBal = runningBalance.toFixed(2);
+    this.todayBal = todayBalance.toFixed(2);
   }
 
   newTransaction() {
@@ -162,6 +154,11 @@ export class TransactionsVirtualPage {
   }
 
   clearTransaction(transaction) {
+    //transaction.update({ 'iscleared': transaction.iscleared });
+    this.refresh();
+  }
+
+  clearTransaction_ORIG(transaction) {
     
     var clearedbal = 0;
     var runningbal = 0;

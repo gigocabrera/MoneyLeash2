@@ -12,16 +12,16 @@
       </button>
     </ion-buttons>
   </ion-navbar>
-   <ion-toolbar color="mlitemdivider">
+  <ion-toolbar color="mlitemdivider">
     <ion-row class="balancesRow">
       <ion-col class="colBorder">
-        <span>Current Balance</span><span><strong>{{ account.balancecurrent }}</strong></span>
+        <span>Current Balance</span><span><strong>{{ runningBal }}</strong></span>
       </ion-col>
       <ion-col class="colBorder">
-        <span>Today's Balance</span><span><strong>{{ account.balancetoday }}</strong></span>
+        <span>Today's Balance</span><span><strong>{{ todayBal }}</strong></span>
       </ion-col>
       <ion-col>
-        <span>Cleared Balance</span><span><strong>{{ account.balancecleared }}</strong></span>
+        <span>Cleared Balance</span><span><strong>{{ clearedBal }}</strong></span>
       </ion-col>
     </ion-row>
   </ion-toolbar>

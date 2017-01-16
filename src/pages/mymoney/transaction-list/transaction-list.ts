@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { NavController, NavParams } from 'ionic-angular';
+import { ItemSliding, NavController, NavParams } from 'ionic-angular';
 
 import { FirebaseListObservable } from 'angularfire2';
 
@@ -33,6 +33,12 @@ export class TransactionsPage {
   searchTerm: string = '';
   equalToSubject: Subject<any>;
   orderByChild: Subject<any>;
+  balancetoday: string = '';
+  balancerunning: string = '';
+  balancecleared: string = '';
+
+  startTime;
+  elapsedTime;
 
   constructor(
       public nav: NavController,
@@ -46,12 +52,85 @@ export class TransactionsPage {
       }
 
   ionViewDidLoad() {
-    //this.trans = this.userData.getTransactionsByDate(this.account);
+
+    this.startTime = Date.now();
     this.equalToSubject = new BehaviorSubject(null);
     this.orderByChild = new BehaviorSubject('date');
     this.trans = this.userData.getFilteredTransactions(this.account, this.orderByChild, this.equalToSubject);
     this.trans.first().subscribe(snapshots => {
+      this.refresh();
       this.userData.LoadingControllerDismiss();
+      this.elapsedTime = Date.now() - this.startTime;
+      console.log(this.elapsedTime);
+    });
+  }
+
+  refresh() {
+
+    let balrunning = 0;
+    let baltoday = 0;
+    let balcleared = 0;
+    let totalTransactions = 0;
+    let totalClearedTransactions = 0;
+
+    this.trans.forEach(transactions => {
+      
+      transactions.forEach( transaction => {
+        //
+        // Handle Balances
+        //
+        totalTransactions++;
+        if (transaction.iscleared === true) {
+          totalClearedTransactions++;
+          if (transaction.type === "Income") {
+            if (!isNaN(transaction.amount)) {
+              balcleared += parseFloat(transaction.amount);
+            }
+          } else if (transaction.type === "Expense") {
+            if (!isNaN(transaction.amount)) {
+              balcleared -= parseFloat(transaction.amount);
+            }
+          }
+          transaction.clearedBal = balcleared.toFixed(2);
+        }
+        if (transaction.type === "Income") {
+          if (!isNaN(transaction.amount)) {
+            balrunning += parseFloat(transaction.amount);
+            transaction.runningbal = balrunning.toFixed(2);
+          }
+        } else if (transaction.type === "Expense") {
+          if (!isNaN(transaction.amount)) {
+            balrunning -= parseFloat(transaction.amount);
+            transaction.runningbal = balrunning.toFixed(2);
+          }
+        }
+        //
+        // Get today's balance
+        // 
+        var tranDate = moment(transaction.date)
+        var now = moment();
+        if (tranDate <= now) {
+          baltoday = balrunning;
+        }
+      });
+      this.balancerunning = balrunning.toFixed(2);
+      this.balancecleared = balcleared.toFixed(2);
+      this.balancetoday = baltoday.toFixed(2);
+      
+      // Update account with totals
+      let pendingTransactions = totalTransactions - totalClearedTransactions;
+      this.account.balancecleared = this.balancecleared;
+      this.account.balancecurrent = this.balancerunning;
+      this.account.balancetoday = this.balancetoday;
+      this.account.totaltransactions = totalTransactions.toFixed(0);
+      this.account.totalclearedtransactions = totalClearedTransactions.toFixed(0);
+      this.account.totalpendingtransactions = pendingTransactions.toFixed(0);
+
+      this.userData.housedata.child(this.userData.user.houseid + '/accounts/' + this.account.$key).update({ 
+        'balancecleared' : this.account.balancecleared, 
+        'balancecurrent' : this.account.balancecurrent, 
+        'balancetoday' : this.account.balancetoday 
+      });
     });
   }
 
@@ -89,19 +168,16 @@ export class TransactionsPage {
     this.nav.push(TransactionPage, { paramTransaction: transaction, paramAccount: this.account });
   }
 
-  delete(transaction) {
-    
+  delete(transaction, slidingItem: ItemSliding) {
+    slidingItem.close();
+    this.trans.remove(transaction.$key);
+    this.refresh();
   }
 
   clearTransaction(transaction) {
     
-    if (transaction.iscleared) {
-      transaction.ClearedClass = 'transactionIsCleared';
-    } else {
-      transaction.ClearedClass = '';
-    }
-    this.trans.update(transaction.$key, { 'iscleared': transaction.iscleared, 'ClearedClass' : transaction.ClearedClass });
-    this.userData.syncAccountBalances(this.account);
+    this.trans.update(transaction.$key, { 'iscleared': transaction.iscleared });
+    this.refresh();
 
   }
 
