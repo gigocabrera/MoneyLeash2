@@ -46,7 +46,7 @@ export class UserData {
   }
 
   LoadingControllerDismiss() {
-    this.loading.dismiss();
+    this.loading.dismiss().catch(() => console.log('error on dismiss'));
   }
 
   /**
