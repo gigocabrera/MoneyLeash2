@@ -59,6 +59,7 @@ import { TutorialPage } from '../pages/tutorial/tutorial';
 import { UserData } from '../providers/user-data';
 import { TransactionData } from '../providers/transaction-data';
 import { AccountData } from '../providers/account-data';
+import { CategoryData } from '../providers/category-data';
 
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 
@@ -173,6 +174,6 @@ const firebaseAuthConfig = {
     SignupPage,
     TutorialPage
   ],
-  providers: [UserData, TransactionData, AccountData, {provide: ErrorHandler, useClass: IonicErrorHandler}]
+  providers: [UserData, TransactionData, AccountData, CategoryData, {provide: ErrorHandler, useClass: IonicErrorHandler}]
 })
 export class AppModule {}

@@ -18,14 +18,12 @@
         Income Categories
       </ion-item-divider>      
       <ion-item-sliding *ngFor="let incomecat of incomeCategories" #slidingItem track="income" [ngClass]="{mlindent: incomecat.categoryparent !== ''}">
-        <button ion-item (click)="showTransactions(slidingItem, incomecat)">
+        <button ion-item (click)="edit(slidingItem, incomecat)">
           {{ incomecat.categoryname }}
         </button>
         <ion-item-options>
-          <button ion-button color="energized" (click)="edit(slidingItem, incomecat)">
-            Edit
-          </button>
           <button ion-button color="danger" (click)="delete(slidingItem, incomecat)">
+            <i class="fa fa-trash ml-fa"></i>
             Delete
           </button>
         </ion-item-options>
@@ -36,14 +34,12 @@
         Expense Categories
       </ion-item-divider>
       <ion-item-sliding *ngFor="let expensecat of expenseCategories" #slidingItem track="expense" [ngClass]="{mlindent: expensecat.categoryparent !== ''}">
-        <button ion-item (click)="showTransactions(slidingItem, expensecat)">
+        <button ion-item (click)="edit(slidingItem, expensecat)">
           {{ expensecat.categoryname }}
         </button>
         <ion-item-options>
-          <button ion-button color="energized" (click)="edit(slidingItem, expensecat)">
-            Edit
-          </button>
           <button ion-button color="danger" (click)="delete(slidingItem, expensecat)">
+            <i class="fa fa-trash ml-fa"></i>
             Delete
           </button>
         </ion-item-options>

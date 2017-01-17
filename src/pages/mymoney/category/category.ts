@@ -8,6 +8,7 @@ import { PickCategoryParentPage } from '../../mypicklists/pickcategoryparent/pic
 
 // services
 import { UserData } from '../../../providers/user-data';
+import { CategoryData } from '../../../providers/category-data';
 
 @Component({
   templateUrl: 'category.html'
@@ -15,6 +16,11 @@ import { UserData } from '../../../providers/user-data';
 
 export class CategoryPage {
 
+  validationMessage: string;
+  showValidationMessage: boolean = false;
+  hasDataCategoryName: boolean = false;
+  hasDataCategoryType: boolean = false;
+  hasDataCategoryParent: boolean = false;
   title: string;
   listheader: string;
   category: any;
@@ -23,7 +29,8 @@ export class CategoryPage {
       public nav: NavController,
       public modalController: ModalController,
       public navParams: NavParams,
-      public userData: UserData) {
+      public userData: UserData,
+      public categoryData: CategoryData) {
     
     this.category = this.navParams.data.paramCategory;
     this.category.categoryparentdisplay = this.category.categoryparent;
@@ -36,6 +43,31 @@ export class CategoryPage {
       this.listheader = 'Edit Category Details';
     }
     
+  }
+
+  ionViewWillEnter() {
+    let referrer = this.categoryData.getReferrer();
+    switch (referrer) {
+      case 'CategoryListPage': {
+        this.categoryData.reset();
+        break;
+      }
+      case 'PickCategoryNamePage': {
+        this.category.categoryname = this.categoryData.getCategoryName();
+        if (this.category.categoryname != '') {
+          this.hasDataCategoryName = true;
+        }
+        break;
+      }
+      case 'PickCategoryTypePage': {
+        let item: any = this.categoryData.getCategoryType();
+        if (item != '') {
+          this.category.categorytype = item.name;
+          this.hasDataCategoryType = true;
+        }
+        break;
+      }
+    }
   }
 
   save() {

@@ -41,20 +41,19 @@
         </button>
         <ion-item-options>
           <button ion-button color="light" (click)="syncPhotos(account)">
+            <i class="fa fa-camera ml-fa"></i>
             photo
           </button>
           <button ion-button color="primary" (click)="syncAccountBalances(account)">
+            <i class="fa fa-money ml-fa"></i>
             Fix Bal
           </button>
-          <button ion-button color="light" (click)="syncAccountData(account)">
-            Upgrade
-          </button>
           <button ion-button color="energized" (click)="edit(slidingItem, account)" class="iconpadding">
-            <ion-icon name="create"></ion-icon>
+            <i class="fa fa-pencil-square-o ml-fa"></i>
             Edit
           </button>
           <button ion-button color="danger" (click)="delete(slidingItem, account)">
-            <ion-icon name="trash"></ion-icon>
+            <i class="fa fa-trash ml-fa"></i>
             Delete
           </button>
         </ion-item-options>

@@ -16,23 +16,57 @@
     <ion-item-divider>
       {{ listheader }}
     </ion-item-divider>
-    <ion-item class="ml-input">
-      <ion-icon name="md-clipboard" item-left></ion-icon>
-      <ion-label floating>Category Name</ion-label>
-      <ion-input [(ngModel)]="category.categoryname" name="categoryname" type="text" #categoryname="ngModel" spellcheck="false" autocapitalize="on"></ion-input>
+    <div [ngClass]="{'cssSlideUp': showValidationMessage, 'ng-hide': !showValidationMessage}">
+      <span style="line-height:40px;">{{ validationMessage }}</span>
+    </div>
+
+    <ion-item class="ml-input" (click)="pickCategoryName()">
+      <ion-icon name="md-attach" item-left></ion-icon>
+      <div *ngIf="hasDataCategoryName">
+        <p class="ml-label-has-input">Category Name</p>
+        <h2 class="ml-has-input">{{ category.categoryname }}</h2>
+      </div>
+      <div *ngIf="!hasDataCategoryName">
+        <h2 class="ml-has-no-input">Category Name</h2>
+      </div>
       <ion-icon name="arrow-forward" item-right color="mliconarrowblue"></ion-icon>
     </ion-item>
+
     <ion-item class="ml-input" (click)="pickCategoryType()">
       <ion-icon name="md-clipboard" item-left></ion-icon>
-      <ion-label floating>Category Type</ion-label>
-      <ion-input [(ngModel)]="category.categorytype" name="categorytype" type="text" #categorytype="ngModel"></ion-input>
+      <div *ngIf="hasDataCategoryType">
+        <p class="ml-label-has-input">
+            Category Type
+        </p>
+        <h2 class="ml-has-input">
+            {{ category.categorytype }}
+        </h2>
+      </div>
+      <div *ngIf="!hasDataCategoryType">
+        <h2 class="ml-has-no-input">
+            Category Type
+        </h2>
+      </div>
       <ion-icon name="arrow-forward" item-right color="mliconarrowblue"></ion-icon>
     </ion-item>
+
     <ion-item class="ml-input" (click)="pickCategoryParent()">
-      <ion-icon name="md-cash" item-left></ion-icon>
-      <ion-label floating>Parent Category</ion-label>
-      <ion-input [(ngModel)]="category.categoryparentdisplay" name="categoryparentdisplay" type="text" #categoryparentdisplay="ngModel"></ion-input>
+      <ion-icon name="md-attach" item-left></ion-icon>
+      <div *ngIf="hasDataCategoryParent">
+        <p class="ml-label-has-input">
+            Parent Category
+        </p>
+        <h2 class="ml-has-input">
+            {{ category.categoryparentdisplay }}
+        </h2>
+      </div>
+      <div *ngIf="!hasDataCategoryParent">
+        <h2 class="ml-has-no-input">
+            Parent Type
+        </h2>
+      </div>
       <ion-icon name="arrow-forward" item-right color="mliconarrowblue"></ion-icon>
     </ion-item>
+
   </ion-list>
 </ion-content>
