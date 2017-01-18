@@ -87,6 +87,7 @@ export class CategoryPage {
       }
       case 'PickCategoryParentPage': {
         this.category.categoryparent = this.categoryData.getCategoryParent();
+        this.hasDataCategoryParent = false;
         if (this.category.categoryparent != '') {
           this.hasDataCategoryParent = true;
         }
@@ -98,16 +99,11 @@ export class CategoryPage {
   save() {
     
     // Handle category sort
-    /*if (this.category.categoryparent === '') {
-      this.category.categorysort = this.category.categoryname.toUpperCase();
+    if (this.category.categoryparent === '') {
+      this.category.categorysort = this.category.categoryname;
     } else {
-      this.category.categorysort = this.category.categoryparent.toUpperCase() + ':' + this.category.categoryname.toUpperCase(); 
-    }*/
-
-    // Handle special case when category parent is removed
-    /*if (this.category.categoryparentdisplay === '') {
-      this.category.categoryparent = '';
-    }*/
+      this.category.categorysort = this.category.categoryparent + ':' + this.category.categoryname; 
+    }
 
     // Is this a new category? 
     if (this.mode === 'New') {

@@ -38,10 +38,13 @@ export class CategoryData {
     // Category Parent
     // ---------------------------------
     setCategoryParent(categoryparent: string ) {
-        this.categoryparent = categoryparent;
+      if (categoryparent == '< None >') {
+        categoryparent = '';
+      }
+      this.categoryparent = categoryparent;
     }
     getCategoryParent() {
-        return this.categoryparent;
+      return this.categoryparent;
     }
 
     reset() {
