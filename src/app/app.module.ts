@@ -42,6 +42,7 @@ import { PickCategoryTypePage } from '../pages/mypicklists/pickcategorytype/pick
 import { PickCategoryParentPage } from '../pages/mypicklists/pickcategoryparent/pickcategoryparent';
 import { PickTransactionTypePage } from '../pages/mypicklists/picktransactiontype/picktransactiontype';
 import { PickPayeePage } from '../pages/mypicklists/pickpayee/pickpayee';
+import { PickCategoryNamePage } from '../pages/mypicklists/pickcategoryname/pickcategoryname';
 import { PickCategoryPage } from '../pages/mypicklists/pickcategory/pickcategory';
 import { PickAmountPage } from '../pages/mypicklists/pickamount/pickamount';
 import { PickNotesPage } from '../pages/mypicklists/picknotes/picknotes';
@@ -108,6 +109,7 @@ const firebaseAuthConfig = {
     PickDefaultDatePage,
     PickAccountTypePage,
     PickAccountNamePage,
+    PickCategoryNamePage,
     PickCategoryTypePage,
     PickCategoryParentPage,
     PickTransactionTypePage,
@@ -160,6 +162,7 @@ const firebaseAuthConfig = {
     PickDefaultDatePage,
     PickAccountTypePage,
     PickAccountNamePage,
+    PickCategoryNamePage,
     PickCategoryTypePage,
     PickCategoryParentPage,
     PickTransactionTypePage,

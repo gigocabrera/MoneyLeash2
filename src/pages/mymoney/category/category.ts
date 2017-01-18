@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 
-import { NavController, ModalController, NavParams } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 
 // app pages
+import { PickCategoryNamePage } from '../../mypicklists/pickcategoryname/pickcategoryname';
 import { PickCategoryTypePage } from '../../mypicklists/pickcategorytype/pickcategorytype';
 import { PickCategoryParentPage } from '../../mypicklists/pickcategoryparent/pickcategoryparent';
 
@@ -24,32 +25,50 @@ export class CategoryPage {
   title: string;
   listheader: string;
   category: any;
+  mode: string;
 
   constructor(
       public nav: NavController,
-      public modalController: ModalController,
       public navParams: NavParams,
       public userData: UserData,
       public categoryData: CategoryData) {
     
     this.category = this.navParams.data.paramCategory;
     this.category.categoryparentdisplay = this.category.categoryparent;
+    this.mode = this.navParams.data.paramMode;
 
-    if (this.category.mode === 'New') {
+    if (this.mode === 'New') {
       this.title = 'Create Category';
       this.listheader = 'Enter Category Details';
+      this.hasDataCategoryName = false;
+      this.hasDataCategoryType = false;
+      this.hasDataCategoryParent = false;
+      this.categoryData.reset();
     } else {
       this.title = 'Edit Category';
       this.listheader = 'Edit Category Details';
-    }
-    
+
+      if (this.category.categoryname != '') {
+        this.hasDataCategoryName = true;
+      }
+      if (this.category.categorytype != '') {
+        this.hasDataCategoryType = true;
+      }
+      if (this.category.categoryparent != '') {
+        this.hasDataCategoryParent = true;
+      }
+
+      // Prepare services
+      this.categoryData.setCategoryName(this.category.categoryname);
+      this.categoryData.setCategoryType(this.category.categorytype);
+      this.categoryData.setCategoryParent(this.category.categoryparent);
+    }    
   }
 
   ionViewWillEnter() {
     let referrer = this.categoryData.getReferrer();
     switch (referrer) {
       case 'CategoryListPage': {
-        this.categoryData.reset();
         break;
       }
       case 'PickCategoryNamePage': {
@@ -60,10 +79,16 @@ export class CategoryPage {
         break;
       }
       case 'PickCategoryTypePage': {
-        let item: any = this.categoryData.getCategoryType();
-        if (item != '') {
-          this.category.categorytype = item.name;
+        this.category.categorytype = this.categoryData.getCategoryType();
+        if (this.category.categoryname != '') {
           this.hasDataCategoryType = true;
+        }
+        break;
+      }
+      case 'PickCategoryParentPage': {
+        this.category.categoryparent = this.categoryData.getCategoryParent();
+        if (this.category.categoryparent != '') {
+          this.hasDataCategoryParent = true;
         }
         break;
       }
@@ -73,19 +98,19 @@ export class CategoryPage {
   save() {
     
     // Handle category sort
-    if (this.category.categoryparent === '') {
+    /*if (this.category.categoryparent === '') {
       this.category.categorysort = this.category.categoryname.toUpperCase();
     } else {
       this.category.categorysort = this.category.categoryparent.toUpperCase() + ':' + this.category.categoryname.toUpperCase(); 
-    }
+    }*/
 
     // Handle special case when category parent is removed
-    if (this.category.categoryparentdisplay === '') {
+    /*if (this.category.categoryparentdisplay === '') {
       this.category.categoryparent = '';
-    }
+    }*/
 
     // Is this a new category? 
-    if (this.category.mode === 'New') {
+    if (this.mode === 'New') {
       this.userData.addCategory(this.category);
     } else {
       this.userData.updateCategory(this.category);
@@ -93,37 +118,27 @@ export class CategoryPage {
     this.nav.pop();
   }
 
-  pickCategoryType() {
-    let modal = this.modalController.create(PickCategoryTypePage, {paramCategoryType: this.category.categorytype});
-    modal.present(modal);
-    modal.onDidDismiss((data: any[]) => {
-      if (data) {
-        this.onPickCategoryType(data);
-      }
-    });
+  pickCategoryName() {
+    this.showValidationMessage = false;
+    this.nav.push(PickCategoryNamePage);
   }
 
-  onPickCategoryType(item) {
-    this.category.categorytype = item.text;
+  pickCategoryType() {
+    if (!this.hasDataCategoryType) {
+      this.showValidationMessage = true;
+      this.validationMessage = "Please enter a category name";
+      return;
+    }
+    this.nav.push(PickCategoryTypePage);
   }
 
   pickCategoryParent() {
-    let modal = this.modalController.create(PickCategoryParentPage, {paramCategory: this.category});
-    modal.present(modal);
-    modal.onDidDismiss((data: any[]) => {
-      if (data) {
-        this.onPickCategoryParent(data);
-      }
-    });
-  }
-
-  onPickCategoryParent(item) {
-    if (item.categoryname === '< None >') {
-      this.category.categoryparentdisplay = '';
-    } else {
-      this.category.categoryparentdisplay = item.categoryname;
-      this.category.categoryparent = item.categoryname;
+    if (!this.hasDataCategoryName) {
+      this.showValidationMessage = true;
+      this.validationMessage = "Please enter category name";
+      return;
     }
+    this.nav.push(PickCategoryParentPage);
   }
   
 }

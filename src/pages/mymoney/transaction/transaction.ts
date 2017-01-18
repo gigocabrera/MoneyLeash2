@@ -50,7 +50,7 @@ export class TransactionPage {
     this.transaction = this.navParams.data.paramTransaction;
     this.account = this.navParams.data.paramAccount;
 
-    console.log(this.transaction);
+    //console.log(this.transaction);
 
     if (this.transaction.mode === 'New') {
       this.title = 'Create Transaction';

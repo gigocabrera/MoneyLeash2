@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 
-import { ViewController, NavParams } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 
 // services
 import { UserData } from '../../../providers/user-data';
+import { CategoryData } from '../../../providers/category-data';
 
 @Component({
   templateUrl: 'pickcategoryparent.html'
@@ -13,22 +14,20 @@ export class PickCategoryParentPage {
   
   items: {};
   itemselected: any;
+  validationMessage: string;
+  showValidationMessage: boolean = false;
    
   constructor(
-    public viewCtrl: ViewController,
-    public navParams: NavParams,
-    public userData: UserData) {
-
-      this.itemselected = this.navParams.data.paramCategory;
-
-    }
+    public nav: NavController,
+    public userData: UserData,
+    public categoryData: CategoryData) {
+      this.itemselected = this.categoryData.getCategoryParent();
+  }
 
   ionViewDidLoad() {
-    
-    this.userData.getParentCategories(this.itemselected.categorytype).on('value', (categories) => {
-      
+    console.log(this.itemselected);
+    this.userData.getParentCategories(this.categoryData.getCategoryType()).on('value', (categories) => {
       let rawList= [];
-
       //Add default option for <None>
       rawList.push({
         $key: '',
@@ -37,7 +36,6 @@ export class PickCategoryParentPage {
         categoryparent: '',
         categorysort: ''
       });
-
       // Add parent category from firebase
       categories.forEach( spanshot => {
         var cat = spanshot.val();
@@ -54,12 +52,15 @@ export class PickCategoryParentPage {
       this.items = rawList;
     });
   }
-  
- pickPreference(itemselected) {
-    this.viewCtrl.dismiss(itemselected);
+
+  pickPreference(itemselected) {
+    this.categoryData.setReferrer('PickCategoryParentPage');
+    this.categoryData.setCategoryParent(this.itemselected);
+    this.goBack();
   }
 
-  dismiss() {
-    this.viewCtrl.dismiss();
+  goBack() {
+    this.nav.pop();
   }
+
 }

@@ -9,6 +9,7 @@ import { CategoryPage } from '../category/category';
 
 // services
 import {UserData} from '../../../providers/user-data';
+import { CategoryData } from '../../../providers/category-data';
 
 @Component({
   selector: 'page-category-list',
@@ -25,7 +26,8 @@ export class CategoryListPage {
   constructor(
       public nav: NavController,
       public alertController: AlertController,
-      public userData: UserData) {}
+      public userData: UserData,
+      public categoryData: CategoryData) {}
   
   ionViewDidLoad() {
 
@@ -77,8 +79,8 @@ export class CategoryListPage {
   }
 
   edit(slidingItem, category) {
-    this.handleSlidingItems(slidingItem);
-    this.nav.push(CategoryPage, {paramCategory: category});
+    this.categoryData.setReferrer('CategoryListPage');
+    this.nav.push(CategoryPage, { paramCategory: category, paramMode: 'Edit' });
   }
 
   delete(slidingItem, category) {

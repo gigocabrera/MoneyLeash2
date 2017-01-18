@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 
-import { ViewController, NavParams } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 
 // services
 import { UserData } from '../../../providers/user-data';
+import { CategoryData } from '../../../providers/category-data';
 
 @Component({
   templateUrl: 'pickcategorytype.html'
@@ -13,26 +14,28 @@ export class PickCategoryTypePage {
   
   items = [];  
   itemselected: string;
+  validationMessage: string;
+  showValidationMessage: boolean = false;
    
   constructor(
-    public viewCtrl: ViewController, 
-    public navParams: NavParams,
-    public userData: UserData) {}
+    public nav: NavController,
+    public categoryData: CategoryData) {}
 
   ionViewDidLoad() {
     this.items.push(
       { text: 'Income', value: 'Income' },
       { text: 'Expense', value: 'Expense' },
     );
-    this.itemselected = this.navParams.data.paramCategoryType;
-    console.log(this.itemselected);
+    this.itemselected = this.categoryData.getCategoryType();
   }
   
- pickPreference(itemselected) {
-    this.viewCtrl.dismiss(itemselected);
+  pickPreference(itemselected) {
+    this.categoryData.setReferrer('PickCategoryTypePage');
+    this.categoryData.setCategoryType(this.itemselected);
+    this.goBack();
   }
 
-  dismiss() {
-    this.viewCtrl.dismiss();
+  goBack() {
+    this.nav.pop();
   }
 }
