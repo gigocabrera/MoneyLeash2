@@ -62,7 +62,7 @@ export class TransactionsPage {
       this.refresh();
       this.userData.LoadingControllerDismiss();
       this.elapsedTime = Date.now() - this.startTime;
-      console.log(this.elapsedTime);
+      //console.log(this.elapsedTime);
     });
   }
 
@@ -166,6 +166,7 @@ export class TransactionsPage {
   }
 
   edit(transaction) { 
+    console.log(transaction);
     transaction.mode = 'Edit';
     this.transactionData.setReferrer('TransactionsPage');
     this.nav.push(TransactionPage, { paramTransaction: transaction, paramAccount: this.account });

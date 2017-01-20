@@ -6,6 +6,7 @@ import { AppVersion } from 'ionic-native';
 // app pages
 import { AboutPage } from '../../../pages/about/about';
 import { PersonalProfilePage } from '../../myinfo/personalprofile/personalprofile';
+import { ProfileDetailsPage } from '../../myinfo/profiledetails/profiledetails';
 import { AccountTypesPage } from '../../mysettings/accounttypes/accounttypes';
 import { PickDefaultBalancePage } from '../../mypicklists/pickdefaultbalance/pickdefaultbalance';
 import { PickDefaultDatePage } from '../../mypicklists/pickdefaultdate/pickdefaultdate';
@@ -37,7 +38,7 @@ export class SettingsPage {
   }
 
   openPersonalProfile() {
-    this.nav.push(PersonalProfilePage, {paramSettings: this.userData.user});
+    this.nav.push(ProfileDetailsPage, {paramSettings: this.userData.user});
   }
 
   openAccountTypes() {

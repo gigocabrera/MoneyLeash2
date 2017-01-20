@@ -16,6 +16,7 @@ import { ChangeEmailPage } from '../pages/myinfo/changeemail/changeemail';
 import { ChangeNamePage } from '../pages/myinfo/changename/changename';
 import { ChangePasswordPage } from '../pages/myinfo/changepassword/changepassword';
 import { PersonalProfilePage } from '../pages/myinfo/personalprofile/personalprofile';
+import { ProfileDetailsPage } from '../pages/myinfo/profiledetails/profiledetails';
 import { PersonalProfilePhotoPage } from '../pages/myinfo/personalprofilephoto/personalprofilephoto';
 
 // mymoney
@@ -91,6 +92,7 @@ const firebaseAuthConfig = {
     ChangeNamePage,
     ChangePasswordPage,
     PersonalProfilePage,
+    ProfileDetailsPage,
     PersonalProfilePhotoPage,
     AccountPage,
     AccountListPage,
@@ -144,6 +146,7 @@ const firebaseAuthConfig = {
     ChangeNamePage,
     ChangePasswordPage,
     PersonalProfilePage,
+    ProfileDetailsPage,
     PersonalProfilePhotoPage,
     AccountPage,
     AccountListPage,

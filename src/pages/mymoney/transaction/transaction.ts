@@ -50,7 +50,7 @@ export class TransactionPage {
     this.transaction = this.navParams.data.paramTransaction;
     this.account = this.navParams.data.paramAccount;
 
-    //console.log(this.transaction);
+    console.log(this.transaction);
 
     if (this.transaction.mode === 'New') {
       this.title = 'Create Transaction';
@@ -150,9 +150,13 @@ export class TransactionPage {
 
   save() {
 
+    let dtHour = moment(this.transaction.displaytime).format("hh");
+    let dtMinutes = moment(this.transaction.displaytime).format("mm");
+    let dt = moment(this.transaction.displaydate, 'YYYY-MM-DD').add(dtHour, 'hours').add(dtMinutes, 'minutes');
+    let dtTran = moment(dt, 'MMMM D, YYYY hh:mm a').valueOf();
+
     // Format date
-    let dt = moment(this.transaction.displaydate, moment.ISO_8601).valueOf();
-    this.transaction.date = dt;
+    this.transaction.date = dtTran;
     this.transaction.mode = null;
 
     // Handle Who

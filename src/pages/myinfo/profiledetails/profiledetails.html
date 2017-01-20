@@ -1,0 +1,90 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      Profile Details
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="save()">Save</button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-list>
+    <ion-item-divider>
+      Your Information
+    </ion-item-divider>
+    <ion-item class="ml-input">
+      <ion-icon name="md-contact" item-left></ion-icon>
+      <div *ngIf="hasDataProfileFullName">
+        <p class="ml-label-has-input">Full Name</p>
+        <h2 class="ml-has-input">{{ fullname }}</h2>
+      </div>
+      <div *ngIf="!hasDataProfileFullName">
+        <h2 class="ml-has-no-input">Full Name</h2>
+      </div>
+      <ion-icon name="arrow-forward" item-right color="mliconarrowblue"></ion-icon>
+    </ion-item>
+    <ion-item class="ml-input">
+      <ion-icon name="md-contact" item-left></ion-icon>
+      <div *ngIf="hasDataProfileNickname">
+        <p class="ml-label-has-input">Nickname</p>
+        <h2 class="ml-has-input">{{ nickname }}</h2>
+      </div>
+      <div *ngIf="!hasDataProfileNickname">
+        <h2 class="ml-has-no-input">Nickname</h2>
+      </div>
+      <ion-icon name="arrow-forward" item-right color="mliconarrowblue"></ion-icon>
+    </ion-item>
+    <ion-item-divider>
+      Your House Information
+    </ion-item-divider>
+    <ion-item class="ml-input" (click)="pickProfiletHouseName()">
+      <ion-icon name="ios-home" item-left></ion-icon>
+      <div *ngIf="hasDataProfileHouseName">
+        <p class="ml-label-has-input">House Name</p>
+        <h2 class="ml-has-input">{{ housename }}</h2>
+      </div>
+      <div *ngIf="!hasDataProfileHouseName">
+        <h2 class="ml-has-no-input">House Name</h2>
+      </div>
+      <ion-icon name="arrow-forward" item-right color="mliconarrowblue"></ion-icon>
+    </ion-item>
+    <ion-item class="ml-input" (click)="pickProfiletHouseNumber()">
+      <ion-icon name="md-clipboard" item-left></ion-icon>
+      <div *ngIf="hasDataProfileHouseNumber">
+        <p class="ml-label-has-input">House Number</p>
+        <h2 class="ml-has-input">{{ housenumber }}</h2>
+      </div>
+      <div *ngIf="!hasDataProfileHouseNumber">
+        <h2 class="ml-has-no-input">House Number</h2>
+      </div>
+      <ion-icon name="arrow-forward" item-right color="mliconarrowblue"></ion-icon>
+    </ion-item>
+    <ion-item-divider>
+      Your House Information
+    </ion-item-divider>
+    <ion-item class="ml-input">
+      <ion-icon name="md-cart" item-left></ion-icon>
+      <div *ngIf="hasDataProfilePaymentPlan">
+        <p class="ml-label-has-input">Payment Plan</p>
+        <h2 class="ml-has-input">{{ paymentplan }}</h2>
+      </div>
+      <div *ngIf="!hasDataProfilePaymentPlan">
+        <h2 class="ml-has-no-input">Payment Plan</h2>
+      </div>
+      <ion-icon name="arrow-forward" item-right color="mliconarrowblue"></ion-icon>
+    </ion-item>
+  </ion-list>
+</ion-content>
+<ion-footer>
+  <ion-toolbar color="light">
+    <ion-buttons end>
+      <button ion-button icon-right (click)="presentActionSheet()">
+        <ion-icon name="options"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>
