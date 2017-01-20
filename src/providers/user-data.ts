@@ -474,10 +474,7 @@ export class UserData {
   }
 
   updateTransaction(transaction, account) {
-
-    console.log(transaction);
-
-    /*this.housedata.child(this.user.houseid + '/transactions/' + account.$key + "/" + transaction.$key).update({ 
+    this.housedata.child(this.user.houseid + '/transactions/' + account.$key + "/" + transaction.$key).update({ 
       'accountFrom': transaction.accountFrom,
       'accountFromId': transaction.accountFromId,
       'accountTo': transaction.accountTo,
@@ -499,7 +496,7 @@ export class UserData {
       'runningbal': transaction.runningbal,
       'type': transaction.type,
       'typedisplay': transaction.typedisplay
-    });*/
+    });
   }
 
   deleteTransaction(transaction) {
