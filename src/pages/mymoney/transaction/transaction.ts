@@ -54,7 +54,7 @@ export class TransactionPage {
     this.mode = this.navParams.data.paramMode;
 
     if (this.mode === 'New') {
-      this.transaction = new Transaction();
+      //this.transaction = new Transaction();
       this.title = 'Create Transaction';
       this.hasDataTransactionType = false;
       this.hasDataPayee = false;
