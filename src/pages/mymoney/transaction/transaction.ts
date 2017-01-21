@@ -16,7 +16,7 @@ import { TransactionData } from '../../../providers/transaction-data';
 
 // models
 import { IAccount } from '../../../models/account.model';
-import { ITransaction } from '../../../models/transaction.model';
+import { Transaction, ITransaction } from '../../../models/transaction.model';
 
 import * as moment from 'moment';
 
@@ -37,8 +37,11 @@ export class TransactionPage {
   hasDataNotes: boolean = false;
   hasDataPhoto: boolean = false;
   title: string;
-  transaction: ITransaction;
+  transaction: Transaction;
   account: IAccount;
+  displaydate;
+  displaytime;
+  mode;
 
   constructor(
       public nav: NavController,
@@ -47,10 +50,11 @@ export class TransactionPage {
       public userData: UserData,
       public transactionData: TransactionData) {
 
-    this.transaction = this.navParams.data.paramTransaction;
     this.account = this.navParams.data.paramAccount;
+    this.mode = this.navParams.data.paramMode;
 
-    if (this.transaction.mode === 'New') {
+    if (this.mode === 'New') {
+      this.transaction = new Transaction();
       this.title = 'Create Transaction';
       this.hasDataTransactionType = false;
       this.hasDataPayee = false;
@@ -61,7 +65,7 @@ export class TransactionPage {
       this.hasDataPhoto = false;
       this.transactionData.reset();
     } else {
-      //this.title = 'Edit Transaction';
+      this.transaction = new Transaction(this.navParams.data.paramTransaction);
       this.title = this.transaction.payee;
       this.hasDataTransactionType = true;
       this.hasDataPayee = true;
@@ -72,8 +76,8 @@ export class TransactionPage {
       this.hasDataPhoto = true;
 
       // Format date
-      this.transaction.displaydate = moment(this.transaction.date).format();
-      this.transaction.displaytime = moment(this.transaction.date).format();
+      this.displaydate = moment(this.transaction.date).format();
+      this.displaytime = moment(this.transaction.date).format();
 
       // Prepare services
       this.transactionData.setTransactionType(this.transaction.type);
@@ -148,19 +152,25 @@ export class TransactionPage {
 
   save() {
 
-    let dtHour = moment(this.transaction.displaytime).format("hh");
-    let dtMinutes = moment(this.transaction.displaytime).format("mm");
-    let dt = moment(this.transaction.displaydate, 'YYYY-MM-DD').add(dtHour, 'hours').add(dtMinutes, 'minutes');
+    // Format date and time in epoch time
+    let dtDateISO = moment(this.displaydate, moment.ISO_8601);
+    let dtHour = moment(this.displaytime, moment.ISO_8601).format("hh");
+    let dtMinutes = moment(this.displaytime, moment.ISO_8601).format("mm");
+    let dt = dtDateISO.add(dtHour, 'hours').add(dtMinutes, 'minutes');
     let dtTran = moment(dt, 'MMMM D, YYYY hh:mm a').valueOf();
-
-    // Format date
     this.transaction.date = dtTran;
-    this.transaction.mode = null;
+
+    /*console.log(this.displaydate);
+    console.log(this.displaytime);
+    console.log(dtDateISO);
+    console.log(dtHour, dtMinutes);
+    console.log(dt);
+    console.log(dtTran);*/
 
     // Handle Who
     this.transaction.addedby = this.userData.user.fullname;
 
-    if (this.transaction.mode === 'New') {
+    if (this.mode === 'New') {
       this.userData.addTransaction(this.transaction, this.account);
     } else {
       this.userData.updateTransaction(this.transaction, this.account);

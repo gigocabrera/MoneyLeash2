@@ -10,7 +10,7 @@ import * as moment from 'moment';
 import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
 
 import { IAccount } from '../models/account.model';
-import { ITransaction } from '../models/transaction.model';
+import { Transaction, ITransaction } from '../models/transaction.model';
 
 @Injectable()
 export class UserData {
@@ -46,6 +46,8 @@ export class UserData {
   }
 
   LoadingControllerDismiss() {
+    //TODO: Remove .catch once fix has been implemented
+    // https://github.com/driftyco/ionic/issues/10046#issuecomment-274074432
     this.loading.dismiss().catch(() => console.log('error on dismiss'));
   }
 

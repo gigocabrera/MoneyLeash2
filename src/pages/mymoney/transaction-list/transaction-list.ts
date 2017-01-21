@@ -159,16 +159,14 @@ export class TransactionsPage {
   }
 
   newTransaction() {
-    let tempTransaction = new Transaction(null,null,null,null,null,null,null,null,null,null,null,null,null,null,false,false,false,false,null,null,null,null,null,null,null,"New",null,0,null);
     this.transactionData.setReferrer('TransactionsPage');
     this.transactionData.ismodified = false;
-    this.nav.push(TransactionPage, {paramTransaction: tempTransaction, paramAccount: this.account});
+    this.nav.push(TransactionPage, {paramTransaction: '', paramAccount: this.account, paramMode: 'New'});
   }
 
   edit(transaction) { 
-    transaction.mode = 'Edit';
     this.transactionData.setReferrer('TransactionsPage');
-    this.nav.push(TransactionPage, { paramTransaction: transaction, paramAccount: this.account });
+    this.nav.push(TransactionPage, { paramTransaction: transaction, paramAccount: this.account, paramMode: 'Edit' });
   }
 
   delete(transaction, slidingItem: ItemSliding) {
@@ -222,7 +220,7 @@ export class TransactionsPage {
       return null;
     } else {
       // If dates are different, add header and supress bottom border
-      prevTransaction.ionitemclass = "1";
+      //prevTransaction.ionitemclass = "1";
       return thisTransDate;
     }
 
