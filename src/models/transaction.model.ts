@@ -25,8 +25,8 @@ export interface ITransaction {
   typedisplay: string;
 }
 
-export class Transaction {
-  
+export class Transaction implements ITransaction {
+
   public $key: string = '';
   public accountFrom: string = '';
   public accountFromId: string = '';
@@ -50,9 +50,11 @@ export class Transaction {
   public photo: string = '';
   public runningbal: string = '';
   public type: string = '';
-  public typedisplay: string = ''
+  public typedisplay: string = '';
 
-  constructor(transaction?: ITransaction) {
+  constructor() {}
+
+  fromData(transaction?: ITransaction) {
     this.$key = (transaction.$key == undefined)? '' : transaction.$key;    
     this.accountFrom = (transaction.accountFrom == undefined)? '' : transaction.accountFrom;    
     this.accountFromId = (transaction.accountFromId == undefined)? '' : transaction.accountFromId;
@@ -78,5 +80,34 @@ export class Transaction {
     this.type = (transaction.type == undefined)? '' : transaction.type;
     this.typedisplay = (transaction.typedisplay == undefined)? '' : transaction.typedisplay;
   }
-    
+
+  toString() {
+    let trans = {
+      'accountFrom': this.accountFrom,
+      'accountFromId': this.accountFromId,
+      'accountTo': this.accountTo,
+      'accountToId': this.accountToId,
+      'addedby': this.addedby,
+      'amount':this.amount,
+      'category': this.category,
+      'categoryid': this.categoryid,
+      'clearedBal': this.clearedBal,
+      'date': this.date,
+      'iscleared': this.iscleared,
+      'isphoto': this.isphoto,
+      'isrecurring': this.isrecurring,
+      'istransfer': this.istransfer,
+      'linkedtransactionid': this.linkedtransactionid,
+      'notes': this.notes,
+      'payee': this.payee,
+      'payeeid': this.payeeid,
+      'payeelower': this.payeelower,
+      'photo': this.photo,
+      'runningbal': this.runningbal,
+      'type': this.type,
+      'typedisplay': this.typedisplay,
+    }
+    return trans;
+  }
+   
 }

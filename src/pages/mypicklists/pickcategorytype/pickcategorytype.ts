@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 
 // services
-import { UserData } from '../../../providers/user-data';
 import { CategoryData } from '../../../providers/category-data';
 
 @Component({

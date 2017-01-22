@@ -16,7 +16,7 @@ import { TransactionData } from '../../../providers/transaction-data';
 
 // models
 import { IAccount } from '../../../models/account.model';
-import { Transaction, ITransaction } from '../../../models/transaction.model';
+import { Transaction } from '../../../models/transaction.model';
 
 import * as moment from 'moment';
 
@@ -54,7 +54,7 @@ export class TransactionPage {
     this.mode = this.navParams.data.paramMode;
 
     if (this.mode === 'New') {
-      //this.transaction = new Transaction();
+      this.transaction = new Transaction();
       this.title = 'Create Transaction';
       this.hasDataTransactionType = false;
       this.hasDataPayee = false;
@@ -65,7 +65,8 @@ export class TransactionPage {
       this.hasDataPhoto = false;
       this.transactionData.reset();
     } else {
-      this.transaction = new Transaction(this.navParams.data.paramTransaction);
+      this.transaction = new Transaction();
+      this.transaction.fromData(this.navParams.data.paramTransaction);
       this.title = this.transaction.payee;
       this.hasDataTransactionType = true;
       this.hasDataPayee = true;
@@ -76,8 +77,9 @@ export class TransactionPage {
       this.hasDataPhoto = true;
 
       // Format date
-      this.displaydate = moment(this.transaction.date).format();
-      this.displaytime = moment(this.transaction.date).format();
+      let dtDB = this.transaction.date / 1000;
+      this.displaydate = moment.unix(dtDB).format();
+      this.displaytime = moment.unix(dtDB).format();
 
       // Prepare services
       this.transactionData.setTransactionType(this.transaction.type);
@@ -154,9 +156,11 @@ export class TransactionPage {
 
     // Format date and time in epoch time
     let dtDateISO = moment(this.displaydate, moment.ISO_8601);
-    let dtHour = moment(this.displaytime, moment.ISO_8601).format("hh");
-    let dtMinutes = moment(this.displaytime, moment.ISO_8601).format("mm");
-    let dt = dtDateISO.add(dtHour, 'hours').add(dtMinutes, 'minutes');
+    let dtHour = moment(this.displaytime).format("HH");
+    let dtMinutes = moment(this.displaytime).format("mm");
+    let iHour = parseInt(dtHour);
+    let iMinute = parseInt(dtMinutes);    
+    let dt = dtDateISO.hour(iHour).minutes(iMinute);
     let dtTran = moment(dt, 'MMMM D, YYYY hh:mm a').valueOf();
     this.transaction.date = dtTran;
 
@@ -164,7 +168,6 @@ export class TransactionPage {
     console.log(this.displaytime);
     console.log(dtDateISO);
     console.log(dtHour, dtMinutes);
-    console.log(dt);
     console.log(dtTran);*/
 
     // Handle Who

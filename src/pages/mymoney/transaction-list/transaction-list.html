@@ -15,19 +15,19 @@
   <ion-toolbar color="mlitemdivider">
     <ion-row class="balancesRow">
       <ion-col class="colBorder">
-        <span>Current Balance</span><span><strong>{{ balancerunning }}</strong></span>
+        <span>Current Balance</span><span><strong>{{ account.balancecurrent }}</strong></span>
       </ion-col>
       <ion-col class="colBorder">
-        <span>Today's Balance</span><span><strong>{{ balancetoday }}</strong></span>
+        <span>Today's Balance</span><span><strong>{{ account.balancetoday }}</strong></span>
       </ion-col>
       <ion-col>
-        <span>Cleared Balance</span><span><strong>{{ balancecleared }}</strong></span>
+        <span>Cleared Balance</span><span><strong>{{ account.balancecleared }}</strong></span>
       </ion-col>
     </ion-row>
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-list [virtualScroll]="trans | async" [approxItemHeight]="'80px'" [bufferRatio]="3" [headerFn]="myHeaderFn">
+  <ion-list [virtualScroll]="trans | async" [approxItemHeight]="'100px'" [bufferRatio]="3" [headerFn]="myHeaderFn">
       <ion-item-divider sticky color="light" *virtualHeader="let header">
         {{ header }}
       </ion-item-divider>

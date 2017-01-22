@@ -16,7 +16,7 @@ import { TransactionData } from '../../../providers/transaction-data';
 
 // models
 import { IAccount } from '../../../models/account.model';
-import { Transaction, ITransaction } from '../../../models/transaction.model';
+import { ITransaction } from '../../../models/transaction.model';
 
 import * as moment from 'moment';
 
@@ -59,7 +59,8 @@ export class TransactionsPage {
     this.orderByChild = new BehaviorSubject('date');
     this.trans = this.userData.getFilteredTransactions(this.account, this.orderByChild, this.equalToSubject);
     this.trans.first().subscribe(snapshots => {
-      this.refresh();
+      //this.refresh();
+      this.userData.syncAccountBalances(this.account);
       this.userData.LoadingControllerDismiss();
       this.elapsedTime = Date.now() - this.startTime;
       //console.log(this.elapsedTime);
@@ -109,12 +110,13 @@ export class TransactionsPage {
         transaction.runningbal = balrunning.toFixed(2);
         //
         // Get today's balance
-        // 
-        var tranDate = moment(transaction.date)
-        var now = moment();
+        //
+        let dtdb = transaction.date / 1000;
+        var tranDate = moment.unix(dtdb).format("MMMM DD, YYYY");
+        /*var now = moment();
         if (tranDate <= now) {
           baltoday = balrunning;
-        }
+        }*/
       });
       this.balancerunning = balrunning.toFixed(2);
       this.balancecleared = balcleared.toFixed(2);
@@ -186,7 +188,8 @@ export class TransactionsPage {
           cssClass: 'alertDanger',
           handler: () => {
             this.trans.remove(transaction.$key);
-            this.refresh();
+            //this.refresh();
+            this.userData.syncAccountBalances(this.account);
           }
         }
       ]
@@ -197,23 +200,28 @@ export class TransactionsPage {
   clearTransaction(transaction) {
     
     this.trans.update(transaction.$key, { 'iscleared': transaction.iscleared });
-    this.refresh();
+    //this.refresh();
+    this.userData.syncAccountBalances(this.account);
 
   }
 
-  myHeaderFn(transaction: ITransaction, recordIndex, transactions) {
+  myHeaderFn(transaction, recordIndex, transactions) {
 
-    let format = 'MMMM DD, YYYY';
-    let thisTransDate = moment(transaction.date).format(format);
+    let format = 'dddd, MMMM DD, YYYY';    
+    let dtdb = transaction.date / 1000;
+    let thismoment = moment.unix(dtdb);
+    let thisTransDate = thismoment.format(format);
 
     // Get previous transaction
-    let prevTransaction: ITransaction = transactions[recordIndex - 1];
+    let prevTransaction = transactions[recordIndex - 1];
     if (prevTransaction === undefined) {
       return thisTransDate;
     }
 
     // Get date for previous transaction
-    let prevTransDate = moment(prevTransaction.date).format(format);
+    let dtprev = prevTransaction.date / 1000;
+    let prevmoment = moment.unix(dtprev);
+    let prevTransDate = prevmoment.format(format);
 
     // Compare dates between this transaction and the previous transaction
     if (prevTransDate === thisTransDate) {

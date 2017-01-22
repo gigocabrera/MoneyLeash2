@@ -10,7 +10,7 @@ import * as moment from 'moment';
 import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
 
 import { IAccount } from '../models/account.model';
-import { Transaction, ITransaction } from '../models/transaction.model';
+import { ITransaction } from '../models/transaction.model';
 
 @Injectable()
 export class UserData {
@@ -449,7 +449,7 @@ export class UserData {
   }
 
   addTransaction(transaction, account) {
-    var newTransaction = {
+    /*var newTransaction = {
       'accountFrom': transaction.accountFrom,
       'accountFromId': transaction.accountFromId,
       'accountTo': transaction.accountTo,
@@ -471,34 +471,15 @@ export class UserData {
       'runningbal': transaction.runningbal,
       'type': transaction.type,
       'typedisplay': transaction.typedisplay
-    }
-    this.housedata.child(this.user.houseid + '/transactions/' + account.$key + "/").push(newTransaction);
+    }*/
+
+    console.log(transaction);
+
+    //this.housedata.child(this.user.houseid + '/transactions/' + account.$key + "/").push(newTransaction);
   }
 
   updateTransaction(transaction, account) {
-    this.housedata.child(this.user.houseid + '/transactions/' + account.$key + "/" + transaction.$key).update({ 
-      'accountFrom': transaction.accountFrom,
-      'accountFromId': transaction.accountFromId,
-      'accountTo': transaction.accountTo,
-      'accountToId': transaction.accountToId,
-      'addedby': transaction.addedby,
-      'amount': transaction.amount,
-      'category': transaction.category,
-      'categoryid': transaction.categoryid,
-      'clearedBal': transaction.clearedBal,
-      'date': transaction.date,
-      'iscleared': transaction.iscleared,
-      'isphoto': transaction.isphoto,
-      'isrecurring': transaction.isrecurring,
-      'istransfer': transaction.istransfer,
-      'notes': transaction.notes,
-      'payee': transaction.payee,
-      'payeeid': transaction.payeeid,
-      'photo': transaction.photo,
-      'runningbal': transaction.runningbal,
-      'type': transaction.type,
-      'typedisplay': transaction.typedisplay
-    });
+    this.housedata.child(this.user.houseid + '/transactions/' + account.$key + "/" + transaction.$key).update(transaction.toString());
   }
 
   deleteTransaction(transaction) {
@@ -880,7 +861,7 @@ export class UserData {
         //
         // Handle categories
         //
-        if (transaction.type === 'Income') {          
+        if (transaction.type === 'Income') {
           refIncome.child(transaction.categoryid).once('value', (snapshot) => {
             var cat = snapshot.val();
             if (cat === null) {
