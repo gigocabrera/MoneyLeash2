@@ -4,6 +4,8 @@ import { NavController, ModalController, NavParams } from 'ionic-angular';
 
 // app pages
 import { PickTransactionTypePage } from '../../mypicklists/picktransactiontype/picktransactiontype';
+import { PickAccountFromPage } from '../../mypicklists/pickaccountfrom/pickaccountfrom';
+import { PickAccountToPage } from '../../mypicklists/pickaccountto/pickaccountto';
 import { PickPayeePage } from '../../mypicklists/pickpayee/pickpayee';
 import { PickCategoryPage } from '../../mypicklists/pickcategory/pickcategory';
 import { PickAmountPage } from '../../mypicklists/pickamount/pickamount';
@@ -30,6 +32,8 @@ export class TransactionPage {
   validationMessage: string;
   showValidationMessage: boolean = false;
   hasDataTransactionType: boolean = false;
+  hasDataAccountFrom: boolean = false;
+  hasDataAccountTo: boolean = false;
   hasDataPayee: boolean = false;
   hasDataCategory: boolean = false;
   hasDataAmount: boolean = false;
@@ -57,6 +61,8 @@ export class TransactionPage {
       this.transaction = new Transaction();
       this.title = 'Create Transaction';
       this.hasDataTransactionType = false;
+      this.hasDataAccountFrom = false;
+      this.hasDataAccountTo = false;
       this.hasDataPayee = false;
       this.hasDataCategory = false;
       this.hasDataAmount = false;
@@ -69,6 +75,8 @@ export class TransactionPage {
       this.transaction.fromData(this.navParams.data.paramTransaction);
       this.title = this.transaction.payee;
       this.hasDataTransactionType = true;
+      this.hasDataAccountFrom = (this.transaction.accountFrom != "") ? true : false;
+      this.hasDataAccountTo = (this.transaction.accountTo != "") ? true : false;
       this.hasDataPayee = true;
       this.hasDataCategory = true;
       this.hasDataAmount = true;
@@ -102,35 +110,42 @@ export class TransactionPage {
       case 'PickTransactionTypePage': {
         // Transaction Type
         this.transaction.type = this.transactionData.getTransactionType();
-        if (this.transaction.type != '') {
-          this.hasDataTransactionType = true;
-        }
+        this.transaction.istransfer = (this.transaction.type == "Transfer") ? true : false;
+        this.hasDataTransactionType = (this.transaction.type != "") ? true : false;
+        break;
+      }
+      case 'PickAccountFromPage': {
+        // Account to transfer from
+        this.transaction.accountFrom = this.transactionData.getAccountFrom();
+        this.transaction.accountFromId = this.transactionData.getAccountFromId();
+        this.hasDataAccountFrom = (this.transaction.accountFrom != "") ? true : false;
+        break;
+      }
+      case 'PickAccountToPage': {
+        // Account to transfer to
+        this.transaction.accountTo = this.transactionData.getAccountTo();
+        this.transaction.accountToId = this.transactionData.getAccountToId();
+        this.hasDataAccountTo = (this.transaction.accountTo != "") ? true : false;
         break;
       }
       case 'PickPayeePage': {
         // Payee
         this.transaction.payee = this.transactionData.getPayeeName();
         this.transaction.payeeid = this.transactionData.getPayeeID();
-        if (this.transaction.payee != '') {
-          this.hasDataPayee = true;
-        }
+        this.hasDataPayee = (this.transaction.payee != "") ? true : false;
         break;
       }
       case 'PickCategoryPage': {
         // Payee
         this.transaction.category = this.transactionData.getCategoryName();
         this.transaction.categoryid = this.transactionData.getCategoryID();
-        if (this.transaction.category != '') {
-          this.hasDataCategory = true;
-        }
+        this.hasDataCategory = (this.transaction.category != "") ? true : false;
         break;
       }
       case 'PickAmountPage': {
         // Payee
         this.transaction.amount = this.transactionData.getAmount();
-        if (this.transaction.amount != '') {
-          this.hasDataAmount = true;
-        }
+        this.hasDataAmount = (this.transaction.amount != "") ? true : false;
         break;
       }
       case 'PickNotesPage': {
@@ -144,9 +159,7 @@ export class TransactionPage {
       case 'PickPhotoPage': {
         // Payee
         this.transaction.notes = this.transactionData.getPhoto();
-        if (this.transaction.photo != '') {
-          this.hasDataPhoto = true;
-        }
+        this.hasDataPhoto = (this.transaction.photo != "") ? true : false;
         break;
       }
     }
@@ -156,19 +169,26 @@ export class TransactionPage {
 
     // Format date and time in epoch time
     let dtDateISO = moment(this.displaydate, moment.ISO_8601);
-    let dtHour = moment(this.displaytime).format("HH");
-    let dtMinutes = moment(this.displaytime).format("mm");
+    let dtHour;
+    let dtMinutes;
+    if (this.mode === 'New') {
+      dtHour = moment(this.displaytime, 'HH:mm').format("HH");
+      dtMinutes = moment(this.displaytime, 'HH:mm').format("mm");
+    } else {
+      dtHour = moment(this.displaytime, moment.ISO_8601).format("HH");
+      dtMinutes = moment(this.displaytime, moment.ISO_8601).format("mm");
+    }
     let iHour = parseInt(dtHour);
-    let iMinute = parseInt(dtMinutes);    
+    let iMinute = parseInt(dtMinutes);
     let dt = dtDateISO.hour(iHour).minutes(iMinute);
     let dtTran = moment(dt, 'MMMM D, YYYY hh:mm a').valueOf();
     this.transaction.date = dtTran;
-
-    /*console.log(this.displaydate);
-    console.log(this.displaytime);
-    console.log(dtDateISO);
-    console.log(dtHour, dtMinutes);
-    console.log(dtTran);*/
+    
+    //console.log(this.displaydate);
+    //console.log(this.displaytime);
+    //console.log(dtDateISO);
+    //console.log(dtHour, dtMinutes);
+    //console.log(dtTran);
 
     // Handle Who
     this.transaction.addedby = this.userData.user.fullname;
@@ -186,6 +206,16 @@ export class TransactionPage {
   pickTransactionType() {
     this.showValidationMessage = false;
     this.nav.push(PickTransactionTypePage);
+  }
+
+  pickTransactionAccountFrom() {
+    this.showValidationMessage = false;
+    this.nav.push(PickAccountFromPage);
+  }
+
+  pickTransactionAccountTo() {
+    this.showValidationMessage = false;
+    this.nav.push(PickAccountToPage);
   }
 
   pickPayee() {

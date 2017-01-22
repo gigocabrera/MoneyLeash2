@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Account To
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content class="outer-content">
+  <ion-item-divider>
+    Select account to transfer to
+  </ion-item-divider>
+  <ion-list radio-group [(ngModel)]="itemselected">
+    <ion-item *ngFor="let account of accounts | async">
+        <ion-label>{{account.accountname}}</ion-label>
+        <ion-radio [value]="account.accountname" (click)="pickPreference(account)"></ion-radio>
+    </ion-item>
+  </ion-list>
+</ion-content>

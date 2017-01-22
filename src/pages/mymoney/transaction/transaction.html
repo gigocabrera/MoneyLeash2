@@ -30,14 +30,40 @@
       </div>
       <ion-icon name="arrow-forward" item-right color="mliconarrowblue"></ion-icon>
     </ion-item>
+
+    <div *ngIf="transaction.istransfer">
+      <ion-item class="ml-input" (click)="pickTransactionAccountFrom()">
+        <ion-icon name="md-arrow-back" item-left></ion-icon>
+        <div *ngIf="hasDataAccountFrom">
+          <p class="ml-label-has-input">From Account</p>
+          <h2 class="ml-has-input">{{ transaction.accountFrom }}</h2>
+        </div>
+        <div *ngIf="!hasDataAccountFrom">
+          <h2 class="ml-has-no-input">From Account</h2>
+        </div>
+        <ion-icon name="arrow-forward" item-right color="mliconarrowblue"></ion-icon>
+      </ion-item>
+      <ion-item class="ml-input" (click)="pickTransactionAccountTo()">
+        <ion-icon name="md-arrow-forward" item-left></ion-icon>
+        <div *ngIf="hasDataAccountTo">
+          <p class="ml-label-has-input">To Account</p>
+          <h2 class="ml-has-input">{{ transaction.accountTo }}</h2>
+        </div>
+        <div *ngIf="!hasDataAccountTo">
+          <h2 class="ml-has-no-input">To Account</h2>
+        </div>
+        <ion-icon name="arrow-forward" item-right color="mliconarrowblue"></ion-icon>
+      </ion-item>
+    </div>
+
     <ion-item class="ml-input" (click)="pickPayee()">
-      <ion-icon name="md-contact" item-left></ion-icon>
+      <ion-icon name="md-cart" item-left></ion-icon>
       <div *ngIf="hasDataPayee">
-        <p class="ml-label-has-input">Payee</p>
+        <p class="ml-label-has-input">Merchant</p>
         <h2 class="ml-has-input">{{ transaction.payee }}</h2>
       </div>
       <div *ngIf="!hasDataPayee">
-        <h2 class="ml-has-no-input">Payee</h2>
+        <h2 class="ml-has-no-input">Merchant</h2>
       </div>
       <ion-icon name="arrow-forward" item-right color="mliconarrowblue"></ion-icon>
     </ion-item>

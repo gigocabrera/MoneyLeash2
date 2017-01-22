@@ -381,12 +381,21 @@ export class UserData {
     return this.af.database.object('/houses/' + this.user.houseid + '/accounts/' + account.$key);
   }
 
-  getAccountsAF2(): FirebaseListObservable<any> {
+  getAccounts2(): FirebaseListObservable<any> {
     return this.af.database.list('/houses/' + this.user.houseid + '/accounts', {
       query: {
         orderByChild: 'accounttype'
       }
     });
+  }
+
+  getAccounts(myChild, mySubject): FirebaseListObservable<any> {
+    return this.af.database.list('/houses/' + this.user.houseid + '/accounts/', {
+      query: {
+        orderByChild: myChild,
+        equalTo: mySubject
+      }
+    }).map((array) => array.reverse()) as FirebaseListObservable<any[]>;
   }
 
   getAllAccounts() {
@@ -449,33 +458,7 @@ export class UserData {
   }
 
   addTransaction(transaction, account) {
-    /*var newTransaction = {
-      'accountFrom': transaction.accountFrom,
-      'accountFromId': transaction.accountFromId,
-      'accountTo': transaction.accountTo,
-      'accountToId': transaction.accountToId,
-      'addedby': transaction.addedby,
-      'amount': transaction.amount,
-      'category': transaction.category,
-      'categoryid': transaction.categoryid,
-      'clearedBal': transaction.clearedBal,
-      'date': transaction.date,
-      'iscleared': transaction.iscleared,
-      'isphoto': transaction.isphoto,
-      'isrecurring': transaction.isrecurring,
-      'istransfer': transaction.istransfer,
-      'notes': transaction.notes,
-      'payee': transaction.payee,
-      'payeeid': transaction.payeeid,
-      'photo': transaction.photo,
-      'runningbal': transaction.runningbal,
-      'type': transaction.type,
-      'typedisplay': transaction.typedisplay
-    }*/
-
-    console.log(transaction);
-
-    //this.housedata.child(this.user.houseid + '/transactions/' + account.$key + "/").push(newTransaction);
+    this.housedata.child(this.user.houseid + '/transactions/' + account.$key + "/").push(transaction.toString());
   }
 
   updateTransaction(transaction, account) {

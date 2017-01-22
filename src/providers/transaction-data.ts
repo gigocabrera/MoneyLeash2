@@ -2,6 +2,10 @@ export class TransactionData {
   
     referrer: string;
     transactiontype: string;
+    accountfrom: string;
+    accountfromid: string;
+    accountto: string;
+    accounttoid: string;
     payeename: string;
     payeeid: string;
     categoryname: string;
@@ -29,6 +33,34 @@ export class TransactionData {
     }
     getTransactionType() {
         return this.transactiontype;
+    }
+    // Account from
+    // ---------------------------------
+    setAccountFrom(accountfrom: string) {
+        this.accountfrom = accountfrom;
+    }
+    getAccountFrom() {
+        return this.accountfrom;
+    }
+    setAccountFromId(accountfromid: string) {
+        this.accountfromid = accountfromid;
+    }
+    getAccountFromId() {
+        return this.accountfromid;
+    }
+    // Account to
+    // ---------------------------------
+    setAccountTo(accountto: string) {
+        this.accountto = accountto;
+    }
+    getAccountTo() {
+        return this.accountto;
+    }
+    setAccountToId(accounttoid: string) {
+        this.accounttoid = accounttoid;
+    }
+    getAccountToId() {
+        return this.accountfromid;
     }
     // Payee
     // ---------------------------------

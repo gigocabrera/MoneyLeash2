@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 
 // services
 import { UserData } from '../../../providers/user-data';
@@ -18,7 +18,6 @@ export class PickTransactionTypePage {
    
   constructor(
       public nav: NavController,
-      public navParams: NavParams,
       public userData: UserData,
       public transactionData: TransactionData) {}
 
