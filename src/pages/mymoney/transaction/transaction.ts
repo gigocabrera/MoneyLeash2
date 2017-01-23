@@ -75,8 +75,8 @@ export class TransactionPage {
       this.transaction.fromData(this.navParams.data.paramTransaction);
       this.title = this.transaction.payee;
       this.hasDataTransactionType = true;
-      this.hasDataAccountFrom = (this.transaction.accountFrom != "") ? true : false;
-      this.hasDataAccountTo = (this.transaction.accountTo != "") ? true : false;
+      this.hasDataAccountFrom = (this.transaction.accountFrom !== "") ? true : false;
+      this.hasDataAccountTo = (this.transaction.accountTo !== "") ? true : false;
       this.hasDataPayee = true;
       this.hasDataCategory = true;
       this.hasDataAmount = true;
@@ -88,6 +88,11 @@ export class TransactionPage {
       let dtDB = this.transaction.date / 1000;
       this.displaydate = moment.unix(dtDB).format();
       this.displaytime = moment.unix(dtDB).format();
+
+      // Determine typedisplay if missing: Income / Expense
+      if (this.transaction.typedisplay === '') {
+        this.transaction.typedisplay = this.transaction.type
+      }
 
       // Prepare services
       this.transactionData.setTransactionType(this.transaction.type);
@@ -110,48 +115,48 @@ export class TransactionPage {
       case 'PickTransactionTypePage': {
         // Transaction Type
         this.transaction.typedisplay = this.transactionData.getTransactionType();
-        this.transaction.istransfer = (this.transaction.typedisplay == "Transfer") ? true : false;
-        this.hasDataTransactionType = (this.transaction.typedisplay != "") ? true : false;
+        this.transaction.istransfer = (this.transaction.typedisplay === "Transfer") ? true : false;
+        this.hasDataTransactionType = (this.transaction.typedisplay !== "") ? true : false;
         break;
       }
       case 'PickAccountFromPage': {
         // Account to transfer from
         this.transaction.accountFrom = this.transactionData.getAccountFrom();
         this.transaction.accountFromId = this.transactionData.getAccountFromId();
-        this.hasDataAccountFrom = (this.transaction.accountFrom != "") ? true : false;
+        this.hasDataAccountFrom = (this.transaction.accountFrom !== "") ? true : false;
         break;
       }
       case 'PickAccountToPage': {
         // Account to transfer to
         this.transaction.accountTo = this.transactionData.getAccountTo();
         this.transaction.accountToId = this.transactionData.getAccountToId();
-        this.hasDataAccountTo = (this.transaction.accountTo != "") ? true : false;
+        this.hasDataAccountTo = (this.transaction.accountTo !== "") ? true : false;
         break;
       }
       case 'PickPayeePage': {
         // Payee
         this.transaction.payee = this.transactionData.getPayeeName();
         this.transaction.payeeid = this.transactionData.getPayeeID();
-        this.hasDataPayee = (this.transaction.payee != "") ? true : false;
+        this.hasDataPayee = (this.transaction.payee !== "") ? true : false;
         break;
       }
       case 'PickCategoryPage': {
         // Payee
         this.transaction.category = this.transactionData.getCategoryName();
         this.transaction.categoryid = this.transactionData.getCategoryID();
-        this.hasDataCategory = (this.transaction.category != "") ? true : false;
+        this.hasDataCategory = (this.transaction.category !== "") ? true : false;
         break;
       }
       case 'PickAmountPage': {
         // Payee
         this.transaction.amount = this.transactionData.getAmount();
-        this.hasDataAmount = (this.transaction.amount != "") ? true : false;
+        this.hasDataAmount = (this.transaction.amount !== "") ? true : false;
         break;
       }
       case 'PickNotesPage': {
         // Payee
         this.transaction.notes = this.transactionData.getNotes();
-        if (this.transaction.notes != '') {
+        if (this.transaction.notes !== '') {
           this.hasDataNotes = true;
         }
         break;
@@ -159,13 +164,35 @@ export class TransactionPage {
       case 'PickPhotoPage': {
         // Payee
         this.transaction.notes = this.transactionData.getPhoto();
-        this.hasDataPhoto = (this.transaction.photo != "") ? true : false;
+        this.hasDataPhoto = (this.transaction.photo !== "") ? true : false;
         break;
       }
     }
   }
 
   save() {
+
+    // Validate form data
+    if (this.transaction.typedisplay === 'undefined' || this.transaction.typedisplay === '') {
+      this.showValidationMessage = true;
+      this.validationMessage = "Please select Transaction Type"
+      return;
+    }
+    if (this.transaction.category === 'undefined' || this.transaction.category === '') {
+      this.showValidationMessage = false;
+      this.validationMessage = "Please select a Category"
+      return;
+    }
+    if (this.transaction.payee === 'undefined' || this.transaction.payee === '') {
+      this.showValidationMessage = false;
+      this.validationMessage = "Please select a Payee"
+      return;
+    }
+    if (this.transaction.amount === 'undefined' || this.transaction.amount === '') {
+      this.showValidationMessage = false;
+      this.validationMessage = "Please enter an amount for this transaction"
+      return;
+    }
 
     // Format date and time in epoch time
     let dtDateISO = moment(this.displaydate, moment.ISO_8601);
@@ -191,11 +218,35 @@ export class TransactionPage {
     //console.log(dtTran);
 
     // Handle Who
-    this.transaction.addedby = this.userData.user.fullname;
+    this.transaction.addedby = this.userData.user.nickname;
+
+    //
+    // Handle transaction type for Transfers
+    //
+    if (this.transaction.typedisplay === "Transfer" && this.account.$key === this.transaction.accountToId) {
+      this.transaction.type = 'Income';
+      this.transaction.istransfer = true;
+    } else if (this.transaction.typedisplay === "Transfer" && this.account.$key !== this.transaction.accountToId) {
+      this.transaction.type = 'Expense';
+      this.transaction.istransfer = true;
+    } else {
+      this.transaction.accountFrom = '';
+      this.transaction.accountFromId = '';
+      this.transaction.accountTo = '';
+      this.transaction.accountToId = '';
+      this.transaction.type = this.transaction.typedisplay;
+      this.transaction.istransfer = false;
+    }
 
     if (this.mode === 'New') {
+      //
+      // Create New Transaction
+      //
       this.userData.addTransaction(this.transaction, this.account);
     } else {
+      //
+      // Update Existing Transaction
+      //
       this.userData.updateTransaction(this.transaction, this.account);
     }
     this.transactionData.setReferrer('TransactionPage');

@@ -37,6 +37,7 @@ export class PickAccountFromPage {
     this.accounts = this.userData.getAccounts(this.orderByChild, this.equalToSubject);
     this.accounts.first().subscribe(snapshots => {
       this.userData.LoadingControllerDismiss();
+      this.itemselected = this.transactionData.getAccountFrom();
       this.elapsedTime = Date.now() - this.startTime;
       //console.log(this.elapsedTime);
     });
