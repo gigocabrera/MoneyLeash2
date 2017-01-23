@@ -16,7 +16,6 @@ import { TransactionData } from '../../../providers/transaction-data';
 
 // models
 import { IAccount } from '../../../models/account.model';
-import { ITransaction } from '../../../models/transaction.model';
 
 import * as moment from 'moment';
 
@@ -59,83 +58,10 @@ export class TransactionsPage {
     this.orderByChild = new BehaviorSubject('date');
     this.trans = this.userData.getFilteredTransactions(this.account, this.orderByChild, this.equalToSubject);
     this.trans.first().subscribe(snapshots => {
-      //this.refresh();
       this.userData.syncAccountBalances(this.account);
       this.userData.LoadingControllerDismiss();
       this.elapsedTime = Date.now() - this.startTime;
       //console.log(this.elapsedTime);
-    });
-  }
-
-  refresh() {
-
-    let balrunning = 0;
-    let baltoday = 0;
-    let balcleared = 0;
-    let totalTransactions = 0;
-    let totalClearedTransactions = 0;
-    this.balancerunning = '';
-    this.balancecleared = '';
-    this.balancetoday = '';
-
-    this.trans.forEach(transactions => {
-      
-      transactions.forEach( transaction => {
-        //
-        // Handle Balances
-        //
-        totalTransactions++;
-        if (transaction.iscleared === true) {
-          totalClearedTransactions++;
-          if (transaction.type === "Income") {
-            if (!isNaN(transaction.amount)) {
-              balcleared += parseFloat(transaction.amount);
-            }
-          } else if (transaction.type === "Expense") {
-            if (!isNaN(transaction.amount)) {
-              balcleared -= parseFloat(transaction.amount);
-            }
-          }
-          transaction.clearedBal = balcleared.toFixed(2);
-        }
-        if (transaction.type === "Income") {
-          if (!isNaN(transaction.amount)) {
-            balrunning += parseFloat(transaction.amount);
-          }
-        } else if (transaction.type === "Expense") {
-          if (!isNaN(transaction.amount)) {
-            balrunning -= parseFloat(transaction.amount);
-          }
-        }
-        transaction.runningbal = balrunning.toFixed(2);
-        //
-        // Get today's balance
-        //
-        let dtdb = transaction.date / 1000;
-        var tranDate = moment.unix(dtdb).format("MMMM DD, YYYY");
-        /*var now = moment();
-        if (tranDate <= now) {
-          baltoday = balrunning;
-        }*/
-      });
-      this.balancerunning = balrunning.toFixed(2);
-      this.balancecleared = balcleared.toFixed(2);
-      this.balancetoday = baltoday.toFixed(2);
-      
-      // Update account with totals
-      let pendingTransactions = totalTransactions - totalClearedTransactions;
-      this.account.balancecleared = this.balancecleared;
-      this.account.balancecurrent = this.balancerunning;
-      this.account.balancetoday = this.balancetoday;
-      this.account.totaltransactions = totalTransactions.toFixed(0);
-      this.account.totalclearedtransactions = totalClearedTransactions.toFixed(0);
-      this.account.totalpendingtransactions = pendingTransactions.toFixed(0);
-
-      this.userData.housedata.child(this.userData.user.houseid + '/accounts/' + this.account.$key).update({ 
-        'balancecleared' : this.account.balancecleared, 
-        'balancecurrent' : this.account.balancecurrent, 
-        'balancetoday' : this.account.balancetoday 
-      });
     });
   }
 
@@ -179,7 +105,6 @@ export class TransactionsPage {
         {
           text: 'Cancel',
           handler: () => {
-            //console.log('Cancel RemoveUser clicked');
             slidingItem.close();
           }
         },
@@ -188,7 +113,6 @@ export class TransactionsPage {
           cssClass: 'alertDanger',
           handler: () => {
             this.trans.remove(transaction.$key);
-            //this.refresh();
             this.userData.syncAccountBalances(this.account);
           }
         }
@@ -198,11 +122,8 @@ export class TransactionsPage {
   }
 
   clearTransaction(transaction) {
-    
     this.trans.update(transaction.$key, { 'iscleared': transaction.iscleared });
-    //this.refresh();
     this.userData.syncAccountBalances(this.account);
-
   }
 
   myHeaderFn(transaction, recordIndex, transactions) {

@@ -1,5 +1,6 @@
 export class TransactionData {  
   
+    $key: string;
     referrer: string;
     transactiontype: string;
     accountfrom: string;
@@ -32,7 +33,17 @@ export class TransactionData {
         this.transactiontype = type;
     }
     getTransactionType() {
-        return this.transactiontype;
+      /*//
+      // We need to know the transaction type first for all cases: Expense/Income/Transfer
+      //
+      if (this.transactiontype === "Transfer" && this.$key === this.accounttoid) {
+          this.transactiontype = 'Income';
+      } else if (this.transactiontype === "Transfer" && this.$key !== this.accounttoid) {
+          this.transactiontype = 'Expense';
+      } else {
+        //this.transactiontype = 
+      }*/
+      return this.transactiontype;
     }
     // Account from
     // ---------------------------------

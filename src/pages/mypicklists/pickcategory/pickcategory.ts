@@ -27,7 +27,7 @@ export class PickCategoryPage {
       public transactionData: TransactionData) {}
 
   ionViewDidLoad() {
-
+    
     this.type = this.transactionData.getTransactionType();
 
     this.userData.getIncomeCategories().on('value', (incomecategories) => {

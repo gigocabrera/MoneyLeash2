@@ -109,9 +109,9 @@ export class TransactionPage {
       }
       case 'PickTransactionTypePage': {
         // Transaction Type
-        this.transaction.type = this.transactionData.getTransactionType();
-        this.transaction.istransfer = (this.transaction.type == "Transfer") ? true : false;
-        this.hasDataTransactionType = (this.transaction.type != "") ? true : false;
+        this.transaction.typedisplay = this.transactionData.getTransactionType();
+        this.transaction.istransfer = (this.transaction.typedisplay == "Transfer") ? true : false;
+        this.hasDataTransactionType = (this.transaction.typedisplay != "") ? true : false;
         break;
       }
       case 'PickAccountFromPage': {

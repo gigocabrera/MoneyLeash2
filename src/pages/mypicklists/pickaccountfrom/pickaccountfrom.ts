@@ -44,7 +44,6 @@ export class PickAccountFromPage {
   }
   
   pickPreference(account) {
-    console.log(account);
     this.transactionData.setReferrer('PickAccountFromPage');
     this.transactionData.setAccountFrom(account.accountname);
     this.transactionData.setAccountFromId(account.$key);

@@ -10,7 +10,6 @@ import * as moment from 'moment';
 import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
 
 import { IAccount } from '../models/account.model';
-import { ITransaction } from '../models/transaction.model';
 
 @Injectable()
 export class UserData {
@@ -467,10 +466,6 @@ export class UserData {
 
   deleteTransaction(transaction) {
     //this.housedata.child(this.user.houseid + '/accounts/' + account.$key).remove();
-  }
-
-  updateTransactionAndBalances(account: IAccount, transaction: ITransaction) {
-    this.housedata.child(this.user.houseid + '/transactions/' + account.$key + '/' + transaction.$key).update({ 'runningbal' : transaction.runningbal, 'clearedBal' : transaction.clearedBal, 'iscleared' : transaction.iscleared });
   }
 
   updateAccountWithTotals(account: IAccount) {
