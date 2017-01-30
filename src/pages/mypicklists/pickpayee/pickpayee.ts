@@ -86,7 +86,14 @@ export class PickPayeePage {
   }
 
   savePayee() {
-    console.log('saving new payee');
+    var newPayee = {
+        'lastamount': '',
+        'lastcategory': '',
+        'lastcategoryid': '',
+        'payeename': this.searchTerm
+    }
+    this.userData.addPayee(newPayee);
+    this.selectPayee(newPayee);
   }
 
 }

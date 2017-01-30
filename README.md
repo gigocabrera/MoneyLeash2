@@ -56,14 +56,14 @@ This is a work inprogress and **your feedback/help would be greatly appreciated!
 
 - Follow [@gigocabrera] on Twitter(https://twitter.com/gigocabrera)
 - Follow on [LinkedIn](https://www.linkedin.com/in/luiscabrerame)
-- Contact me on my [website](http://www.gigocabrera.com)
+- Contact me on my [website](http://luiscabrera.site)
 
 
 # License
 
     The MIT License (MIT)
     
-    Copyright (c) 2015 - Luis Cabrera (gigocabrera.com)
+    Copyright (c) 2015 - Luis Cabrera (luiscabrera.site)
     
     Permission is hereby granted, free of charge, to any person obtaining a copy of this 
 	software and associated documentation files (the "Software"), to deal in the Software 
