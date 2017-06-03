@@ -5,11 +5,11 @@
     </ion-buttons>
   </ion-navbar>
 </ion-header>
-
 <ion-content no-bounce>
-  <ion-slides [options]="{pager: true}" (ionWillChange)="onSlideChangeStart($event)">
-    <ion-slide *ngFor="let slide of slides">
-      
+
+  <ion-slides #slides (ionSlideWillChange)="onSlideChangeStart($event)" pager>
+
+    <ion-slide *ngFor="let slide of slideData">  
       <div class="divImage">
         <i class="{{slide.icon}} {{slide.color}}"></i>
       </div>
@@ -17,10 +17,8 @@
         <h2 class="{{slide.class}}" [innerHTML]="slide.title"></h2>
         <p [innerHTML]="slide.description"></p>
       </div>
-
     </ion-slide>
-    <ion-slide>
-      
+    <ion-slide>      
       <div class="divImage readyMargin">
         <i class="fa fa-thumbs-o-up introOrange"></i>
       </div>
@@ -29,7 +27,7 @@
         Continue
         <ion-icon name="arrow-forward"></ion-icon>
       </button>
-
     </ion-slide>
+    
   </ion-slides>
 </ion-content>

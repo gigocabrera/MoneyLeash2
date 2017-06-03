@@ -8,7 +8,7 @@ import { NavController, AlertController } from 'ionic-angular';
 import { CategoryPage } from '../category/category';
 
 // services
-import {UserData} from '../../../providers/user-data';
+import { AuthService } from '../../../providers/auth-service';
 import { CategoryData } from '../../../providers/category-data';
 
 @Component({
@@ -26,12 +26,12 @@ export class CategoryListPage {
   constructor(
       public nav: NavController,
       public alertController: AlertController,
-      public userData: UserData,
+      public auth: AuthService,
       public categoryData: CategoryData) {}
   
   ionViewDidLoad() {
 
-    this.userData.getIncomeCategories().on('value', (incomecategories) => {
+    this.auth.getIncomeCategories().on('value', (incomecategories) => {
       let rawList= [];
       incomecategories.forEach( spanshot => {
         var cat = spanshot.val();
@@ -46,7 +46,7 @@ export class CategoryListPage {
       this.incomeCategories = rawList;
     });
 
-    this.userData.getExpenseCategories().on('value', (expensecategories) => {
+    this.auth.getExpenseCategories().on('value', (expensecategories) => {
       let rawList= [];
       expensecategories.forEach( spanshot => {
         var cat = spanshot.val();
@@ -62,7 +62,7 @@ export class CategoryListPage {
     });
 
     // Disable loading controller when the promise is complete
-    this.userData.LoadingControllerDismiss();
+    this.auth.LoadingControllerDismiss();
 
   }
   
@@ -100,7 +100,7 @@ export class CategoryListPage {
           cssClass: 'alertDanger',
           handler: () => {
             this.handleSlidingItems(slidingItem);
-            this.userData.deleteCategory(category);
+            this.auth.deleteCategory(category);
           }
         }
       ]

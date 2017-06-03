@@ -2,9 +2,6 @@ import { Component } from '@angular/core';
 
 import { NavController, ViewController, NavParams } from 'ionic-angular';
 
-// services
-import { UserData } from '../../../providers/user-data';
-
 @Component({
   selector: 'page-pickdefaultbalance',
   templateUrl: 'pickdefaultbalance.html'
@@ -18,8 +15,7 @@ export class PickDefaultBalancePage {
   constructor(
     public nav: NavController, 
     public viewCtrl: ViewController, 
-    public navParams: NavParams,
-    public userData: UserData) {}
+    public navParams: NavParams) {}
 
   ionViewDidLoad() {
     this.defaultItems = [

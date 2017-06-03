@@ -2,9 +2,6 @@ import { Component } from '@angular/core';
 
 import { NavController, ViewController, NavParams } from 'ionic-angular';
 
-// services
-import { UserData } from '../../../providers/user-data';
-
 @Component({
   templateUrl: 'accounttypesedit.html'
 })
@@ -17,8 +14,7 @@ export class AccountTypesEditPage {
   constructor(
     public nav: NavController,
     public navParams: NavParams,
-    public viewCtrl: ViewController,
-    public userData: UserData) {
+    public viewCtrl: ViewController) {
 
     this.item = this.navParams.data.paramItem;
     if (this.item.name === undefined) {

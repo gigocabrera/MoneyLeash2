@@ -3,13 +3,13 @@ import { Component } from '@angular/core';
 import { NavController, AlertController } from 'ionic-angular';
 
 // firebase
-import { FirebaseListObservable } from 'angularfire2';
+import { FirebaseListObservable } from 'angularfire2/database';
 
 // app pages
 import { PayeePage } from '../payee/payee';
 
 // services
-import {UserData} from '../../../providers/user-data';
+import { AuthService } from '../../../providers/auth-service';
 
 @Component({
   selector: 'page-payee-list',
@@ -24,11 +24,11 @@ export class PayeeListPage {
   constructor(
       public nav: NavController,
       public alertController: AlertController,
-      public userData: UserData) {}
+      public auth: AuthService) {}
   
   ionViewDidLoad() {
 
-    this.userData.getAllPayees().on('value', (payees) => { 
+    this.auth.getAllPayees().on('value', (payees) => { 
 
       var that = this;
       this.groupedPayees = [];
@@ -57,7 +57,7 @@ export class PayeeListPage {
       })
 
       // Disable loading controller when the promise is complete
-      this.userData.LoadingControllerDismiss();
+      this.auth.LoadingControllerDismiss();
 
     });
   
@@ -97,7 +97,7 @@ export class PayeeListPage {
           cssClass: 'alertDanger',
           handler: () => {
             this.handleSlidingItems(slidingItem);
-            this.userData.deletePayee(payee);
+            this.auth.deletePayee(payee);
           }
         }
       ]

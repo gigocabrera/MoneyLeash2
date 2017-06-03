@@ -21,12 +21,16 @@ module.exports = {
     src: ['{{ROOT}}/node_modules/ionic-angular/polyfills/polyfills.js'],
     dest: '{{BUILD}}'
   },
+  copySwToolbox: {
+    src: ['{{ROOT}}/node_modules/sw-toolbox/sw-toolbox.js'],
+    dest: '{{BUILD}}'
+  },
   copyFontawesomeFonts: {
     src: ['{{ROOT}}/node_modules/font-awesome/fonts/**/*'],
-    dest: '{{WWW}}/assets/fa/fonts'
+    dest: '{{WWW}}/assets/fonts'
   },
   copyFontawesomeCss: {
     src: ['{{ROOT}}/node_modules/font-awesome/css/font-awesome.min.css'],
-    dest: '{{WWW}}/assets/fa/css'
+    dest: '{{WWW}}/assets/css'
   },
 }

@@ -8,7 +8,7 @@ import { ForgotPasswordPage } from '../forgot-password/forgot-password';
 import { AccountListPage } from '../mymoney/account-list/account-list';
 
 // services
-import { UserData } from '../../providers/user-data';
+import { AuthService } from '../../providers/auth-service';
 
 @Component({
   selector: 'page-login',
@@ -23,7 +23,7 @@ export class LoginPage {
     public alertController: AlertController,
     public menuCtrl: MenuController,
     public navCtrl: NavController, 
-    public userData: UserData) {
+    public auth: AuthService) {
 
     this.login.email = 'paulina@test.com';
 
@@ -33,15 +33,15 @@ export class LoginPage {
     
     this.submitted = true;
     if (form.valid) {
-      this.userData.LoadingControllerShow();
-      this.userData.login(this.login)
+      this.auth.LoadingControllerShow();
+      this.auth.signInWithEmail(this.login)
       .then(() => {
           this.LoginSuccess();
         }
       )
       .catch(
         (error) => {
-          this.userData.LoadingControllerDismiss();
+          this.auth.LoadingControllerDismiss();
           this.LoginError(error);
         }
       );

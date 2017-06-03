@@ -1,6 +1,5 @@
 {
   "name": "MoneyLeash",
-  "app_id": "",
-  "v2": true,
-  "typescript": true
+  "app_id": "eeddf9c3",
+  "type": "ionic-angular"
 }

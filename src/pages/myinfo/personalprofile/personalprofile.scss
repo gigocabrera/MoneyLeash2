@@ -1,13 +1,18 @@
 page-personalprofile {
 
+  .content {
+    background-color: #fff;
+  }
+
   ion-card {
     
     overflow: visible;
     margin-top: 200px;
 
     ion-card-content {
-      background-color: map-get($colors, primary);
-      color: #FFFFFF;
+      /*background-color: map-get($colors, primary);*/
+      background: url('../assets/img/splashbg.png') no-repeat;
+      color: #000;
       text-align: center;
       padding-bottom: 28px;
 
@@ -18,9 +23,6 @@ page-personalprofile {
         border: solid 4px #FFFFFF;
         display: inline;
       }
-
     }
-
   }
-
 }

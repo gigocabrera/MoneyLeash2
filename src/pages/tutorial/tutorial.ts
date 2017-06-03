@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 
-import { MenuController, NavController } from 'ionic-angular';
+import { MenuController, NavController, Slides } from 'ionic-angular';
 
 import { LoginPage } from '../login/login';
 
@@ -18,11 +18,14 @@ export interface Slide {
   templateUrl: 'tutorial.html'
 })
 export class TutorialPage {
-  slides: Slide[];
+  slideData: Slide[];
   showSkip = true;
 
+  @ViewChild('slides') slides: Slides;
+
   constructor(private nav: NavController, private menu: MenuController) {
-    this.slides = [
+    
+    this.slideData = [
       {
         title: '<strong>MoneyLeash</strong>',
         description: 'Don\'t let your money run wild... <br />Keep it on a <b>Leash <i class="fa fa-heart-o"></i></b>',
@@ -54,8 +57,8 @@ export class TutorialPage {
     this.nav.push(LoginPage);
   }
 
-  onSlideChangeStart(slider) {
-    this.showSkip = !slider.isEnd;
+  onSlideChangeStart(slider: Slides) {
+    this.showSkip = !slider.isEnd();
   }
 
   ionViewDidEnter() {
@@ -63,7 +66,7 @@ export class TutorialPage {
     this.menu.enable(false);
   }
 
-  ionViewWillLeave() {
+  ionViewDidLeave() {
     // enable the root left menu when leaving the tutorial page
     this.menu.enable(true);
   }

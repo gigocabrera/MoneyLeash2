@@ -2,9 +2,6 @@ import { Component } from '@angular/core';
 
 import { ViewController, NavParams } from 'ionic-angular';
 
-// services
-import { UserData } from '../../../providers/user-data';
-
 @Component({
   templateUrl: 'changename.html'
 })
@@ -16,11 +13,9 @@ export class ChangeNamePage {
 
   constructor(
     public viewCtrl: ViewController, 
-    public navParams: NavParams,
-    public userData: UserData) {
+    public navParams: NavParams) {
     
     this.newname = this.navParams.data.paramFullName;
-
   }
   
   changeName(newname) {

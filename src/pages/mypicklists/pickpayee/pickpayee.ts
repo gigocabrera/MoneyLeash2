@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
 // services
-import { UserData } from '../../../providers/user-data';
+import { AuthService } from '../../../providers/auth-service';
 import { TransactionData } from '../../../providers/transaction-data';
 
 @Component({
@@ -19,11 +19,11 @@ export class PickPayeePage {
    
   constructor(
       public nav: NavController,
-      public userData: UserData,
+      public auth: AuthService,
       public transactionData: TransactionData) {}
 
   ionViewDidLoad() {
-    this.userData.getAllPayees().on('value', (payees) => {
+    this.auth.getAllPayees().on('value', (payees) => {
       let arrpayees = [];
       payees.forEach( spanshot => {
         let payee = spanshot.val();
@@ -39,7 +39,7 @@ export class PickPayeePage {
         this.searchTerm = this.transactionData.getPayeeName();
         this.doFilterList(this.searchTerm);
       }
-      this.userData.LoadingControllerDismiss();
+      this.auth.LoadingControllerDismiss();
     });
   }
 
@@ -92,7 +92,7 @@ export class PickPayeePage {
         'lastcategoryid': '',
         'payeename': this.searchTerm
     }
-    this.userData.addPayee(newPayee);
+    this.auth.addPayee(newPayee);
     this.selectPayee(newPayee);
   }
 

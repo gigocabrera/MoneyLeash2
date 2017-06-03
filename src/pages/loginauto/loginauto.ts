@@ -2,12 +2,13 @@ import { Component } from '@angular/core';
 
 import { NavController } from 'ionic-angular';
 
-// app pages
-import { LoginPage } from '../login/login';
-import { AccountListPage } from '../mymoney/account-list/account-list';
+import { Storage } from '@ionic/storage';
 
-// services
-import { UserData } from '../../providers/user-data';
+import { AuthService } from '../../providers/auth-service';
+
+import { MainPage } from '../../pages/pages';
+import { LoginPage } from '../../pages/login/login';
+
 
 // firebase
 declare var firebase: any;
@@ -19,62 +20,66 @@ declare var firebase: any;
 
 export class LoginAutoPage {
 
-  credentials: any;
+  pwd: string;
+  email: string;
+  account: {email: string, password: string} = {
+    email: '',
+    password: ''
+  };
 
-  constructor(
-    public nav: NavController,
-    public userData: UserData) {
+  constructor(public nav: NavController, public auth: AuthService, public storage: Storage) {
 
-      this.userData.LoadingControllerShow();
+      this.auth.LoadingControllerShow();
 
-      // Get email from storage
-      this.userData.getStorageEmail()
-      .then((data) => {
-        //console.log(this.userData.storageemail);
-        
-        // Get pwd from storage
-        this.userData.getStoragePwd()
-        .then((data) => {
-          //console.log(this.userData.storagepwd);
+      storage.ready().then(() => {
 
-          // Auto Login
-          this.credentials = {email: this.userData.storageemail,password: this.userData.storagepwd};
-          this.autoLogin(this.credentials);
+        // Get pwd settings
+        this.storage.get('option3').then( email => {
+          this.email = email;
 
+          // Get pwd settings
+          this.storage.get('option2').then( pwd => {
+            this.pwd = pwd;
+            if (this.email != '' && this.pwd != '') {
+              // Auto Login
+              this.account = {email: this.email, password: this.pwd};
+              this.autoLogin(this.account);
+            } else {
+              this.LoginFailure();
+            }
+          })
         })
-        .catch(
-          (error) => {
-            console.log(error);
-            this.userData.LoadingControllerDismiss();
-          }
-        );
       })
       .catch(
         (error) => {
           console.log(error);
-          this.userData.LoadingControllerDismiss();
+          this.auth.LoadingControllerDismiss();
         }
       );
     }
 
     autoLogin(credentials) {
-      this.userData.login(credentials)
+      this.auth.signInWithEmail(credentials)
       .then(() => {
           this.LoginSuccess();
         }        
       )
       .catch(
-        (error) => {     
-          this.nav.setRoot(LoginPage);
-          this.userData.LoadingControllerDismiss();
+        (error) => {
+          this.LoginFailure();
         }
       );
     }
 
     LoginSuccess() {
       setTimeout(() => {
-          this.nav.setRoot(AccountListPage, {}, {animate: true, direction: 'forward'});
-        }, 1000);    
+        this.nav.setRoot(MainPage, {}, {animate: true, direction: 'forward'});
+      }, 1000);
+    }
+
+    LoginFailure() {
+      this.nav.setRoot(LoginPage);
+      this.auth.LoadingControllerDismiss();
     }
 
 }

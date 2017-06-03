@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 import { NavController, NavParams, AlertController, ItemSliding } from 'ionic-angular';
 
-import { FirebaseListObservable } from 'angularfire2';
+import { FirebaseListObservable } from 'angularfire2/database';
 
 import { Subject } from 'rxjs/Subject';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
@@ -11,7 +11,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { TransactionPage } from '../transaction/transaction';
 
 // services
-import { UserData } from '../../../providers/user-data';
+import { AuthService } from '../../../providers/auth-service';
 import { TransactionData } from '../../../providers/transaction-data';
 
 // models
@@ -43,7 +43,7 @@ export class TransactionsPage {
       public nav: NavController,
       public navParams: NavParams,
       public alertController: AlertController,
-      public userData: UserData,
+      public auth: AuthService,
       public transactionData: TransactionData) {
 
         this.account = this.navParams.data.paramAccount;
@@ -56,10 +56,10 @@ export class TransactionsPage {
     this.startTime = Date.now();
     this.equalToSubject = new BehaviorSubject(null);
     this.orderByChild = new BehaviorSubject('date');
-    this.trans = this.userData.getFilteredTransactions(this.account, this.orderByChild, this.equalToSubject);
+    this.trans = this.auth.getFilteredTransactions(this.account, this.orderByChild, this.equalToSubject);
     this.trans.first().subscribe(snapshots => {
-      this.userData.syncAccountBalances(this.account);
-      this.userData.LoadingControllerDismiss();
+      this.auth.syncAccountBalances(this.account);
+      this.auth.LoadingControllerDismiss();
       this.elapsedTime = Date.now() - this.startTime;
       //console.log(this.elapsedTime);
     });
@@ -70,7 +70,7 @@ export class TransactionsPage {
     switch (referrer) {
       case 'TransactionPage': {
         if (this.transactionData.ismodified) {
-          this.userData.syncAccountBalances(this.account);
+          this.auth.syncAccountBalances(this.account);
         }
         break;
       }
@@ -113,7 +113,7 @@ export class TransactionsPage {
           cssClass: 'alertDanger',
           handler: () => {
             this.trans.remove(transaction.$key);
-            this.userData.syncAccountBalances(this.account);
+            this.auth.syncAccountBalances(this.account);
           }
         }
       ]
@@ -123,7 +123,7 @@ export class TransactionsPage {
 
   clearTransaction(transaction) {
     this.trans.update(transaction.$key, { 'iscleared': transaction.iscleared });
-    this.userData.syncAccountBalances(this.account);
+    this.auth.syncAccountBalances(this.account);
   }
 
   myHeaderFn(transaction, recordIndex, transactions) {

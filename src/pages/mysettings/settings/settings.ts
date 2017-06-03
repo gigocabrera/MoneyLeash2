@@ -12,7 +12,7 @@ import { PickDefaultBalancePage } from '../../mypicklists/pickdefaultbalance/pic
 import { PickDefaultDatePage } from '../../mypicklists/pickdefaultdate/pickdefaultdate';
 
 // services
-import { UserData } from '../../../providers/user-data';
+import { AuthService } from '../../../providers/auth-service';
 
 @Component({
   templateUrl: 'settings.html'
@@ -24,9 +24,9 @@ export class SettingsPage {
   
   constructor(
     public nav: NavController,
-    public modalController: ModalController,
+    public modalCtrl: ModalController,
     public platform: Platform,
-    public userData: UserData) {
+    public auth: AuthService) {
     
     platform.ready().then(() => {
       AppVersion.getVersionNumber().then(ver => {
@@ -38,11 +38,11 @@ export class SettingsPage {
   }
 
   openPersonalProfile() {
-    this.nav.push(ProfileDetailsPage, {paramSettings: this.userData.user});
+    
   }
 
   openAccountTypes() {
-    this.nav.push(AccountTypesPage, {paramHouseid: this.userData.user.housekey});
+    
   }
 
   openAboutPage() {
@@ -50,36 +50,36 @@ export class SettingsPage {
   }
 
   toggleTouchID(e) {
-    this.userData.updateTouchID(e.checked);
+    
   }
 
   changeDefaltBalance() {
-    let modal = this.modalController.create(PickDefaultBalancePage, {paramBalance: this.userData.user.defaultbalance});
+    let modal = this.modalCtrl.create(PickDefaultBalancePage);
     modal.present(modal);
-    modal.onDidDismiss((data: any) => {
+    modal.onDidDismiss((data: any[]) => {
       if (data) {
-        this.userData.updateDefaultBalance(data);
+        
       }
     });
   }
 
   changeDefaltDate() {
-    let modal = this.modalController.create(PickDefaultDatePage, {paramDate: this.userData.user.defaultdate});
+    let modal = this.modalCtrl.create(PickDefaultDatePage);
     modal.present(modal);
-    modal.onDidDismiss((data: any) => {
+    modal.onDidDismiss((data: any[]) => {
       if (data) {
-        this.userData.updateDefaultDate(data);
+        
       }
     });
   }
 
   upgradeData() {
-    this.userData.LoadingControllerShow();
-    this.userData.upgradeData();
+    
+    
   }
 
   houseMember() {
-    //this.userData.copyAccounts();
+    
   }
 
   reportBug() {

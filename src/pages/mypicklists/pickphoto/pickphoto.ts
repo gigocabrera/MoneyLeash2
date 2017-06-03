@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 
 import { NavController } from 'ionic-angular';
-import { Camera } from 'ionic-native';
+import { Camera, CameraOptions } from '@ionic-native/camera';
 
 // services
-import { UserData } from '../../../providers/user-data';
+import { AuthService } from '../../../providers/auth-service';
 import { TransactionData } from '../../../providers/transaction-data';
 
 @Component({
@@ -19,7 +19,8 @@ export class PickPhotoPage {
 
   constructor(
       public nav: NavController,
-      public userData: UserData,
+      private camera: Camera,
+      public auth: AuthService,
       public transactionData: TransactionData) {}
 
   ionViewDidLoad() {
@@ -38,55 +39,25 @@ export class PickPhotoPage {
   }
 
   takePicture(){
-    Camera.getPicture({
-      quality : 95,
-      destinationType : Camera.DestinationType.DATA_URL,
-      sourceType : Camera.PictureSourceType.CAMERA,
-      allowEdit : true,
-      encodingType: Camera.EncodingType.PNG,
+
+    const options : CameraOptions = {
+      quality: 50,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      sourceType : this.camera.PictureSourceType.CAMERA,
+      allowEdit: true,
       targetWidth: 800,
       targetHeight: 800,
-      saveToPhotoAlbum: false
-    }).then(imageData => {
+      saveToPhotoAlbum: false,
+      encodingType: this.camera.EncodingType.PNG,
+      mediaType: this.camera.MediaType.PICTURE
+    }
+    this.camera.getPicture(options).then((imageData) => {
       this.userPhoto = imageData;
       this.userPhotoDisplay = "data:image/jpeg;base64," + imageData;
-      
-    }, error => {
-      console.log("ERROR -> " + JSON.stringify(error));
+    }, (err) => {
+      console.log(err);
     });
-  }
 
-  /*takePicture(){
-    Camera.getPicture({
-      quality : 95,
-      destinationType : Camera.DestinationType.DATA_URL,
-      sourceType : Camera.PictureSourceType.CAMERA,
-      allowEdit : true,
-      encodingType: Camera.EncodingType.PNG,
-      targetWidth: 800,
-      targetHeight: 800,
-      saveToPhotoAlbum: false
-    }).then(imageData => {
-      const b64toBlob = (b64Data, contentType='', sliceSize=512) => {
-        const byteCharacters = atob(b64Data);
-        const byteArrays = [];
-        for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
-          const slice = byteCharacters.slice(offset, offset + sliceSize);
-          const byteNumbers = new Array(slice.length);
-          for (let i = 0; i < slice.length; i++) {
-            byteNumbers[i] = slice.charCodeAt(i);
-          }
-          const byteArray = new Uint8Array(byteNumbers);
-          byteArrays.push(byteArray);
-        }
-        const blob = new Blob(byteArrays, {type: contentType});
-        return blob;
-      }
-      this.userPictureblob = b64toBlob(imageData, 'image/png');
-      this.userPicture = "data:image/jpeg;base64," + imageData;
-    }, error => {
-      console.log("ERROR -> " + JSON.stringify(error));
-    });
-  }*/
+  }
   
 }

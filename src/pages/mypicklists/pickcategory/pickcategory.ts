@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
 // services
-import { UserData } from '../../../providers/user-data';
+import { AuthService } from '../../../providers/auth-service';
 import { TransactionData } from '../../../providers/transaction-data';
 
 @Component({
@@ -23,14 +23,14 @@ export class PickCategoryPage {
    
   constructor(
       public nav: NavController,
-      public userData: UserData,
+      public auth: AuthService,
       public transactionData: TransactionData) {}
 
   ionViewDidLoad() {
     
     this.type = this.transactionData.getTransactionType();
 
-    this.userData.getIncomeCategories().on('value', (incomecategories) => {
+    this.auth.getIncomeCategories().on('value', (incomecategories) => {
       let rawList= [];
       incomecategories.forEach( spanshot => {
         var cat = spanshot.val();
@@ -45,7 +45,7 @@ export class PickCategoryPage {
       this.incomeCategories = rawList;
     });
 
-    this.userData.getExpenseCategories().on('value', (expensecategories) => {
+    this.auth.getExpenseCategories().on('value', (expensecategories) => {
       let rawList= [];
       expensecategories.forEach( spanshot => {
         var cat = spanshot.val();
@@ -60,7 +60,7 @@ export class PickCategoryPage {
       this.expenseCategories = rawList;
     });
 
-    this.userData.LoadingControllerDismiss();
+    this.auth.LoadingControllerDismiss();
 
   }
 

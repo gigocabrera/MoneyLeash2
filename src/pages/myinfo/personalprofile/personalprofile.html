@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header no-border>
   <ion-navbar>
     <button menuToggle>
       <ion-icon name="menu"></ion-icon>
@@ -7,21 +7,19 @@
   </ion-navbar>
 </ion-header>
 <ion-content>
-  <div>
-    <ion-card>
-      <ion-card-content>
-        <img src="{{ userData.user?.profilepic }}"/>
-        <h2>{{ userData.user?.fullname }}</h2>
-        <h3>{{ userData.user?.email }}</h3>
-      </ion-card-content>
-    </ion-card>
-    <ion-list>
-      <button ion-item (click)="changeName()">Change Name</button>
-      <button ion-item (click)="takePicture()">Change Picture</button>
-      <button ion-item (click)="changeEmail()">Change Email</button>
-      <button ion-item (click)="changePassword()">Change Password</button>
-      <button ion-item (click)="deleteAll()">Delete All</button>
-      <button ion-item (click)="logout()">Logout</button>
-    </ion-list>
-  </div>
+  <ion-card>
+    <ion-card-content>
+      <img src="{{ auth.user?.profilepic }}"/>
+      <h2>{{ auth.user?.fullname }}</h2>
+      <h3>{{ auth.user?.email }}</h3>
+    </ion-card-content>
+  </ion-card>
+  <ion-list padding>
+    <button ion-item (click)="changeName()">Change Name</button>
+    <button ion-item (click)="takePicture()">Change Picture</button>
+    <button ion-item (click)="changeEmail()">Change Email</button>
+    <button ion-item (click)="changePassword()">Change Password</button>
+    <button ion-item (click)="deleteAll()">Delete All</button>
+    <button ion-item (click)="logout()">Logout</button>
+  </ion-list>
 </ion-content>

@@ -2,14 +2,14 @@ import { Component } from '@angular/core';
 
 import { ModalController, NavParams } from 'ionic-angular';
 
-// firebase/angularfire
-import { FirebaseListObservable } from 'angularfire2';
+// firebase
+import { FirebaseListObservable } from 'angularfire2/database';
 
 // app pages
 import { AccountTypesEditPage } from '../../mysettings/accounttypesedit/accounttypesedit';
 
 // services
-import { UserData } from '../../../providers/user-data';
+import { AuthService } from '../../../providers/auth-service';
 
 @Component({
   templateUrl: 'accounttypes.html'
@@ -23,10 +23,10 @@ export class AccountTypesPage {
   constructor( 
     public navParams: NavParams,
     public modalController: ModalController,
-    public userData: UserData) {}
+    public auth: AuthService) {}
 
   ionViewDidLoad() {
-    this.items = this.userData.getAccountTypes();
+    this.items = this.auth.getAccountTypes();
   }
 
   addNew() {
@@ -51,15 +51,15 @@ export class AccountTypesPage {
   }
 
   delete(item) {
-    this.userData.deleteAccountType(item);
+    this.auth.deleteAccountType(item);
   }
   
   onAddType(item) {
-    this.userData.addAccountType(item);
+    this.auth.addAccountType(item);
   }
 
   onEditType(item) {
-    this.userData.updateAccountType(item);
+    this.auth.updateAccountType(item);
   }
 
 }

@@ -8,7 +8,7 @@ import { PickCategoryTypePage } from '../../mypicklists/pickcategorytype/pickcat
 import { PickCategoryParentPage } from '../../mypicklists/pickcategoryparent/pickcategoryparent';
 
 // services
-import { UserData } from '../../../providers/user-data';
+import { AuthService } from '../../../providers/auth-service';
 import { CategoryData } from '../../../providers/category-data';
 
 @Component({
@@ -30,7 +30,7 @@ export class CategoryPage {
   constructor(
       public nav: NavController,
       public navParams: NavParams,
-      public userData: UserData,
+      public auth: AuthService,
       public categoryData: CategoryData) {
     
     this.category = this.navParams.data.paramCategory;
@@ -107,9 +107,9 @@ export class CategoryPage {
 
     // Is this a new category? 
     if (this.mode === 'New') {
-      this.userData.addCategory(this.category);
+      this.auth.addCategory(this.category);
     } else {
-      this.userData.updateCategory(this.category);
+      this.auth.updateCategory(this.category);
     }
     this.nav.pop();
   }

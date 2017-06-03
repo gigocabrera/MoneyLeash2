@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
 // services
-import { UserData } from '../../../providers/user-data';
+import { AuthService } from '../../../providers/auth-service';
 import { AccountData } from '../../../providers/account-data';
 
 @Component({
@@ -19,7 +19,7 @@ export class PickAccountTypePage {
    
   constructor( 
     public nav: NavController,
-    public userData: UserData,
+    public auth: AuthService,
     public accountData: AccountData) {}
 
   ionViewDidLoad() {
@@ -40,6 +40,6 @@ export class PickAccountTypePage {
   }
   
   loadAccountTypes() {
-    this.items = this.userData.getAccountTypes();
+    this.items = this.auth.getAccountTypes();
   }
 }

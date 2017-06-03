@@ -5,7 +5,7 @@ import { NavController, ActionSheetController } from 'ionic-angular';
 // app pages
 
 // services
-import { UserData } from '../../../providers/user-data';
+import { AuthService } from '../../../providers/auth-service';
 
 // firebase
 declare var firebase: any;
@@ -32,31 +32,31 @@ export class ProfileDetailsPage {
   constructor(
     public nav: NavController,
     public actionSheetCtrl: ActionSheetController,
-    public userData: UserData) {
+    public auth: AuthService) {
 
-    if (this.userData.user.fullname != '') {
+    if (this.auth.user.fullname != '') {
       this.hasDataProfileFullName = true;
-      this.fullname = this.userData.user.fullname;
+      this.fullname = this.auth.user.fullname;
     }
 
-    if (this.userData.user.nickname != '') {
+    if (this.auth.user.nickname != '') {
       this.hasDataProfileNickname = true;
-      this.nickname = this.userData.user.nickname;
+      this.nickname = this.auth.user.nickname;
     }
     
-    if (this.userData.user.housename != '') {
+    if (this.auth.user.housename != '') {
       this.hasDataProfileHouseName = true;
-      this.housename = this.userData.user.housename;
+      this.housename = this.auth.user.housename;
     }
 
-    if (this.userData.user.housenumber != '') {
+    if (this.auth.user.housenumber != '') {
       this.hasDataProfileHouseNumber = true;
-      this.housenumber = this.userData.user.housenumber;
+      this.housenumber = this.auth.user.housenumber;
     }
     
-    if (this.userData.user.paymentplay != '') {
+    if (this.auth.user.paymentplay != '') {
       this.hasDataProfilePaymentPlan = true;
-      this.paymentplan = this.userData.user.paymentplan;
+      this.paymentplan = this.auth.user.paymentplan;
     }
   }
 

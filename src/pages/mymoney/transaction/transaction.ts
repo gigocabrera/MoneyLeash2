@@ -13,7 +13,7 @@ import { PickNotesPage } from '../../mypicklists/picknotes/picknotes';
 import { PickPhotoPage } from '../../mypicklists/pickphoto/pickphoto';
 
 // services
-import { UserData } from '../../../providers/user-data';
+import { AuthService } from '../../../providers/auth-service';
 import { TransactionData } from '../../../providers/transaction-data';
 
 // models
@@ -51,7 +51,7 @@ export class TransactionPage {
       public nav: NavController,
       public modalController: ModalController,
       public navParams: NavParams,
-      public userData: UserData,
+      public auth: AuthService,
       public transactionData: TransactionData) {
 
     this.account = this.navParams.data.paramAccount;
@@ -218,7 +218,7 @@ export class TransactionPage {
     //console.log(dtTran);
 
     // Handle Who
-    this.transaction.addedby = this.userData.user.nickname;
+    this.transaction.addedby = this.auth.user.nickname;
 
     //
     // Handle transaction type for Transfers
@@ -242,12 +242,12 @@ export class TransactionPage {
       //
       // Create New Transaction
       //
-      this.userData.addTransaction(this.transaction, this.account);
+      this.auth.addTransaction(this.transaction, this.account);
     } else {
       //
       // Update Existing Transaction
       //
-      this.userData.updateTransaction(this.transaction, this.account);
+      this.auth.updateTransaction(this.transaction, this.account);
     }
     this.transactionData.setReferrer('TransactionPage');
     this.transactionData.ismodified = true;
@@ -276,7 +276,7 @@ export class TransactionPage {
       this.validationMessage = "Please select Transaction Type";
       return;
     }
-    this.userData.LoadingControllerShow();
+    this.auth.LoadingControllerShow();
     this.nav.push(PickPayeePage);
   }
 
@@ -287,7 +287,7 @@ export class TransactionPage {
       this.validationMessage = "Please select Transaction Type";
       return;
     }
-    this.userData.LoadingControllerShow();
+    this.auth.LoadingControllerShow();
     this.nav.push(PickCategoryPage);
   }
   

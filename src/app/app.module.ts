@@ -1,6 +1,11 @@
 import { NgModule, ErrorHandler } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 
+import { Http } from '@angular/http';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import { CloudSettings, CloudModule } from '@ionic/cloud-angular';
+import { IonicStorageModule } from '@ionic/storage';
+import { Camera } from '@ionic-native/camera';
 
 import { MoneyLeashApp } from './app.component';
 
@@ -58,128 +63,143 @@ import { SignupPage } from '../pages/signup/signup';
 import { TutorialPage } from '../pages/tutorial/tutorial';
 
 // services
-import { UserData } from '../providers/user-data';
 import { TransactionData } from '../providers/transaction-data';
 import { AccountData } from '../providers/account-data';
 import { CategoryData } from '../providers/category-data';
 
-import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
+import { AuthService } from '../providers/auth-service';
 
-// YOUR SETTINGS GOES HERE!
+import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-translate/ng2-translate';
+
+// Import the AF2 Module
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+
+import 'gsap';
+
+// The translate loader needs to know where to load i18n files
+// in Ionic's static asset pipeline.
+export function createTranslateLoader(http: Http) {
+  return new TranslateStaticLoader(http, './assets/i18n', '.json');
+}
+
+export function provideSettings(storage: Storage) {
+  /**
+   * The Settings provider takes a set of default settings for your app.
+   *
+   * You can add new settings options at any time. Once the settings are saved,
+   * these values will not overwrite the saved values (this can be done manually if desired).
+   */
+}
+
+/**
+ * The Pages array lists all of the pages we want to use in our app.
+ * We then take these pages and inject them into our NgModule so Angular
+ * can find them. As you add and remove pages, make sure to keep this list up to date.
+ */
+let pages = [
+  MoneyLeashApp,
+  AboutPage,
+  PopoverPage,
+  ForgotPasswordPage,
+  LoginPage,
+  LoginAutoPage,
+  LogoutPage,
+  ChangeEmailPage,
+  ChangeNamePage,
+  ChangePasswordPage,
+  PersonalProfilePage,
+  ProfileDetailsPage,
+  PersonalProfilePhotoPage,
+  AccountPage,
+  AccountListPage,
+  BudgetListPage,
+  CategoryPage,
+  CategoryListPage,
+  PayeeListPage,
+  PayeePage,
+  RecurringListPage,
+  ReportListPage,
+  TransactionsPage,
+  TransactionPage,
+  PickDefaultBalancePage,
+  PickDefaultDatePage,
+  PickAccountTypePage,
+  PickAccountFromPage,
+  PickAccountToPage,
+  PickAccountNamePage,
+  PickCategoryNamePage,
+  PickCategoryTypePage,
+  PickCategoryParentPage,
+  PickTransactionTypePage,
+  PickPayeePage,
+  PickCategoryPage,
+  PickAmountPage,
+  PickNotesPage,
+  PickPhotoPage,
+  AccountTypesPage,
+  AccountTypesEditPage,
+  SettingsPage,
+  SignupPage,
+  TutorialPage
+];
+
+export function declarations() {
+  return pages;
+}
+
+export function entryComponents() {
+  return pages;
+}
+
+export function providers() {
+  return [
+    Camera,
+    AuthService,
+    { provide: ErrorHandler, useClass: IonicErrorHandler }
+  ];
+}
+
+const cloudSettings: CloudSettings = {
+  'core': {
+    'app_id': '7a8e133b'
+  }
+};
+
+// YOUR FIREBASE SETTINGS GO HERE!
 export const firebaseConfig = {
   apiKey: "AIzaSyAjiJc9cXvd3bzl-aW0wbQC6sajr6RH5hg",
   authDomain: "brilliant-inferno-1044.firebaseapp.com",
   databaseURL: "https://brilliant-inferno-1044.firebaseio.com",
+  projectId: "brilliant-inferno-1044",
   storageBucket: "brilliant-inferno-1044.appspot.com",
   messagingSenderId: "1097950001655"
 };
 
-const firebaseAuthConfig = {
+/*const firebaseAuthConfig = {
   provider: AuthProviders.Password,
   method: AuthMethods.Password
-}
+}*/
 
 @NgModule({
-  declarations: [
-    MoneyLeashApp,
-    AboutPage,
-    PopoverPage,
-    ForgotPasswordPage,
-    LoginPage,
-    LoginAutoPage,
-    LogoutPage,
-    ChangeEmailPage,
-    ChangeNamePage,
-    ChangePasswordPage,
-    PersonalProfilePage,
-    ProfileDetailsPage,
-    PersonalProfilePhotoPage,
-    AccountPage,
-    AccountListPage,
-    BudgetListPage,
-    CategoryPage,
-    CategoryListPage,
-    PayeeListPage,
-    PayeePage,
-    RecurringListPage,
-    ReportListPage,
-    TransactionsPage,
-    TransactionPage,
-    PickDefaultBalancePage,
-    PickDefaultDatePage,
-    PickAccountTypePage,
-    PickAccountFromPage,
-    PickAccountToPage,
-    PickAccountNamePage,
-    PickCategoryNamePage,
-    PickCategoryTypePage,
-    PickCategoryParentPage,
-    PickTransactionTypePage,
-    PickPayeePage,
-    PickCategoryPage,
-    PickAmountPage,
-    PickNotesPage,
-    PickPhotoPage,
-    AccountTypesPage,
-    AccountTypesEditPage,
-    SettingsPage,
-    SignupPage,
-    TutorialPage
-  ],
+  declarations: declarations(),
   imports: [
-    IonicModule.forRoot(MoneyLeashApp, {
-      popoverEnter: 'popover-md-pop-in',
-      popoverLeave: 'popover-md-pop-out'
-    }),
-    AngularFireModule.initializeApp(firebaseConfig, firebaseAuthConfig)
+    BrowserModule,
+    IonicStorageModule.forRoot(),
+    IonicModule.forRoot(MoneyLeashApp),
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireDatabaseModule, // imports firebase/database, only needed for database features
+    AngularFireAuthModule, // imports firebase/auth, only needed for auth features
+    CloudModule.forRoot(cloudSettings),
+    TranslateModule.forRoot({
+      provide: TranslateLoader,
+      useFactory: (createTranslateLoader),
+      deps: [Http]
+    })
   ],
   bootstrap: [IonicApp],
-  entryComponents: [
-    MoneyLeashApp,
-    AboutPage,
-    PopoverPage,
-    ForgotPasswordPage,
-    LoginPage,
-    LoginAutoPage,
-    LogoutPage,
-    ChangeEmailPage,
-    ChangeNamePage,
-    ChangePasswordPage,
-    PersonalProfilePage,
-    ProfileDetailsPage,
-    PersonalProfilePhotoPage,
-    AccountPage,
-    AccountListPage,
-    BudgetListPage,
-    CategoryPage,
-    CategoryListPage,
-    PayeeListPage,
-    PayeePage,
-    RecurringListPage,
-    ReportListPage,
-    TransactionsPage,
-    TransactionPage,
-    PickDefaultBalancePage,
-    PickDefaultDatePage,
-    PickAccountTypePage,
-    PickAccountFromPage,
-    PickAccountToPage,
-    PickAccountNamePage,
-    PickCategoryNamePage,
-    PickCategoryTypePage,
-    PickCategoryParentPage,
-    PickTransactionTypePage,
-    PickPayeePage,
-    PickCategoryPage,
-    PickAmountPage,
-    PickNotesPage,
-    PickPhotoPage,
-    AccountTypesPage,
-    AccountTypesEditPage,
-    SettingsPage,
-    SignupPage,
-    TutorialPage
-  ],
-  providers: [UserData, TransactionData, AccountData, CategoryData, {provide: ErrorHandler, useClass: IonicErrorHandler}]
+  entryComponents: entryComponents(),
+  providers: providers()
 })
 export class AppModule {}

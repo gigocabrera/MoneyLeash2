@@ -7,7 +7,7 @@ import { NavController, ModalController, NavParams } from 'ionic-angular';
 //import { PickCategoryParentPage } from '../../mypicklists/pickcategoryparent/pickcategoryparent';
 
 // services
-import { UserData } from '../../../providers/user-data';
+import { AuthService } from '../../../providers/auth-service';
 
 @Component({
   templateUrl: 'payee.html'
@@ -23,7 +23,7 @@ export class PayeePage {
       public nav: NavController,
       public modalController: ModalController,
       public navParams: NavParams,
-      public userData: UserData) {
+      public auth: AuthService) {
 
     this.payee = this.navParams.data.paramPayee;
     if (this.payee.mode === 'New') {

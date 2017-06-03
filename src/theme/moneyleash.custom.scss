@@ -1,0 +1,313 @@
+
+// CajaFuerte Custom Styles
+
+// Fonts - http://www.localfont.com/
+// --------------------------------------------------
+@font-face {
+  font-family: 'PT Sans Narrow';
+  font-weight: 400;
+  font-style: normal;
+  src: url('../assets/fonts/PT-Sans-Narrow-regular/PT-Sans-Narrow-regular.eot');
+  src: url('../assets/fonts/PT-Sans-Narrow-regular/PT-Sans-Narrow-regular.eot?#iefix') format('embedded-opentype'),
+       local('PT Sans Narrow'),
+       local('PT-Sans-Narrow-regular'),
+       url('../assets/fonts/PT-Sans-Narrow-regular/PT-Sans-Narrow-regular.woff2') format('woff2'),
+       url('../assets/fonts/PT-Sans-Narrow-regular/PT-Sans-Narrow-regular.woff') format('woff'),
+       url('../assets/fonts/PT-Sans-Narrow-regular/PT-Sans-Narrow-regular.ttf') format('truetype'),
+       url('../assets/fonts/PT-Sans-Narrow-regular/PT-Sans-Narrow-regular.svg#PTSansNarrow') format('svg');
+}
+
+@font-face {
+  font-family: 'PT Sans Narrow';
+  font-weight: 700;
+  font-style: normal;
+  src: url('../assets/fonts/PT-Sans-Narrow-700/PT-Sans-Narrow-700.eot');
+  src: url('../assets/fonts/PT-Sans-Narrow-700/PT-Sans-Narrow-700.eot?#iefix') format('embedded-opentype'),
+       local('PT Sans Narrow Bold'),
+       local('PT-Sans-Narrow-700'),
+       url('../assets/fonts/PT-Sans-Narrow-700/PT-Sans-Narrow-700.woff2') format('woff2'),
+       url('../assets/fonts/PT-Sans-Narrow-700/PT-Sans-Narrow-700.woff') format('woff'),
+       url('../assets/fonts/PT-Sans-Narrow-700/PT-Sans-Narrow-700.ttf') format('truetype'),
+       url('../assets/fonts/PT-Sans-Narrow-700/PT-Sans-Narrow-700.svg#PTSansNarrow') format('svg');
+}
+
+// Global
+// --------------------------------------------------
+.cf-fa-circle {
+  padding: 0;
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+}
+.cf-fa-circle:before {
+  font-size: 27px;
+}
+.divImageNoItemsFound .icon {
+  width: 100px;
+  height: 100px;
+  font-size: 120px;
+  line-height: 38px;
+  color: #fff;
+  margin: 1% auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.divNoItemsFound {
+  display: inline-block;
+  text-align: center;
+  width: 100%;
+  color: #666;
+  font-size: 16px;
+}
+.form-image {
+  width: 45px;
+}
+
+// Menu custom text color
+// --------------------------------------------------
+// FONT SIZES
+.cf-fa-icon-big:before {
+  font-size: 23px;
+}
+.cf-fa-icon-small:before {
+  font-size: 13px;
+}
+// FOR ICONS INSIDE A CIRCLE
+.fa-color1 {
+  background: #FF5722;
+}
+.fa-color2 {
+   background: #2196F3;
+}
+.fa-color3 {
+   background: #FFC107;
+}
+.fa-color4 {
+   background: #4CAF50;
+}
+.fa-color5 {
+   background: #673AB7;
+}
+.fa-color6 {
+   background: #B71C1C;
+}
+.fa-color7 {
+  background: #E91E63;
+}
+// FOR FLAT ICONS
+.cf-fa-color1:before {
+  color: #FF5722;
+}
+.cf-fa-color2:before {
+  color: #2196F3;
+}
+.cf-fa-color3:before {
+  color: #FFC107;
+}
+.cf-fa-color4:before {
+  color: #4CAF50;
+}
+.cf-fa-color5:before {
+  color: #673AB7;
+}
+.cf-fa-color6:before {
+  color: #B71C1C;
+}
+.cf-fa-color7:before {
+  color: #E91E63;
+}
+
+// Alert custom text color
+// --------------------------------------------------
+.alertDanger .button-inner{
+  color: red;
+  font-weight: bold;
+  button{
+    color: red;
+  }
+}
+
+// Menu custom styles
+// --------------------------------------------------
+.item .cf-icon {
+  font-size: 23px;
+  margin-right: 18px;
+  width: 16px;
+}
+.item .mlmenuicon {
+  font-size: 32px;
+}
+.mlmenuitem {
+  font-family: 'PT Sans Narrow';
+  font-size: 22px;
+}
+
+// Input Forms custom styles
+// --------------------------------------------------
+.ml-input.item {
+  padding-left: 0;
+  padding: 0;
+  border-bottom: 0.55px solid #c8c7cc;
+  height: 60px;
+}
+.ml-input.item.item-block .item-inner {
+  border-bottom: 0;
+  padding-right: 0;
+}
+.ml-input.item-block:first-child {
+  border-top: 0;
+}
+/* using ionicons on form items */
+.ml-input ion-icon[item-left] {
+  background-color: #f0f0f0;
+  width: 61px;
+  height: 60px;
+  /*margin: 0;*/
+}
+.ml-input ion-icon[item-left]:before {
+  color: #999999;
+  font-size: 28px;
+  position: relative;
+  top: 16px;
+  transform: perspective(1px) translateY(-50%);
+}
+.ml-input ion-input {
+  margin-top: -10px;
+  height: 33px;
+}
+.ml-input ion-datetime {
+  padding: 0px 8px 8px 10px;
+  margin-left: 0;
+}
+.ml-input .label-ios {
+  margin-top: 6px;
+}
+.ml-input ion-label[floating] {
+  -webkit-transform: translate3d(0, 11px, 0);
+  transform: translate3d(0, 11px, 0);
+  color: #7f7f7f;
+}
+.ml-input.input-has-focus ion-label[floating] {
+  -webkit-transform: translate3d(0, 4px, 0);
+  transform: translate3d(0, 4px, 0) scale(0.65);
+  color: #006699;
+}
+.ml-input.input-has-value ion-label[floating] {
+  -webkit-transform: translate3d(0, 4px, 0);
+  transform: translate3d(0, 4px, 0) scale(0.65);
+  color: #006699;
+}
+.ml-input .dt-has-no-input {
+  color: #7f7f7f;
+}
+/* using fontawesome on form items */
+.ml-input .fa {
+  background-color: #f4f4f4;
+  width: 61px;
+  height: 60px;
+  margin: 0;
+  text-align: center;
+}
+.ml-input .fa:before {
+  color: #999999;
+  font-size: 23px;
+  position: relative;
+  top: 19px;
+}
+.fa.fa-unlock-alt:before {
+  color: red;
+}
+.cf-eye {
+  font-size: 2.2em;
+  color: #00A2E8;
+}
+
+.cf-open {
+  font-size: 1.6em;
+  color: #00A2E8;
+}
+.item.ml-input .cf-icon-right[item-right] {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.item.ml-input .cf-icon-right.item-button {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  width: 50px;
+  font-size: 1.3rem;
+}
+.cf-fa-circle:before {
+  font-size: 21px;
+}
+.cf-fa-circle {
+  padding: 6px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -o-border-radius: 50%;
+  border-radius: 50%;
+  border: 0px solid #fff;
+  color:#fff;
+	/*box-shadow: 0 1px 1px rgba(0, 0, 0, 0.16);*/
+  text-align: center;
+  vertical-align: middle;
+  width: 35px;
+  height: 35px;
+  line-height: 35px;
+  -moz-transition:.5s;
+  -webkit-transition:.5s;
+  -o-transition:.5s;
+  transition:.5s;
+}
+.iconpicker {
+  width: 50px;
+}
+.iconpicker::before {
+  font-size: 25px;
+}
+/* end fontawesome */
+
+// Slide Animation
+// --------------------------------------------------
+.ng-hide {
+  /* this is just another form of hiding an element */
+  display: block!important;
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+}
+.cssSlideUp {
+    transition: .5s linear all;
+    height: 40px;
+    overflow: hidden;
+    background-color: #d9534f;
+    text-align: center;
+    color: #fff;
+}
+.cssSlideUp.ng-hide {
+    height:0;
+}
+
+// Fade in effects
+// --------------------------------------------------
+// https://codepen.io/bluehaus/pen/EfGyi/
+@-webkit-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+@-moz-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+
+.fade-in {
+  opacity:0;
+  -webkit-animation:fadeIn ease-in 1;
+  -moz-animation:fadeIn ease-in 1;
+  animation:fadeIn ease-in 1;
+
+  -webkit-animation-fill-mode:forwards;
+  -moz-animation-fill-mode:forwards;
+  animation-fill-mode:forwards;
+
+  -webkit-animation-duration:1s;
+  -moz-animation-duration:1s;
+  animation-duration:1s;
+}

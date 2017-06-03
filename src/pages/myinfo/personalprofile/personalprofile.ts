@@ -2,18 +2,13 @@ import { Component } from '@angular/core';
 
 import { NavController, AlertController, ModalController, LoadingController, NavParams } from 'ionic-angular';
 
-// app pages
-import { ChangeNamePage } from '../../myinfo/changename/changename';
-import { ChangeEmailPage } from '../../myinfo/changeemail/changeemail';
-import { ChangePasswordPage } from '../../myinfo/changepassword/changepassword';
-import { TutorialPage } from '../../tutorial/tutorial';
-import { PersonalProfilePhotoPage } from '../../myinfo/personalprofilephoto/personalprofilephoto';
+import { TutorialPage } from '../../../pages/tutorial/tutorial';
+import { ChangeNamePage } from '../../../pages/myinfo/changename/changename';
+import { ChangeEmailPage } from '../../../pages/myinfo/changeemail/changeemail';
+import { ChangePasswordPage } from '../../../pages/myinfo/changepassword/changepassword';
+import { PersonalProfilePhotoPage } from '../../../pages/myinfo/personalprofilephoto/personalprofilephoto';
 
-// services
-import { UserData } from '../../../providers/user-data';
-
-// firebase
-declare var firebase: any;
+import { AuthService } from '../../../providers/auth-service';
 
 @Component({
   selector: 'page-personalprofile',
@@ -23,7 +18,6 @@ declare var firebase: any;
 export class PersonalProfilePage {
   
   public userPicture: any;
-  public fireAuth: any;
 
   constructor(
       public nav: NavController,
@@ -31,14 +25,10 @@ export class PersonalProfilePage {
       public alertController: AlertController,
       public loadingController: LoadingController,
       public navParams: NavParams,
-      public userData: UserData) {
-
-        this.fireAuth = firebase.auth();
-
-      }
+      public auth: AuthService) {}
 
   changeName() {
-    let modal = this.modalController.create(ChangeNamePage, {paramFullName: this.userData.user.fullname});
+    let modal = this.modalController.create(ChangeNamePage, {paramFullName: this.auth.user.fullname});
     modal.present(modal);
     modal.onDidDismiss((data: any[]) => {
       if (data) {
@@ -52,7 +42,7 @@ export class PersonalProfilePage {
   }
 
   changeEmail() {
-    let modal = this.modalController.create(ChangeEmailPage, {paramSettings: this.userData.user.email});
+    let modal = this.modalController.create(ChangeEmailPage, {paramSettings: this.auth.user.email});
     modal.present(modal);
     modal.onDidDismiss((data: any[]) => {
       if (data) {
@@ -95,7 +85,7 @@ export class PersonalProfilePage {
   }
 
   doChangeName(newname): void {
-    this.userData.updateName(newname);
+    this.auth.updateName(newname);
   }
   
   doChangeEmail(newemail): void {
@@ -110,15 +100,15 @@ export class PersonalProfilePage {
       subtitle?: string
     } = {};
 
-    this.userData.updateEmail(newemail)
+    this.auth.updateEmail(newemail)
       .then(() => {
         //
         // Update localStorage with new email. This is to guaratee
         // that TouchID, if enabled, is still fully functional
-        this.userData.setUserEmail(newemail);
+        this.auth.storageSetEmail(newemail);
         //
         // Update email node under user profile 
-        this.userData.updateEmailNode(newemail);
+        this.auth.updateEmailNode(newemail);
         //
         myAlert.title = 'DONE';
         myAlert.subtitle = 'User email changed successfully!';
@@ -158,7 +148,7 @@ export class PersonalProfilePage {
       subtitle?: string
     } = {};
 
-    this.userData.updatePassword(newpassword)
+    this.auth.updatePassword(newpassword)
       .then(() => {
         myAlert.title = 'DONE';
         myAlert.subtitle = 'Password changed successfully!';
@@ -195,10 +185,10 @@ export class PersonalProfilePage {
     } = {};
 
     // Delete data
-    this.userData.deleteData();
+    this.auth.deleteData();
 
     // Delete user
-    this.userData.deleteUser()
+    this.auth.deleteUser()
       .then(() => {
         loading.dismiss();
         this.nav.setRoot(TutorialPage);
@@ -217,30 +207,8 @@ export class PersonalProfilePage {
     );
   }
 
-  /*logout(): void {
-    let alert = this.alertController.create({
-      title: 'Please Confirm',
-      message: 'Are you sure you want to logout?',
-      buttons: [
-        {
-          text: 'Cancel',
-          handler: () => {
-            //console.log('Cancel clicked');
-          }
-        },
-        {
-          text: 'Logout',
-          handler: () => {
-            this.doLogout();
-          }
-        }
-      ]
-    });
-    alert.present();
-  }*/
-
   doLogout(): void {
-    this.fireAuth.signOut();
+    this.auth.signOut();
     this.nav.setRoot(TutorialPage);
   }
   

@@ -1,0 +1,15 @@
+service firebase.storage {
+  match /b/cajafuerte-2fbfb.appspot.com/o {
+    
+    // Only an authenticated user can have access to his/her profile image
+    match /profilepics/{userId}/profilepicture.png {
+      allow read, write: if request.auth.uid == userId;
+    }
+
+    // Only an authenticated user can have access to his/her vault images
+    match /vaultpics/{userId}/{allPaths=**} {
+      allow read, write: if request.auth.uid == userId;
+    }
+
+  }
+}

@@ -24,13 +24,13 @@ export class LogoutPage {
   }
   
   ionViewDidEnter() {
-    this.menu.enable(false);
-    this.menu.swipeEnable(false);
+    //this.menu.enable(false);
+    //this.menu.swipeEnable(false);
   }
 
   ionViewWillLeave() {
-    this.menu.enable(true);
-    this.menu.swipeEnable(true);
+    //this.menu.enable(true);
+    //this.menu.swipeEnable(true);
   }
   
 }

@@ -1,39 +1,112 @@
 import { Injectable } from '@angular/core';
 
 import { LoadingController } from 'ionic-angular';
-import { NativeStorage } from 'ionic-native';
 
-import 'rxjs';
-import * as moment from 'moment';
+import { Storage } from '@ionic/storage';
 
-// firebase/angularfire
-import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
+import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 import { IAccount } from '../models/account.model';
 
+import * as firebase from 'firebase';
+
+import * as moment from 'moment';
+
 @Injectable()
-export class UserData {
+export class AuthService {
   
-  loading: any;
-  storagetouchid = '';
-  storageemail = '';
-  storagepwd = '';
-  appversion = '';
-  user;
-  userauth;
-  userdata;
-  housedata;
-  profilepicdata;
-  userSettings;
+  private authState;
+  private userauth;
+  private userdata;
+  private housedata;
+  private profilepicdata;
+  private housepicdata;
+  private loading: any;
+  
+  public user;
+  public storageLang: string;
+  public storageTouchid: boolean = false;
+  public storageEmail: string;
+  public storagePwd: string;
+  public referrer: string;
+  public pwdNotes: string;
+  pages: Array<{id: string, title: string, component: any, icon: string, color: string}>;
 
   constructor(
-    public af: AngularFire,
+    public storage: Storage,
+    public afAuth: AngularFireAuth, 
+    public db: AngularFireDatabase,
     public loadingCtrl: LoadingController) {
+    
+    this.authState = afAuth.authState;
 
     this.userdata = firebase.database().ref('/users/');
     this.housedata = firebase.database().ref('/houses/');
-    this.profilepicdata = firebase.storage().ref('/profilepics/');
+    this.profilepicdata = firebase.storage().ref().child('/profilepics/');
+    this.housepicdata = firebase.storage().ref().child('/housepics/');
+    //
+    // Load default forms
+    //
+    this.pages = [
+      {id: '1', title: '', component: '', icon: 'fa-lock', color: 'cf-fa-color1'},
+      {id: '2', title: '', component: '', icon: 'fa-id-card-o', color: 'cf-fa-color2'},
+      {id: '3', title: '', component: '', icon: 'fa-credit-card', color: 'cf-fa-color3'},
+      {id: '4', title: '', component: '',icon: 'fa-university', color: 'cf-fa-color4'}
+      /*{id: '5', title: '', component: '', icon: 'fa-umbrella', color: 'cf-fa-color5'}*/
+    ];
+  }
 
+  get authenticated(): boolean {
+    return this.authState !== null;
+  }
+
+  signInWithEmail(credentials): firebase.Promise<any> {
+    return new Promise((resolve: () => void, reject: (reason: Error) => void) => {
+      this.afAuth.auth.signInWithEmailAndPassword(credentials.email, credentials.password)
+      .then((authData) => {
+        this.userauth = authData;
+        this.getUserData();
+        resolve();
+      }).catch((error) => {
+        reject(error);
+      });
+    });
+  }
+
+  signUpWithEmail(credentials): firebase.Promise<any> {
+    return new Promise((resolve: () => void, reject: (reason: Error) => void) => {
+      this.afAuth.auth.createUserWithEmailAndPassword(credentials.email, credentials.password)
+      .then((authData) => {
+        this.userauth = authData;
+        this.user = credentials;
+        this.createInitialSetup();
+        resolve();
+      }).catch((error) => {
+        reject(error);
+      });
+    });
+  }
+
+  signOut(): void {
+    this.authState = null;
+    this.user = null;
+    this.userauth = null;
+    this.userdata = null;
+    this.housedata = null;
+  }
+
+  displayName(): string {
+    if (this.authState != null) {
+      return this.authState.facebook.displayName;
+    } else {
+      return '';
+    }
+  }
+
+  getUserEmail(): string {
+    let user = firebase.auth().currentUser;
+    return user.email;
   }
 
   LoadingControllerShow() {
@@ -45,61 +118,53 @@ export class UserData {
   }
 
   LoadingControllerDismiss() {
-    //TODO: Remove .catch once fix has been implemented
-    // https://github.com/driftyco/ionic/issues/10046#issuecomment-274074432
-    this.loading.dismiss().catch(() => console.log('error on dismiss'));
+    this.loading.dismiss();
   }
 
-  /**
-  * Creates a new user using the plain vanilla Firebase SDK
-  */
-  createUser(credentials) {
-    return new Promise((resolve: () => void, reject: (reason: Error) => void) => {
-      firebase.auth().createUserWithEmailAndPassword(credentials.email, credentials.password)     
-      .then((authData) => {
-        this.userauth = authData;
-        this.user = credentials;
-        this.createInitialSetup();
-        this.saveLocalStorage(credentials);
-        resolve();
-      }).catch((error) => {
-        reject(error);
-      });
-    });
+  storageSetLanguage(lang) {
+    this.storageLang = lang;
+    this.storage.set('option0', lang);
+  }
+  storageSet(isenabled, pwd, email) {
+    this.storageTouchid = isenabled;
+    this.storagePwd = pwd;
+    this.storageEmail = email;
+    this.storage.set('option1', isenabled);
+    this.storage.set('option2', pwd);
+    this.storage.set('option3', email);
+  }
+  storageSetEmail(email) {
+    this.storageEmail = email;
+    this.storage.set('option3', email);
+  }
+  storageClean() {
+    this.storageTouchid = false;
+    this.storagePwd = '';
+    this.storageEmail = '';
+    this.storage.set('option1', false);
+    this.storage.set('option2', '');
+    this.storage.set('option3', '');
   }
 
-  login(credentials) {
-    return new Promise((resolve: () => void, reject: (reason: Error) => void) => {
-      this.af.auth.login({email: credentials.email,password: credentials.password})
-      .then((authData) => {
-        this.userauth = authData;
-        this.getUserData();
-        this.saveLocalStorage(credentials);
-        resolve();
-      }).catch((error) => {
-        reject(error);
-      });
-    });
+  RandomHouseCode() {
+    return Math.floor((Math.random() * 100000000) + 100);
   }
 
-  logout() {
-    return firebase.auth().signOut();
-  }
-  
+  //
+  // SING IN - CREATE USER
+  //-----------------------------------------------------------------------
   createInitialSetup() {
-
     this.createUserProfile();
     this.createHouse();
     this.createDefaultAccountTypes();
     this.createDefaultCategoriesIncome();
     this.createDefaultCategoriesExpense();
     this.createDefaultPayees();
-
   }
 
   createUserProfile() {
 
-    // Set basic user profile defaults
+   // Set basic user profile defaults
     var profile = {
       datecreated: firebase.database['ServerValue']['TIMESTAMP'],
       defaultbalance: 'Current',
@@ -122,7 +187,6 @@ export class UserData {
     
     // Save user profile
     this.userdata.child(this.userauth.uid).update(profile);
-
   }
 
   createHouse() {
@@ -185,74 +249,23 @@ export class UserData {
 
   }
 
-  RandomHouseCode() {
-    return Math.floor((Math.random() * 100000000) + 100);
-  }
-
   //
-  // NATIVE STORAGE
+  // DEFAULT GLOBAL FORMS
   //-----------------------------------------------------------------------
-  saveLocalStorage(credentials) {
-    this.setUserEmail(credentials.email);
-    this.setUserPwd(credentials.password);
+  getDefaultForms() {
+    return this.pages;
   }
 
-  setUserEmail(email) {
-    NativeStorage.setItem('storageemail', {property: email})
-    .then(
-      () => console.log('Stored item!'),
-      error => console.error('Error storing item', error)
-    );
+  searchForms(nameKey) {
+    this.searchArray(nameKey, this.pages);
   }
-  getStorageEmail() {
-    return new Promise((resolve: () => void, reject: (reason: Error) => void) => {
-      NativeStorage.getItem('storageemail')
-      .then((data) => {
-        this.storageemail = data.property;
-        resolve();
-      }).catch((error) => {
-        reject(error);
-      });
-    });
-  }
-  setUserPwd(pwd) {
-    NativeStorage.setItem('storagepwd', {property: pwd})
-    .then(
-      () => console.log('Stored item!'),
-      error => console.error('Error storing item', error)
-    );
-  }
-  getStoragePwd() {
-    return new Promise((resolve: () => void, reject: (reason: Error) => void) => {
-      NativeStorage.getItem('storagepwd')
-      .then((data) => {
-        this.storagepwd = data.property;
-        resolve();
-      }).catch((error) => {
-        reject(error);
-      });
-    });
-  }
-  setUserTouchID(touchid) {
-    NativeStorage.setItem('storagetouchid', {property: touchid})
-    .then(
-      () => console.log('Stored item!'),
-      error => console.error('Error storing item', error)
-    );
-  }
-  getStorageTouchID() {
-    return new Promise((resolve: () => void, reject: (reason: Error) => void) => {
-      NativeStorage.getItem('storagetouchid')
-      .then((data) => {
-        this.storagetouchid = data.property;
-        resolve();
-      }).catch((error) => {
-        reject(error);
-      });
-    });
-  }
-  clearNativeStorage() {
-    NativeStorage.clear();
+  
+  searchArray(nameKey, myArray){
+    for (var i=0; i < myArray.length; i++) {
+      if (myArray[i].name === nameKey) {
+        return myArray[i];
+      }
+    }
   }
 
   //
@@ -260,37 +273,14 @@ export class UserData {
   //-----------------------------------------------------------------------
 
   getUserData() { 
-    const thisuser$ : FirebaseObjectObservable<any> = this.af.database.object('/users/' + this.userauth.uid); 
+    const thisuser$ : FirebaseObjectObservable<any> = this.db.object('/users/' + this.userauth.uid); 
     thisuser$.subscribe((val) => {
       this.user = val;
     });
   }
 
-  updateTouchID(ischecked: boolean) {
-    this.setUserTouchID(ischecked);
-    this.userdata.child(this.userauth.uid).update({'enabletouchid' : ischecked});
-  }
-
-  updateDefaultBalance(newdefaultbalance: string) {
-    this.userdata.child(this.userauth.uid).update({'defaultbalance' : newdefaultbalance});
-  }
-
-  updateDefaultDate(newdefaultdate: string) {
-    this.userdata.child(this.userauth.uid).update({'defaultdate' : newdefaultdate});
-  }
-
   updateName(newname: string) {
     this.userdata.child(this.userauth.uid).update({'fullname' : newname});
-  }
-
-  updateAccountTypesCounter(operation: string) {
-    var count = parseInt(this.user.accounttypescount);
-    if (operation === 'add') {
-      count++;
-    } else {
-      count--;
-    }
-    this.userdata.child(this.userauth.uid).update({'accounttypescount' : count});
   }
 
   updateEmail(newEmail: string) {
@@ -307,7 +297,7 @@ export class UserData {
     });
   }
 
-  updatePassword(newPassword: string) {    
+  updatePassword(newPassword: string) {
     return new Promise((resolve: () => void, reject: (reason: Error) => void) => {
       let user = firebase.auth().currentUser;
       user.updatePassword(newPassword)
@@ -338,15 +328,54 @@ export class UserData {
     });
   }
 
-  savePicture(pic) {
+  saveProfilePicture(pic) {
     this.profilepicdata.child(firebase.auth().currentUser.uid).child('profilepicture.png')
     .putString(pic, 'base64', {contentType: 'image/png'}).then((savedpicture) => {
       this.userdata.child(firebase.auth().currentUser.uid).update({'profilepic' : savedpicture.downloadURL});
     });
   }
 
+  savePhoto(pic, source, key) {
+    let photoname = moment().valueOf() + '.png';
+    switch (source) {
+      case 'DriverLicensePage': {
+        this.housepicdata.child(firebase.auth().currentUser.uid + '/driverlicensephotos/').child(photoname)
+        .putString(pic, 'base64', {contentType: 'image/png'}).then((savedphoto) => {
+          this.housedata.child(this.user.houseid + '/driverlicenses/' + key + '/photos/').push({'photourl' : savedphoto.downloadURL});
+        });        
+        break;
+      }
+      case 'CreditCardPage': {
+        this.housepicdata.child(firebase.auth().currentUser.uid + '/creditcardphotos/').child(photoname)
+        .putString(pic, 'base64', {contentType: 'image/png'}).then((savedphoto) => {
+          this.housedata.child(this.user.houseid + '/creditcards/' + key + 'photos/').push({'photourl' : savedphoto.downloadURL});
+        });
+        break;
+      }
+    }
+
+  }
+
   updateEmailNode(newemail) {
     this.userdata.child(this.userauth.uid).update({'email' : newemail});
+  }
+
+  updateDefaultBalance(newdefaultbalance: string) {
+    this.userdata.child(this.userauth.uid).update({'defaultbalance' : newdefaultbalance});
+  }
+
+  updateDefaultDate(newdefaultdate: string) {
+    this.userdata.child(this.userauth.uid).update({'defaultdate' : newdefaultdate});
+  }
+
+  updateAccountTypesCounter(operation: string) {
+    var count = parseInt(this.user.accounttypescount);
+    if (operation === 'add') {
+      count++;
+    } else {
+      count--;
+    }
+    this.userdata.child(this.userauth.uid).update({'accounttypescount' : count});
   }
 
   //
@@ -354,7 +383,7 @@ export class UserData {
   //-----------------------------------------------------------------------
 
   getAccountTypes(): FirebaseListObservable<any[]> {
-    return this.af.database.list('/houses/' + this.user.houseid + '/accounttypes');
+    return this.db.list('/houses/' + this.user.houseid + '/accounttypes');
   }
 
   addAccountType(item) {
@@ -377,11 +406,11 @@ export class UserData {
 
   // Use Angularfire2
   getAccountAF2(account): FirebaseObjectObservable<any[]> {
-    return this.af.database.object('/houses/' + this.user.houseid + '/accounts/' + account.$key);
+    return this.db.object('/houses/' + this.user.houseid + '/accounts/' + account.$key);
   }
 
   getAccounts2(): FirebaseListObservable<any> {
-    return this.af.database.list('/houses/' + this.user.houseid + '/accounts', {
+    return this.db.list('/houses/' + this.user.houseid + '/accounts', {
       query: {
         orderByChild: 'accounttype'
       }
@@ -389,7 +418,7 @@ export class UserData {
   }
 
   getAccounts(myChild, mySubject): FirebaseListObservable<any> {
-    return this.af.database.list('/houses/' + this.user.houseid + '/accounts/', {
+    return this.db.list('/houses/' + this.user.houseid + '/accounts/', {
       query: {
         orderByChild: myChild,
         equalTo: mySubject
@@ -438,14 +467,14 @@ export class UserData {
 
   // Use Angularfire2
   getTransactionsByDate(account): FirebaseListObservable<any> {
-    return this.af.database.list('/houses/' + this.user.houseid + '/transactions/' + account.$key, {
+    return this.db.list('/houses/' + this.user.houseid + '/transactions/' + account.$key, {
       query: {
         orderByChild: 'date'
       }
     }).map((array) => array.reverse()) as FirebaseListObservable<any[]>;
   }
   getFilteredTransactions(account, myChild, mySubject): FirebaseListObservable<any> {
-    return this.af.database.list('/houses/' + this.user.houseid + '/transactions/' + account.$key, {
+    return this.db.list('/houses/' + this.user.houseid + '/transactions/' + account.$key, {
       query: {
         orderByChild: myChild,
         equalTo: mySubject
@@ -453,7 +482,7 @@ export class UserData {
     }).map((array) => array.reverse()) as FirebaseListObservable<any[]>;
   }
   getAllTransactionsByDateAF2(account): FirebaseListObservable<any> {
-    return this.af.database.list('/houses/' + this.user.houseid + '/transactions/' + account.$key, { preserveSnapshot: true });
+    return this.db.list('/houses/' + this.user.houseid + '/transactions/' + account.$key, { preserveSnapshot: true });
   }
 
   addTransaction(transaction, account) {
@@ -488,7 +517,7 @@ export class UserData {
   //-----------------------------------------------------------------------
   
   getAllCategories() {
-    return this.af.database.list('/houses/' + this.user.houseid + '/categories', { preserveSnapshot: true});
+    return this.db.list('/houses/' + this.user.houseid + '/categories', { preserveSnapshot: true});
   }
   getIncomeCategories() {
     return this.housedata.child(this.user.houseid + '/categories/Income').orderByChild('categorysort');
@@ -526,7 +555,7 @@ export class UserData {
     // DO NOT USE:
     // this method produces a weird result where the list is returned sorted (as expected) the first time
     // you visit the page, but is not sorted every subsequent time you visit the page and multiplies the list
-    return this.af.database.list('/houses/' + this.user.houseid + '/payees', {
+    return this.db.list('/houses/' + this.user.houseid + '/payees', {
       query: {
         orderByChild: 'payeename'
       }

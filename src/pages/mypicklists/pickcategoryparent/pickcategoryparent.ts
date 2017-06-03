@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
 // services
-import { UserData } from '../../../providers/user-data';
+import { AuthService } from '../../../providers/auth-service';
 import { CategoryData } from '../../../providers/category-data';
 
 @Component({
@@ -19,14 +19,14 @@ export class PickCategoryParentPage {
    
   constructor(
     public nav: NavController,
-    public userData: UserData,
+    public auth: AuthService,
     public categoryData: CategoryData) {
       this.itemselected = this.categoryData.getCategoryParent();
   }
 
   ionViewDidLoad() {
     console.log(this.itemselected);
-    this.userData.getParentCategories(this.categoryData.getCategoryType()).on('value', (categories) => {
+    this.auth.getParentCategories(this.categoryData.getCategoryType()).on('value', (categories) => {
       let rawList= [];
       //Add default option for <None>
       rawList.push({

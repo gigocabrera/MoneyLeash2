@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { NavController, ViewController, NavParams } from 'ionic-angular';
 
 // services
-import { UserData } from '../../../providers/user-data';
+import { AuthService } from '../../../providers/auth-service';
 
 @Component({
   selector: 'page-pickdefaultdate',
@@ -21,10 +21,10 @@ export class PickDefaultDatePage {
     public nav: NavController, 
     public viewCtrl: ViewController, 
     public navParams: NavParams,
-    public userData: UserData) {
+    public auth: AuthService) {
 
-      this.navbarcolor = this.userData.user.navbarcolor;
-      this.dividercolor = this.userData.user.dividercolor;
+      this.navbarcolor = this.auth.user.navbarcolor;
+      this.dividercolor = this.auth.user.dividercolor;
 
     }
 

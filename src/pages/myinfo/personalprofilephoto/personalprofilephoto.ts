@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 
 import { NavController } from 'ionic-angular';
-import { Camera } from 'ionic-native';
+import { Camera, CameraOptions } from '@ionic-native/camera';
 
-// services
-import { UserData } from '../../../providers/user-data';
+import { AuthService } from '../../../providers/auth-service';
 
 @Component({
   templateUrl: 'personalprofilephoto.html'
@@ -12,15 +11,16 @@ import { UserData } from '../../../providers/user-data';
 
 export class PersonalProfilePhotoPage {
 
-  public userPhoto: any;
-  public userPhotoDisplay: any;
+  public displayPhoto: string;
+  public savePhoto: any;
 
   constructor(
-      public nav: NavController,
-      public userData: UserData) {}
-
+    private camera: Camera,
+    public nav: NavController,
+    public auth: AuthService) { }
+  
   ionViewDidLoad() {
-    this.takePicture();
+    this.takePhoto();
   }
 
   dismiss() {
@@ -28,26 +28,27 @@ export class PersonalProfilePhotoPage {
   }
 
   savePicture() {
-    this.userData.savePicture(this.userPhoto);
+    this.auth.saveProfilePicture(this.savePhoto);
     this.dismiss();
   }
 
-  takePicture(){
-    Camera.getPicture({
-      quality : 95,
-      destinationType : Camera.DestinationType.DATA_URL,
-      sourceType : Camera.PictureSourceType.CAMERA,
-      allowEdit : true,
-      encodingType: Camera.EncodingType.PNG,
-      targetWidth: 800,
-      targetHeight: 800,
-      saveToPhotoAlbum: false
-    }).then(imageData => {
-      this.userPhoto = imageData;
-      this.userPhotoDisplay = "data:image/jpeg;base64," + imageData;
-    }, error => {
-      console.log("ERROR -> " + JSON.stringify(error));
-    });
+  takePhoto() {
+    const options: CameraOptions = {
+      quality: 75,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.PNG,
+      mediaType: this.camera.MediaType.PICTURE
+    }
+
+    this
+      .camera
+      .getPicture(options)
+      .then((imageData) => {
+        this.savePhoto = imageData;
+        this.displayPhoto = "data:image/jpeg;base64," + imageData;
+      }, (err) => {
+        console.log(err);
+      });
   }
   
 }

@@ -7,7 +7,7 @@ import { PickAccountTypePage } from '../../mypicklists/pickaccounttype/pickaccou
 import { PickAccountNamePage } from '../../mypicklists/pickaccountname/pickaccountname';
 
 // services
-import { UserData } from '../../../providers/user-data';
+import { AuthService } from '../../../providers/auth-service';
 import { AccountData } from '../../../providers/account-data';
 
 // models
@@ -34,7 +34,7 @@ export class AccountPage {
       public nav: NavController,
       public modalController: ModalController,
       public navParams: NavParams,
-      public userData: UserData,
+      public auth: AuthService,
       public accountData: AccountData) {
 
     this.account = this.navParams.data.paramAccount;
@@ -88,9 +88,9 @@ export class AccountPage {
     this.account.dateopen = dt
     
     if (this.account.mode === 'New') {
-      this.userData.addAccount(this.account);
+      this.auth.addAccount(this.account);
     } else {
-      this.userData.updateAccount(this.account);
+      this.auth.updateAccount(this.account);
     }
     this.nav.pop();
   }

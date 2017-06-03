@@ -5,7 +5,7 @@ import { NavController, AlertController } from 'ionic-angular';
 import { AccountListPage } from '../mymoney/account-list/account-list';
 
 // Services
-import { UserData } from '../../providers/user-data';
+import { AuthService } from '../../providers/auth-service';
 
 @Component({
   selector: 'page-signup',
@@ -20,17 +20,17 @@ export class SignupPage {
   constructor(
     public nav: NavController,
     public alertController: AlertController,
-    public userData: UserData) {}
+    public auth: AuthService) {}
   
   onSignup(form) {
     this.submitted = true;
     if (form.valid) {      
-      this.userData.LoadingControllerShow();
-      this.userData.createUser(this.signup).then(() => {
+      this.auth.LoadingControllerShow();
+      this.auth.signUpWithEmail(this.signup).then(() => {
           this.SignupSuccess();
         }).catch(
         (error) => {
-          this.userData.LoadingControllerDismiss();
+          this.auth.LoadingControllerDismiss();
           this.SignUpError(error);
         }
       );

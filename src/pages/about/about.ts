@@ -2,9 +2,6 @@ import { Component } from '@angular/core';
 
 import { PopoverController, ViewController } from 'ionic-angular';
 
-// services
-import { UserData } from '../../providers/user-data';
-
 @Component({
   template: `
     <ion-list>
@@ -33,8 +30,7 @@ export class AboutPage {
   conferenceDate = '2047-05-17';
 
   constructor(
-    public popoverCtrl: PopoverController,
-    public userData: UserData) {}
+    public popoverCtrl: PopoverController) {}
 
   presentPopover(event) {
     let popover = this.popoverCtrl.create(PopoverPage);

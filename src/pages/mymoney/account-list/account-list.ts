@@ -8,7 +8,7 @@ import { TransactionsPage } from '../transaction-list/transaction-list';
 /*import { TransactionsVirtualPage } from '../transaction-list-virtual/transaction-list-virtual';*/
 
 // services
-import { UserData } from '../../../providers/user-data';
+import { AuthService } from '../../../providers/auth-service';
 
 // models
 import { Account } from '../../../models/account.model';
@@ -26,11 +26,11 @@ export class AccountListPage {
   constructor(
       public nav: NavController,
       public alertController: AlertController,
-      public userData: UserData) {}
+      public auth: AuthService) {}
 
   ionViewDidLoad() {
 
-    this.userData.getAllAccounts().on('value', (accounts) => {
+    this.auth.getAllAccounts().on('value', (accounts) => {
 
       var that = this;
       this.groupedAccounts = [];
@@ -84,13 +84,13 @@ export class AccountListPage {
         }
         currentAccounts.push(tempAccount);
       });
-      this.userData.LoadingControllerDismiss();
+      this.auth.LoadingControllerDismiss();
     });
 
   }
 
   viewtransactions (account) {
-    this.userData.LoadingControllerShow();
+    this.auth.LoadingControllerShow();
     this.nav.push(TransactionsPage, {paramAccount: account});
   }
 
@@ -121,7 +121,7 @@ export class AccountListPage {
           text: 'Delete',
           cssClass: 'alertDanger',
           handler: () => {
-            this.userData.deleteAccount(account);
+            this.auth.deleteAccount(account);
           }
         }
       ]
@@ -135,18 +135,18 @@ export class AccountListPage {
   }
 
   syncCategoryData(account) {
-    this.userData.LoadingControllerShow();
-    this.userData.syncCategories(account);
+    this.auth.LoadingControllerShow();
+    this.auth.syncCategories(account);
   }
 
   syncPayeeData(account) {
-    this.userData.LoadingControllerShow();
-    this.userData.syncPayees(account);
+    this.auth.LoadingControllerShow();
+    this.auth.syncPayees(account);
   }
 
   syncPhotos(account) {
-    this.userData.LoadingControllerShow();
-    this.userData.syncPhotos(account);
+    this.auth.LoadingControllerShow();
+    this.auth.syncPhotos(account);
   }
   
 }
