@@ -28,13 +28,13 @@
     <ion-item class="ml-input" (click)="pickCategoryType()">
       <i class="fa fa-thumb-tack" item-left></i>
       <ion-label floating>Category Type</ion-label>
-      <ion-input type="text" [(ngModel)]="category.categorytype" readonly></ion-input>
+      <ion-input type="text" [(ngModel)]="category.categorytype" readonly disabled></ion-input>
       <ion-icon name="arrow-forward" item-right color="mliconarrowblue"></ion-icon>
     </ion-item>
     <ion-item class="ml-input" (click)="pickCategoryParent()">
       <i class="fa fa-link" item-left></i>
       <ion-label floating>Parent Category</ion-label>
-      <ion-input type="text" [(ngModel)]="category.categoryparent" readonly></ion-input>
+      <ion-input type="text" [(ngModel)]="category.categoryparent" readonly disabled></ion-input>
       <ion-icon name="arrow-forward" item-right color="mliconarrowblue"></ion-icon>
     </ion-item>
   </ion-list>

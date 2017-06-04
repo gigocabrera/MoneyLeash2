@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { NavController } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 
 // services
 import { AuthService } from '../../../providers/auth-service';
@@ -19,14 +19,17 @@ export class PickCategoryParentPage {
    
   constructor(
     public nav: NavController,
+    public navParams: NavParams,
     public auth: AuthService,
     public categoryData: CategoryData) {
-      this.itemselected = this.categoryData.getCategoryParent();
+      
+    this.itemselected = navParams.get('type');
+
   }
 
   ionViewDidLoad() {
     console.log(this.itemselected);
-    this.auth.getParentCategories(this.categoryData.getCategoryType()).on('value', (categories) => {
+    this.auth.getParentCategories(this.itemselected).on('value', (categories) => {
       let rawList= [];
       //Add default option for <None>
       rawList.push({

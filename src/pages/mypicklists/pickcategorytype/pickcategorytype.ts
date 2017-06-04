@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { NavController } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 
 // services
 import { CategoryData } from '../../../providers/category-data';
@@ -18,16 +18,17 @@ export class PickCategoryTypePage {
    
   constructor(
     public nav: NavController,
-    public categoryData: CategoryData) {}
+    public navParams: NavParams,
+    public categoryData: CategoryData) {
 
-  ionViewDidLoad() {
     this.items.push(
       { text: 'Income', value: 'Income' },
       { text: 'Expense', value: 'Expense' },
     );
-    this.itemselected = this.categoryData.getCategoryType();
+    this.itemselected = navParams.get('type');
+
   }
-  
+
   pickPreference(itemselected) {
     this.categoryData.setReferrer('PickCategoryTypePage');
     this.categoryData.setCategoryType(this.itemselected);

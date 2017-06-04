@@ -111,7 +111,7 @@ export class CategoryPage {
     if (!this.isValidName()) {
       return;
     }
-    this.nav.push(PickCategoryTypePage);
+    this.nav.push(PickCategoryTypePage, { type: this.category.categorytype });
   }
 
   pickCategoryParent() {
@@ -121,7 +121,7 @@ export class CategoryPage {
     if (!this.isValidType()) {
       return;
     }
-    this.nav.push(PickCategoryParentPage);
+    this.nav.push(PickCategoryParentPage, { type: this.category.categorytype });
   }
 
   isValidName(): boolean {
