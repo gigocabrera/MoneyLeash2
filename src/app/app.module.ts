@@ -48,7 +48,6 @@ import { PickTransactionTypePage } from '../pages/mypicklists/picktransactiontyp
 import { PickAccountFromPage } from '../pages/mypicklists/pickaccountfrom/pickaccountfrom';
 import { PickAccountToPage } from '../pages/mypicklists/pickaccountto/pickaccountto';
 import { PickPayeePage } from '../pages/mypicklists/pickpayee/pickpayee';
-import { PickCategoryNamePage } from '../pages/mypicklists/pickcategoryname/pickcategoryname';
 import { PickCategoryPage } from '../pages/mypicklists/pickcategory/pickcategory';
 import { PickAmountPage } from '../pages/mypicklists/pickamount/pickamount';
 import { PickNotesPage } from '../pages/mypicklists/picknotes/picknotes';
@@ -63,11 +62,10 @@ import { SignupPage } from '../pages/signup/signup';
 import { TutorialPage } from '../pages/tutorial/tutorial';
 
 // services
+import { AuthService } from '../providers/auth-service';
 import { TransactionData } from '../providers/transaction-data';
 import { AccountData } from '../providers/account-data';
 import { CategoryData } from '../providers/category-data';
-
-import { AuthService } from '../providers/auth-service';
 
 import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-translate/ng2-translate';
 
@@ -129,7 +127,6 @@ let pages = [
   PickAccountFromPage,
   PickAccountToPage,
   PickAccountNamePage,
-  PickCategoryNamePage,
   PickCategoryTypePage,
   PickCategoryParentPage,
   PickTransactionTypePage,
@@ -157,6 +154,9 @@ export function providers() {
   return [
     Camera,
     AuthService,
+    TransactionData,
+    AccountData,
+    CategoryData,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ];
 }

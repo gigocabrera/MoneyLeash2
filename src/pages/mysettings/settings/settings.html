@@ -13,10 +13,10 @@
     </ion-list-header>
     <button ion-item (click)="openPersonalProfile()">
       <ion-avatar item-left class="mlavatar">
-          <img src="{{ userData.user?.profilepic }}"/>
+          <img src="{{ auth.user?.profilepic }}"/>
       </ion-avatar>
-      <h2>{{ userData.user?.fullname }}</h2>
-      <p>{{ userData.user?.email }}</p>
+      <h2>{{ auth.user?.fullname }}</h2>
+      <p>{{ auth.user?.email }}</p>
     </button>
   </ion-list>
   <ion-list>
@@ -27,21 +27,21 @@
       <ion-icon item-left name="ios-cash-outline"></ion-icon>
       Default Balance
       <ion-note item-right>
-        {{ userData.user?.defaultbalance }}
+        {{ auth.user?.defaultbalance }}
       </ion-note>
     </button>
     <button ion-item (click)="changeDefaltDate()">
       <ion-icon item-left name="ios-calendar-outline"></ion-icon>
       Default Date
       <ion-note item-right>
-        {{ userData.user?.defaultdate }}
+        {{ auth.user?.defaultdate }}
       </ion-note>
     </button>
     <button ion-item (click)="openAccountTypes()">
       <ion-icon item-left name="ios-browsers-outline"></ion-icon>
       Account Types
       <ion-badge item-right color="light">
-        {{ userData.user?.accounttypescount }}
+        {{ auth.user?.accounttypescount }}
       </ion-badge>
     </button>
   </ion-list>
@@ -52,7 +52,7 @@
     <ion-item>
       <ion-icon item-left name="finger-print" color="danger"></ion-icon>
       <ion-label>Enable TouchID</ion-label>
-      <ion-toggle (ionChange)="toggleTouchID($event)" checked="{{ userData.user?.enabletouchid }}" color="mllightblue"></ion-toggle>
+      <ion-toggle (ionChange)="toggleTouchID($event)" checked="{{ auth.user?.enabletouchid }}" color="mllightblue"></ion-toggle>
     </ion-item>
   </ion-list>
   <ion-list>

@@ -5,7 +5,7 @@
     </button>
     <ion-title>Payees</ion-title>
     <ion-buttons end>
-      <button ion-button (click)="newPayee()">
+      <button ion-button (click)="addItem()">
         <ion-icon name="md-add"></ion-icon>
       </button>
     </ion-buttons>
@@ -20,15 +20,12 @@
         </ion-label>
       </ion-item-divider>      
       <ion-item-sliding *ngFor="let payee of group.payees" #slidingItem>
-        <button ion-item (click)="showTransactions(slidingItem)">
+        <button ion-item (click)="editItem(payee)">
           <ion-icon item-left name="ios-contact-outline"></ion-icon>
           {{ payee.payeename }}
         </button>
         <ion-item-options>
-          <button ion-button color="energized" (click)="edit(slidingItem, payee)">
-            Edit
-          </button>
-          <button ion-button color="danger" (click)="delete(slidingItem, payee)">
+          <button ion-button color="danger" (click)="deleteItem(slidingItem, payee)">
             Delete
           </button>
         </ion-item-options>

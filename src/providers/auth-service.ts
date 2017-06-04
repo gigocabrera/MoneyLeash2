@@ -464,7 +464,6 @@ export class AuthService {
     //return this.housedata.child(this.user.houseid + '/transactions/' + account.$key).orderByChild('date').limitToLast(50);
     return this.housedata.child(this.user.houseid + '/transactions/' + account.$key).orderByChild('date').limitToLast(limit);
   }
-
   // Use Angularfire2
   getTransactionsByDate(account): FirebaseListObservable<any> {
     return this.db.list('/houses/' + this.user.houseid + '/transactions/' + account.$key, {
@@ -484,19 +483,15 @@ export class AuthService {
   getAllTransactionsByDateAF2(account): FirebaseListObservable<any> {
     return this.db.list('/houses/' + this.user.houseid + '/transactions/' + account.$key, { preserveSnapshot: true });
   }
-
   addTransaction(transaction, account) {
     this.housedata.child(this.user.houseid + '/transactions/' + account.$key + "/").push(transaction.toString());
   }
-
   updateTransaction(transaction, account) {
     this.housedata.child(this.user.houseid + '/transactions/' + account.$key + "/" + transaction.$key).update(transaction.toString());
   }
-
   deleteTransaction(transaction) {
     //this.housedata.child(this.user.houseid + '/accounts/' + account.$key).remove();
   }
-
   updateAccountWithTotals(account: IAccount) {
     
     // Update account with totals
@@ -525,24 +520,26 @@ export class AuthService {
   getExpenseCategories() {
     return this.housedata.child(this.user.houseid + '/categories/Expense').orderByChild('categorysort');
   }
+  getIncomeCategory(key) {
+    return this.housedata.child(this.user.houseid + '/categories/Income/' + key);
+  }
+  getExpenseCategory(key) {
+    return this.housedata.child(this.user.houseid + '/categories/Expense/' + key);
+  }
   getParentCategories(type) {
     return this.housedata.child(this.user.houseid + '/categories/' + type).orderByChild('categorysort');
   }
-
-  addCategory(category) {
-    var newCategory = {
-        'categoryname': category.categoryname,
-        'categorytype': category.categorytype,
-        'categoryparent': category.categoryparent,
-        'categorysort': category.categorysort
-    }
-    this.housedata.child(this.user.houseid + "/categories/" + category.categorytype).push(newCategory);
+  addCategory(item) {
+    this.housedata.child(this.user.houseid + "/categories/" + item.categorytype).push(item);
   }
-
-  updateCategory(category) {
-    this.housedata.child(this.user.houseid + '/categories/' +  category.categorytype + '/' + category.$key).update({ 'categoryname' : category.categoryname, 'categorytype' : category.categorytype, 'categoryparent' : category.categoryparent, 'categorysort' : category.categorysort });
+  updateCategory(item, key) {
+    this.housedata.child(this.user.houseid + '/categories/' +  item.categorytype + '/' + key).update({ 
+      'categoryname' : item.categoryname, 
+      'categorytype' : item.categorytype, 
+      'categoryparent' : item.categoryparent, 
+      'categorysort' : item.categorysort 
+    });
   }
-
   deleteCategory(category) {
     this.housedata.child(this.user.houseid + '/categories/' +  category.categorytype + '/' + category.$key).remove();
   }
@@ -551,35 +548,18 @@ export class AuthService {
   // PAYEES
   //-----------------------------------------------------------------------
   
-  getPayees() {
-    // DO NOT USE:
-    // this method produces a weird result where the list is returned sorted (as expected) the first time
-    // you visit the page, but is not sorted every subsequent time you visit the page and multiplies the list
-    return this.db.list('/houses/' + this.user.houseid + '/payees', {
-      query: {
-        orderByChild: 'payeename'
-      }
-    });
-  }
-
   getAllPayees() {
-    return this.housedata.child(this.user.houseid + '/payees').orderByChild('payeename');
+    return this.housedata.child(this.user.houseid + '/payees').orderByChild('payeesort');
   }
-
-  addPayee(payee) {
-    var newPayee = {
-        'lastamount': '',
-        'lastcategory': '',
-        'lastcategoryid': '',
-        'payeename': payee.payeename
-    }
-    this.housedata.child(this.user.houseid + "/payees").push(newPayee);
+  getPayee(key) {
+    return this.housedata.child(this.user.houseid + '/payees/' + key);
   }
-
-  updatePayee(payee) {
-    this.housedata.child(this.user.houseid + '/payees/' +  payee.$key).update({ 'lastamount' : payee.lastamount, 'lastcategory' : payee.lastcategory, 'lastcategoryid' : payee.lastcategory, 'payeename' : payee.payeename });
+  addPayee(item) {
+    this.housedata.child(this.user.houseid + "/payees").push(item);
   }
-
+  updatePayee(item, key) {
+    this.housedata.child(this.user.houseid + '/payees/' +  key).update({ 'payeename': item.payeename, 'payeesort': item.payeesort });
+  }
   deletePayee(payee) {
     this.housedata.child(this.user.houseid + '/payees/' +  payee.$key).remove();
   }

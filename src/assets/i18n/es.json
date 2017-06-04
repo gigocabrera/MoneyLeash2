@@ -1,0 +1,104 @@
+{
+
+  "TUTORIAL_SLIDE1_TITLE": "CajaFuerte",
+  "TUTORIAL_SLIDE1_DESCRIPTION": "Administrador de Información Personal",
+  "TUTORIAL_SLIDE_NEXT": "Seguir",
+
+  "WELCOME_TITLE": "Bienvenido a CajaFuerte",
+  "WELCOME_SUBTITLE": "Su Administrador de Información Personal!",
+  
+  "LOGIN": "Iniciar sesión",
+  "SIGNUP": "Registrarse",
+  
+  "LOGIN_TITLE": "Iniciar sesión",
+  "LOGIN_SUBTITLE": "Ingrese su información",
+  "LOGIN_ERROR_TITLE": "Error",
+  "LOGIN_ERROR": "No se ha podido iniciar sesión. Por favor revisa la información de la cuenta e inténtalo de nuevo.",
+  "LOGIN_BUTTON": "Iniciar sesión",
+  
+  "NAME_LABEL": "Nombre Completo",
+  "EMAIL_LABEL": "Email",
+  "PASSWORD_LABEL": "Contraseña",
+
+  "SIGNUP_TITLE": "Registro",
+  "SIGNUP_SUBTITLE": "Ingrese su información",
+  "SIGNUP_ERROR": "No se ha podido crear la cuenta. Por favor revisa la información de la cuenta e inténtalo de nuevo.",
+  "SIGNUP_BUTTON": "Registrarse",
+
+  "TAB1_TITLE": "Formas",
+  "TAB2_TITLE": "Recientes",
+  "TAB3_TITLE": "Favoritos",
+  "TAB4_TITLE": "Herramientas",
+
+  "RECENT_TITLE": "Recientes",
+
+  "FAVORITES_TITLE": "Favoritos",
+
+  "SETTINGS_TITLE": "Herramientas",
+  "SETTINGS_SUBTITLE": "Herramientas del App",
+  "LANGUAGE_LABEL": "Lenguaje",
+  "ABOUT_LABEL": "Acerca",
+  "VERSION_LABEL": "Versión",
+
+  "LIST_MASTER_TITLE": "Formas",
+  "LIST_PASSWORDS": "Contraseñas",
+  "LIST_DRIVER_LICENSE": "Licencia de Conducier",
+  "LIST_BANK_ACCOUNTS": "Cuentas Bancarias",
+  "LIST_CREDIT_CARDS": "Tarjetas de Crédito",
+
+  "EDIT_PASSWORD_SUBTITLE": "Detalles de la cuenta/contraseña",
+  "EDIT_BANK_ACCOUNT_SUBTITLE": "Detalles de la cuenta",
+  "EDIT_DL_SUBTITLE": "Detalles de la licencia de conducir",
+  "EDIT_CREDIT_CARD_SUBTITLE": "Detalles de la tarjeta de crédito",
+
+  "SEARCH_TITLE": "Buscar",
+  "SAVE_TITLE": "Guardar",
+  "EDIT_TITLE": "Editar",
+
+  "ACCOUNTS_PASSWORDS_TITLE": "Cuentas/Contraseñas",
+  "DRIVERLICENSE_TITLE": "Driver License",
+  "CARDS_TITLE": "Tarjetas de Crédito/Débito",
+  "BANK_ACCOUNTS_TITLE": "Cuentas de Banco",
+  "INSURANCE_TITLE": "Información de Seguro",
+  "DOCUMENTS_TITLE": "Documentos",
+
+  "CREATE_PASSWORD_TITLE": "Nueva Cuenta/Contraseña",
+  "CREATE_DRIVER_LICENSE_TITLE": "Nueva Licencia de Conducir",
+  "CREATE_BANK_ACCOUNT_TITLE": "Nueva Cuenta Bancaria",
+  "CREATE_CREDIT_CARD_TITLE": "Nueva Tarjeta de Crédito",
+
+  "ACCOUNT_NAME": "Nombre de la cuenta",
+  "ACCOUNT_DESCRIPTION": "Descripción",
+  "ACCOUNT_URL": "Sitio de la Cuenta / URL",
+  "ACCOUNT_NUMBER": "Número de la Cuenta",
+  "ACCOUNT_USERNAME": "Nombre del Usuario",
+  "ACCOUNT_PASSWORD": "Contraseña de la Cuenta",
+  "ACCOUNT_NOTES": "Notas",
+
+  "DL_OWNER": "Pertenece a",
+  "DL_NUMBER": "Número de Licencia",
+  "DL_ISSUE_DATE": "Fecha de Emisión",
+  "DL_EXP_DATE": "Fecha de Expiración",
+  "DL_STATE": "Estado",
+  "DL_NOTES": "Notas",
+  "DL_PHOTO": "Foto",
+
+  "BANK_ACCOUNT_OWNER": "Pertenece a",
+  "BANK_ACCOUNT_NAME": "Nombre de la Cuenta",
+  "BANK_ACCOUNT_TYPE": "Type de Cuenta",
+  "BANK_ACCOUNT_NUMBER": "Número de la Cuenta",
+  "BANK_ROUTING_NUMBER": "Número de Ruta",
+  "BANK_ACCOUNT_NOTES": "Notas",
+
+  "CC_OWNER": "Pertenece a",
+  "CC_NAME": "Nombre de la Tarjeta",
+  "CC_TYPE": "Type de Tarjeta",
+  "CC_NUMBER": "Número",
+  "CC_EXP_DATE": "Fecha de Expiración",
+  "CC_CVV": "CVV",
+  "CC_NOTES": "Notas",
+
+  "NO_ITEMS_FOUND_TITLE": "No se encontraron datos",
+  "NO_ITEMS_FOUND_DESCRIPTION": "No se encontraron datos"
+
+}

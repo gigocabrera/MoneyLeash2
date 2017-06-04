@@ -2,14 +2,11 @@ import { Component } from '@angular/core';
 
 import { NavController, AlertController } from 'ionic-angular';
 
-//import { FirebaseListObservable } from 'angularfire2';
-
-// app pages
-import { CategoryPage } from '../category/category';
-
-// services
 import { AuthService } from '../../../providers/auth-service';
+
 import { CategoryData } from '../../../providers/category-data';
+
+import { CategoryPage } from '../category/category';
 
 @Component({
   selector: 'page-category-list',
@@ -24,7 +21,7 @@ export class CategoryListPage {
   previouscategory: string;
 
   constructor(
-      public nav: NavController,
+      public navCtrl: NavController,
       public alertController: AlertController,
       public auth: AuthService,
       public categoryData: CategoryData) {}
@@ -66,24 +63,15 @@ export class CategoryListPage {
 
   }
   
-  newCategory() {
-    var category = {
-          '$key': '',
-          'categoryname': '',
-          'categoryparent': '',
-          'categorysort': '',
-          'categorytype': '',
-          'mode': 'New'
-        }
-    this.nav.push(CategoryPage, {paramCategory: category});
+  addItem() {
+    this.navCtrl.push(CategoryPage, { key: '0' });
   }
 
-  edit(slidingItem, category) {
-    this.categoryData.setReferrer('CategoryListPage');
-    this.nav.push(CategoryPage, { paramCategory: category, paramMode: 'Edit' });
+  editItem(slidingItem, category) {
+    this.navCtrl.push(CategoryPage, { categorytype: category.categorytype, key: category.$key });
   }
 
-  delete(slidingItem, category) {
+  deleteItem(slidingItem, category) {
     let alert = this.alertController.create({
       title: 'Delete Category',
       message: 'Are you sure you want to delete ' + category.categoryname + ' and ALL the transactions?',

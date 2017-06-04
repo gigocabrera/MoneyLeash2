@@ -1,12 +1,7 @@
 import { Component } from '@angular/core';
 
-import { NavController, ModalController, NavParams } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 
-// app pages
-//import { PickCategoryTypePage } from '../../mypicklists/pickcategorytype/pickcategorytype';
-//import { PickCategoryParentPage } from '../../mypicklists/pickcategoryparent/pickcategoryparent';
-
-// services
 import { AuthService } from '../../../providers/auth-service';
 
 @Component({
@@ -17,69 +12,66 @@ export class PayeePage {
 
   title: string;
   listheader: string;
-  payee: any;
+  validationMessage: string;
+  showValidationMessage: boolean = false;
+  mode: string = '';
+  key: string = '';
+  payee: {payeename: string, payeesort: string} = {
+    payeename: '',
+    payeesort: ''
+  }
 
   constructor(
       public nav: NavController,
-      public modalController: ModalController,
       public navParams: NavParams,
       public auth: AuthService) {
 
-    this.payee = this.navParams.data.paramPayee;
-    if (this.payee.mode === 'New') {
+    this.key = navParams.get('key');
+    if (this.key === '0') {
       this.title = 'Create Payee';
       this.listheader = 'Enter Payee Details';
+      this.mode = "New";
     } else {
       this.title = 'Edit Payee';
       this.listheader = 'Edit Payee Details';
+      this.auth.getPayee(this.key).once('value').then(snapshot => {
+        this.payee = snapshot.val();
+        this.title = "Edit " + ' ' + this.payee.payeename;
+        this.mode = "Edit";
+      });
     }
     
   }
 
   save() {
-    
-    /*// Category sort
-    if (this.category.categoryparent === '') {
-      this.category.categorysort = this.category.categoryname.toUpperCase();
-    } else {
-      this.category.categorysort = this.category.categoryparent.toUpperCase() + ':' + this.category.categoryname.toUpperCase(); 
+
+    // Validate form before saving
+    if (!this.isValidName()) {
+      return;
     }
 
-    // Is this a new category? 
-    if (this.category.mode === 'New') {
-      this.userData.addCategory(this.category);
+    // Handle category sort
+    this.payee.payeesort = this.payee.payeename.toLowerCase();
+
+    // Save category 
+    if (this.mode === 'New') {
+      this.auth.addPayee(this.payee);
     } else {
-      this.userData.updateCategory(this.category);
+      this.auth.updatePayee(this.payee, this.key);
     }
-    this.nav.pop();*/
+    this.nav.pop();
   }
 
-  pickCategoryType() {
-    /*let modal = this.modalController.create(PickCategoryTypePage, {paramCategoryType: this.category.categorytype});
-    modal.present(modal);
-    modal.onDidDismiss((data: any[]) => {
-      if (data) {
-        this.onPickCategoryType(data);
-      }
-    });*/
-  }
-
-  onPickCategoryType(item) {
-    //this.category.categorytype = item.text;
-  }
-
-  pickCategoryParent() {
-    /*let modal = this.modalController.create(PickCategoryParentPage, {paramCategory: this.category});
-    modal.present(modal);
-    modal.onDidDismiss((data: any[]) => {
-      if (data) {
-        this.onPickCategoryParent(data);
-      }
-    });*/
-  }
-
-  onPickCategoryParent(item) {
-    //this.category.categoryparent = item.text;
+  isValidName(): boolean {
+    if (this.payee.payeename === '') {
+      this.showValidationMessage = true;
+      this.validationMessage = "Please enter a payee name";
+      return false;
+    } else {
+      this.showValidationMessage = false;
+      this.validationMessage = '';
+      return true;
+    }
   }
   
 }

@@ -5,7 +5,7 @@
     </button>
     <ion-title>Categories</ion-title>
     <ion-buttons end>
-      <button ion-button (click)="newCategory()">
+      <button ion-button (click)="addItem()">
         <ion-icon name="md-add"></ion-icon>
       </button>
     </ion-buttons>
@@ -18,11 +18,11 @@
         Income Categories
       </ion-item-divider>      
       <ion-item-sliding *ngFor="let incomecat of incomeCategories" #slidingItem track="income" [ngClass]="{mlindent: incomecat.categoryparent !== ''}">
-        <button ion-item (click)="edit(slidingItem, incomecat)">
+        <button ion-item (click)="editItem(slidingItem, incomecat)">
           {{ incomecat.categoryname }}
         </button>
         <ion-item-options>
-          <button ion-button color="danger" (click)="delete(slidingItem, incomecat)">
+          <button ion-button color="danger" (click)="deleteItem(slidingItem, incomecat)">
             <i class="fa fa-trash ml-fa"></i>
             Delete
           </button>
@@ -34,11 +34,11 @@
         Expense Categories
       </ion-item-divider>
       <ion-item-sliding *ngFor="let expensecat of expenseCategories" #slidingItem track="expense" [ngClass]="{mlindent: expensecat.categoryparent !== ''}">
-        <button ion-item (click)="edit(slidingItem, expensecat)">
+        <button ion-item (click)="editItem(slidingItem, expensecat)">
           {{ expensecat.categoryname }}
         </button>
         <ion-item-options>
-          <button ion-button color="danger" (click)="delete(slidingItem, expensecat)">
+          <button ion-button color="danger" (click)="deleteItem(slidingItem, expensecat)">
             <i class="fa fa-trash ml-fa"></i>
             Delete
           </button>

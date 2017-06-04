@@ -1,0 +1,104 @@
+{
+
+  "TUTORIAL_SLIDE1_TITLE": "CajaFuerte",
+  "TUTORIAL_SLIDE1_DESCRIPTION": "Personal Information Manager",
+  "TUTORIAL_SLIDE_NEXT": "Next",
+
+  "WELCOME_TITLE": "Welcome to CajaFuerte",
+  "WELCOME_SUBTITLE": "Personal Information Manager",
+  
+  "LOGIN": "Sign in",
+  "SIGNUP": "Sign up",
+  
+  "LOGIN_TITLE": "Sign in",
+  "LOGIN_SUBTITLE": "Enter your credentials",
+  "LOGIN_ERROR_TITLE": "Login Failed",
+  "LOGIN_ERROR": "Unable to sign in. Please check your account information and try again.",
+  "LOGIN_BUTTON": "Sign in",
+  
+  "NAME_LABEL": "Full Name",
+  "EMAIL_LABEL": "Email",
+  "PASSWORD_LABEL": "Password",
+
+  "SIGNUP_TITLE": "Sign up",
+  "SIGNUP_SUBTITLE": "Enter your information",
+  "SIGNUP_ERROR": "Unable to create account. Please check your account information and try again.",
+  "SIGNUP_BUTTON": "Sign up",
+
+  "TAB1_TITLE": "Forms",
+  "TAB2_TITLE": "Recent",
+  "TAB3_TITLE": "Favorites",
+  "TAB4_TITLE": "Tools",
+
+  "RECENT_TITLE": "Recent",
+
+  "FAVORITES_TITLE": "Favorites",
+
+  "SETTINGS_TITLE": "Tools",
+  "SETTINGS_SUBTITLE": "App Tools",
+  "LANGUAGE_LABEL": "Language",
+  "ABOUT_LABEL": "About",
+  "VERSION_LABEL": "Version",
+
+  "LIST_MASTER_TITLE": "Forms",
+  "LIST_PASSWORDS": "Accounts",
+  "LIST_DRIVER_LICENSE": "Driver License",
+  "LIST_BANK_ACCOUNTS": "Bank Accounts",
+  "LIST_CREDIT_CARDS": "Credit Cards",
+
+  "EDIT_PASSWORD_SUBTITLE": "Account details",
+  "EDIT_BANK_ACCOUNT_SUBTITLE": "Bank account details",
+  "EDIT_DL_SUBTITLE": "Driver license details",
+  "EDIT_CREDIT_CARD_SUBTITLE": "Credit card details",
+
+  "SEARCH_TITLE": "Search",
+  "SAVE_TITLE": "Save",
+  "EDIT_TITLE": "Edit",
+
+  "ACCOUNTS_PASSWORDS_TITLE": "Accounts/Passwords",
+  "DRIVERLICENSE_TITLE": "Driver License",
+  "CARDS_TITLE": "Credit/Debit Cards",
+  "BANK_ACCOUNTS_TITLE": "Bank Accounts",
+  "INSURANCE_TITLE": "Insurance Information",
+  "DOCUMENTS_TITLE": "Documents",
+
+  "CREATE_PASSWORD_TITLE": "New Account/Password",
+  "CREATE_DRIVER_LICENSE_TITLE": "New Driver License",
+  "CREATE_BANK_ACCOUNT_TITLE": "New Bank Account",
+  "CREATE_CREDIT_CARD_TITLE": "New Credit Card",
+  
+  "ACCOUNT_NAME": "Account Name",
+  "ACCOUNT_DESCRIPTION": "Description",
+  "ACCOUNT_URL": "Account Site / URL",
+  "ACCOUNT_NUMBER": "Account Number",
+  "ACCOUNT_USERNAME": "Username",
+  "ACCOUNT_PASSWORD": "Account Password",
+  "ACCOUNT_NOTES": "Notes",
+
+  "DL_OWNER": "Owner",
+  "DL_NUMBER": "Driver License Number",
+  "DL_ISSUE_DATE": "Issue Date",
+  "DL_EXP_DATE": "Expiration Date",
+  "DL_STATE": "State",
+  "DL_NOTES": "Notes",
+  "DL_PHOTO": "Photo",
+
+  "BANK_ACCOUNT_OWNER": "Account Owner",
+  "BANK_ACCOUNT_NAME": "Account Name",
+  "BANK_ACCOUNT_TYPE": "Account Type",
+  "BANK_ACCOUNT_NUMBER": "Account Number",
+  "BANK_ROUTING_NUMBER": "Routing Number",
+  "BANK_ACCOUNT_NOTES": "Account Notes",
+
+  "CC_OWNER": "Owner",
+  "CC_NAME": "Card Name",
+  "CC_TYPE": "Card Type",
+  "CC_NUMBER": "Number",
+  "CC_EXP_DATE": "Expiration Date",
+  "CC_CVV": "CVV",
+  "CC_NOTES": "Notes",
+
+  "NO_ITEMS_FOUND_TITLE": "No Items Found",
+  "NO_ITEMS_FOUND_DESCRIPTION": "No items found..."
+
+}

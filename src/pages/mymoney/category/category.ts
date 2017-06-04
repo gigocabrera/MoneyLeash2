@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
 // app pages
-import { PickCategoryNamePage } from '../../mypicklists/pickcategoryname/pickcategoryname';
 import { PickCategoryTypePage } from '../../mypicklists/pickcategorytype/pickcategorytype';
 import { PickCategoryParentPage } from '../../mypicklists/pickcategoryparent/pickcategoryparent';
 
@@ -17,15 +16,20 @@ import { CategoryData } from '../../../providers/category-data';
 
 export class CategoryPage {
 
-  validationMessage: string;
-  showValidationMessage: boolean = false;
-  hasDataCategoryName: boolean = false;
-  hasDataCategoryType: boolean = false;
-  hasDataCategoryParent: boolean = false;
   title: string;
   listheader: string;
-  category: any;
-  mode: string;
+  validationMessage: string;
+  showValidationMessage: boolean = false;
+  mode: string = '';
+  key: string = '';
+  categorytype: string = '';
+  category: {categoryname: string, categoryparent: string, categoryparentdisplay: string, categorysort: string, categorytype: string} = {
+    categoryname: '',
+    categoryparent: '',
+    categoryparentdisplay: '',
+    categorysort: '',
+    categorytype: ''
+  }
 
   constructor(
       public nav: NavController,
@@ -33,36 +37,31 @@ export class CategoryPage {
       public auth: AuthService,
       public categoryData: CategoryData) {
     
-    this.category = this.navParams.data.paramCategory;
-    this.category.categoryparentdisplay = this.category.categoryparent;
-    this.mode = this.navParams.data.paramMode;
-
-    if (this.mode === 'New') {
+    this.key = navParams.get('key');
+    this.categorytype = navParams.get('categorytype');
+    if (this.key === '0') {
       this.title = 'Create Category';
       this.listheader = 'Enter Category Details';
-      this.hasDataCategoryName = false;
-      this.hasDataCategoryType = false;
-      this.hasDataCategoryParent = false;
       this.categoryData.reset();
+      this.mode = "New";
     } else {
       this.title = 'Edit Category';
       this.listheader = 'Edit Category Details';
+      if (this.categorytype === 'Income') {
+        this.auth.getIncomeCategory(this.key).once('value').then(snapshot => {
+          this.category = snapshot.val();
+          this.title = "Edit " + ' ' + this.category.categoryname;
+          this.mode = "Edit";
+        });
+      } else {
+        this.auth.getExpenseCategory(this.key).once('value').then(snapshot => {
+          this.category = snapshot.val();
+          this.title = "Edit " + ' ' + this.category.categoryname;
+          this.mode = "Edit";
+        });
+      }
+    }
 
-      if (this.category.categoryname != '') {
-        this.hasDataCategoryName = true;
-      }
-      if (this.category.categorytype != '') {
-        this.hasDataCategoryType = true;
-      }
-      if (this.category.categoryparent != '') {
-        this.hasDataCategoryParent = true;
-      }
-
-      // Prepare services
-      this.categoryData.setCategoryName(this.category.categoryname);
-      this.categoryData.setCategoryType(this.category.categorytype);
-      this.categoryData.setCategoryParent(this.category.categoryparent);
-    }    
   }
 
   ionViewWillEnter() {
@@ -71,33 +70,27 @@ export class CategoryPage {
       case 'CategoryListPage': {
         break;
       }
-      case 'PickCategoryNamePage': {
-        this.category.categoryname = this.categoryData.getCategoryName();
-        if (this.category.categoryname != '') {
-          this.hasDataCategoryName = true;
-        }
-        break;
-      }
       case 'PickCategoryTypePage': {
         this.category.categorytype = this.categoryData.getCategoryType();
-        if (this.category.categoryname != '') {
-          this.hasDataCategoryType = true;
-        }
         break;
       }
       case 'PickCategoryParentPage': {
         this.category.categoryparent = this.categoryData.getCategoryParent();
-        this.hasDataCategoryParent = false;
-        if (this.category.categoryparent != '') {
-          this.hasDataCategoryParent = true;
-        }
         break;
       }
     }
   }
 
   save() {
-    
+
+    // Validate form before saving
+    if (!this.isValidName()) {
+      return;
+    }
+    if (!this.isValidType()) {
+      return;
+    }
+
     // Handle category sort
     if (this.category.categoryparent === '') {
       this.category.categorysort = this.category.categoryname;
@@ -105,36 +98,54 @@ export class CategoryPage {
       this.category.categorysort = this.category.categoryparent + ':' + this.category.categoryname; 
     }
 
-    // Is this a new category? 
+    // Save category 
     if (this.mode === 'New') {
       this.auth.addCategory(this.category);
     } else {
-      this.auth.updateCategory(this.category);
+      this.auth.updateCategory(this.category, this.key);
     }
     this.nav.pop();
   }
 
-  pickCategoryName() {
-    this.showValidationMessage = false;
-    this.nav.push(PickCategoryNamePage);
-  }
-
   pickCategoryType() {
-    if (!this.hasDataCategoryType) {
-      this.showValidationMessage = true;
-      this.validationMessage = "Please enter a category name";
+    if (!this.isValidName()) {
       return;
     }
     this.nav.push(PickCategoryTypePage);
   }
 
   pickCategoryParent() {
-    if (!this.hasDataCategoryName) {
-      this.showValidationMessage = true;
-      this.validationMessage = "Please enter category name";
+    if (!this.isValidName()) {
+      return;
+    }
+    if (!this.isValidType()) {
       return;
     }
     this.nav.push(PickCategoryParentPage);
+  }
+
+  isValidName(): boolean {
+    if (this.category.categoryname === '') {
+      this.showValidationMessage = true;
+      this.validationMessage = "Please enter a category name";
+      return false;
+    } else {
+      this.showValidationMessage = false;
+      this.validationMessage = '';
+      return true;
+    }
+  }
+
+  isValidType(): boolean {
+    if (this.category.categorytype === '') {
+      this.showValidationMessage = true;
+      this.validationMessage = "Please select a category type";
+      return false;
+    } else {
+      this.showValidationMessage = false;
+      this.validationMessage = '';
+      return true;
+    }
   }
   
 }

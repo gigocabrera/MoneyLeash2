@@ -2,14 +2,11 @@ import { Component } from '@angular/core';
 
 import { NavController, AlertController } from 'ionic-angular';
 
-// firebase
 import { FirebaseListObservable } from 'angularfire2/database';
 
-// app pages
-import { PayeePage } from '../payee/payee';
-
-// services
 import { AuthService } from '../../../providers/auth-service';
+
+import { PayeePage } from '../payee/payee';
 
 @Component({
   selector: 'page-payee-list',
@@ -22,7 +19,7 @@ export class PayeeListPage {
   groupedPayees = [];
 
   constructor(
-      public nav: NavController,
+      public navCtrl: NavController,
       public alertController: AlertController,
       public auth: AuthService) {}
   
@@ -63,24 +60,15 @@ export class PayeeListPage {
   
   }
   
-  newPayee() {
-    var payee = {
-          '$key': '',
-          'categoryname': '',
-          'categoryparent': '',
-          'categorysort': '',
-          'categorytype': '',
-          'mode': 'New'
-        }
-    this.nav.push(PayeePage, {paramPayee: payee});
+  addItem() {
+    this.navCtrl.push(PayeePage, { key: '0' });
   }
 
-  edit(slidingItem, payee) {
-    this.handleSlidingItems(slidingItem);
-    this.nav.push(PayeePage, {paramPayee: payee});
+  editItem(payee) {
+    this.navCtrl.push(PayeePage, { key: payee.$key });
   }
 
-  delete(slidingItem, payee) {
+  deleteItem(slidingItem, payee) {
     let alert = this.alertController.create({
       title: 'Delete Payee',
       message: 'Are you sure you want to delete ' + payee.payeename + ' and ALL the transactions?',

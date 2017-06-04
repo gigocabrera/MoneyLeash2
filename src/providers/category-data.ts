@@ -17,15 +17,6 @@ export class CategoryData {
         return this.referrer;
     }
 
-    // Category Name
-    // ---------------------------------
-    setCategoryName(categoryname: string ) {
-        this.categoryname = categoryname;
-    }
-    getCategoryName() {
-      return this.categoryname;
-    }
-
     // Category Type
     // ---------------------------------
     setCategoryType(categorytype: string ) {
