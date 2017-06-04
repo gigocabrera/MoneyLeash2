@@ -49,11 +49,10 @@
     <ion-list-header>
       Security
     </ion-list-header>
-    <ion-item>
+    <button ion-item (click)="openTouchID()">
       <ion-icon item-left name="finger-print" color="danger"></ion-icon>
-      <ion-label>Enable TouchID</ion-label>
-      <ion-toggle (ionChange)="toggleTouchID($event)" checked="{{ auth.user?.enabletouchid }}" color="mllightblue"></ion-toggle>
-    </ion-item>
+      <ion-label>TouchID</ion-label>
+    </button>
   </ion-list>
   <ion-list>
     <ion-list-header>

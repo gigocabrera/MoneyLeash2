@@ -57,6 +57,7 @@ import { PickPhotoPage } from '../pages/mypicklists/pickphoto/pickphoto';
 import { AccountTypesPage } from '../pages/mysettings/accounttypes/accounttypes';
 import { AccountTypesEditPage } from '../pages/mysettings/accounttypesedit/accounttypesedit';
 import { SettingsPage } from '../pages/mysettings/settings/settings';
+import { TouchIDPage } from '../pages/touchid/touchid';
 
 import { SignupPage } from '../pages/signup/signup';
 import { TutorialPage } from '../pages/tutorial/tutorial';
@@ -138,6 +139,7 @@ let pages = [
   AccountTypesPage,
   AccountTypesEditPage,
   SettingsPage,
+  TouchIDPage,
   SignupPage,
   TutorialPage
 ];

@@ -15,15 +15,15 @@ export class PickDefaultBalancePage {
   constructor(
     public nav: NavController, 
     public viewCtrl: ViewController, 
-    public navParams: NavParams) {}
+    public navParams: NavParams) {
 
-  ionViewDidLoad() {
+    this.itemselected = navParams.get('balance');
     this.defaultItems = [
-          { text: 'Current Balance', value: 'Current' },
-          { text: 'Cleared Balance', value: 'Cleared' },
-          { text: 'Today\'s Balance', value: 'Today' }
+      { text: 'Current Balance', value: 'Current' },
+      { text: 'Cleared Balance', value: 'Cleared' },
+      { text: 'Today\'s Balance', value: 'Today' }
     ];
-    this.itemselected = this.navParams.data.paramBalance;
+
   }
   
   pickPreference(itemselected) {

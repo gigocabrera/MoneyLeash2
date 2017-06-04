@@ -76,7 +76,6 @@ export class PayeeListPage {
         {
           text: 'Cancel',
           handler: () => {
-            //console.log('Cancel RemoveUser clicked');
             this.handleSlidingItems(slidingItem);
           }
         },

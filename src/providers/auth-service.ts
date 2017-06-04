@@ -129,21 +129,21 @@ export class AuthService {
     this.storageTouchid = isenabled;
     this.storagePwd = pwd;
     this.storageEmail = email;
-    this.storage.set('option1', isenabled);
-    this.storage.set('option2', pwd);
-    this.storage.set('option3', email);
+    this.storage.set('ml1', isenabled);
+    this.storage.set('ml2', pwd);
+    this.storage.set('ml3', email);
   }
   storageSetEmail(email) {
     this.storageEmail = email;
-    this.storage.set('option3', email);
+    this.storage.set('ml3', email);
   }
   storageClean() {
     this.storageTouchid = false;
     this.storagePwd = '';
     this.storageEmail = '';
-    this.storage.set('option1', false);
-    this.storage.set('option2', '');
-    this.storage.set('option3', '');
+    this.storage.set('ml1', false);
+    this.storage.set('ml2', '');
+    this.storage.set('ml3', '');
   }
 
   RandomHouseCode() {
@@ -368,6 +368,24 @@ export class AuthService {
     this.userdata.child(this.userauth.uid).update({'defaultdate' : newdefaultdate});
   }
 
+  //
+  // ACCOUNT TYPES
+  //-----------------------------------------------------------------------
+
+  getAccountTypes(): FirebaseListObservable<any[]> {
+    return this.db.list('/houses/' + this.user.houseid + '/accounttypes');
+  }
+  addAccountType(item) {
+    this.housedata.child(this.user.houseid + "/accounttypes/").push({ name: item.name, icon: item.icon });
+    this.updateAccountTypesCounter('add');
+  }
+  deleteAccountType(item) {
+    this.housedata.child(this.user.houseid + '/accounttypes/' + item.$key).remove();
+    this.updateAccountTypesCounter('delete');
+  }
+  updateAccountType(item) {
+    this.housedata.child(this.user.houseid + '/accounttypes/' + item.$key).update({ 'name' : item.name, 'icon' : item.icon });
+  }
   updateAccountTypesCounter(operation: string) {
     var count = parseInt(this.user.accounttypescount);
     if (operation === 'add') {
@@ -376,28 +394,6 @@ export class AuthService {
       count--;
     }
     this.userdata.child(this.userauth.uid).update({'accounttypescount' : count});
-  }
-
-  //
-  // ACCOUNT TYPES
-  //-----------------------------------------------------------------------
-
-  getAccountTypes(): FirebaseListObservable<any[]> {
-    return this.db.list('/houses/' + this.user.houseid + '/accounttypes');
-  }
-
-  addAccountType(item) {
-    this.housedata.child(this.user.houseid + "/accounttypes/").push({ name: item.name, icon: item.icon });
-    this.updateAccountTypesCounter('add');
-  }
-
-  deleteAccountType(item) {
-    this.housedata.child(this.user.houseid + '/accounttypes/' + item.$key).remove();
-    this.updateAccountTypesCounter('delete');
-  }
-
-  updateAccountType(item) {
-    this.housedata.child(this.user.houseid + '/accounttypes/' + item.$key).update({ 'name' : item.name, 'icon' : item.icon });
   }
 
   //

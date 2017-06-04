@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { NavController, AlertController, ModalController, LoadingController, NavParams } from 'ionic-angular';
+import { NavController, AlertController, ModalController, LoadingController } from 'ionic-angular';
 
 import { TutorialPage } from '../../../pages/tutorial/tutorial';
 import { ChangeNamePage } from '../../../pages/myinfo/changename/changename';
@@ -24,7 +24,6 @@ export class PersonalProfilePage {
       public modalController: ModalController,
       public alertController: AlertController,
       public loadingController: LoadingController,
-      public navParams: NavParams,
       public auth: AuthService) {}
 
   changeName() {

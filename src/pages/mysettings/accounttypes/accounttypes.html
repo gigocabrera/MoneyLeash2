@@ -2,7 +2,7 @@
   <ion-navbar>
     <ion-title>Account Types</ion-title>
     <ion-buttons end>
-      <button ion-button (click)="addNew()">
+      <button ion-button (click)="addItem()">
         <ion-icon name="md-add"></ion-icon>
       </button>
     </ion-buttons>
@@ -13,13 +13,13 @@
     <ion-item-divider sticky>
       Account Types
     </ion-item-divider>
-    <ion-item-sliding *ngFor="let item of items | async">
-      <button ion-item (click)="edit(item)">
+    <ion-item-sliding *ngFor="let item of items | async" #slidingItem>
+      <button ion-item (click)="editItem(item)">
         <ion-icon item-left [name]="item.icon"></ion-icon>
         {{ item.name }}
       </button>
       <ion-item-options>
-        <button ion-button (click)="delete(item)" color="danger">
+        <button ion-button (click)="deleteItem(slidingItem, item)" color="danger">
           Delete
         </button>
       </ion-item-options>

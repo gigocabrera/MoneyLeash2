@@ -1,15 +1,12 @@
 import { Component } from '@angular/core';
 
-import { ModalController, NavParams } from 'ionic-angular';
+import { ModalController, AlertController } from 'ionic-angular';
 
-// firebase
 import { FirebaseListObservable } from 'angularfire2/database';
 
-// app pages
-import { AccountTypesEditPage } from '../../mysettings/accounttypesedit/accounttypesedit';
-
-// services
 import { AuthService } from '../../../providers/auth-service';
+
+import { AccountTypesEditPage } from '../../mysettings/accounttypesedit/accounttypesedit';
 
 @Component({
   templateUrl: 'accounttypes.html'
@@ -20,8 +17,8 @@ export class AccountTypesPage {
   items: FirebaseListObservable<any[]>;
   item: {name?: string, icon?: string, $key?: string} = {};
 
-  constructor( 
-    public navParams: NavParams,
+  constructor(
+    public alertController: AlertController,
     public modalController: ModalController,
     public auth: AuthService) {}
 
@@ -29,37 +26,62 @@ export class AccountTypesPage {
     this.items = this.auth.getAccountTypes();
   }
 
-  addNew() {
+  addItem() {
     this.item = {};
     let modal = this.modalController.create(AccountTypesEditPage, {'paramItem': this.item});
     modal.present(modal);
     modal.onDidDismiss((data: any[]) => {
       if (data) {
-        this.onAddType(data);
+        this.addAccountType(data);
       }
     });
   }
 
-  edit(item) {
+  editItem(item) {
     let modal = this.modalController.create(AccountTypesEditPage, {'paramItem': item});
     modal.present(modal);
     modal.onDidDismiss((data: any[]) => {
       if (data) {
-        this.onEditType(data);
+        this.editAccountType(data);
       }
     });
   }
 
-  delete(item) {
-    this.auth.deleteAccountType(item);
+  deleteItem(slidingItem, item) {
+    let alert = this.alertController.create({
+      title: 'Delete Account Type',
+      message: 'Are you sure you want to delete this account type?',
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: () => {
+            this.handleSlidingItems(slidingItem);
+          }
+        },
+        {
+          text: 'Delete',
+          cssClass: 'alertDanger',
+          handler: () => {
+            this.handleSlidingItems(slidingItem);
+            this.auth.deleteAccountType(item);
+          }
+        }
+      ]
+    });
+    alert.present();
   }
   
-  onAddType(item) {
+  addAccountType(item) {
     this.auth.addAccountType(item);
   }
 
-  onEditType(item) {
+  editAccountType(item) {
     this.auth.updateAccountType(item);
+  }
+
+  handleSlidingItems(slidingItem) {
+    // Close any open sliding items when the page updates
+    slidingItem.close();
   }
 
 }
