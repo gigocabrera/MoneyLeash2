@@ -60,8 +60,7 @@ export class TouchIDPage {
       this.storage.set('ml1', this.touchidenabled);
       this.storage.set('ml2', this.pwd);
       this.storage.set('ml3', this.email);
-      this.goBack();
-      
+            
     } else {
 
       // TouchID not enabled, then clear storage

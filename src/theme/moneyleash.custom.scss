@@ -152,6 +152,14 @@
   border-bottom: 0.55px solid #c8c7cc;
   height: 60px;
 }
+.ml-input .text-input[disabled] {
+  opacity: 1;
+}
+.ml-input.item.item-ios .fa {
+  margin-left: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+}
 .ml-input.item.item-block .item-inner {
   border-bottom: 0;
   padding-right: 0;

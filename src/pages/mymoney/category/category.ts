@@ -39,25 +39,26 @@ export class CategoryPage {
     
     this.key = navParams.get('key');
     this.categorytype = navParams.get('categorytype');
+
     if (this.key === '0') {
       this.title = 'Create Category';
       this.listheader = 'Enter Category Details';
       this.categoryData.reset();
-      this.mode = "New";
+      this.mode = 'New';
     } else {
       this.title = 'Edit Category';
       this.listheader = 'Edit Category Details';
       if (this.categorytype === 'Income') {
         this.auth.getIncomeCategory(this.key).once('value').then(snapshot => {
           this.category = snapshot.val();
-          this.title = "Edit " + ' ' + this.category.categoryname;
-          this.mode = "Edit";
+          this.title = 'Edit ' + ' ' + this.category.categoryname;
+          this.mode = 'Edit';
         });
       } else {
         this.auth.getExpenseCategory(this.key).once('value').then(snapshot => {
           this.category = snapshot.val();
-          this.title = "Edit " + ' ' + this.category.categoryname;
-          this.mode = "Edit";
+          this.title = 'Edit ' + ' ' + this.category.categoryname;
+          this.mode = 'Edit';
         });
       }
     }

@@ -5,7 +5,6 @@ import { NavController, AlertController } from 'ionic-angular';
 // app pages
 import { AccountPage } from '../account/account';
 import { TransactionsPage } from '../transaction-list/transaction-list';
-/*import { TransactionsVirtualPage } from '../transaction-list-virtual/transaction-list-virtual';*/
 
 // services
 import { AuthService } from '../../../providers/auth-service';
@@ -24,7 +23,7 @@ export class AccountListPage {
   networth: any;
 
   constructor(
-      public nav: NavController,
+      public navCtrl: NavController,
       public alertController: AlertController,
       public auth: AuthService) {}
 
@@ -89,31 +88,29 @@ export class AccountListPage {
 
   }
 
-  viewtransactions (account) {
+  viewItemDetails(item) {
     this.auth.LoadingControllerShow();
-    this.nav.push(TransactionsPage, {paramAccount: account});
+    this.navCtrl.push(TransactionsPage, { paramAccount: item });
   }
 
-  newAccount() {
-    let tempAccount = new Account(null,null,null,null,null,null,null,null,null,null,null,null,"New");
-    this.nav.push(AccountPage, {paramAccount: tempAccount});
+  addItem() {
+    this.navCtrl.push(AccountPage, { key: '0' });
   }
 
-  edit(slidingItem, account) {
+  editItem(slidingItem, item) {
     this.handleSlidingItems(slidingItem);
-    this.nav.push(AccountPage, {paramAccount: account});
+    this.navCtrl.push(AccountPage, { key: item.$key });
   }
 
-  delete(slidingItem, account) {
+  deleteItem(slidingItem, item) {
     this.handleSlidingItems(slidingItem);
     let alert = this.alertController.create({
       title: 'Delete Account',
-      message: 'Are you sure you want to delete ' + account.accountname + ' and ALL the transactions?',
+      message: 'Are you sure you want to delete ' + item.accountname + ' and ALL the transactions?',
       buttons: [
         {
           text: 'Cancel',
           handler: () => {
-            //console.log('Cancel RemoveUser clicked');
             slidingItem.close();
           }
         },
@@ -121,7 +118,7 @@ export class AccountListPage {
           text: 'Delete',
           cssClass: 'alertDanger',
           handler: () => {
-            this.auth.deleteAccount(account);
+            this.auth.deleteAccount(item);
           }
         }
       ]
@@ -142,11 +139,6 @@ export class AccountListPage {
   syncPayeeData(account) {
     this.auth.LoadingControllerShow();
     this.auth.syncPayees(account);
-  }
-
-  syncPhotos(account) {
-    this.auth.LoadingControllerShow();
-    this.auth.syncPhotos(account);
   }
   
 }

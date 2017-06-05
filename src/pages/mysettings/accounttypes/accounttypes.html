@@ -14,11 +14,14 @@
       Account Types
     </ion-item-divider>
     <ion-item-sliding *ngFor="let item of items | async" #slidingItem>
-      <button ion-item (click)="editItem(item)">
-        <ion-icon item-left [name]="item.icon"></ion-icon>
+      <button ion-item (click)="viewItemDetails(item)">
+        <i class="fa fa-institution" item-left></i>
         {{ item.name }}
       </button>
       <ion-item-options>
+        <button ion-button color="energized" (click)="editItem(slidingItem, item)" padding-horizontal>
+            Edit
+          </button>
         <button ion-button (click)="deleteItem(slidingItem, item)" color="danger">
           Delete
         </button>

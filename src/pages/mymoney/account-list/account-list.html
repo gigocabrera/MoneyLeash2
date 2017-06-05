@@ -5,7 +5,7 @@
     </button>
     <ion-title>Accounts</ion-title>
     <ion-buttons end>
-      <button ion-button (click)="newAccount()">
+      <button ion-button (click)="addItem()">
         <ion-icon name="md-add"></ion-icon>
       </button>
     </ion-buttons>
@@ -18,7 +18,7 @@
         {{group.acctype}}
       </ion-item-divider>
       <ion-item-sliding *ngFor="let account of group.accounts" #slidingItem>
-        <button ion-item (click)="viewtransactions(account)" class="ml-item">
+        <button ion-item (click)="viewItemDetails(account)" class="ml-item">
           <ion-row>
             <ion-col width-50>
               <div class="customAccDesc">
@@ -40,16 +40,10 @@
           </ion-row>
         </button>
         <ion-item-options>
-          <button ion-button color="light" (click)="syncPhotos(account)">
-            <i class="fa fa-camera ml-fa"></i>
-            fix photo
-          </button>
-          <button ion-button color="energized" (click)="edit(slidingItem, account)" class="iconpadding">
-            <i class="fa fa-pencil ml-fa"></i>
+          <button ion-button color="energized" (click)="editItem(slidingItem, account)" padding-horizontal>
             Edit
           </button>
-          <button ion-button color="danger" (click)="delete(slidingItem, account)">
-            <i class="fa fa-trash ml-fa"></i>
+          <button ion-button color="danger" (click)="deleteItem(slidingItem, account)">
             Delete
           </button>
         </ion-item-options>

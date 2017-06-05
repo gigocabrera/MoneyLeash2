@@ -10,12 +10,10 @@ import { StatusBar, Splashscreen, TouchID } from 'ionic-native';
 
 import { TranslateService } from 'ng2-translate/ng2-translate';
 
-// services
 import { AuthService } from '../providers/auth-service';
 
 // intro and login pages
 import { FirstRunPage } from '../pages/pages';
-import { TutorialPage } from '../pages/tutorial/tutorial';
 import { LoginAutoPage } from '../pages/loginauto/loginauto';
 import { LogoutPage } from '../pages/logout/logout';
 
@@ -109,7 +107,7 @@ export class MoneyLeashApp {
       }
     );
     // testing
-    // this.nav.setRoot(LoginAutoPage);
+    //this.nav.setRoot(LoginAutoPage);
   }
 
   openPage(page) {

@@ -41,7 +41,6 @@ import { TransactionPage } from '../pages/mymoney/transaction/transaction';
 import { PickDefaultBalancePage } from '../pages/mypicklists/pickdefaultbalance/pickdefaultbalance';
 import { PickDefaultDatePage } from '../pages/mypicklists/pickdefaultdate/pickdefaultdate';
 import { PickAccountTypePage } from '../pages/mypicklists/pickaccounttype/pickaccounttype';
-import { PickAccountNamePage } from '../pages/mypicklists/pickaccountname/pickaccountname';
 import { PickCategoryTypePage } from '../pages/mypicklists/pickcategorytype/pickcategorytype';
 import { PickCategoryParentPage } from '../pages/mypicklists/pickcategoryparent/pickcategoryparent';
 import { PickTransactionTypePage } from '../pages/mypicklists/picktransactiontype/picktransactiontype';
@@ -127,7 +126,6 @@ let pages = [
   PickAccountTypePage,
   PickAccountFromPage,
   PickAccountToPage,
-  PickAccountNamePage,
   PickCategoryTypePage,
   PickCategoryParentPage,
   PickTransactionTypePage,

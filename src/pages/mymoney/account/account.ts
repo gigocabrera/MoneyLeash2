@@ -2,16 +2,11 @@ import { Component } from '@angular/core';
 
 import { NavController, ModalController, NavParams } from 'ionic-angular';
 
-// app pages
-import { PickAccountTypePage } from '../../mypicklists/pickaccounttype/pickaccounttype';
-import { PickAccountNamePage } from '../../mypicklists/pickaccountname/pickaccountname';
-
-// services
 import { AuthService } from '../../../providers/auth-service';
+
 import { AccountData } from '../../../providers/account-data';
 
-// models
-import { IAccount } from '../../../models/account.model';
+import { PickAccountTypePage } from '../../mypicklists/pickaccounttype/pickaccounttype';
 
 import * as moment from 'moment';
 
@@ -21,14 +16,39 @@ import * as moment from 'moment';
 
 export class AccountPage {
 
-  validationMessage: string;
-  showValidationMessage: boolean = false;
-  hasDataAccountName: boolean = false;
-  hasDataAccountType: boolean = false;
   title: string;
   listheader: string;
-  account: IAccount;
+  validationMessage: string;
+  showValidationMessage: boolean = false;
+  mode: string = '';
+  key: string = '';
   displaydate: string;
+
+  account: {
+    BalanceClass: string, 
+    accountname: string, 
+    accounttype: string, 
+    autoclear: string, 
+    balancecleared: string, 
+    balancecurrent: string, 
+    balancetoday: string, 
+    dateopen: number,
+    totalclearedtransactions: string,
+    totalpendingtransactions: string,
+    totaltransactions: string
+  } = {
+    BalanceClass: '',
+    accountname: '', 
+    accounttype: '', 
+    autoclear: '', 
+    balancecleared: '', 
+    balancecurrent: '', 
+    balancetoday: '', 
+    dateopen: 0,
+    totalclearedtransactions: '',
+    totalpendingtransactions: '',
+    totaltransactions: ''
+  }
 
   constructor(
       public nav: NavController,
@@ -37,20 +57,22 @@ export class AccountPage {
       public auth: AuthService,
       public accountData: AccountData) {
 
-    this.account = this.navParams.data.paramAccount;
-    if (this.account.mode === 'New') {
+    this.key = navParams.get('key');
+
+    if (this.key === '0') {
       this.title = 'Create Account';
       this.listheader = 'Enter Account Details';
-      this.hasDataAccountName = false;
-      this.hasDataAccountType = false;
+      this.accountData.reset();
+      this.mode = 'New';
     } else {
       this.title = 'Edit Account';
       this.listheader = 'Edit Account Details';
-      this.hasDataAccountName = true;
-      this.hasDataAccountType = true;
-
-      // Format date
-      this.displaydate = moment(this.account.dateopen).format();
+      this.auth.getAccount(this.key).once('value').then(snapshot => {
+        this.account = snapshot.val();
+        this.title = 'Edit ' + ' ' + this.account.accountname;
+        this.displaydate = moment(this.account.dateopen).format();
+        this.mode = 'Edit';
+      });
     }
   }
 
@@ -61,20 +83,11 @@ export class AccountPage {
         this.accountData.reset();
         break;
       }
-      case 'PickAccountNamePage': {
-        // Account name
-        this.account.accountname = this.accountData.getAccountName();
-        if (this.account.accountname != '') {
-          this.hasDataAccountName = true;
-        }
-        break;
-      }
       case 'PickAccountTypePage': {
         // Account Type
         let item: any = this.accountData.getAccountType();
         if (item != '') {
           this.account.accounttype = item.name;
-          this.hasDataAccountType = true;
         }
         break;
       }
@@ -83,31 +96,75 @@ export class AccountPage {
 
   save() {
 
+    // Validate form before saving
+    if (!this.isValidName()) {
+      return;
+    }
+    if (!this.isValidDate()) {
+      return;
+    }
+    if (!this.isValidType()) {
+      return;
+    }
+
     // Format date
     let dt = moment(this.displaydate, moment.ISO_8601).valueOf();
     this.account.dateopen = dt
     
-    if (this.account.mode === 'New') {
+    if (this.mode === 'New') {
       this.auth.addAccount(this.account);
     } else {
-      this.auth.updateAccount(this.account);
+      this.auth.updateAccount(this.account, this.key);
     }
     this.nav.pop();
   }
 
-  pickAccountName() {
-    this.showValidationMessage = false;
-    this.nav.push(PickAccountNamePage);
-  }
-
   pickAccountType() {
-    if (!this.hasDataAccountName) {
-      // Make sure the account name has been entered
-      this.showValidationMessage = true;
-      this.validationMessage = "Please enter account name";
+    if (!this.isValidName()) {
       return;
     }
     this.nav.push(PickAccountTypePage);
+  }
+
+  isValidName(): boolean {
+    if (this.account.accountname === '') {
+      this.showValidationMessage = true;
+      this.validationMessage = "Please enter an account name";
+      return false;
+    } else {
+      this.showValidationMessage = false;
+      this.validationMessage = '';
+      return true;
+    }
+  }
+
+  isValidDate(): boolean {
+    if (this.displaydate === undefined) {
+      this.showValidationMessage = true;
+      this.validationMessage = "Please select a date";
+      return false;
+    } else {
+      this.showValidationMessage = false;
+      this.validationMessage = '';
+      return true;
+    }
+  }
+
+  isValidType(): boolean {
+    if (this.account.accounttype === '') {
+      this.showValidationMessage = true;
+      this.validationMessage = "Please select an account type";
+      return false;
+    } else {
+      this.showValidationMessage = false;
+      this.validationMessage = '';
+      return true;
+    }
+  }
+
+  resetValidation() {
+    this.showValidationMessage = false;
+    this.validationMessage = '';
   }
   
 }

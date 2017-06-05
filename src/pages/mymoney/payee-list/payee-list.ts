@@ -30,7 +30,7 @@ export class PayeeListPage {
       var that = this;
       this.groupedPayees = [];
       let currentPayees = [];
-      let currentLetter = false;
+      let currentLetter = '';
 
       payees.forEach( spanshot => {
 
@@ -40,8 +40,11 @@ export class PayeeListPage {
           payeename: payee.payeename
         });
 
-        if(tempPayee.payeename.charAt(0) != currentLetter){
+        let thisLetter = tempPayee.payeename.charAt(0);
+        thisLetter = thisLetter.toUpperCase();
+        if(thisLetter != currentLetter) {
           currentLetter = tempPayee.payeename.charAt(0);
+          currentLetter = currentLetter.toUpperCase();
           let newGroup = {
             letter: currentLetter,
             payees: []
@@ -59,19 +62,24 @@ export class PayeeListPage {
     });
   
   }
+
+  viewItemDetails() {
+    console.log('Feature coming soon');
+  }
   
   addItem() {
     this.navCtrl.push(PayeePage, { key: '0' });
   }
 
-  editItem(payee) {
-    this.navCtrl.push(PayeePage, { key: payee.$key });
+  editItem(slidingItem, item) {
+    this.handleSlidingItems(slidingItem);
+    this.navCtrl.push(PayeePage, { key: item.$key });
   }
 
-  deleteItem(slidingItem, payee) {
+  deleteItem(slidingItem, item) {
     let alert = this.alertController.create({
       title: 'Delete Payee',
-      message: 'Are you sure you want to delete ' + payee.payeename + ' and ALL the transactions?',
+      message: 'Are you sure you want to delete ' + item.payeename + ' and ALL the transactions?',
       buttons: [
         {
           text: 'Cancel',
@@ -84,7 +92,7 @@ export class PayeeListPage {
           cssClass: 'alertDanger',
           handler: () => {
             this.handleSlidingItems(slidingItem);
-            this.auth.deletePayee(payee);
+            this.auth.deletePayee(item);
           }
         }
       ]

@@ -26,6 +26,7 @@ export class LoginPage {
     public auth: AuthService) {
 
     this.login.email = 'paulina@test.com'
+    this.login.password = '977382321321'
     
    }
 

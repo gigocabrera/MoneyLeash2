@@ -7,11 +7,8 @@ import { Storage } from '@ionic/storage';
 import { AuthService } from '../../providers/auth-service';
 
 import { MainPage } from '../../pages/pages';
+
 import { LoginPage } from '../../pages/login/login';
-
-
-// firebase
-declare var firebase: any;
 
 @Component({
   selector: 'page-loginauto',
@@ -34,11 +31,11 @@ export class LoginAutoPage {
       storage.ready().then(() => {
 
         // Get pwd settings
-        this.storage.get('option3').then( email => {
+        this.storage.get('ml3').then( email => {
           this.email = email;
 
           // Get pwd settings
-          this.storage.get('option2').then( pwd => {
+          this.storage.get('ml2').then( pwd => {
             this.pwd = pwd;
             if (this.email != '' && this.pwd != '') {
               // Auto Login

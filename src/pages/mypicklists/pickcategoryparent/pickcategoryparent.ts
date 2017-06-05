@@ -28,7 +28,6 @@ export class PickCategoryParentPage {
   }
 
   ionViewDidLoad() {
-    console.log(this.itemselected);
     this.auth.getParentCategories(this.itemselected).on('value', (categories) => {
       let rawList= [];
       //Add default option for <None>

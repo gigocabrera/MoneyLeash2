@@ -62,24 +62,28 @@ export class CategoryListPage {
     this.auth.LoadingControllerDismiss();
 
   }
+
+  viewItemDetails() {
+    console.log('feature coming soon');
+  }
   
   addItem() {
     this.navCtrl.push(CategoryPage, { key: '0' });
   }
 
-  editItem(slidingItem, category) {
-    this.navCtrl.push(CategoryPage, { categorytype: category.categorytype, key: category.$key });
+  editItem(slidingItem, item) {
+    this.handleSlidingItems(slidingItem);
+    this.navCtrl.push(CategoryPage, { categorytype: item.categorytype, key: item.$key });
   }
 
-  deleteItem(slidingItem, category) {
+  deleteItem(slidingItem, item) {
     let alert = this.alertController.create({
       title: 'Delete Category',
-      message: 'Are you sure you want to delete ' + category.categoryname + ' and ALL the transactions?',
+      message: 'Are you sure you want to delete ' + item.categoryname + ' and ALL the transactions?',
       buttons: [
         {
           text: 'Cancel',
           handler: () => {
-            //console.log('Cancel RemoveUser clicked');
             this.handleSlidingItems(slidingItem);
           }
         },
@@ -88,7 +92,7 @@ export class CategoryListPage {
           cssClass: 'alertDanger',
           handler: () => {
             this.handleSlidingItems(slidingItem);
-            this.auth.deleteCategory(category);
+            this.auth.deleteCategory(item);
           }
         }
       ]

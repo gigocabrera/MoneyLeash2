@@ -9,7 +9,8 @@ import { AuthService } from '../../../providers/auth-service';
 import { AccountTypesEditPage } from '../../mysettings/accounttypesedit/accounttypesedit';
 
 @Component({
-  templateUrl: 'accounttypes.html'
+  templateUrl: 'accounttypes.html',
+  selector: 'page-accounttypes'
 })
 
 export class AccountTypesPage {
@@ -26,6 +27,10 @@ export class AccountTypesPage {
     this.items = this.auth.getAccountTypes();
   }
 
+  viewItemDetails(item) {
+    console.log('Feature coming soon');
+  }
+
   addItem() {
     this.item = {};
     let modal = this.modalController.create(AccountTypesEditPage, {'paramItem': this.item});
@@ -37,7 +42,8 @@ export class AccountTypesPage {
     });
   }
 
-  editItem(item) {
+  editItem(slidingItem, item) {
+    this.handleSlidingItems(slidingItem);
     let modal = this.modalController.create(AccountTypesEditPage, {'paramItem': item});
     modal.present(modal);
     modal.onDidDismiss((data: any[]) => {

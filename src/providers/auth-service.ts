@@ -400,19 +400,9 @@ export class AuthService {
   // ACCOUNTS
   //-----------------------------------------------------------------------
 
-  // Use Angularfire2
-  getAccountAF2(account): FirebaseObjectObservable<any[]> {
-    return this.db.object('/houses/' + this.user.houseid + '/accounts/' + account.$key);
+  getAllAccounts() {
+    return this.housedata.child(this.user.houseid + '/accounts').orderByChild('accounttype');
   }
-
-  getAccounts2(): FirebaseListObservable<any> {
-    return this.db.list('/houses/' + this.user.houseid + '/accounts', {
-      query: {
-        orderByChild: 'accounttype'
-      }
-    });
-  }
-
   getAccounts(myChild, mySubject): FirebaseListObservable<any> {
     return this.db.list('/houses/' + this.user.houseid + '/accounts/', {
       query: {
@@ -421,30 +411,18 @@ export class AuthService {
       }
     }).map((array) => array.reverse()) as FirebaseListObservable<any[]>;
   }
-
-  getAllAccounts() {
-    return this.housedata.child(this.user.houseid + '/accounts').orderByChild('accounttype');
+  getAccount(key) {
+    return this.housedata.child(this.user.houseid + '/accounts/' + key);
   }
-
-  addAccount(account) {
-    var newACcount = {
-        'accountname': account.accountname,
-        'accounttype': account.accounttype,
-        'autoclear': 'false',
-        'balancecleared': '0',
-        'balancecurrent': '0',
-        'balancetoday': '0',
-        'dateopen': account.dateopen,
-        'transactionid': '',
-        'balanceclass': 'textRed'
-    }
-    this.housedata.child(this.user.houseid + "/accounts/").push(newACcount);
+  addAccount(item) {
+    this.housedata.child(this.user.houseid + "/accounts/").push(item);
   }
-
-  updateAccount(account) {
-    this.housedata.child(this.user.houseid + '/accounts/' + account.$key).update({ 'accountname' : account.accountname, 'accounttype' : account.accounttype, 'dateopen' : account.dateopen });
+  updateAccount(item, key) {
+    this.housedata.child(this.user.houseid + '/accounts/' + key).update({ 
+      'accountname' : item.accountname, 
+      'accounttype' : item.accounttype, 
+      'dateopen' : item.dateopen });
   }
-
   deleteAccount(account) {
     this.housedata.child(this.user.houseid + '/accounts/' + account.$key).remove();
   }

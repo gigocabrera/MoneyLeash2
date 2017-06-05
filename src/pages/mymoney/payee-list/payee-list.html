@@ -20,11 +20,14 @@
         </ion-label>
       </ion-item-divider>      
       <ion-item-sliding *ngFor="let payee of group.payees" #slidingItem>
-        <button ion-item (click)="editItem(payee)">
+        <button ion-item (click)="viewItemDetails(payee)">
           <ion-icon item-left name="ios-contact-outline"></ion-icon>
           {{ payee.payeename }}
         </button>
         <ion-item-options>
+          <button ion-button color="energized" (click)="editItem(slidingItem, payee)" padding-horizontal>
+            Edit
+          </button>
           <button ion-button color="danger" (click)="deleteItem(slidingItem, payee)">
             Delete
           </button>

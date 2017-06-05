@@ -19,39 +19,21 @@
     <div [ngClass]="{'cssSlideUp': showValidationMessage, 'ng-hide': !showValidationMessage}">
       <span style="line-height:40px;">{{ validationMessage }}</span>
     </div>
-    <ion-item class="ml-input" (click)="pickAccountName()">
-      <ion-icon name="md-clipboard" item-left></ion-icon>
-      <div *ngIf="hasDataAccountName">
-        <p class="ml-label-has-input">Account Name</p>
-        <h2 class="ml-has-input">{{ account.accountname }}</h2>
-      </div>
-      <div *ngIf="!hasDataAccountName">
-        <h2 class="ml-has-no-input">Account Name</h2>
-      </div>
-      <ion-icon name="arrow-forward" item-right color="mliconarrowblue"></ion-icon>
+    <ion-item class="ml-input">
+      <i class="fa fa-clipboard" item-left></i>
+      <ion-label floating>Account Name</ion-label>
+      <ion-input type="text" [(ngModel)]="account.accountname"></ion-input>
     </ion-item>
     <ion-item class="ml-input">
-      <ion-icon name="md-calendar" item-left></ion-icon>
+      <i class="fa fa-calendar" item-left></i>
       <ion-label floating class="dt-has-no-input">Account Open Date</ion-label>
       <ion-datetime displayFormat="MMMM D, YYYY" pickerFormat="MMMM D, YYYY" [(ngModel)]="displaydate"></ion-datetime>
       <ion-icon name="arrow-forward" item-right color="mliconarrowblue"></ion-icon>
-    </ion-item>    
-    <ion-item class="ml-input" (click)="pickAccountType()">
-      <ion-icon name="md-cash" item-left></ion-icon>
-      <div *ngIf="hasDataAccountType">
-        <p class="ml-label-has-input">
-            Account Type
-        </p>
-        <h2 class="ml-has-input">
-            {{ account.accounttype }}
-        </h2>
-      </div>
-      <div *ngIf="!hasDataAccountType">
-        <h2 class="ml-has-no-input">
-            Account Type
-        </h2>
-      </div>
-      <ion-icon name="arrow-forward" item-right color="mliconarrowblue"></ion-icon>
     </ion-item>
+    <button ion-item class="ml-input" (click)="pickAccountType()">
+      <i class="fa fa-institution" item-left></i>
+      <ion-label floating>Account Type</ion-label>
+      <ion-input type="text" [(ngModel)]="account.accounttype" disabled></ion-input>
+    </button>
   </ion-list>
 </ion-content>
